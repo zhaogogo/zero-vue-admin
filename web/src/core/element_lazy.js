@@ -9,7 +9,8 @@ import {
     Input,
     Message,
     MessageBox,
-    Button
+    Button,
+    Loading
 } from 'element-ui';
 
 Vue.use(Form)
@@ -19,3 +20,4 @@ Vue.use(Button)
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
+Vue.prototype.$loading = Loading.service;
