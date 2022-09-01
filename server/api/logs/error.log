@@ -1,0 +1,157 @@
+invalid WriteHeader code 9000	[31;1m error [0m	[API]-->field userName is not set	caller=response/customHTTPResponse.go:14
+03:39:35 500 Internal Server Error;1m error [0m	(/api/user/login - [::1]:59692) invalid WriteHeader code 900
+goroutine 22 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x88
+github.com/zeromicro/go-zero/rest/handler.RecoverHandler.func1.1(0x140000be500, {0x100850de8, 0x1400009a2a0})
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/recoverhandler.go:16 +0x48
+panic({0x100782d40, 0x140000a2270})
+	/usr/local/go/src/runtime/panic.go:1038 +0x21c
+github.com/zeromicro/go-zero/rest/handler.checkWriteHeaderCode(...)
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/timeouthandler.go:181
+github.com/zeromicro/go-zero/rest/handler.(*timeoutWriter).writeHeaderLocked(0x1400009a2a0, 0x384)
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/timeouthandler.go:156 +0x27c
+github.com/zeromicro/go-zero/rest/handler.(*timeoutWriter).WriteHeader(0x1400009a2a0, 0x384)
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/timeouthandler.go:176 +0xc8
+net/http.Error({0x100850de8, 0x1400009a2a0}, {0x140000c00c0, 0x19}, 0x384)
+	/usr/local/go/src/net/http/server.go:2058 +0x1d8
+github.com/zeromicro/go-zero/rest/httpx.Error({0x100850de8, 0x1400009a2a0}, {0x100846340, 0x140000a21b0}, {0x0, 0x0, 0x0})
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/httpx/responses.go:46 +0x2a8
+github.com/zhaoqiang0201/zero-vue-admin/server/api/internal/handler/userCenter/user.LoginHandler.func1({0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/api/internal/handler/userCenter/user/loginHandler.go:18 +0x100
+net/http.HandlerFunc.ServeHTTP(0x14000302fc0, {0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/usr/local/go/src/net/http/server.go:2046 +0x40
+github.com/zeromicro/go-zero/rest/handler.GunzipHandler.func1({0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/gunziphandler.go:26 +0x124
+net/http.HandlerFunc.ServeHTTP(0x140003270e0, {0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/usr/local/go/src/net/http/server.go:2046 +0x40
+github.com/zeromicro/go-zero/rest/handler.MaxBytesHandler.func2.1({0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/maxbyteshandler.go:24 +0x110
+net/http.HandlerFunc.ServeHTTP(0x14000330b80, {0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/usr/local/go/src/net/http/server.go:2046 +0x40
+github.com/zeromicro/go-zero/rest/handler.MetricHandler.func1.1({0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/metrichandler.go:21 +0xc8
+net/http.HandlerFunc.ServeHTTP(0x14000330ba0, {0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/usr/local/go/src/net/http/server.go:2046 +0x40
+github.com/zeromicro/go-zero/rest/handler.RecoverHandler.func1({0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/recoverhandler.go:21 +0x8c
+net/http.HandlerFunc.ServeHTTP(0x140003270f8, {0x100850de8, 0x1400009a2a0}, 0x140000be500)
+	/usr/local/go/src/net/http/server.go:2046 +0x40
+github.com/zeromicro/go-zero/rest/handler.(*timeoutHandler).ServeHTTP.func1(0x1400009a300, 0x14000327110, 0x1400009a2a0, 0x140000be500, 0x140000cc120)
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/timeouthandler.go:79 +0x78
+created by github.com/zeromicro/go-zero/rest/handler.(*timeoutHandler).ServeHTTP
+	/Users/zhaoqiang/go/pkg/mod/github.com/zeromicro/go-zero@v1.4.0/rest/handler/timeouthandler.go:73 +0x430
+	trace=9bfa0fe5c7d20aaecef5dedb2e09af08	span=ecd613cc41f59d70	caller=internal/log.go:57
+2022-09-01T03:39:35.072+08:00	[31;1m error [0m	[HTTP] [103;90;1m 500 [0m - [46;97;1m POST [0m /api/user/login - [::1]:59692 - PostmanRuntime/7.29.2
+POST /api/user/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Length: 0
+Content-Type: application/json
+Postman-Token: de0ba4ef-99d6-4a5e-bbdf-ee5758eb8bcb
+User-Agent: PostmanRuntime/7.29.2
+X-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZGVhNTUxYjQtMjYyMi00MzcxLTgxYWMtMjhmZDYzZDU1Mjc1IiwiSUQiOjEsIlVzZXJOYW1lIjoiIiwiTmlja05hbWUiOiLotoXnuqfnrqHnkIblkZgiLCJBdXRob3JpdHlJZCI6Ijg4OCIsIkJ1ZmZlclRpbWUiOjg2NDAwLCJleHAiOjE2NjE0NTIzMDQsImlzcyI6Imd2YSIsIm5iZiI6MTY2MDg0NjUwNH0.p1PlkbIi_079u7zN7cPfou36SHCjdqGMEfQLbwQyZCU
+
+	duration=0.6ms	trace=9bfa0fe5c7d20aaecef5dedb2e09af08	span=ecd613cc41f59d70	caller=handler/loghandler.go:199
+
+ost: localhost:8888
+TTP/1.1
+[46;97;1m POST [0m /api/user/login - [::1]:62868 - PostmanRuntime/7.29.2mHTTPResponse.go:14
+552 status code 552
+88+08:00	[31;1m error [0m	[HTTP] [103;90;1m 552 [0m - [46;97;1m POST [0m /api/user/login - [::1]:62868 - PostmanRuntime/7.29.2
+POST /api/user/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Length: 0
+Content-Type: application/json
+Postman-Token: 8ac6ae0e-9d34-410f-9340-2418b0a885f8
+User-Agent: PostmanRuntime/7.29.2
+X-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZGVhNTUxYjQtMjYyMi00MzcxLTgxYWMtMjhmZDYzZDU1Mjc1IiwiSUQiOjEsIlVzZXJOYW1lIjoiIiwiTmlja05hbWUiOiLotoXnuqfnrqHnkIblkZgiLCJBdXRob3JpdHlJZCI6Ijg4OCIsIkJ1ZmZlclRpbWUiOjg2NDAwLCJleHAiOjE2NjE0NTIzMDQsImlzcyI6Imd2YSIsIm5iZiI6MTY2MDg0NjUwNH0.p1PlkbIi_079u7zN7cPfou36SHCjdqGMEfQLbwQyZCU
+
+	duration=0.3ms	trace=f1a13ba3562f9167ccf7a81b1b1efd9a	span=df8e19f417fe6366	caller=handler/loghandler.go:199
+Host: localhost:8888
+TTP/1.1
+[46;97;1m POST [0m /api/user/login - [::1]:64212 - PostmanRuntime/7.29.2mHTTPResponse.go:14
+552 status code 552
+73+08:00	[31;1m error [0m	[HTTP] [103;90;1m 552 [0m - [46;97;1m POST [0m /api/user/login - [::1]:64212 - PostmanRuntime/7.29.2
+POST /api/user/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Length: 0
+Content-Type: application/json
+Postman-Token: a5d03ecb-3860-4505-8bb0-7b12a7241453
+User-Agent: PostmanRuntime/7.29.2
+X-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZGVhNTUxYjQtMjYyMi00MzcxLTgxYWMtMjhmZDYzZDU1Mjc1IiwiSUQiOjEsIlVzZXJOYW1lIjoiIiwiTmlja05hbWUiOiLotoXnuqfnrqHnkIblkZgiLCJBdXRob3JpdHlJZCI6Ijg4OCIsIkJ1ZmZlclRpbWUiOjg2NDAwLCJleHAiOjE2NjE0NTIzMDQsImlzcyI6Imd2YSIsIm5iZiI6MTY2MDg0NjUwNH0.p1PlkbIi_079u7zN7cPfou36SHCjdqGMEfQLbwQyZCU
+
+	duration=0.3ms	trace=ca1a33843c35e758cb8e46eb3881514c	span=deeb18b8f700c914	caller=handler/loghandler.go:199
+552 status code 552
+67+08:00	[31;1m error [0m	[HTTP] [103;90;1m 552 [0m - [46;97;1m POST [0m /api/user/login - [::1]:552 status code 552
+67+08:00	[31;1m error [0m	[HTTP] [103;90;1m 552 [0m - [46;97;1m POST [0m /api/user/login - [::1]:65447 - PostmanRuntime/7.29.2
+POST /api/user/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Length: 0
+Content-Type: application/json
+Postman-Token: 0bbf571a-8edc-4e7c-a6cc-8a25de9d58d0
+User-Agent: PostmanRuntime/7.29.2
+X-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZGVhNTUxYjQtMjYyMi00MzcxLTgxYWMtMjhmZDYzZDU1Mjc1IiwiSUQiOjEsIlVzZXJOYW1lIjoiIiwiTmlja05hbWUiOiLotoXnuqfnrqHnkIblkZgiLCJBdXRob3JpdHlJZCI6Ijg4OCIsIkJ1ZmZlclRpbWUiOjg2NDAwLCJleHAiOjE2NjE0NTIzMDQsImlzcyI6Imd2YSIsIm5iZiI6MTY2MDg0NjUwNH0.p1PlkbIi_079u7zN7cPfou36SHCjdqGMEfQLbwQyZCU
+
+	duration=0.3ms	trace=631fdc2583f18896bc3b515d209d8f62	span=bff329b48a4d7c2a	caller=handler/loghandler.go:199
+Host: localhost:8888
+TTP/1.1
+[46;97;1m POST [0m /api/user/login - [::1]:51470 - PostmanRuntime/7.29.2mHTTPResponse.go:15
+552 status code 552
+50+08:00	[31;1m error [0m	[HTTP] [103;90;1m 552 [0m - [46;97;1m POST [0m /api/user/login - [::1]:51470 - PostmanRuntime/7.29.2
+POST /api/user/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Length: 0
+Content-Type: application/json
+Postman-Token: 664226f1-2104-421e-9165-f55a5544f721
+User-Agent: PostmanRuntime/7.29.2
+X-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZGVhNTUxYjQtMjYyMi00MzcxLTgxYWMtMjhmZDYzZDU1Mjc1IiwiSUQiOjEsIlVzZXJOYW1lIjoiIiwiTmlja05hbWUiOiLotoXnuqfnrqHnkIblkZgiLCJBdXRob3JpdHlJZCI6Ijg4OCIsIkJ1ZmZlclRpbWUiOjg2NDAwLCJleHAiOjE2NjE0NTIzMDQsImlzcyI6Imd2YSIsIm5iZiI6MTY2MDg0NjUwNH0.p1PlkbIi_079u7zN7cPfou36SHCjdqGMEfQLbwQyZCU
+
+	duration=0.5ms	trace=eeb90348f33a8967456d5bd10a77fb34	span=ecfac4e0c0f255c5	caller=handler/loghandler.go:199
+2022-09-01T04:02:20.592+08:00	[31;1m error [0m	[API]-->field userName is not set	caller=response/customHTTPResponse.go:15
+552 status code 552
+92+08:00	[31;1m error [0m	[HTTP] [103;90;1m 552 [0m - [46;97;1m POST [0m /api/user/login - [::1]:58720 - PostmanRuntime/7.29.2
+POST /api/user/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Length: 0
+Content-Type: application/json
+Postman-Token: efd49a46-035b-4a7d-ab65-127d3d4a3837
+User-Agent: PostmanRuntime/7.29.2
+X-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZGVhNTUxYjQtMjYyMi00MzcxLTgxYWMtMjhmZDYzZDU1Mjc1IiwiSUQiOjEsIlVzZXJOYW1lIjoiIiwiTmlja05hbWUiOiLotoXnuqfnrqHnkIblkZgiLCJBdXRob3JpdHlJZCI6Ijg4OCIsIkJ1ZmZlclRpbWUiOjg2NDAwLCJleHAiOjE2NjE0NTIzMDQsImlzcyI6Imd2YSIsIm5iZiI6MTY2MDg0NjUwNH0.p1PlkbIi_079u7zN7cPfou36SHCjdqGMEfQLbwQyZCU
+
+	duration=0.5ms	trace=77f55123179c3945dcf099127a7999e1	span=c9bbacbdba0399e1	caller=handler/loghandler.go:199
+
+ost: localhost:8888
+TTP/1.1
+[46;97;1m POST [0m /api/user/login - [::1]:60900 - PostmanRuntime/7.29.2mHTTPResponse.go:15
+552 status code 552
+22+08:00	[31;1m error [0m	[HTTP] [103;90;1m 552 [0m - [46;97;1m POST [0m /api/user/login - [::1]:60900 - PostmanRuntime/7.29.2
+POST /api/user/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Length: 0
+Content-Type: application/json
+Postman-Token: d33c5aaf-8313-404e-9f96-b33fd05c49f5
+User-Agent: PostmanRuntime/7.29.2
+X-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZGVhNTUxYjQtMjYyMi00MzcxLTgxYWMtMjhmZDYzZDU1Mjc1IiwiSUQiOjEsIlVzZXJOYW1lIjoiIiwiTmlja05hbWUiOiLotoXnuqfnrqHnkIblkZgiLCJBdXRob3JpdHlJZCI6Ijg4OCIsIkJ1ZmZlclRpbWUiOjg2NDAwLCJleHAiOjE2NjE0NTIzMDQsImlzcyI6Imd2YSIsIm5iZiI6MTY2MDg0NjUwNH0.p1PlkbIi_079u7zN7cPfou36SHCjdqGMEfQLbwQyZCU
+
+	duration=0.4ms	trace=c4173e667cfb94f1e994aec15b9563bd	span=849137afd497071d	caller=handler/loghandler.go:199

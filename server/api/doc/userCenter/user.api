@@ -1,0 +1,68 @@
+syntax = "v1"
+
+info(
+    title: "用户中心服务"
+    desc: "用户登陆授权服务"
+    author: "zhaoqiang"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+type (
+    MenuMeta {
+        Title string `json:"title"`
+        Icon string `json:"icon"`
+    }
+    Menu {
+        ID int64 `json:"id"`
+        ParentID string   `json:"parentID"`
+        Path string `json:"path"`
+        Name string `json:"name"`
+        Component string `json:"component"`
+        Meta MenuMeta `json:"meta"`
+    }
+    ButtonList {
+        Name string `json:"name"`
+        Path string `json:"path"`
+        MenuID int64 `json:"menuID"`
+    }
+)
+
+
+type (
+    LoginRequest {
+        UserName string `json:"userName" validate:"required"`
+        PassWord string `json:"passWord" validate:"required"`
+    }
+    LoginResponse {
+        ID int64 `json:"id"`
+        UserName string `json:"userName"`
+        Token string   `json:"token"`
+        ExpireAt int64 `json:"expireAt"`
+        RefreshAfter int64 `json:"refreshAfter"`
+    }
+    Permission {
+        Name string   `json:"name"`
+        MenuList []*Menu `json:"menuList"`
+        ButtonList []*ButtonList `json:"buttonList"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: userCenter/user
+    prefix: api/user
+)
+service userCenter-api {
+    @handler Permission
+    get /Permission returns (Permission)
+}
+
+@server(
+    group: userCenter/user
+    prefix: /api/user
+)
+service userCenter-api {
+    @handler Login
+    post /login (LoginRequest) returns (LoginResponse)
+}

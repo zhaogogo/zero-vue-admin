@@ -1,0 +1,7 @@
+2022-09-01T03:35:56.809+08:00	[34;1m info [0m	Starting prometheus agent at 0.0.0.0:1888	caller=prometheus/agent.go:35
+2022-09-01T03:37:28.325+08:00	[34;1m info [0m	Starting prometheus agent at 0.0.0.0:1888	caller=prometheus/agent.go:35
+2022-09-01T03:39:19.818+08:00	[34;1m info [0m	Starting prometheus agent at 0.0.0.0:1888	caller=prometheus/agent.go:35
+2022-09-01T03:44:01.734+08:00	[34;1m info [0m	Starting prometheus agent at 0.0.0.0:1888	caller=prometheus/agent.go:35
+2022-09-01T03:51:34.642+08:00	[34;1m info [0m	Starting prometheus agent at 0.0.0.0:1888	caller=prometheus/agent.go:35
+2022-09-01T04:02:17.012+08:00	[34;1m info [0m	Starting prometheus agent at 0.0.0.0:1888	caller=prometheus/agent.go:35
+2022-09-01T04:05:39.258+08:00	[34;1m info [0m	Starting prometheus agent at 0.0.0.0:1888	caller=prometheus/agent.go:35

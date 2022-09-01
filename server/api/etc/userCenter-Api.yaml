@@ -1,0 +1,24 @@
+Name: userCenter-api
+Host: 0.0.0.0
+Port: 8888
+Mode: dev
+Auth:
+  AccessSecret: ad879037-c7a4-4063-9236-6bfc35d54b7d
+  AccessExpire: 86400
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 1888
+  Path: /metrics
+
+Redis:
+  Host: 127.0.0.1:6379
+  Pass:
+Log:
+  Mode: file
+  Path: logs
+  Encoding: plain
+  Level: info
+  KeepDays: 7
+  MaxBackups: 2
+  MaxSize: 200
