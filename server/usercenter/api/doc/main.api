@@ -1,0 +1,11 @@
+syntax = "v1"
+
+info(
+	title: "go zero admin"
+	desc: "go zero admin"
+	author: "zhaoqiang"
+	email: "zhaoq0201@163.com"
+	version: "v1"
+)
+
+import "user/user.api"

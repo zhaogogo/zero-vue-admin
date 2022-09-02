@@ -1,0 +1,33 @@
+Name: userCenter-api
+Host: 0.0.0.0
+Port: 8888
+Mode: dev
+
+
+SystemUserRpcConf:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: systemuser.rpc
+#SystemUserRpcConf:
+#  Endpoints:
+#    - "127.0.0.1:8080"
+
+Redis:
+  Host: 127.0.0.1:6379
+  Pass:
+Auth:
+  AccessSecret: ad879037-c7a4-4063-9236-6bfc35d54b7d
+  AccessExpire: 86400
+Prometheus:
+  Host: 0.0.0.0
+  Port: 1888
+  Path: /metrics
+Log:
+  Mode: file
+  Path: logs
+  Encoding: json
+  Level: info
+  KeepDays: 7
+  MaxBackups: 2
+  MaxSize: 200
