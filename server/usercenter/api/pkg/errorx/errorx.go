@@ -1,6 +1,7 @@
 package errorx
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -10,7 +11,12 @@ type Errorx struct {
 }
 
 func (e *Errorx) Error() string {
-	return fmt.Sprintf("ErrorxCode: %d, ErrorMsg: %s", e.Code, e.Msg)
+	if eb, err := json.Marshal(e); err != nil {
+		return fmt.Sprintf("code: %d, message: %s", e.Code, e.Msg)
+	} else {
+		return string(eb)
+	}
+
 }
 
 func New(code ErrorCode, msg string) error {
@@ -20,13 +26,13 @@ func New(code ErrorCode, msg string) error {
 	}
 }
 
-//func (e *Errorx) ErrorxCode() uint32 {
-//	return uint32(e.code)
-//}
-//
-//func (e *Errorx) ErrorxMsg() string {
-//	return e.msg
-//}
+func (e *Errorx) ErrorxCode() uint32 {
+	return uint32(e.Code)
+}
+
+func (e *Errorx) ErrorxMsg() string {
+	return e.Msg
+}
 
 func NewWithCode(code ErrorCode) *Errorx {
 	return &Errorx{
@@ -35,10 +41,9 @@ func NewWithCode(code ErrorCode) *Errorx {
 	}
 }
 
-//
-//func NewWithMsg(msg string) *Errorx {
-//	return &Errorx{
-//		code: SERVER_COMMON_ERROR,
-//		msg:  msg,
-//	}
-//}
+func NewCommonCodeWithMsg(msg string) *Errorx {
+	return &Errorx{
+		Code: SERVER_COMMON_ERROR,
+		Msg:  msg,
+	}
+}

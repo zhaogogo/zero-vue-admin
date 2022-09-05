@@ -15,16 +15,20 @@ type (
     }
     Menu {
         ID int64 `json:"id"`
-        ParentID string   `json:"parentID"`
+        ParentID int64   `json:"parentID"`
         Path string `json:"path"`
         Name string `json:"name"`
         Component string `json:"component"`
         Meta MenuMeta `json:"meta"`
+        Hidden int64 `json:"hidden"`
+        Children []*Menu `json:"children"`
     }
-    ButtonList {
+    Button {
         Name string `json:"name"`
         Path string `json:"path"`
+        Method string `json:"method"`
         MenuID int64 `json:"menuID"`
+        RoleId int64  `json:"roleId"`
     }
 )
 
@@ -35,27 +39,41 @@ type (
         PassWord string `json:"passWord,optional" validate:"required" comment:"密码"`
     }
     LoginResponse {
-        ID int64 `json:"id"`
-        UserName string `json:"userName"`
         Token string   `json:"token"`
         ExpireAt int64 `json:"expireAt"`
         RefreshAfter int64 `json:"refreshAfter"`
     }
+    User {
+        Id  int64 `json:"id"`
+        Name string `json:"name"`
+        NickName string `json:"nickName"`
+        Avatar string `json:"avatar"`
+        PassWord string `json:"-"`
+        Email string `json:"email"`
+        Mobile string `json:"mobile"`
+        Status int64 `json:"status"`
+        DefaultRouter string `json:"defaultRouter"`
+        CreateBy string `json:"createBy"`
+        CreateAt int64 `json:"createAt"`
+        UpdateBy string `json:"updateBy"`
+        UpdateAt int64 `json:"updateAt"`
+    }
     Permission {
-        Name string   `json:"name"`
-        MenuList []*Menu `json:"menuList"`
-        ButtonList []*ButtonList `json:"buttonList"`
+        UserInfo User   `json:"userInfo"`
+        Menus []*Menu `json:"menuList"`
+        Buttons []*Button `json:"buttons"`
     }
 )
 
 @server(
     jwt: Auth
+    middleware: CheckUrl
     group: usercenter/user
     prefix: api/user
 )
 service userCenter-api {
     @handler Permission
-    get /Permission returns (Permission)
+    get /permission returns (Permission)
 }
 
 @server(

@@ -13,11 +13,16 @@ import (
 )
 
 type (
-	LoginRequest  = pb.LoginRequest
-	LoginResponse = pb.LoginResponse
+	LoginRequest           = pb.LoginRequest
+	LoginResponse          = pb.LoginResponse
+	MenuList               = pb.MenuList
+	User                   = pb.User
+	UserPermissionRequest  = pb.UserPermissionRequest
+	UserPermissionResponse = pb.UserPermissionResponse
 
 	SystemUser interface {
 		Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+		UserPermission(ctx context.Context, in *UserPermissionRequest, opts ...grpc.CallOption) (*UserPermissionResponse, error)
 	}
 
 	defaultSystemUser struct {
@@ -34,4 +39,9 @@ func NewSystemUser(cli zrpc.Client) SystemUser {
 func (m *defaultSystemUser) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	client := pb.NewSystemUserClient(m.cli.Conn())
 	return client.Login(ctx, in, opts...)
+}
+
+func (m *defaultSystemUser) UserPermission(ctx context.Context, in *UserPermissionRequest, opts ...grpc.CallOption) (*UserPermissionResponse, error) {
+	client := pb.NewSystemUserClient(m.cli.Conn())
+	return client.UserPermission(ctx, in, opts...)
 }

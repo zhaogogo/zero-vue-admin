@@ -24,13 +24,15 @@
                 </el-input>
             </el-form-item>
             
-            <el-button type="primary" style="width:100%;margin-bottom:30px" @click="loginHandle">登陆</el-button>
+            <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px" @click="loginHandle">登陆</el-button>
 
         </el-form>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 
 export default {
     name: "Login",
@@ -63,18 +65,13 @@ export default {
         }
     },
     methods:{
+        ...mapActions('user',['loginin']),
         loginHandle(){
-            this.$refs.loginForm.validate((v)=> {
+            this.$refs.loginForm.validate(async (v)=> {
                 if (v) {
-                    let close = this.$loading({
-        lock: true,
-        text: 'Loading',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-    })
-                    console.log("登陆")
-                    close.close()
-                    this.$message
+                    this.loading = true
+                    await this.loginin(this.loginForm)
+                    this.loading = false
                 }
             })
         },

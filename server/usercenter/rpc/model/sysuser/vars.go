@@ -1,4 +1,4 @@
-package systemusermodel
+package sysuser
 
 import "github.com/zeromicro/go-zero/core/stores/sqlx"
 

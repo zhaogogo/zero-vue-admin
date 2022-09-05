@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SystemUserClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	UserPermission(ctx context.Context, in *UserPermissionRequest, opts ...grpc.CallOption) (*UserPermissionResponse, error)
 }
 
 type systemUserClient struct {
@@ -42,11 +43,21 @@ func (c *systemUserClient) Login(ctx context.Context, in *LoginRequest, opts ...
 	return out, nil
 }
 
+func (c *systemUserClient) UserPermission(ctx context.Context, in *UserPermissionRequest, opts ...grpc.CallOption) (*UserPermissionResponse, error) {
+	out := new(UserPermissionResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemUser/UserPermission", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SystemUserServer is the server API for SystemUser service.
 // All implementations must embed UnimplementedSystemUserServer
 // for forward compatibility
 type SystemUserServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	UserPermission(context.Context, *UserPermissionRequest) (*UserPermissionResponse, error)
 	mustEmbedUnimplementedSystemUserServer()
 }
 
@@ -56,6 +67,9 @@ type UnimplementedSystemUserServer struct {
 
 func (UnimplementedSystemUserServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedSystemUserServer) UserPermission(context.Context, *UserPermissionRequest) (*UserPermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserPermission not implemented")
 }
 func (UnimplementedSystemUserServer) mustEmbedUnimplementedSystemUserServer() {}
 
@@ -88,6 +102,24 @@ func _SystemUser_Login_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SystemUser_UserPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserPermissionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemUserServer).UserPermission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemUser/UserPermission",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemUserServer).UserPermission(ctx, req.(*UserPermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SystemUser_ServiceDesc is the grpc.ServiceDesc for SystemUser service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +130,10 @@ var SystemUser_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _SystemUser_Login_Handler,
+		},
+		{
+			MethodName: "UserPermission",
+			Handler:    _SystemUser_UserPermission_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -26,3 +26,8 @@ func (s *SystemUserServer) Login(ctx context.Context, in *pb.LoginRequest) (*pb.
 	l := logic.NewLoginLogic(ctx, s.svcCtx)
 	return l.Login(in)
 }
+
+func (s *SystemUserServer) UserPermission(ctx context.Context, in *pb.UserPermissionRequest) (*pb.UserPermissionResponse, error) {
+	l := logic.NewUserPermissionLogic(ctx, s.svcCtx)
+	return l.UserPermission(in)
+}

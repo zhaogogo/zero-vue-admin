@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersistence from "vuex-persist";
+
 import { user } from './module/user'
 import { router } from './module/router'
+
 Vue.use(Vuex)
 
-const vueLocal = new VuexPersistence({
+const vuexLocal = new VuexPersistence({
     storage: window.localStorage,
     modules: ["userInfo"]
 })
@@ -15,7 +17,7 @@ const store = new Vuex.Store({
         user,
         router
     },
-    plugins: [vueLocal.plugin]
+    plugins: [vuexLocal.plugin]
 })
 
 export default store

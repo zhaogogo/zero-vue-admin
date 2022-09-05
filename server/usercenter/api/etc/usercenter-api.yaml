@@ -8,7 +8,7 @@ SystemUserRpcConf:
   Etcd:
     Hosts:
       - 127.0.0.1:2379
-    Key: systemuser.rpc
+    Key: sysuser.rpc
 #SystemUserRpcConf:
 #  Endpoints:
 #    - "127.0.0.1:8080"
@@ -24,7 +24,7 @@ Prometheus:
   Port: 1888
   Path: /metrics
 Log:
-  Mode: file
+  Mode: console
   Path: logs
   Encoding: json
   Level: info

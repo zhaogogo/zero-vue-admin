@@ -34,8 +34,6 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 	//保存登陆日志
 
 	return &types.LoginResponse{
-		ID:           user.ID,
-		UserName:     user.UserName,
 		Token:        user.Token,
 		ExpireAt:     user.ExpireAt,
 		RefreshAfter: user.RefreshAfter,

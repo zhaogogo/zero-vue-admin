@@ -8,17 +8,21 @@ type MenuMeta struct {
 
 type Menu struct {
 	ID        int64    `json:"id"`
-	ParentID  string   `json:"parentID"`
+	ParentID  int64    `json:"parentID"`
 	Path      string   `json:"path"`
 	Name      string   `json:"name"`
 	Component string   `json:"component"`
 	Meta      MenuMeta `json:"meta"`
+	Hidden    int64    `json:"hidden"`
+	Children  []*Menu  `json:"children"`
 }
 
-type ButtonList struct {
+type Button struct {
 	Name   string `json:"name"`
 	Path   string `json:"path"`
+	Method string `json:"method"`
 	MenuID int64  `json:"menuID"`
+	RoleId int64  `json:"roleId"`
 }
 
 type LoginRequest struct {
@@ -27,15 +31,29 @@ type LoginRequest struct {
 }
 
 type LoginResponse struct {
-	ID           int64  `json:"id"`
-	UserName     string `json:"userName"`
 	Token        string `json:"token"`
 	ExpireAt     int64  `json:"expireAt"`
 	RefreshAfter int64  `json:"refreshAfter"`
 }
 
+type User struct {
+	Id            int64  `json:"id"`
+	Name          string `json:"name"`
+	NickName      string `json:"nickName"`
+	Avatar        string `json:"avatar"`
+	PassWord      string `json:"-"`
+	Email         string `json:"email"`
+	Mobile        string `json:"mobile"`
+	Status        int64  `json:"status"`
+	DefaultRouter string `json:"defaultRouter"`
+	CreateBy      string `json:"createBy"`
+	CreateAt      int64  `json:"createAt"`
+	UpdateBy      string `json:"updateBy"`
+	UpdateAt      int64  `json:"updateAt"`
+}
+
 type Permission struct {
-	Name       string        `json:"name"`
-	MenuList   []*Menu       `json:"menuList"`
-	ButtonList []*ButtonList `json:"buttonList"`
+	UserInfo User      `json:"userInfo"`
+	Menus    []*Menu   `json:"menuList"`
+	Buttons  []*Button `json:"buttons"`
 }
