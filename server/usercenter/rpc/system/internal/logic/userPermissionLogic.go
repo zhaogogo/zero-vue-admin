@@ -35,7 +35,7 @@ func (l *UserPermissionLogic) UserPermission(in *pb.UserPermissionRequest) (*pb.
 		}
 		return nil, errors.Wrap(err, "数据库错误")
 	}
-	fmt.Printf("@@@ %#v", userInfo)
+
 	userRoles, err := l.svcCtx.UserRoleModel.FindByUserID(l.ctx, userInfo.Id)
 	if err != nil {
 		return nil, errors.Wrap(err, "查询用户角色失败")

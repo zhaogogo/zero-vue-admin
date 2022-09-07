@@ -9,6 +9,7 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/usercenter/api/internal/handler"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/usercenter/api/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/usercenter/api/pkg/response"
+	"net/http"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
@@ -28,7 +29,12 @@ func main() {
 
 	ctx := svc.NewServiceContext(c)
 	handler.RegisterHandlers(server, ctx)
+	server.Use(func(next http.HandlerFunc) http.HandlerFunc {
+		return func(w http.ResponseWriter, r *http.Request) {
 
+			next(w, r)
+		}
+	})
 	httpx.SetErrorHandler(func(err error) (int, interface{}) {
 		return response.ErrorHandle(err)
 	})

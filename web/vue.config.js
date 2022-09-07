@@ -1,7 +1,5 @@
 const { defineConfig } = require('@vue/cli-service')
-
 const path = require('path')
-
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -13,7 +11,6 @@ module.exports = defineConfig({
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
-  transpileDependencies: true,
   devServer: {
     port: process.env.VUE_APP_CLI_PORT,
     proxy: {
@@ -27,7 +24,7 @@ module.exports = defineConfig({
     }
   },
   configureWebpack: {
-    name: name,
+    // @路径走src文件夹
     resolve: {
       alias: {
         '@': resolve('src')

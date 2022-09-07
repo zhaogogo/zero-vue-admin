@@ -3,20 +3,28 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export const constantRoutes = [
+// // 获取原型对象上的push函数
+// const originalPush = Router.prototype.push
+// // 修改原型对象中的push方法
+// Router.prototype.push = function push(location) {
+//     return originalPush.call(this,location).catch(err => err)
+// }
+
+
+const constantRoutes = [
     {
         path: '/',
         redirect: "/login"
     },
     {
         path: '/login',
-        name: 'Login',
-        component: () => import('@/views/login/index.vue')
+        name: 'login',
+        component: () => import('@/view/login/index.vue')
     }
 ]
 
 const createRouter = () => new Router({
-    scrollBehavior: () => ({y:0}), 
+    scrollBehavior: () => ({y:0}),
     routes: constantRoutes
 })
 

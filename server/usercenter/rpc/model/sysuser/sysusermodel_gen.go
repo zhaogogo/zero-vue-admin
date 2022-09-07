@@ -41,21 +41,24 @@ type (
 	}
 
 	SysUser struct {
-		Id            int64          `db:"id"`             // 编号
-		Name          string         `db:"name"`           // 用户名
-		NickName      string         `db:"nick_name"`      // 昵称
-		Avatar        string         `db:"avatar"`         // 头像
-		Password      string         `db:"password"`       // 密码
-		Email         string         `db:"email"`          // 邮箱
-		Mobile        string         `db:"mobile"`         // 手机号
-		Status        uint64         `db:"status"`         // 状态  0：禁用   1：正常
-		DefaultRouter string         `db:"default_router"` // 默认路由
-		CreateBy      string         `db:"create_by"`      // 创建人
-		CreateAt      time.Time      `db:"create_at"`      // 创建时间
-		UpdateBy      string         `db:"update_by"`      // 更新人
-		UpdateAt      time.Time      `db:"update_at"`      // 更新时间
-		DeleteBy      sql.NullString `db:"delete_by"`      // 删除人
-		DeleteAt      sql.NullTime   `db:"delete_at"`
+		Id              int64          `db:"id"`             // 编号
+		Name            string         `db:"name"`           // 用户名
+		NickName        string         `db:"nick_name"`      // 昵称
+		Avatar          string         `db:"avatar"`         // 头像
+		Password        string         `db:"password"`       // 密码
+		Email           string         `db:"email"`          // 邮箱
+		Mobile          string         `db:"mobile"`         // 手机号
+		Status          uint64         `db:"status"`         // 状态  0：禁用   1：正常
+		DefaultRouter   string         `db:"default_router"` // 默认路由
+		SideMode        string         `db:"side_mode"`
+		TextColor       string         `db:"text_color"`        // 文本颜色
+		ActiveTextColor string         `db:"active_text_color"` // 选中路由文本颜色
+		CreateBy        string         `db:"create_by"`         // 创建人
+		CreateAt        time.Time      `db:"create_at"`         // 创建时间
+		UpdateBy        string         `db:"update_by"`         // 更新人
+		UpdateAt        time.Time      `db:"update_at"`         // 更新时间
+		DeleteBy        sql.NullString `db:"delete_by"`         // 删除人
+		DeleteAt        sql.NullTime   `db:"delete_at"`
 	}
 )
 
@@ -122,8 +125,8 @@ func (m *defaultSysUserModel) Insert(ctx context.Context, data *SysUser) (sql.Re
 	usercenterSysUserIdKey := fmt.Sprintf("%s%v", cacheUsercenterSysUserIdPrefix, data.Id)
 	usercenterSysUserNameKey := fmt.Sprintf("%s%v", cacheUsercenterSysUserNamePrefix, data.Name)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, sysUserRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.Name, data.NickName, data.Avatar, data.Password, data.Email, data.Mobile, data.Status, data.DefaultRouter, data.CreateBy, data.UpdateBy, data.DeleteBy, data.DeleteAt)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, sysUserRowsExpectAutoSet)
+		return conn.ExecCtx(ctx, query, data.Name, data.NickName, data.Avatar, data.Password, data.Email, data.Mobile, data.Status, data.DefaultRouter, data.SideMode, data.TextColor, data.ActiveTextColor, data.CreateBy, data.UpdateBy, data.DeleteBy, data.DeleteAt)
 	}, usercenterSysUserIdKey, usercenterSysUserNameKey)
 	return ret, err
 }
@@ -138,7 +141,7 @@ func (m *defaultSysUserModel) Update(ctx context.Context, newData *SysUser) erro
 	usercenterSysUserNameKey := fmt.Sprintf("%s%v", cacheUsercenterSysUserNamePrefix, data.Name)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, sysUserRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.Name, newData.NickName, newData.Avatar, newData.Password, newData.Email, newData.Mobile, newData.Status, newData.DefaultRouter, newData.CreateBy, newData.UpdateBy, newData.DeleteBy, newData.DeleteAt, newData.Id)
+		return conn.ExecCtx(ctx, query, newData.Name, newData.NickName, newData.Avatar, newData.Password, newData.Email, newData.Mobile, newData.Status, newData.DefaultRouter, newData.SideMode, newData.TextColor, newData.ActiveTextColor, newData.CreateBy, newData.UpdateBy, newData.DeleteBy, newData.DeleteAt, newData.Id)
 	}, usercenterSysUserIdKey, usercenterSysUserNameKey)
 	return err
 }

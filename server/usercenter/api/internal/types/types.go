@@ -13,7 +13,7 @@ type Menu struct {
 	Name      string   `json:"name"`
 	Component string   `json:"component"`
 	Meta      MenuMeta `json:"meta"`
-	Hidden    int64    `json:"hidden"`
+	Hidden    bool     `json:"hidden"`
 	Children  []*Menu  `json:"children"`
 }
 
@@ -37,19 +37,22 @@ type LoginResponse struct {
 }
 
 type User struct {
-	Id            int64  `json:"id"`
-	Name          string `json:"name"`
-	NickName      string `json:"nickName"`
-	Avatar        string `json:"avatar"`
-	PassWord      string `json:"-"`
-	Email         string `json:"email"`
-	Mobile        string `json:"mobile"`
-	Status        int64  `json:"status"`
-	DefaultRouter string `json:"defaultRouter"`
-	CreateBy      string `json:"createBy"`
-	CreateAt      int64  `json:"createAt"`
-	UpdateBy      string `json:"updateBy"`
-	UpdateAt      int64  `json:"updateAt"`
+	Id              int64  `json:"id"`
+	Name            string `json:"name"`
+	NickName        string `json:"nickName"`
+	Avatar          string `json:"avatar"`
+	PassWord        string `json:"-"`
+	Email           string `json:"email"`
+	Mobile          string `json:"mobile"`
+	Status          int64  `json:"status"`
+	DefaultRouter   string `json:"defaultRouter"`
+	SideMode        string `json:"sideMode"`
+	TextColor       string `json:"textColor"`
+	ActiveTextColor string `json:"activeTextColor"`
+	CreateBy        string `json:"createBy"`
+	CreateAt        int64  `json:"createAt"`
+	UpdateBy        string `json:"updateBy"`
+	UpdateAt        int64  `json:"updateAt"`
 }
 
 type Permission struct {

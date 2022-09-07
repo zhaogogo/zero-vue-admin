@@ -1,7 +1,6 @@
 import {login} from '@/api/user/login'
-import {getToken,setToken} from '@/api/user/auth'
+import {getToken,setToken,removeToken} from '@/api/user/auth'
 import router from '@/router/index'
-import Vue from 'vue'
 
 const getDefaultState = () =>{
     return {
@@ -24,13 +23,12 @@ const actions = {
         if (res.status === 200) {
             ctx.commit("SETTOKEN",res.data.token)
             setToken(res.data.token)
-            ctx.dispatch("router/set_async_router",{},{root:true})
-            
+            await ctx.dispatch("router/set_async_router",{},{root:true})
             const asyncRouters = ctx.rootGetters['router/asyncRouters']
             router.addRoutes(asyncRouters)
-            console.log(ctx)
-            console.log(ctx.rootGetters["user/userInfo"].defaultRouter)
-            // router.push({name: ctx.getters["userInfo"].defaultRouter})
+            // console.log("router", router.getRoutes())
+            router.push({name: ctx.getters["userInfo"].defaultRouter })
+            return true
         }
     }
 }
@@ -41,6 +39,10 @@ const mutations = {
     },
     LOGOUT(state){
         Object.assign(state,getDefaultState())
+        sessionStorage.clear()
+        removeToken()
+        router.push({name:"login", replace: true})
+        window.location.reload()
     },
     SETUSERINFO(state,user) {
         state.userinfo = user
@@ -49,7 +51,9 @@ const mutations = {
 
 const getters = {
     token: state => state.token,
-    userInfo: state => state.userinfo
+    userInfo(state) {
+        return state.userinfo
+    } 
 }
 
 export const user = {

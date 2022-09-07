@@ -18,11 +18,12 @@ type ServiceContext struct {
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	redisClient := redis.New(c.Redis.Host, redisConfig(c))
+	zrpcClient := zrpc.MustNewClient(c.SystemUserRpcConf)
 	return &ServiceContext{
 		Config:        c,
 		CheckUrl:      middleware.NewCheckUrlMiddleware(redisClient).Handle,
 		Redis:         redisClient,
-		SystemUserRpc: systemuser.NewSystemUser(zrpc.MustNewClient(c.SystemUserRpcConf)),
+		SystemUserRpc: systemuser.NewSystemUser(zrpcClient),
 	}
 }
 

@@ -1,9 +1,21 @@
 import {getPermission} from "@/api/user/user"
 import {asyncRouterHandle} from '@/utils/asyncRouter'
 
+const routerList = []
+const formatRouter = (routes) => {
+  routes && routes.map(item => {
+    if ((!item.children || item.children.every(ch => ch.hidden)) && item.name !== '404') {
+      routerList.push({ label: item.meta.title, value: item.name })
+    }
+    if (item.children && item.children.length > 0) {
+      formatRouter(item.children)
+    }
+  })
+}
 
 const state = {
-    asyncRouters: []
+    asyncRouters: [],
+    routerList: routerList
 }
 
 const actions = {
@@ -19,13 +31,11 @@ const actions = {
         }]
         const userInfoMenus = await getPermission()
         if (userInfoMenus.status != 200) {
-            return 
+            return false
         }
-
         ctx.commit("user/SETUSERINFO", userInfoMenus.data.userInfo,{root:true})
         const asyncRouter = userInfoMenus.data && userInfoMenus.data.menuList
         //返回的是一个数组 因为第二个操作数是 数组 且第一个操作数是对象为true
-        // console.log(asyncRouter)
         asyncRouter.push({
             path: '404',
             name: '404',
@@ -35,9 +45,9 @@ const actions = {
             },
             component: 'view/error/index.vue'
         })
-
-        asyncRouterHandle(asyncRouter)
+        formatRouter(asyncRouter)
         baseRouter[0].children = asyncRouter
+        asyncRouterHandle(baseRouter)
         ctx.commit("SET_ASYNC_ROUTER", baseRouter)
         return true
     }
@@ -52,6 +62,9 @@ const mutations = {
 const getters = {
     asyncRouters(state) {
         return state.asyncRouters
+    },
+    routerList(state) {
+        return state.routerList
     }
 }
 

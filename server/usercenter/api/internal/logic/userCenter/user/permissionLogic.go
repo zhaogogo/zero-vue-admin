@@ -52,7 +52,7 @@ func (l *PermissionLogic) getMenuTreeMap(menusList []*systemuser.MenuList) []*ty
 			Path:      menu.Path,
 			Name:      menu.Name,
 			Component: menu.Component,
-			Hidden:    menu.Hidden,
+			Hidden:    menu.Hidden == 1,
 			Meta: types.MenuMeta{
 				Title: menu.Title,
 				Icon:  menu.Icon,

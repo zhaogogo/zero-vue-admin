@@ -6,6 +6,7 @@ import '@/styles/index.scss'
 import router from '@/router/index.js'
 import store from '@/store/index.js'
 import '@/core/core-config.js' 
+import '@/permission'
 
 Vue.config.productionTip = false
 
