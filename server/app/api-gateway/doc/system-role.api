@@ -1,0 +1,40 @@
+syntax = "v1"
+
+info(
+    title: "系统角色"
+    desc: "系统角色"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+import "common.api"
+
+@server(
+    jwt: Auth
+    middleware: Casbin
+    group: system/role
+    prefix: /api/v1/system/role
+)
+service ApiGateway-api {
+    @doc "获取全部角色"
+    @handler AllRole
+    get /allrole returns (AllRoleResponse)
+}
+
+//----------------------------------------------
+// 角色登陆模型
+//----------------------------------------------
+type (
+    AllRoleResponse struct {
+        HttpCommonResponse
+        Total int `json:"total"`
+        List []Role `json:"list"`
+    }
+
+    Role struct {
+        ID uint64 `json:"id"`
+        role string `json:"role"`
+        name string `json:"name"`
+    }
+)

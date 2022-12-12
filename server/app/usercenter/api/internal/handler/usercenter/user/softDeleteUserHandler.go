@@ -1,0 +1,34 @@
+package user
+
+import (
+	"fmt"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/validate"
+	"net/http"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/usercenter/api/internal/logic/usercenter/user"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/usercenter/api/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/usercenter/api/internal/types"
+)
+
+func SoftDeleteUserHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.SoftDeleteUserRequest
+		if err := httpx.Parse(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		fmt.Printf("req==> %#v\n", req)
+		if err := validate.StructExceptCtx(r.Context(), req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := user.NewSoftDeleteUserLogic(r.Context(), svcCtx)
+		resp, err := l.SoftDeleteUser(&req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}

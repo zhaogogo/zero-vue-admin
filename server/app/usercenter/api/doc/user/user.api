@@ -1,0 +1,201 @@
+syntax = "v1"
+
+info(
+    title: "用户中心服务"
+    desc: "用户登陆授权服务"
+    author: "zhaoqiang"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+@server(
+    group: usercenter/user
+    prefix: /api/v1/usercenter
+)
+service UserCenter-api {
+    @doc "用户登陆"
+    @handler Login
+    post /login (LoginRequest) returns (LoginResponse)
+}
+
+@server(
+    jwt: Auth
+    group: usercenter/user/menu
+    prefix: /api/v1/usercenter
+)
+service UserCenter-api {
+    @doc "获取用户动态路由"
+    @handler UserMenus
+    get /usermenus returns (MenusResponse)
+
+    @doc "获取分页menus"
+    @handler AllMenus
+    get /allmenus returns (AllMenusResponse)
+}
+
+@server(
+    jwt: Auth
+    group: usercenter/user
+    prefix: /api/v1/usercenter
+)
+service UserCenter-api {
+    @doc "获取用户分页信息"
+    @handler PagingUser
+    post /paginguser (PagingUserRequest) returns (PagingUserResponse)
+
+    @doc "获取全部用户"
+    @handler AllUser
+    get /alluser returns (AllUserResponse)
+
+    @doc "软删除用户"
+    @handler SoftDeleteUser
+    delete /softdelete (SoftDeleteUserRequest) returns (HttpCommonResponse)
+}
+
+@server(
+    jwt: Auth
+    group: usercenter/user/pageset
+    prefix: /api/v1/usercenter
+)
+service UserCenter-api {
+    @doc "获取用户页面配置信息"
+    @handler getUserPageSet
+    get /userpageset returns (UserPageSetResponse)
+
+    @doc "修改用户页面配置"
+    @handler SetUserPage
+    put /setuserpageset (UserPageRequest) returns (UserPageSetResponse)
+}
+//----------------------------------------------
+// 公共响应模型
+//----------------------------------------------
+type HttpCommonResponse struct {
+    Code int `json:"code"`
+    Msg string `json:"msg"`
+}
+
+type TableCommonRequest struct {
+    Page int `json:"page,optional" validate:"required,numeric,gte=1,lte=999" comment:"page为必须值"`
+    PageSize int `json:"pageSize,optional" validate:"required,numeric,gte=10,lte=100" comment:"pageSize为必须值"`
+}
+
+type TableCommonResponse struct {
+    Page int `json:"page"`
+    PageSize int `json:"pageSize"`
+    Total int `json:"total"`
+}
+
+//----------------------------------------------
+// 用户登陆模型
+//----------------------------------------------
+type (
+    LoginRequest {
+        UserName string `json:"userName,optional" validate:"required" comment:"用户名字"`
+        PassWord string `json:"passWord,optional" validate:"required" comment:"密码"`
+    }
+    LoginResponse {
+        HttpCommonResponse
+        Token string   `json:"token"`
+        ExpireAt int64 `json:"expireAt"`
+        RefreshAfter int64 `json:"refreshAfter"`
+    }
+)
+//----------------------------------------------
+// 用户菜单模型
+//----------------------------------------------
+type (
+    MenusResponse struct {
+        HttpCommonResponse
+        Menus []Menu `json:"menus"`
+    }
+    AllMenusResponse struct {
+        HttpCommonResponse
+        Total uint64 `json:"total"`
+        List []Menu `json:"list"` 
+    }
+    Menu struct {
+        ID uint64 `json:"id"`
+        ParentId uint64 `json:"parentId"`
+        Name string `json:"name"`
+        Path string `json:"path"`
+        Component string `json:"component"`
+        Sort int64 `json:"sort"`
+        MenuMeta MenuMeta `json:"meta"`
+        Children []Menu `json:"children,omitempty"`
+        Parameters []Parameter `json:"parameters"`
+    }
+    Parameter struct {
+        UserID uint64 `json:"user_id"`
+        Type string `json:"type"`
+        Key string `json:"key"`
+        Value string `json:"value"`
+    }
+    MenuMeta struct {
+        Title string `json:"title"`
+        Icon string `json:"icon"`
+    }
+)
+//----------------------------------------------
+// 用户模型
+//----------------------------------------------
+type (
+    User struct {
+        ID uint64 `json:"id"`
+        Name string `json:"name"`
+        NickName string `json:"nick_name"`
+        PassWord string `json:"password"`
+        UserType int64 `json:"type"`
+        Email string `json:"email"`
+        Phone string `json:"phone"`
+        department string `json:"department"`
+        position string `json:"position"`
+        CreateBy string `json:"createBy"`
+        CreateTime int64 `json:"create_time"`
+        UpdateBy string `json:"updateBy"`
+        UpdateTime int64 `json:"update_time"`
+        DeleteBy string `json:"deleteBy"`
+        DeleteTime int64 `json:"delete_time"`
+        State string `json:"state"` // todelete:用户已删除  resume:用户未删除
+    }
+    PagingUserRequest struct {
+        TableCommonRequest
+    }
+
+    PagingUserResponse struct {
+        HttpCommonResponse
+        TableCommonResponse
+        List []User `json:"list"`
+    }
+
+    AllUserResponse struct {
+        HttpCommonResponse
+        Total int `json:"total"`
+        List []User `json:"list"`
+    }
+
+    SoftDeleteUserRequest struct {
+        ID uint64 `json:"id" validate:"required,numeric,gte=1" comment="用户ID为必填项"`
+        State string `json:"state" validate:"required,oneof='deleted' 'resume'"`
+    }
+)
+//----------------------------------------------
+// 用户页面配置模型
+//----------------------------------------------
+type (
+    UserPageSetResponse struct {
+        HttpCommonResponse
+        Name string `json:"name"`
+        NickName string `json:"nick_name"`
+        Avatar string `json:"avatar"`
+        DefaultRouter string `json:"defaultRouter"`
+        SideMode string `json:"sideMode"`
+        ActiveTextColor string `json:"activeTextColor"`
+        TextColor string `json:"textColor"`
+    }
+    UserPageRequest struct {
+        Avatar string `json:"avatar,default=,optional"`
+        DefaultRouter string `json:"defaultRouter,default=dashboard"`
+        SideMode string `json:"sideMode,default=#191a23"`
+        ActiveTextColor string `json:"activeTextColor,default=#1890ff"`
+        TextColor string `json:"textColor,default=#fff"`
+    }
+)

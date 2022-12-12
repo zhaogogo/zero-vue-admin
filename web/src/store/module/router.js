@@ -20,21 +20,22 @@ const state = {
 
 const actions = {
     async set_async_router(ctx, value) {
-        const baseRouter = [{
-            path: '/layout',
-            name: 'layout',
-            component: 'view/layout/index.vue',
-            meta: {
-                title: '底层layout'
-            },
-            children: []
-        }]
-        const userInfoMenus = await getPermission()
-        if (userInfoMenus.status != 200) {
+        const baseRouter = [
+            {
+                path: '/layout',
+                name: 'layout',
+                component: 'view/layout/index.vue',
+                meta: {
+                    title: '底层layout'
+                },
+                children: []
+            }
+        ]
+        const userMenus = await getPermission()
+        if (userMenus.code != 200) {
             return false
         }
-        ctx.commit("user/SETUSERINFO", userInfoMenus.data.userInfo,{root:true})
-        const asyncRouter = userInfoMenus.data && userInfoMenus.data.menuList
+        const asyncRouter = userMenus && userMenus.menus
         //返回的是一个数组 因为第二个操作数是 数组 且第一个操作数是对象为true
         asyncRouter.push({
             path: '404',

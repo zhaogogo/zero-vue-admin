@@ -1,0 +1,28 @@
+syntax = "v1"
+
+info(
+    title: "公共响应模型"
+    desc: "公共响应模型定义"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+//----------------------------------------------
+// 公共响应模型
+//----------------------------------------------
+type HttpCommonResponse struct {
+    Code int `json:"code"`
+    Msg string `json:"msg"`
+}
+
+type PagingCommonRequest {
+    Page int64 `json:"page,optional" validate:"required,numeric,gte=1,lte=999" comment:"page为必须值"`
+    PageSize int64 `json:"pageSize,optional" validate:"required,numeric,gte=10,lte=100" comment:"pageSize为必须值"`
+}
+
+type PagingCommonResponse {
+    Page int64 `json:"page"`
+    PageSize int64 `json:"pageSize"`
+    Total int64 `json:"total"`
+}

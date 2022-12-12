@@ -1,0 +1,61 @@
+syntax = "v1"
+
+info(
+    title: "系统菜单"
+    desc: "系统菜单"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+import "common.api"
+
+@server(
+    jwt: Auth
+    middleware: Casbin
+    group: system/menu
+    prefix: /api/v1/system/menu
+)
+service ApiGateway-api {
+    @doc "获取用户动态路由"
+    @handler UserMenus
+    get /usermenus returns (UserMenuResponse)
+}
+
+//----------------------------------------------
+// 用户动态路由菜单
+//----------------------------------------------
+type (
+    UserMenuResponse struct {
+        HttpCommonResponse
+        Menus []Menu `json:"menus"`
+    }
+)
+
+//----------------------------------------------
+// 用户菜单模型
+//----------------------------------------------
+type (
+    Menu struct {
+        ID uint64 `json:"id"`
+        ParentId uint64 `json:"parentId"`
+        Name string `json:"name"`
+        Path string `json:"path"`
+        Component string `json:"component"`
+        Sort int64 `json:"sort"`
+        MenuMeta MenuMeta `json:"meta"`
+        Children []Menu `json:"children,omitempty"`
+        Parameters []Parameter `json:"parameters"`
+    }
+    Parameter struct {
+        UserID uint64 `json:"user_id"`
+        MenuID uint64 `json:"menuId"`
+        Type string `json:"type"`
+        Key string `json:"key"`
+        Value string `json:"value"`
+    }
+    MenuMeta struct {
+        Title string `json:"title"`
+        Icon string `json:"icon"`
+    }
+)

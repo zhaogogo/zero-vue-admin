@@ -1,6 +1,8 @@
 <template>
-  <div>
-    dashboard
+  <div class="big">
+    <div>dashboard111</div>
+    <div>dashboard111</div>
+    <div>dashboard111</div>
   </div>
 </template>
 
@@ -10,6 +12,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.big{
+  margin: 100px 0 0 0;
+  padding-top: 0;
+}
 </style>

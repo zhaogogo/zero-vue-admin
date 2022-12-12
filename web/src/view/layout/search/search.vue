@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="search-component">
         <transition name="el-fade-in-linear">
-            <div v-show="show" style="display: inline-block;float: left;">
+            <div v-show="show" class="transition-box" style="display: inline-block;float: left;">
                 <el-select
                     ref="search-input"
                     v-model="value"
@@ -17,6 +17,7 @@
                         :value="item.value"
                     ></el-option>
                 </el-select>
+
             </div>
         </transition>
         <div
@@ -74,7 +75,17 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+.reload{
+  font-size: 17px;
+  &:hover{
+    transform: scale(1.02)
+  }
+}
+
+.reloading{
+  animation:turn 0.5s linear infinite;
+}
 .el-select .el-input__inner {
     padding-right: 0;
 }

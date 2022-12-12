@@ -10,6 +10,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import "@/styles/main.scss";
+@import '@/styles/base.scss';
+#app {
+  height: 100vh;
+  overflow: hidden;
+  font-weight: 400;
+}
 </style>

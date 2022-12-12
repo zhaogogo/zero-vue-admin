@@ -1,0 +1,97 @@
+syntax = "v1"
+
+info(
+    title: "系统用户"
+    desc: "系统用户"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+import "common.api"
+
+@server(
+    group: system/user
+    prefix: /api/v1/system/user
+)
+service ApiGateway-api {
+    @doc "用户登陆"
+    @handler Login
+    post /login (LoginRequest) returns (LoginResponse)
+}
+
+@server(
+    jwt: Auth
+    middleware: Casbin
+    group: system/user
+    prefix: /api/v1/system/user
+)
+service ApiGateway-api {
+    @doc "分页获取用户"
+    @handler PagingUserInfo
+    post /paginguser (PagingUserRequest) returns (PagingUserResponse)
+}
+
+//----------------------------------------------
+// 用户模型
+//----------------------------------------------
+type (
+    PagingUserRequest struct {
+        PagingCommonRequest
+    }
+    PagingUserResponse struct {
+        HttpCommonResponse
+        PagingCommonResponse
+        List []User `json:"list"`
+    }
+    User struct {
+        ID uint64 `json:"id"`
+        Name string `json:"name"`
+        NickName string `json:"nick_name"`
+        PassWord string `json:"password"`
+        UserType int64 `json:"type"`
+        Email string `json:"email"`
+        Phone string `json:"phone"`
+        department string `json:"department"`
+        position string `json:"position"`
+        CreateBy string `json:"createBy"`
+        CreateTime int64 `json:"create_time"`
+        UpdateBy string `json:"updateBy"`
+        UpdateTime int64 `json:"update_time"`
+        DeleteBy string `json:"deleteBy"`
+        DeleteTime int64 `json:"delete_time"`
+        State string `json:"state"` // todelete:用户已删除  resume:用户未删除
+        Role []uint64 `json:"role"` // 用户角色
+    }
+)
+
+//----------------------------------------------
+// 用户登陆模型
+//----------------------------------------------
+type (
+    LoginRequest {
+        UserName string `json:"userName,optional" validate:"required" comment:"用户名"`
+        PassWord string `json:"passWord,optional" validate:"required" comment:"密码"`
+    }
+    LoginResponse {
+        HttpCommonResponse
+        Token string   `json:"token"`
+        ExpireAt int64 `json:"expireAt"`
+        RefreshAfter int64 `json:"refreshAfter"`
+        Name string `json:"name"`
+        Role []string `json:"role"`
+        UserPageSet UserPageSet `json:"userPageSet"`
+    }
+    UserPageSet struct {
+        Name string `json:"name"`
+        NickName string `json:"nick_name"`
+        Avatar string `json:"avatar"`
+        DefaultRouter string `json:"defaultRouter"`
+        SideMode string `json:"sideMode"`
+        ActiveTextColor string `json:"activeTextColor"`
+        TextColor string `json:"textColor"`
+    }
+)
+
+
+

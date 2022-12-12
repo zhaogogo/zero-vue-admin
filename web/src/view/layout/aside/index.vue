@@ -1,19 +1,23 @@
 <template>
-  <div style="height:100vh" :style="{backgroundColor:userInfo.sideMode}">
-    <el-menu
-        :collapse="isCollapse"
-        :default-active="active" 
-        class="el-menu-vertical"
-        :background-color="userInfo.sideMode"
-        :active-text-color="userInfo.activeTextColor"
-        :text-color="userInfo.textColor"
-        unique-opened
-        @select="selectMenuItem"
-    >
-      <template v-for="item in asyncRouters[0].children">
-        <aside-component v-if="!item.hidden" :key="item.name" :router-info="item" />
-      </template>
-    </el-menu>
+  <div style="height:100vh" :style="{backgroundColor:userPageSet.sideMode}">
+    <el-scrollbar>
+      <el-menu
+          :collapse="isCollapse"
+          :collapse-transition="true"
+          :default-active="active" 
+          class="el-menu-vertical"
+          :background-color="userPageSet.sideMode"
+          :active-text-color="userPageSet.activeTextColor"
+          :text-color="userPageSet.textColor"
+          unique-opened
+          mode="vertical"
+          @select="selectMenuItem"
+      >
+        <template v-for="item in asyncRouters[0].children">
+          <aside-component v-if="!item.hidden" :key="item.name" :router-info="item" />
+        </template>
+      </el-menu>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -31,35 +35,45 @@ export default {
         isCollapse: false
       };
     },
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
+    computed:{
+      ...mapGetters("router",["asyncRouters"]),
+      ...mapGetters("user",["userPageSet"])
     },
     watch:{
         $route(){
-            this.active = $route.name
+            this.active = this.$route.name
         }
     },
     created() {
-        this.active = this.$route.name
-        this.$bus.on("collapse",item => {
-          this.isCollapse = item
-        })
+      this.active = this.$route.name
+      this.$bus.on("collapse",item => {
+        this.isCollapse = item
+      })
     },
-    destroyed() {
+    beforeDestroy() {
       this.$bus.off("collapse")
     },
-    computed:{
-      ...mapGetters("router",["asyncRouters"]),
-      ...mapGetters("user",["userInfo"])
-    },
     methods:{
-      selectMenuItem(indexe, _, ele){
-        //路由参数配置
+      selectMenuItem(index, b, ele){
+        //路由跳转及参数配置
+        //参数配置
+        const query = {}
+        const params = {}
+        ele.route.parameters && 
+        ele.route.parameters.map(item => {
+          if (item.type === 'query') {
+            query[item.key] = item.value
+          } else {
+            params[item.key] = item.value
+          }
+        })
+        if (index === this.$route.name) return
+        if (index.indexOf('http://') > -1 || index.indexOf('https://') > -1) {
+          console.log("0000,window.open",index)
+          window.open(index)
+        } else {
+          this.$router.push({name: index, query, params})
+        }
       }
     }
 }

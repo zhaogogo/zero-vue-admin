@@ -1,0 +1,13 @@
+syntax = "v1"
+
+info(
+	title: "REST http网关"
+	desc: "用户登陆、权限认证、登陆授权"
+	author: "qiang.zhao"
+	email: "zhaoq0201@163.com"
+	version: "v1"
+)
+
+import "system-user.api"
+import "system-role.api"
+import "system-menu.api"

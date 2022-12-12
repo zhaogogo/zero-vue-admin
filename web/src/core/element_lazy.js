@@ -27,7 +27,22 @@ import {
     Dropdown,
     DropdownItem,
     DropdownMenu,
-    Badge
+    Badge,
+    Scrollbar,
+    Divider,
+    Drawer,
+    ColorPicker,
+    Tabs,
+    TabPane,
+    Table,
+    TableColumn,
+    Cascader,
+    Dialog,
+    Checkbox,
+    Tag,
+    Switch,
+    Tooltip,
+    Pagination
 } from 'element-ui';
 Vue.use(Dropdown)
 Vue.use(DropdownItem)
@@ -50,6 +65,22 @@ Vue.use(Main)
 Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
+Vue.use(Scrollbar)
+Vue.use(Divider)
+Vue.use(Drawer)
+Vue.use(ColorPicker)
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(Loading.directive)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Cascader)
+Vue.use(Dialog)
+Vue.use(Checkbox)
+Vue.use(Tag)
+Vue.use(Switch)
+Vue.use(Tooltip)
+Vue.use(Pagination)
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;

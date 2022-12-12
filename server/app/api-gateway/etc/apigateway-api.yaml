@@ -1,0 +1,31 @@
+Name: ApiGateway-api
+Host: 0.0.0.0
+Port: 8888
+Auth:
+  AccessSecret: ad879037-c7a4-4063-9236-6bfc35d54b7d
+  AccessExpire: 86400
+SystemAdminRpcConf:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: systemadmin.rpc
+  NonBlock: true
+
+Mysql:
+  DataSource: root:zhaO..123@tcp(127.0.0.1:3306)/chaos_system?collation=utf8mb4_general_ci&parseTime=true&loc=Asia%2FShanghai&timeout=2s&readTimeout=1s&writeTimeout=1s
+Prometheus:
+  Host: 0.0.0.0
+  Port: 18888
+  Path: /metrics
+Telemetry:
+  Endpoint: http://192.168.162.128:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
+Log:
+  Mode: console
+  Path: logs
+  Encoding: plain
+  Level: info
+  KeepDays: 7
+  MaxBackups: 2
+  MaxSize: 200
