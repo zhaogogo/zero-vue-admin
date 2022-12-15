@@ -29,11 +29,9 @@ func (l *GetUserRoleByUserIDLogic) GetUserRoleByUserID(in *pb.UserID) (*pb.UserR
 	userRoles, err := l.svcCtx.UserRoleModel.FindByUserID(l.ctx, l.svcCtx.Redis, in.ID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			if err == sqlc.ErrNotFound {
-				return nil, errors.Wrapf(err, "无数据, 表: user_role, 字段: user_id=%v", in.ID)
-			}
-			return nil, errors.Wrapf(err, "数据库查询失败, 表: user_role, 字段: user_id=%v", in.ID)
+			return nil, err
 		}
+		return nil, errors.Wrap(err, "数据库查询失败")
 	}
 	pbUserRole := []*pb.UserRole{}
 	for _, userRole := range userRoles {

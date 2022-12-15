@@ -2,13 +2,15 @@ package menu
 
 import (
 	"context"
+	"database/sql"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/mr"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/utils"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
+	"google.golang.org/grpc/status"
 	"sort"
 	"strings"
 )
@@ -110,19 +112,23 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 		},
 	)
 	// 获取参数
-	userMenuParams, err := l.svcCtx.SystemRpcClient.GetUserMenuParams(l.ctx, &systemservice.UserID{ID: userid})
-	if err != nil {
-		msgErrList.Append(err.Error())
-	}
 	params := []types.Parameter{}
-	for _, p := range userMenuParams.UserMenuParams {
-		params = append(params, types.Parameter{
-			UserID: p.UserID,
-			MenuID: p.MenuID,
-			Type:   p.Type,
-			Key:    p.Key,
-			Value:  p.Value,
-		})
+	userMenuParams, err := l.svcCtx.SystemRpcClient.GetUserMenuParams(l.ctx, &systemservice.UserID{ID: userid})
+	s, _ := status.FromError(err)
+	if s.Message() == sql.ErrNoRows.Error() {
+
+	} else if err != nil {
+		msgErrList.Append(err.Error())
+	} else {
+		for _, p := range userMenuParams.UserMenuParams {
+			params = append(params, types.Parameter{
+				UserID: p.UserID,
+				MenuID: p.MenuID,
+				Type:   p.Type,
+				Key:    p.Key,
+				Value:  p.Value,
+			})
+		}
 	}
 
 	menuTree := genMenuTreeMap(menus, params)
@@ -142,15 +148,6 @@ func genMenuTreeMap(menus []types.Menu, params []types.Parameter) []types.Menu {
 	})
 	var treeMap = make(map[uint64][]types.Menu)
 	for _, menu := range menus {
-		//m := types.Menu{
-		//	ID:        menu.ID,
-		//	ParentId:  menu.ParentId,
-		//	Name:      menu.Name,
-		//	Path:      menu.Path,
-		//	Sort:      menu.Sort,
-		//	Component: menu.Component,
-		//	MenuMeta:  types.MenuMeta{Title: menu.MenuMeta.Title, Icon: menu.MenuMeta.Icon},
-		//}
 		for _, param := range params {
 			if param.MenuID == menu.ID {
 				menu.Parameters = append(menu.Parameters, types.Parameter{UserID: param.UserID, MenuID: param.MenuID, Type: param.Type, Key: param.Key, Value: param.Value})

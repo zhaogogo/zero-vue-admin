@@ -2,21 +2,22 @@
   <div>
     <el-table :data="tableData" border stripe row-key="id" @cell-click="rowClick">
         <el-table-column label="ID"  prop="id"></el-table-column>
-        <el-table-column label="用户名"  prop="name"></el-table-column>
-        <el-table-column label="昵称"  prop="nick_name"></el-table-column>
-        <el-table-column label="密码"  prop="password">
+        <el-table-column label="用户名"  prop="name" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="昵称"  prop="nick_name" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="密码"  prop="password" :show-overflow-tooltip="true">
             <template slot-scope="scope">
                 <span v-if="!isEdit[scope.row.id]">{{scope.row.password}}</span>
-                <el-input ref="inputpassword" v-if="isEdit[scope.row.id]" v-model="scope.row.password" :placeholder="scope.row.password" @blur="updateUser(scope.row)"></el-input>
+                <el-input ref="inputpassword" v-if="isEdit[scope.row.id]" v-model="scope.row.password" type="password" @blur="changePassword(scope.row)"></el-input>
             </template>
         </el-table-column>
         <el-table-column label="用户角色" prop="role">
             <template slot-scope="scope">
                 <el-cascader
-                    v-model="scope.row.role"
+                    v-model="scope.row.roleList"
                     :options="roleOptions"
                     :props="{ checkStrictly: true,label:'roleName',value:'roleid',disabled:'disabled', emitPath:false, multiple: true}"
                     clearable
+                    filterable
                     @change="changeRole(scope.row)"
                 >
                 </el-cascader>
@@ -78,7 +79,9 @@
 import infoList from '@/mixins/infoList'
 import { 
     getPagingUser,
-    softDeleteUser
+    softDeleteUser,
+    changeUserPassword,
+    updateUserRole
 } from '@/api/user/user'
 import {
     getAllRole
@@ -142,24 +145,40 @@ export default {
         rowClick(row, column, cell, event) {
             //判断是否是需要编辑的列 再改变对应的值
             if(column.property == 'password') {
-                this.$set(this.isEdit_password,row.id,true)
+                this.$set(this.isEdit,row.id,true)
                 this.$nextTick(function () {
                     this.$refs.inputpassword.focus()
                 })
                 return
             }
         },
-        updateUser(row){
-            console.log("---->", row)
-            this.$set(this.isEdit,row.id,false)
-            this.getTableData()
+        async changePassword(row){
+            console.log("---->", row.password)
+            const res = await changeUserPassword({id: row.id, password: row.password})
+            if (res.code === 200) {
+                this.$set(this.isEdit,row.id,false)
+                this.getTableData()
+            }else {
+                this.$message({
+                    type: "error",
+                    message: res.msg
+                })
+                this.$set(this.isEdit,row.id,false)
+            }
         },
-        changeRole(row) {
-            console.log("===>", row)
+        async changeRole(row) {
+            const res = await updateUserRole({userId: row.id, roleList: row.roleList})
+            if (res.code !== 200) {
+                this.$message({
+                    type: "error",
+                    message: res.msg
+                })
+            }
+            this.getTableData()
         },
         //软删除用户
         async softDeleteUser(e,row,index){
-            const res = await softDeleteUser({id: row.id, state: e})
+            const res = await softDeleteUser({userId: row.id, state: e})
             if (res.code === 200) {
                 this.$message({
                     type: "success",

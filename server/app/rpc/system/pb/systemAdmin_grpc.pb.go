@@ -23,15 +23,21 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SystemServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	UserInfoByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error)
 	UserInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error)
 	RoleInfo(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error)
 	MenuInfo(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error)
 	UserPageSetInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSet, error)
 	AllRoleList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllRoleListResponse, error)
 	PagingUserList(ctx context.Context, in *PagingRequest, opts ...grpc.CallOption) (*PagingUserListResponse, error)
+	UserTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 	GetUserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleList, error)
 	GetRoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuList, error)
 	GetUserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsList, error)
+	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*Empty, error)
+	UpdateUserRole(ctx context.Context, in *UpdateUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
+	SoftDeleteUser(ctx context.Context, in *SoftDeleteUserRequest, opts ...grpc.CallOption) (*Empty, error)
+	Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 }
 
 type systemServiceClient struct {
@@ -45,6 +51,15 @@ func NewSystemServiceClient(cc grpc.ClientConnInterface) SystemServiceClient {
 func (c *systemServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	out := new(LoginResponse)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) UserInfoByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserInfoByName", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,6 +120,15 @@ func (c *systemServiceClient) PagingUserList(ctx context.Context, in *PagingRequ
 	return out, nil
 }
 
+func (c *systemServiceClient) UserTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error) {
+	out := new(Total)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserTotal", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *systemServiceClient) GetUserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleList, error) {
 	out := new(UserRoleList)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/GetUserRoleByUserID", in, out, opts...)
@@ -132,20 +156,62 @@ func (c *systemServiceClient) GetUserMenuParams(ctx context.Context, in *UserID,
 	return out, nil
 }
 
+func (c *systemServiceClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/ChangePassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) UpdateUserRole(ctx context.Context, in *UpdateUserRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateUserRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) SoftDeleteUser(ctx context.Context, in *SoftDeleteUserRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/SoftDeleteUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error) {
+	out := new(Total)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/Test", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SystemServiceServer is the server API for SystemService service.
 // All implementations must embed UnimplementedSystemServiceServer
 // for forward compatibility
 type SystemServiceServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	UserInfoByName(context.Context, *UserName) (*User, error)
 	UserInfo(context.Context, *UserID) (*User, error)
 	RoleInfo(context.Context, *RoleID) (*Role, error)
 	MenuInfo(context.Context, *MenuID) (*Menu, error)
 	UserPageSetInfo(context.Context, *UserID) (*UserPageSet, error)
 	AllRoleList(context.Context, *Empty) (*AllRoleListResponse, error)
 	PagingUserList(context.Context, *PagingRequest) (*PagingUserListResponse, error)
+	UserTotal(context.Context, *Empty) (*Total, error)
 	GetUserRoleByUserID(context.Context, *UserID) (*UserRoleList, error)
 	GetRoleMenuByRoleID(context.Context, *RoleID) (*RoleMenuList, error)
 	GetUserMenuParams(context.Context, *UserID) (*UserMenuParamsList, error)
+	ChangePassword(context.Context, *ChangePasswordRequest) (*Empty, error)
+	UpdateUserRole(context.Context, *UpdateUserRoleRequest) (*Empty, error)
+	SoftDeleteUser(context.Context, *SoftDeleteUserRequest) (*Empty, error)
+	Test(context.Context, *Empty) (*Total, error)
 	mustEmbedUnimplementedSystemServiceServer()
 }
 
@@ -155,6 +221,9 @@ type UnimplementedSystemServiceServer struct {
 
 func (UnimplementedSystemServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedSystemServiceServer) UserInfoByName(context.Context, *UserName) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserInfoByName not implemented")
 }
 func (UnimplementedSystemServiceServer) UserInfo(context.Context, *UserID) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserInfo not implemented")
@@ -174,6 +243,9 @@ func (UnimplementedSystemServiceServer) AllRoleList(context.Context, *Empty) (*A
 func (UnimplementedSystemServiceServer) PagingUserList(context.Context, *PagingRequest) (*PagingUserListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PagingUserList not implemented")
 }
+func (UnimplementedSystemServiceServer) UserTotal(context.Context, *Empty) (*Total, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserTotal not implemented")
+}
 func (UnimplementedSystemServiceServer) GetUserRoleByUserID(context.Context, *UserID) (*UserRoleList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserRoleByUserID not implemented")
 }
@@ -182,6 +254,18 @@ func (UnimplementedSystemServiceServer) GetRoleMenuByRoleID(context.Context, *Ro
 }
 func (UnimplementedSystemServiceServer) GetUserMenuParams(context.Context, *UserID) (*UserMenuParamsList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserMenuParams not implemented")
+}
+func (UnimplementedSystemServiceServer) ChangePassword(context.Context, *ChangePasswordRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
+}
+func (UnimplementedSystemServiceServer) UpdateUserRole(context.Context, *UpdateUserRoleRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserRole not implemented")
+}
+func (UnimplementedSystemServiceServer) SoftDeleteUser(context.Context, *SoftDeleteUserRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SoftDeleteUser not implemented")
+}
+func (UnimplementedSystemServiceServer) Test(context.Context, *Empty) (*Total, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
 }
 func (UnimplementedSystemServiceServer) mustEmbedUnimplementedSystemServiceServer() {}
 
@@ -210,6 +294,24 @@ func _SystemService_Login_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SystemServiceServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_UserInfoByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserName)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UserInfoByName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UserInfoByName",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UserInfoByName(ctx, req.(*UserName))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -322,6 +424,24 @@ func _SystemService_PagingUserList_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SystemService_UserTotal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UserTotal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UserTotal",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UserTotal(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SystemService_GetUserRoleByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserID)
 	if err := dec(in); err != nil {
@@ -376,6 +496,78 @@ func _SystemService_GetUserMenuParams_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SystemService_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangePasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).ChangePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/ChangePassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).ChangePassword(ctx, req.(*ChangePasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_UpdateUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UpdateUserRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UpdateUserRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UpdateUserRole(ctx, req.(*UpdateUserRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_SoftDeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SoftDeleteUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).SoftDeleteUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/SoftDeleteUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).SoftDeleteUser(ctx, req.(*SoftDeleteUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_Test_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).Test(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/Test",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).Test(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SystemService_ServiceDesc is the grpc.ServiceDesc for SystemService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -386,6 +578,10 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _SystemService_Login_Handler,
+		},
+		{
+			MethodName: "UserInfoByName",
+			Handler:    _SystemService_UserInfoByName_Handler,
 		},
 		{
 			MethodName: "UserInfo",
@@ -412,6 +608,10 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SystemService_PagingUserList_Handler,
 		},
 		{
+			MethodName: "UserTotal",
+			Handler:    _SystemService_UserTotal_Handler,
+		},
+		{
 			MethodName: "GetUserRoleByUserID",
 			Handler:    _SystemService_GetUserRoleByUserID_Handler,
 		},
@@ -422,6 +622,22 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserMenuParams",
 			Handler:    _SystemService_GetUserMenuParams_Handler,
+		},
+		{
+			MethodName: "ChangePassword",
+			Handler:    _SystemService_ChangePassword_Handler,
+		},
+		{
+			MethodName: "UpdateUserRole",
+			Handler:    _SystemService_UpdateUserRole_Handler,
+		},
+		{
+			MethodName: "SoftDeleteUser",
+			Handler:    _SystemService_SoftDeleteUser_Handler,
+		},
+		{
+			MethodName: "Test",
+			Handler:    _SystemService_Test_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -6,7 +6,7 @@ import (
 	ut "github.com/go-playground/universal-translator"
 	zh_translations "github.com/go-playground/validator/v10/translations/zh"
 	"github.com/pkg/errors"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 
 	"github.com/go-playground/validator/v10"
 	"reflect"

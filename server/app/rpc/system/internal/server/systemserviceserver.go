@@ -27,6 +27,11 @@ func (s *SystemServiceServer) Login(ctx context.Context, in *pb.LoginRequest) (*
 	return l.Login(in)
 }
 
+func (s *SystemServiceServer) UserInfoByName(ctx context.Context, in *pb.UserName) (*pb.User, error) {
+	l := logic.NewUserInfoByNameLogic(ctx, s.svcCtx)
+	return l.UserInfoByName(in)
+}
+
 func (s *SystemServiceServer) UserInfo(ctx context.Context, in *pb.UserID) (*pb.User, error) {
 	l := logic.NewUserInfoLogic(ctx, s.svcCtx)
 	return l.UserInfo(in)
@@ -57,6 +62,11 @@ func (s *SystemServiceServer) PagingUserList(ctx context.Context, in *pb.PagingR
 	return l.PagingUserList(in)
 }
 
+func (s *SystemServiceServer) UserTotal(ctx context.Context, in *pb.Empty) (*pb.Total, error) {
+	l := logic.NewUserTotalLogic(ctx, s.svcCtx)
+	return l.UserTotal(in)
+}
+
 func (s *SystemServiceServer) GetUserRoleByUserID(ctx context.Context, in *pb.UserID) (*pb.UserRoleList, error) {
 	l := logic.NewGetUserRoleByUserIDLogic(ctx, s.svcCtx)
 	return l.GetUserRoleByUserID(in)
@@ -70,4 +80,24 @@ func (s *SystemServiceServer) GetRoleMenuByRoleID(ctx context.Context, in *pb.Ro
 func (s *SystemServiceServer) GetUserMenuParams(ctx context.Context, in *pb.UserID) (*pb.UserMenuParamsList, error) {
 	l := logic.NewGetUserMenuParamsLogic(ctx, s.svcCtx)
 	return l.GetUserMenuParams(in)
+}
+
+func (s *SystemServiceServer) ChangePassword(ctx context.Context, in *pb.ChangePasswordRequest) (*pb.Empty, error) {
+	l := logic.NewChangePasswordLogic(ctx, s.svcCtx)
+	return l.ChangePassword(in)
+}
+
+func (s *SystemServiceServer) UpdateUserRole(ctx context.Context, in *pb.UpdateUserRoleRequest) (*pb.Empty, error) {
+	l := logic.NewUpdateUserRoleLogic(ctx, s.svcCtx)
+	return l.UpdateUserRole(in)
+}
+
+func (s *SystemServiceServer) SoftDeleteUser(ctx context.Context, in *pb.SoftDeleteUserRequest) (*pb.Empty, error) {
+	l := logic.NewSoftDeleteUserLogic(ctx, s.svcCtx)
+	return l.SoftDeleteUser(in)
+}
+
+func (s *SystemServiceServer) Test(ctx context.Context, in *pb.Empty) (*pb.Total, error) {
+	l := logic.NewTestLogic(ctx, s.svcCtx)
+	return l.Test(in)
 }

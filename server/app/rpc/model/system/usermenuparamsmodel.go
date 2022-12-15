@@ -2,8 +2,11 @@ package system
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/cache"
+	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 )
 
@@ -17,7 +20,7 @@ type (
 	// and implement the added methods in customUserMenuParamsModel.
 	UserMenuParamsModel interface {
 		userMenuParamsModel
-		FindByUserID(ctx context.Context, userID uint64) ([]UserMenuParams, error)
+		FindByUserID(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserMenuParams, error)
 	}
 
 	customUserMenuParamsModel struct {
@@ -32,17 +35,35 @@ func NewUserMenuParamsModel(conn sqlx.SqlConn, c cache.CacheConf) UserMenuParams
 	}
 }
 
-func (m *defaultUserMenuParamsModel) FindByUserID(ctx context.Context, userID uint64) ([]UserMenuParams, error) {
+func (m *defaultUserMenuParamsModel) FindByUserID(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserMenuParams, error) {
 	chaosSystemUserMenuParamsUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserMenuParamsUserIdPrefix, userID)
 	var resp []UserMenuParams
-	query := fmt.Sprintf("select %s from %s where `user_id` = ?", userMenuParamsRows, m.table)
-	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, userID)
-	if err != nil {
-		return nil, err
+	err := m.GetCacheCtx(ctx, chaosSystemUserMenuParamsUserIdKey, &resp)
+	if err == nil {
+		return resp, nil
 	}
-	if len(resp) == 0 {
+	if err.Error() == "placeholder" {
 		return nil, ErrNotFound
 	}
-	m.SetCacheCtx(ctx, chaosSystemUserMenuParamsUserIdKey, resp)
-	return resp, nil
+	if err == sql.ErrNoRows {
+		query := fmt.Sprintf("select %s from %s where `user_id` = ?", userMenuParamsRows, m.table)
+		err := m.QueryRowsNoCacheCtx(ctx, &resp, query, userID)
+		if err != nil {
+			return nil, err
+		}
+		if len(resp) == 0 {
+			err := redis.Setex(chaosSystemUserMenuParamsUserIdKey, "*", int(unstable.AroundDuration(cacheOption.NotFoundExpiry).Seconds()))
+			if err != nil {
+				logx.Errorf("设置缓存失败, key: %v, error: %v", chaosSystemUserMenuParamsUserIdKey, err)
+			}
+			return nil, ErrNotFound
+		}
+		err = m.SetCacheCtx(ctx, chaosSystemUserMenuParamsUserIdKey, resp)
+		if err != nil {
+			logx.Errorf("设置缓存失败, key: %v, error: %v", chaosSystemUserMenuParamsUserIdKey, err)
+		}
+		return resp, nil
+	}
+
+	return nil, err
 }

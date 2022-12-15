@@ -12,7 +12,7 @@ import "common.api"
 
 @server(
     jwt: Auth
-    middleware: Casbin
+    middleware: Casbin,CheckUserExists
     group: system/menu
     prefix: /api/v1/system/menu
 )

@@ -22,7 +22,7 @@ service ApiGateway-api {
 
 @server(
     jwt: Auth
-    middleware: Casbin
+    middleware: Casbin,CheckUserExists
     group: system/user
     prefix: /api/v1/system/user
 )
@@ -30,6 +30,33 @@ service ApiGateway-api {
     @doc "分页获取用户"
     @handler PagingUserInfo
     post /paginguser (PagingUserRequest) returns (PagingUserResponse)
+
+    @doc "修改用户密码"
+    @handler ChangeUserPassword
+    post /changeUserPassword(ChangePasswordRequest) returns(HttpCommonResponse)
+
+    @doc "修改用户角色"
+    @handler UpdateUserRole
+    post /updateUserRole(UpdateUserRoleRequest) returns(HttpCommonResponse)
+
+    @doc "软删除用户"
+    @handler SoftDeleteUser
+    delete /softdelete(SoftDeleteUserRequest) returns (HttpCommonResponse)
+}
+
+type ChangePasswordRequest struct {
+    ID uint64 `json:"id,optional" validate:"required,numeric,gte=1"`
+    Password string `json:"password,optional" validate:"required"`
+}
+
+type UpdateUserRoleRequest struct {
+    UserID uint64 `json:"userId,optional" validate:"required"`
+    RoleList []uint64 `json:"roleList,optional" validate:"required"`
+}
+
+type SoftDeleteUserRequest struct {
+    UserID uint64 `json:"userId,optional" validate:"required,numeric,gte=1" comment="用户ID为必填项"`
+    State string `json:"state,optional" validate:"required,oneof='deleted' 'resume'"`
 }
 
 //----------------------------------------------
@@ -61,7 +88,7 @@ type (
         DeleteBy string `json:"deleteBy"`
         DeleteTime int64 `json:"delete_time"`
         State string `json:"state"` // todelete:用户已删除  resume:用户未删除
-        Role []uint64 `json:"role"` // 用户角色
+        RoleList []uint64 `json:"roleList"` // 用户角色
     }
 )
 

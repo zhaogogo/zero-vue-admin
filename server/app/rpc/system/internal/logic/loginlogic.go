@@ -32,22 +32,26 @@ func (l *LoginLogic) Login(in *pb.LoginRequest) (*pb.LoginResponse, error) {
 	user, err := l.svcCtx.UserModel.FindOneByNameWHEREDeleteTimeISNULL(l.ctx, in.Name)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			return nil, errors.Wrapf(err, "无数据, 表: user, 字段: name=%s", in.Name)
+			return nil, err
 		}
-		return nil, errors.Wrapf(err, "查询用户失败, 表: user, 字段: name=%s", in.Name)
+		return nil, errors.Wrap(err, "数据库错误")
 	}
 	if err := utils.CheckPassword(in.PassWord, user.Password); err != nil {
-		return nil, errors.Wrapf(err, "密码错误, 用户: %s", in.Name)
+		return nil, errors.Wrap(err, "密码错误")
 	}
 	roleid := []uint64{}
-	userroles, _ := l.svcCtx.UserRoleModel.FindByUserID(l.ctx, l.svcCtx.Redis, user.Id)
-	for _, userrole := range userroles {
-		roleid = append(roleid, userrole.RoleId)
+	userroles, err := l.svcCtx.UserRoleModel.FindByUserID(l.ctx, l.svcCtx.Redis, user.Id)
+	if err != nil {
+		logx.Error(err)
+	} else {
+		for _, userrole := range userroles {
+			roleid = append(roleid, userrole.RoleId)
+		}
 	}
 
 	token, expire, refresh, err := l.genJWTToken(user.Id, roleid)
 	if err != nil {
-		return nil, errors.Wrapf(err, "生成token失败, 用户: %s", in.Name)
+		return nil, errors.Wrap(err, "生成token失败")
 	}
 	return &pb.LoginResponse{
 		Token:        token,

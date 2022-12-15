@@ -15,6 +15,32 @@ export const getPagingUser = (data) => {
     })
 }
 
+export const changeUserPassword = (data) => {
+    return service({
+        url: "/api/v1/system/user/changeUserPassword",
+        method: "post",
+        data
+    })
+}
+
+export const updateUserRole = (data) => {
+    return service({
+        url: "/api/v1/system/user/updateUserRole",
+        method: "POST",
+        data
+    })
+}
+
+export const softDeleteUser = (data) => {
+    console.log(data)
+    return service({
+        url: "/api/v1/system/user/softdelete",
+        method: "DELETE",
+        data
+    })
+}
+
+
 export const setUserPageSet = (data) => {
     return service({
         url: "/api/v1/usercenter/setuserpageset",
@@ -30,11 +56,3 @@ export const getAllUser = (data) => {
     })
 }
 
-export const softDeleteUser = (data) => {
-    console.log(data)
-    return service({
-        url: "/api/v1/usercenter/softdelete/",
-        method: "DELETE",
-        data
-    })
-}

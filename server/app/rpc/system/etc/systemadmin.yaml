@@ -30,7 +30,7 @@ Telemetry:
 Log:
   Mode: console
   Path: logs
-  Encoding: json
+  Encoding: plain
   Level: info
   KeepDays: 7
   MaxBackups: 2

@@ -29,9 +29,9 @@ func (l *MenuInfoLogic) MenuInfo(in *pb.MenuID) (*pb.Menu, error) {
 	menu, err := l.svcCtx.MenuModel.FindOne(l.ctx, in.ID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			return nil, errors.Wrapf(err, "无数据, 表: menu, 字段: id=%v", in.ID)
+			return nil, err
 		}
-		return nil, errors.Wrapf(err, "数据库查询失败, 表: menu, 字段: id=%v", in.ID)
+		return nil, errors.Wrap(err, "数据库查询失败")
 	}
 	pbMenu := &pb.Menu{
 		ID:         menu.Id,

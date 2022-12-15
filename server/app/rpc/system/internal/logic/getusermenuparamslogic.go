@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
@@ -26,12 +25,12 @@ func NewGetUserMenuParamsLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *GetUserMenuParamsLogic) GetUserMenuParams(in *pb.UserID) (*pb.UserMenuParamsList, error) {
-	userMenuParams, err := l.svcCtx.UserMenuParamsModel.FindByUserID(l.ctx, in.ID)
+	userMenuParams, err := l.svcCtx.UserMenuParamsModel.FindByUserID(l.ctx, l.svcCtx.Redis, in.ID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			return nil, errors.Wrapf(err, "无数据, 表: user_menu_params, 字段: user_id=%v", in.ID)
+			return nil, err
 		}
-		return nil, errors.Wrapf(err, "数据库错误, 表: user_menu_params, 字段: user_id=%v", in.ID)
+		return nil, errors.Wrap(err, "数据库错误")
 	}
 	pbUserMenuParams := []*pb.UserMenuParams{}
 	for _, p := range userMenuParams {

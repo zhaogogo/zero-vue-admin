@@ -31,6 +31,12 @@ const actions = {
             ctx.commit("SETUSERPAGESET", res.userPageSet)
             router.push({name: ctx.getters["userPageSet"].defaultRouter })
             return true
+        }else {
+            Message({
+                type: "error",
+                message: res.msg
+            })
+            return false
         }
     },
     async changeSideMode(ctx, data) {

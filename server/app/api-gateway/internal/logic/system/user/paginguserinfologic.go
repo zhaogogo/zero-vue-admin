@@ -2,9 +2,12 @@ package user
 
 import (
 	"context"
+	"database/sql"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/mr"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
+	"google.golang.org/grpc/status"
 	"strings"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -30,6 +33,14 @@ func NewPagingUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Pa
 func (l *PagingUserInfoLogic) PagingUserInfo(req *types.PagingUserRequest) (resp *types.PagingUserResponse, err error) {
 	userlist, err := l.svcCtx.SystemRpcClient.PagingUserList(l.ctx, &systemservice.PagingRequest{Page: req.Page, PageSize: req.PageSize})
 	if err != nil {
+		e, _ := status.FromError(err)
+		if e.Message() == sql.ErrNoRows.Error() {
+			return &types.PagingUserResponse{
+				HttpCommonResponse:   types.HttpCommonResponse{Code: 200, Msg: "OK"},
+				PagingCommonResponse: types.PagingCommonResponse{Page: req.Page, PageSize: req.PageSize, Total: userlist.Total},
+				List:                 []types.User{},
+			}, nil
+		}
 		return nil, err
 	}
 	var (
@@ -46,7 +57,7 @@ func (l *PagingUserInfoLogic) PagingUserInfo(req *types.PagingUserRequest) (resp
 			ID:         user.ID,
 			Name:       user.Name,
 			NickName:   user.NickName,
-			PassWord:   "****",
+			PassWord:   user.PassWord,
 			UserType:   user.UserType,
 			Email:      user.Email,
 			Phone:      user.Phone,
@@ -75,7 +86,7 @@ func (l *PagingUserInfoLogic) PagingUserInfo(req *types.PagingUserRequest) (resp
 			userroles, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, &systemservice.UserID{ID: userid})
 			if err != nil {
 				l.Error(err)
-				msgErrList.Append(err.Error())
+				msgErrList.Append(fmt.Sprintf("获取用户角色错误 [user_id: %d, error: %v]", userid, err.Error()))
 				return
 			}
 
@@ -88,7 +99,7 @@ func (l *PagingUserInfoLogic) PagingUserInfo(req *types.PagingUserRequest) (resp
 					for _, userrole := range userroles.UserRole {
 						for index, user := range list {
 							if user.ID == userrole.UserID {
-								list[index].Role = append(list[index].Role, userrole.RoleID)
+								list[index].RoleList = append(list[index].RoleList, userrole.RoleID)
 							}
 						}
 					}

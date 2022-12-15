@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
@@ -26,14 +25,12 @@ func NewGetRoleMenuByRoleIDLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *GetRoleMenuByRoleIDLogic) GetRoleMenuByRoleID(in *pb.RoleID) (*pb.RoleMenuList, error) {
-	rolemenus, err := l.svcCtx.RoleMenuModel.FindByRoleID(l.ctx, in.ID)
+	rolemenus, err := l.svcCtx.RoleMenuModel.FindByRoleID(l.ctx, l.svcCtx.Redis, in.ID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			if err == sqlc.ErrNotFound {
-				return nil, errors.Wrapf(err, "无数据, 表: role_menu, 字段: user_id=%v", in.ID)
-			}
-			return nil, errors.Wrapf(err, "数据库查询失败, 表: role_menu, 字段: user_id=%v", in.ID)
+			return nil, err
 		}
+		return nil, errors.Wrap(err, "数据库查询失败")
 	}
 	pbRoleMeus := []*pb.RoleMenu{}
 	for _, rolemenu := range rolemenus {

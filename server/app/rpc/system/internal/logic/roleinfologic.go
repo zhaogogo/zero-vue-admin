@@ -29,9 +29,9 @@ func (l *RoleInfoLogic) RoleInfo(in *pb.RoleID) (*pb.Role, error) {
 	role, err := l.svcCtx.RoleModel.FindOne(l.ctx, in.ID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			return nil, errors.Wrapf(err, "无数据, 表: role, 字段: id=%v", in.ID)
+			return nil, err
 		}
-		return nil, errors.Wrapf(err, "数据库查询失败, 表: role, 字段: id=%v", in.ID)
+		return nil, errors.Wrap(err, "数据库查询失败")
 	}
 	res := &pb.Role{
 		ID:         role.Id,

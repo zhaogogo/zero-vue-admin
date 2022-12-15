@@ -5,8 +5,8 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/casbinx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 	"net/http"
 )
 
@@ -19,7 +19,6 @@ func NewCasbinMiddleware() *CasbinMiddleware {
 
 func (m *CasbinMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		//userid, err := r.Context().Value("userID").(json.Number).Int64()
 		roleids, ok := r.Context().Value("roleIDs").([]interface{})
 		if !ok {
 			logx.Error("解析JWT携带参数roleIDs, 断言失败")
@@ -38,7 +37,7 @@ func (m *CasbinMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			r := roleid.(json.Number).String()
 			hasPerimisstion, err = casbinx.Casbin.Enforce(r, obj, act)
 			if err != nil {
-				logx.Errorf("casbin权限验证失败, error: %v", err)
+				logx.Errorf("roleid: %v, error: %v", r, err)
 			}
 			if hasPerimisstion {
 				break
@@ -49,8 +48,8 @@ func (m *CasbinMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			w.Header().Set(httpx.ContentType, "application/json; charset=utf-8")
 			v := responseerror.ErrorResponse{
 				Code:     int32(errorx.USER_PERMISSION_REJECT),
-				Msg:      errorx.ErrorxMsg(errorx.USER_PERMISSION_REJECT),
-				CauseErr: errorx.ErrorxMsg(errorx.USER_PERMISSION_REJECT),
+				Msg:      errorx.ErrorxMessage(errorx.USER_PERMISSION_REJECT),
+				CauseErr: errorx.ErrorxMessage(errorx.USER_PERMISSION_REJECT),
 			}
 			bs, err := json.Marshal(v)
 			if err != nil {

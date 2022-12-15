@@ -29,9 +29,9 @@ func (l *UserPageSetInfoLogic) UserPageSetInfo(in *pb.UserID) (*pb.UserPageSet, 
 	pageset, err := l.svcCtx.UserPageSetModel.FindOneByUserId(l.ctx, in.ID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			return nil, errors.Wrapf(err, "无数据, 表: user_page_set, 字段: user_id=%v", in.ID)
+			return nil, err
 		}
-		return nil, errors.Wrapf(err, "数据库错误, 表: user_page_set, 字段: user_id=%v", in.ID)
+		return nil, errors.Wrap(err, "数据库错误")
 	}
 
 	return &pb.UserPageSet{

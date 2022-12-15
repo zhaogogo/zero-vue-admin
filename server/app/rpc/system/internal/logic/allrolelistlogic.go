@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
@@ -29,7 +28,7 @@ func (l *AllRoleListLogic) AllRoleList(in *pb.Empty) (*pb.AllRoleListResponse, e
 	mRole, err := l.svcCtx.RoleModel.FindAll(l.ctx)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			return &pb.AllRoleListResponse{List: []*pb.Role{}}, nil
+			return nil, err
 		}
 		return nil, errors.Wrapf(err, "查询数据库错误, 表: role 字段:AllRole")
 	}

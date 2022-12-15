@@ -2,7 +2,9 @@ package system
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
@@ -17,6 +19,9 @@ type (
 		userModel
 		FindOneByNameWHEREDeleteTimeISNULL(ctx context.Context, name string) (*User, error)
 		FindListPaging(ctx context.Context, page int64, pageSize int64) ([]User, error)
+		Total(ctx context.Context) (int64, error)
+		UpdateUserPassword(ctx context.Context, id uint64, pass string) error
+		UpdateDeleteColumn(ctx context.Context, userid uint64, deleteby string, deletetime sql.NullTime) error
 	}
 
 	customUserModel struct {
@@ -63,4 +68,47 @@ func (m *defaultUserModel) FindListPaging(ctx context.Context, page int64, pageS
 	}
 
 	return resp, nil
+}
+
+func (m *defaultUserModel) Total(ctx context.Context) (int64, error) {
+	var total int64
+	query := fmt.Sprintf("SELECT count(*) AS total FROM %s", m.table)
+	err := m.QueryRowNoCache(&total, query)
+	switch err {
+	case nil:
+		return total, nil
+	case ErrNotFound:
+		return 0, ErrNotFound
+	default:
+		return 0, err
+	}
+}
+
+func (m *defaultUserModel) UpdateUserPassword(ctx context.Context, id uint64, pass string) error {
+	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, id)
+	res, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("update %s set `password` = ? where `id` = ?", m.table)
+		return conn.ExecCtx(ctx, query, pass, id)
+	}, chaosSystemUserIdKey)
+	if err != nil {
+		return err
+	}
+
+	rowsAffect, err := res.RowsAffected()
+	if err != nil {
+		logx.Error("修改密码获取RowsAffected失败")
+	}
+	if rowsAffect != 1 {
+		logx.Error("修改密码影响数据超过1")
+	}
+	return nil
+}
+
+func (m *defaultUserModel) UpdateDeleteColumn(ctx context.Context, userid uint64, deleteby string, deletetime sql.NullTime) error {
+	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, userid)
+	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("UPDATE %s set `delete_by` = ?, `delete_time` = ? where `id` = ?", m.table)
+		return conn.ExecCtx(ctx, query, deleteby, deletetime, userid)
+	}, chaosSystemUserIdKey)
+	return err
 }

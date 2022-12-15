@@ -1,6 +1,7 @@
 package user
 
 import (
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/validate"
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -16,7 +17,10 @@ func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
-
+		if err := validate.StructExceptCtx(r.Context(), req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
 		l := user.NewLoginLogic(r.Context(), svcCtx)
 		resp, err := l.Login(&req)
 		if err != nil {

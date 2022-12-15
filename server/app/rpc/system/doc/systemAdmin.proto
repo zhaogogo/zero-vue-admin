@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service SystemService {
   rpc Login (LoginRequest) returns(LoginResponse); //
+  rpc UserInfoByName(UserName) returns(User); //
   rpc UserInfo(UserID) returns (User); //
   rpc RoleInfo(RoleID) returns (Role); //
   rpc MenuInfo(MenuID) returns (Menu); //
@@ -15,11 +16,17 @@ service SystemService {
 
   rpc AllRoleList (Empty) returns (AllRoleListResponse); //
   rpc PagingUserList(PagingRequest) returns (PagingUserListResponse); //
-
+  rpc UserTotal(Empty) returns (Total); //
 
   rpc GetUserRoleByUserID(UserID) returns (UserRoleList);
   rpc GetRoleMenuByRoleID(RoleID) returns (RoleMenuList);
   rpc GetUserMenuParams(UserID) returns (UserMenuParamsList);
+
+  rpc ChangePassword(ChangePasswordRequest)returns(Empty);
+  rpc UpdateUserRole(UpdateUserRoleRequest) returns(Empty);
+  rpc SoftDeleteUser(SoftDeleteUserRequest)returns(Empty);
+
+  rpc Test(Empty) returns (Total);
 }
 
 message MenuID {
@@ -28,6 +35,10 @@ message MenuID {
 
 message UserID {
   uint64 ID = 1;
+}
+
+message UserName {
+  string Name = 1;
 }
 
 message RoleID {
@@ -41,6 +52,20 @@ message PagingRequest {
   int64 PageSize = 2;
 }
 
+message UpdateUserRoleRequest {
+  uint64 UserID = 1;
+  repeated uint64 RoleList = 2;
+}
+
+message SoftDeleteUserRequest{
+  uint64 UserID = 1;
+  string DeleteBy = 2;
+  string State = 3;
+}
+
+message Total{
+  int64 Total = 1;
+}
 
 message AllRoleListResponse {
   repeated Role List = 1;
@@ -48,10 +73,16 @@ message AllRoleListResponse {
 
 message PagingUserListResponse {
   repeated User List = 1;
+  int64 Total = 2;
 }
 
 message UserMenuParamsList {
   repeated UserMenuParams UserMenuParams = 1;
+}
+
+message ChangePasswordRequest {
+  uint64 ID = 1;
+  string Password = 2;
 }
 
 message UserMenuParams {

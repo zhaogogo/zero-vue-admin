@@ -2,14 +2,17 @@ package system
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"strings"
 )
 
 var (
-	cacheUsercenterUserRoleUserIdPrefix = "cache:usercenter:userRole:user_id:"
+	cacheChaosSystemUserRoleUserIdPrefix = "cache:chaosSystem:userRole:user_id:"
 )
 
 var _ UserRoleModel = (*customUserRoleModel)(nil)
@@ -20,6 +23,9 @@ type (
 	UserRoleModel interface {
 		userRoleModel
 		FindByUserID(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserRole, error)
+		TransCtx(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error
+		TransDeleteByUserID(ctx context.Context, session sqlx.Session, userID uint64) error
+		TranInsertUserIDRoleIDs(ctx context.Context, session sqlx.Session, userID uint64, role_id_s []uint64) (sql.Result, error)
 	}
 
 	customUserRoleModel struct {
@@ -34,26 +40,66 @@ func NewUserRoleModel(conn sqlx.SqlConn, c cache.CacheConf) UserRoleModel {
 	}
 }
 
-func (m *defaultUserRoleModel) FindByUserID(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserRole, error) {
+func (m *defaultUserRoleModel) TransCtx(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error {
+	return m.TransactCtx(ctx, func(ctx context.Context, session sqlx.Session) error {
+		return fn(ctx, session)
+	})
+}
 
-	var resp []UserRole
-	//-------------
-	// redis查询
-	//-------------
-	usercenterUserRoleUserIDKey := fmt.Sprintf("%s%v", cacheUsercenterUserRoleUserIdPrefix, userID)
-	//
-	err := m.GetCacheCtx(ctx, usercenterUserRoleUserIDKey, &resp)
-	fmt.Printf(">>>>>>>>> %T, %v\n", err, err)
+func (m *defaultUserRoleModel) TransDeleteByUserID(ctx context.Context, session sqlx.Session, userID uint64) error {
+	userChaosSystemUserRoleUserIDKey := fmt.Sprintf("%s%v", cacheChaosSystemUserRoleUserIdPrefix, userID)
+	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (sql.Result, error) {
+		query := fmt.Sprintf("DELETE FROM %s WHERE `user_id` = ?", m.table)
+		return session.ExecCtx(ctx, query, userID)
+	}, userChaosSystemUserRoleUserIDKey)
 
-	query := fmt.Sprintf("SELECT %s FROM %s WHERE `user_id` = ?", userRoleRows, m.table)
-	err = m.QueryRowsNoCacheCtx(ctx, &resp, query, userID)
-	if err != nil {
-		return nil, err
+	return err
+}
+
+func (m *defaultUserRoleModel) TranInsertUserIDRoleIDs(ctx context.Context, session sqlx.Session, userID uint64, role_id_s []uint64) (sql.Result, error) {
+	userChaosSystemUserRoleUserIDKey := fmt.Sprintf("%s%v", cacheChaosSystemUserRoleUserIdPrefix, userID)
+	query := fmt.Sprintf("insert into %s (%s) values ", m.table, userRoleRowsExpectAutoSet)
+	values := []string{}
+	for _, role_id := range role_id_s {
+		values = append(values, fmt.Sprintf("(%v, %v)", userID, role_id))
 	}
-	if len(resp) == 0 {
+	query += strings.Join(values, ", ")
+
+	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		return session.ExecCtx(ctx, query)
+	}, userChaosSystemUserRoleUserIDKey)
+	return ret, err
+}
+
+func (m *defaultUserRoleModel) FindByUserID(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserRole, error) {
+	var resp []UserRole
+	chaosSystemUserRoleUserIDKey := fmt.Sprintf("%s%v", cacheChaosSystemUserRoleUserIdPrefix, userID)
+	err := m.GetCacheCtx(ctx, chaosSystemUserRoleUserIDKey, &resp)
+	if err == nil {
+		return resp, nil //查询成功
+	}
+	if err.Error() == "placeholder" {
 		return nil, ErrNotFound
 	}
-	m.SetCacheCtx(ctx, usercenterUserRoleUserIDKey, resp)
-	return resp, nil
+	if err == sql.ErrNoRows { //redis查询
+		query := fmt.Sprintf("SELECT %s FROM %s WHERE `user_id` = ?", userRoleRows, m.table)
+		err = m.QueryRowsNoCacheCtx(ctx, &resp, query, userID)
+		if err != nil {
+			return nil, err
+		}
+		if len(resp) == 0 {
+			err := redis.Setex(chaosSystemUserRoleUserIDKey, "*", int(unstable.AroundDuration(cacheOption.NotFoundExpiry).Seconds()))
+			if err != nil {
+				logx.Errorf("设置缓存失败, key: %v, error: %v", chaosSystemUserRoleUserIDKey, err)
+			}
+			return nil, ErrNotFound
+		}
+		if err := m.SetCacheCtx(ctx, chaosSystemUserRoleUserIDKey, resp); err != nil {
+			logx.Errorf("设置缓存失败, key: %v, error: %v", chaosSystemUserRoleUserIDKey, err)
+		}
 
+		return resp, nil
+	}
+
+	return nil, err
 }

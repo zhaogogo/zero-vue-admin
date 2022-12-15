@@ -29,9 +29,9 @@ func (l *UserInfoLogic) UserInfo(in *pb.UserID) (*pb.User, error) {
 	user, err := l.svcCtx.UserModel.FindOne(l.ctx, in.ID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			return nil, errors.Wrapf(err, "无数据, 表: user, 字段: id=%v", in.ID)
+			return nil, err
 		}
-		return nil, errors.Wrapf(err, "数据库查询失败, 表: user, 字段: id=%v", in.ID)
+		return nil, errors.Wrap(err, "数据库查询失败")
 	}
 	res := &pb.User{
 		ID:         user.Id,

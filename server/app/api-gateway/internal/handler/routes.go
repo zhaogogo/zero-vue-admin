@@ -26,12 +26,27 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.Casbin},
+			[]rest.Middleware{serverCtx.Casbin, serverCtx.CheckUserExists},
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
 					Path:    "/paginguser",
 					Handler: systemuser.PagingUserInfoHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/changeUserPassword",
+					Handler: systemuser.ChangeUserPasswordHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/updateUserRole",
+					Handler: systemuser.UpdateUserRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/softdelete",
+					Handler: systemuser.SoftDeleteUserHandler(serverCtx),
 				},
 			}...,
 		),
@@ -41,7 +56,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.Casbin},
+			[]rest.Middleware{serverCtx.Casbin, serverCtx.CheckUserExists},
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
@@ -56,7 +71,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.Casbin},
+			[]rest.Middleware{serverCtx.Casbin, serverCtx.CheckUserExists},
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
