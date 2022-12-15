@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/middleSvcCtx"
@@ -54,6 +55,8 @@ func (m *CheckUserExistsMiddleware) Handle(next http.HandlerFunc) http.HandlerFu
 			w.Write(bs)
 			return
 		}
-		next(w, r)
+		ctx := r.Context()
+		ctx = context.WithValue(ctx, "c-UserName", userinfo.Name)
+		next(w, r.WithContext(ctx))
 	}
 }

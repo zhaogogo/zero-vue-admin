@@ -42,6 +42,11 @@ service ApiGateway-api {
     @doc "软删除用户"
     @handler SoftDeleteUser
     delete /softdelete(SoftDeleteUserRequest) returns (HttpCommonResponse)
+
+
+    @doc "修改用户页面配置"
+    @handler SetUserPage
+    put /setuserpageset (UserPageRequest) returns (HttpCommonResponse)
 }
 
 type ChangePasswordRequest struct {
@@ -57,6 +62,13 @@ type UpdateUserRoleRequest struct {
 type SoftDeleteUserRequest struct {
     UserID uint64 `json:"userId,optional" validate:"required,numeric,gte=1" comment="用户ID为必填项"`
     State string `json:"state,optional" validate:"required,oneof='deleted' 'resume'"`
+}
+type UserPageRequest struct {
+    Avatar string `json:"avatar,default=,optional"`
+    DefaultRouter string `json:"defaultRouter,default=dashboard,optional" validate:"required"`
+    SideMode string `json:"sideMode,default=#191a23,optional" validate:"required"`
+    ActiveTextColor string `json:"activeTextColor,default=#1890ff,optional" validate:"required"`
+    TextColor string `json:"textColor,default=#fff,optional" validate:"required"`
 }
 
 //----------------------------------------------

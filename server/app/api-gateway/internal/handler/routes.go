@@ -48,6 +48,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/softdelete",
 					Handler: systemuser.SoftDeleteUserHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/setuserpageset",
+					Handler: systemuser.SetUserPageHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

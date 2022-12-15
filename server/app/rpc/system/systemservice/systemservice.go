@@ -26,6 +26,7 @@ type (
 	RoleID                 = pb.RoleID
 	RoleMenu               = pb.RoleMenu
 	RoleMenuList           = pb.RoleMenuList
+	SetUserPageSetRequest  = pb.SetUserPageSetRequest
 	SoftDeleteUserRequest  = pb.SoftDeleteUserRequest
 	Total                  = pb.Total
 	UpdateUserRoleRequest  = pb.UpdateUserRoleRequest
@@ -45,6 +46,7 @@ type (
 		RoleInfo(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error)
 		MenuInfo(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error)
 		UserPageSetInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSet, error)
+		SetUserPageSet(ctx context.Context, in *SetUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
 		AllRoleList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllRoleListResponse, error)
 		PagingUserList(ctx context.Context, in *PagingRequest, opts ...grpc.CallOption) (*PagingUserListResponse, error)
 		UserTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
@@ -96,6 +98,11 @@ func (m *defaultSystemService) MenuInfo(ctx context.Context, in *MenuID, opts ..
 func (m *defaultSystemService) UserPageSetInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSet, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.UserPageSetInfo(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) SetUserPageSet(ctx context.Context, in *SetUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.SetUserPageSet(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) AllRoleList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllRoleListResponse, error) {

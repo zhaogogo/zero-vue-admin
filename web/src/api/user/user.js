@@ -43,7 +43,7 @@ export const softDeleteUser = (data) => {
 
 export const setUserPageSet = (data) => {
     return service({
-        url: "/api/v1/usercenter/setuserpageset",
+        url: "/api/v1/system/user/setuserpageset",
         method: "PUT",
         data: data
     })

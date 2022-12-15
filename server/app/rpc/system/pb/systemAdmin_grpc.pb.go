@@ -28,6 +28,7 @@ type SystemServiceClient interface {
 	RoleInfo(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error)
 	MenuInfo(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error)
 	UserPageSetInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSet, error)
+	SetUserPageSet(ctx context.Context, in *SetUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
 	AllRoleList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllRoleListResponse, error)
 	PagingUserList(ctx context.Context, in *PagingRequest, opts ...grpc.CallOption) (*PagingUserListResponse, error)
 	UserTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
@@ -96,6 +97,15 @@ func (c *systemServiceClient) MenuInfo(ctx context.Context, in *MenuID, opts ...
 func (c *systemServiceClient) UserPageSetInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSet, error) {
 	out := new(UserPageSet)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/UserPageSetInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) SetUserPageSet(ctx context.Context, in *SetUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/SetUserPageSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -202,6 +212,7 @@ type SystemServiceServer interface {
 	RoleInfo(context.Context, *RoleID) (*Role, error)
 	MenuInfo(context.Context, *MenuID) (*Menu, error)
 	UserPageSetInfo(context.Context, *UserID) (*UserPageSet, error)
+	SetUserPageSet(context.Context, *SetUserPageSetRequest) (*Empty, error)
 	AllRoleList(context.Context, *Empty) (*AllRoleListResponse, error)
 	PagingUserList(context.Context, *PagingRequest) (*PagingUserListResponse, error)
 	UserTotal(context.Context, *Empty) (*Total, error)
@@ -236,6 +247,9 @@ func (UnimplementedSystemServiceServer) MenuInfo(context.Context, *MenuID) (*Men
 }
 func (UnimplementedSystemServiceServer) UserPageSetInfo(context.Context, *UserID) (*UserPageSet, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserPageSetInfo not implemented")
+}
+func (UnimplementedSystemServiceServer) SetUserPageSet(context.Context, *SetUserPageSetRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetUserPageSet not implemented")
 }
 func (UnimplementedSystemServiceServer) AllRoleList(context.Context, *Empty) (*AllRoleListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AllRoleList not implemented")
@@ -384,6 +398,24 @@ func _SystemService_UserPageSetInfo_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SystemServiceServer).UserPageSetInfo(ctx, req.(*UserID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_SetUserPageSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetUserPageSetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).SetUserPageSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/SetUserPageSet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).SetUserPageSet(ctx, req.(*SetUserPageSetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -598,6 +630,10 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserPageSetInfo",
 			Handler:    _SystemService_UserPageSetInfo_Handler,
+		},
+		{
+			MethodName: "SetUserPageSet",
+			Handler:    _SystemService_SetUserPageSet_Handler,
 		},
 		{
 			MethodName: "AllRoleList",

@@ -32,9 +32,15 @@ func (l *PagingUserListLogic) PagingUserList(in *pb.PagingRequest) (*pb.PagingUs
 		userList []system.User
 		total    int64
 	)
+
 	gCtx, _ := context.WithCancel(l.ctx)
 	g, _ := errgroup.WithContext(gCtx)
 	g.Go(func() error {
+		defer func() {
+			if e := recover(); e != nil {
+				logx.Error(e)
+			}
+		}()
 		var err error
 		userList, err = l.svcCtx.UserModel.FindListPaging(l.ctx, in.Page, in.PageSize)
 		if err != nil {
@@ -46,6 +52,11 @@ func (l *PagingUserListLogic) PagingUserList(in *pb.PagingRequest) (*pb.PagingUs
 		return nil
 	})
 	g.Go(func() error {
+		defer func() {
+			if e := recover(); e != nil {
+				logx.Error(e)
+			}
+		}()
 		var err error
 		total, err = l.svcCtx.UserModel.Total(l.ctx)
 		if err != nil {

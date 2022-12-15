@@ -5,14 +5,14 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/usercenter/api/internal/logic/usercenter/user"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/usercenter/api/internal/svc"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/usercenter/api/internal/types"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/logic/system/user"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 )
 
-func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func SetUserPageHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.LoginRequest
+		var req types.UserPageRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
@@ -21,8 +21,8 @@ func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
-		l := user.NewLoginLogic(r.Context(), svcCtx)
-		resp, err := l.Login(&req)
+		l := user.NewSetUserPageLogic(r.Context(), svcCtx)
+		resp, err := l.SetUserPage(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

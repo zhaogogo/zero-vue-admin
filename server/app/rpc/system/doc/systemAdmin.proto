@@ -13,6 +13,7 @@ service SystemService {
   rpc RoleInfo(RoleID) returns (Role); //
   rpc MenuInfo(MenuID) returns (Menu); //
   rpc UserPageSetInfo(UserID) returns(UserPageSet); //
+  rpc SetUserPageSet(SetUserPageSetRequest) returns(Empty);
 
   rpc AllRoleList (Empty) returns (AllRoleListResponse); //
   rpc PagingUserList(PagingRequest) returns (PagingUserListResponse); //
@@ -55,6 +56,15 @@ message PagingRequest {
 message UpdateUserRoleRequest {
   uint64 UserID = 1;
   repeated uint64 RoleList = 2;
+}
+
+message SetUserPageSetRequest {
+  uint64 UserID = 1;
+  string Avatar = 2;
+  string DefaultRouter = 3;
+  string SideMode = 4;
+  string ActiveTextColor = 5;
+  string TextColor = 6;
 }
 
 message SoftDeleteUserRequest{

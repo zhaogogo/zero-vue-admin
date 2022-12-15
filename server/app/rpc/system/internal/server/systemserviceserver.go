@@ -52,6 +52,11 @@ func (s *SystemServiceServer) UserPageSetInfo(ctx context.Context, in *pb.UserID
 	return l.UserPageSetInfo(in)
 }
 
+func (s *SystemServiceServer) SetUserPageSet(ctx context.Context, in *pb.SetUserPageSetRequest) (*pb.Empty, error) {
+	l := logic.NewSetUserPageSetLogic(ctx, s.svcCtx)
+	return l.SetUserPageSet(in)
+}
+
 func (s *SystemServiceServer) AllRoleList(ctx context.Context, in *pb.Empty) (*pb.AllRoleListResponse, error) {
 	l := logic.NewAllRoleListLogic(ctx, s.svcCtx)
 	return l.AllRoleList(in)

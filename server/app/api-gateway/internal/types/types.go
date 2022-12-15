@@ -16,6 +16,14 @@ type SoftDeleteUserRequest struct {
 	State  string `json:"state,optional" validate:"required,oneof='deleted' 'resume'"`
 }
 
+type UserPageRequest struct {
+	Avatar          string `json:"avatar,default=,optional"`
+	DefaultRouter   string `json:"defaultRouter,default=dashboard,optional" validate:"required"`
+	SideMode        string `json:"sideMode,default=#191a23,optional" validate:"required"`
+	ActiveTextColor string `json:"activeTextColor,default=#1890ff,optional" validate:"required"`
+	TextColor       string `json:"textColor,default=#fff,optional" validate:"required"`
+}
+
 type PagingUserRequest struct {
 	PagingCommonRequest
 }

@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"database/sql"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/mr"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
@@ -9,6 +10,7 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"golang.org/x/sync/errgroup"
+	"google.golang.org/grpc/status"
 	"strings"
 )
 
@@ -39,9 +41,15 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 		msgErrList         = errorx.MsgErrList{}
 		msg         string = "OK"
 	)
+
 	gCtx, _ := context.WithCancel(l.ctx)
 	g, _ := errgroup.WithContext(gCtx)
 	g.Go(func() error {
+		defer func() {
+			if e := recover(); e != nil {
+				logx.Error(e)
+			}
+		}()
 		//登陆时查询的用户已经过滤掉软删除用户
 		user, err = l.svcCtx.SystemRpcClient.UserInfo(l.ctx, &systemservice.UserID{ID: res.UserId})
 		if err != nil {
@@ -51,22 +59,36 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 		return nil
 	})
 	g.Go(func() error {
+		defer func() {
+			if e := recover(); e != nil {
+				logx.Error(e)
+			}
+		}()
 		userpageset, err = l.svcCtx.SystemRpcClient.UserPageSetInfo(l.ctx, &systemservice.UserID{ID: res.UserId})
 		if err != nil {
-			userpageset.ID = 0
-			userpageset.UserId = res.UserId
-			userpageset.Avatar = ""
-			userpageset.DefaultRouter = "dashboard"
-			userpageset.SideMode = "#191a23"
-			userpageset.ActiveTextColor = "#1890ff"
-			userpageset.TextColor = "#fff"
-
-			l.Error(err)
-			msgErrList.Append(err.Error())
+			s, _ := status.FromError(err)
+			if s.Message() == sql.ErrNoRows.Error() {
+				userpageset = new(systemservice.UserPageSet)
+				userpageset.ID = 0
+				userpageset.UserId = res.UserId
+				userpageset.Avatar = ""
+				userpageset.DefaultRouter = "dashboard"
+				userpageset.SideMode = "#191a23"
+				userpageset.ActiveTextColor = "#1890ff"
+				userpageset.TextColor = "#fff"
+			} else {
+				l.Error(err)
+				msgErrList.Append(err.Error())
+			}
 		}
 		return nil
 	})
 	g.Go(func() error {
+		defer func() {
+			if e := recover(); e != nil {
+				logx.Error(e)
+			}
+		}()
 		userrole, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, &systemservice.UserID{ID: res.UserId})
 		if err != nil {
 			l.Error(err)
@@ -105,6 +127,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 		return nil
 	})
 	g.Wait()
+
 	if len(msgErrList.List) != 0 {
 		msg = strings.Join(msgErrList.List, " | ")
 	}

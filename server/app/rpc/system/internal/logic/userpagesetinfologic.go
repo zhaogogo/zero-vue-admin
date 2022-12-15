@@ -43,5 +43,4 @@ func (l *UserPageSetInfoLogic) UserPageSetInfo(in *pb.UserID) (*pb.UserPageSet, 
 		ActiveTextColor: pageset.ActiveTextColor,
 		TextColor:       pageset.TextColor,
 	}, nil
-	return &pb.UserPageSet{}, nil
 }
