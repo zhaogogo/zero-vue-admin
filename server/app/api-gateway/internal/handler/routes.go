@@ -49,6 +49,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: systemuser.SoftDeleteUserHandler(serverCtx),
 				},
 				{
+					Method:  http.MethodDelete,
+					Path:    "/delete",
+					Handler: systemuser.DeleteHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/addUser",
+					Handler: systemuser.AddUserHandler(serverCtx),
+				},
+				{
 					Method:  http.MethodPut,
 					Path:    "/setuserpageset",
 					Handler: systemuser.SetUserPageHandler(serverCtx),

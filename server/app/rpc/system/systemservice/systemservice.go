@@ -13,31 +13,32 @@ import (
 )
 
 type (
-	AllRoleListResponse    = pb.AllRoleListResponse
-	ChangePasswordRequest  = pb.ChangePasswordRequest
-	Empty                  = pb.Empty
-	LoginRequest           = pb.LoginRequest
-	LoginResponse          = pb.LoginResponse
-	Menu                   = pb.Menu
-	MenuID                 = pb.MenuID
-	PagingRequest          = pb.PagingRequest
-	PagingUserListResponse = pb.PagingUserListResponse
-	Role                   = pb.Role
-	RoleID                 = pb.RoleID
-	RoleMenu               = pb.RoleMenu
-	RoleMenuList           = pb.RoleMenuList
-	SetUserPageSetRequest  = pb.SetUserPageSetRequest
-	SoftDeleteUserRequest  = pb.SoftDeleteUserRequest
-	Total                  = pb.Total
-	UpdateUserRoleRequest  = pb.UpdateUserRoleRequest
-	User                   = pb.User
-	UserID                 = pb.UserID
-	UserMenuParams         = pb.UserMenuParams
-	UserMenuParamsList     = pb.UserMenuParamsList
-	UserName               = pb.UserName
-	UserPageSet            = pb.UserPageSet
-	UserRole               = pb.UserRole
-	UserRoleList           = pb.UserRoleList
+	AddUserAndUserRoleRequest = pb.AddUserAndUserRoleRequest
+	AllRoleListResponse       = pb.AllRoleListResponse
+	ChangePasswordRequest     = pb.ChangePasswordRequest
+	Empty                     = pb.Empty
+	LoginRequest              = pb.LoginRequest
+	LoginResponse             = pb.LoginResponse
+	Menu                      = pb.Menu
+	MenuID                    = pb.MenuID
+	PagingRequest             = pb.PagingRequest
+	PagingUserListResponse    = pb.PagingUserListResponse
+	Role                      = pb.Role
+	RoleID                    = pb.RoleID
+	RoleMenu                  = pb.RoleMenu
+	RoleMenuList              = pb.RoleMenuList
+	SetUserPageSetRequest     = pb.SetUserPageSetRequest
+	SoftDeleteUserRequest     = pb.SoftDeleteUserRequest
+	Total                     = pb.Total
+	UpdateUserRoleRequest     = pb.UpdateUserRoleRequest
+	User                      = pb.User
+	UserID                    = pb.UserID
+	UserMenuParams            = pb.UserMenuParams
+	UserMenuParamsList        = pb.UserMenuParamsList
+	UserName                  = pb.UserName
+	UserPageSet               = pb.UserPageSet
+	UserRole                  = pb.UserRole
+	UserRoleList              = pb.UserRoleList
 
 	SystemService interface {
 		Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
@@ -56,6 +57,8 @@ type (
 		ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*Empty, error)
 		UpdateUserRole(ctx context.Context, in *UpdateUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 		SoftDeleteUser(ctx context.Context, in *SoftDeleteUserRequest, opts ...grpc.CallOption) (*Empty, error)
+		DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error)
+		AddUserAndUserRole(ctx context.Context, in *AddUserAndUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 		Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 	}
 
@@ -148,6 +151,16 @@ func (m *defaultSystemService) UpdateUserRole(ctx context.Context, in *UpdateUse
 func (m *defaultSystemService) SoftDeleteUser(ctx context.Context, in *SoftDeleteUserRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.SoftDeleteUser(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.DeleteUser(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) AddUserAndUserRole(ctx context.Context, in *AddUserAndUserRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.AddUserAndUserRole(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error) {

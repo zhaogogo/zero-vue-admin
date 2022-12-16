@@ -42,7 +42,8 @@ import {
     Tag,
     Switch,
     Tooltip,
-    Pagination
+    Pagination,
+    Popover
 } from 'element-ui';
 Vue.use(Dropdown)
 Vue.use(DropdownItem)
@@ -81,6 +82,7 @@ Vue.use(Tag)
 Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
+Vue.use(Popover)
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;

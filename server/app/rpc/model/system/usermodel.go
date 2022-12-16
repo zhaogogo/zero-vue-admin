@@ -22,6 +22,9 @@ type (
 		Total(ctx context.Context) (int64, error)
 		UpdateUserPassword(ctx context.Context, id uint64, pass string) error
 		UpdateDeleteColumn(ctx context.Context, userid uint64, deleteby string, deletetime sql.NullTime) error
+
+		TransCtx(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error
+		TransInsert(ctx context.Context, session sqlx.Session, data *User) (sql.Result, error)
 	}
 
 	customUserModel struct {
@@ -34,6 +37,22 @@ func NewUserModel(conn sqlx.SqlConn, c cache.CacheConf) UserModel {
 	return &customUserModel{
 		defaultUserModel: newUserModel(conn, c),
 	}
+}
+
+func (m *defaultUserModel) TransCtx(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error {
+	return m.TransactCtx(ctx, func(ctx context.Context, session sqlx.Session) error {
+		return fn(ctx, session)
+	})
+}
+
+func (m *defaultUserModel) TransInsert(ctx context.Context, session sqlx.Session, data *User) (sql.Result, error) {
+	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, data.Id)
+	chaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, data.Name)
+	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, userRowsExpectAutoSet)
+		return session.ExecCtx(ctx, query, data.Name, data.NickName, data.Password, data.Type, data.Email, data.Phone, data.Department, data.Position, data.CreateBy, data.UpdateBy, data.DeleteBy, data.DeleteTime, data.PageSetId)
+	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
+	return ret, err
 }
 
 func (m *defaultUserModel) FindOneByNameWHEREDeleteTimeISNULL(ctx context.Context, name string) (*User, error) {

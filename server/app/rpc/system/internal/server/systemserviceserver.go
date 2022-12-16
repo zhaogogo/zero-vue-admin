@@ -102,6 +102,16 @@ func (s *SystemServiceServer) SoftDeleteUser(ctx context.Context, in *pb.SoftDel
 	return l.SoftDeleteUser(in)
 }
 
+func (s *SystemServiceServer) DeleteUser(ctx context.Context, in *pb.UserID) (*pb.Empty, error) {
+	l := logic.NewDeleteUserLogic(ctx, s.svcCtx)
+	return l.DeleteUser(in)
+}
+
+func (s *SystemServiceServer) AddUserAndUserRole(ctx context.Context, in *pb.AddUserAndUserRoleRequest) (*pb.Empty, error) {
+	l := logic.NewAddUserAndUserRoleLogic(ctx, s.svcCtx)
+	return l.AddUserAndUserRole(in)
+}
+
 func (s *SystemServiceServer) Test(ctx context.Context, in *pb.Empty) (*pb.Total, error) {
 	l := logic.NewTestLogic(ctx, s.svcCtx)
 	return l.Test(in)

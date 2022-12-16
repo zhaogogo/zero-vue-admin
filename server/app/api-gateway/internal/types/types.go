@@ -8,11 +8,11 @@ type ChangePasswordRequest struct {
 
 type UpdateUserRoleRequest struct {
 	UserID   uint64   `json:"userId,optional" validate:"required"`
-	RoleList []uint64 `json:"roleList,optional" validate:"required"`
+	RoleList []uint64 `json:"roleList,optional"`
 }
 
 type SoftDeleteUserRequest struct {
-	UserID uint64 `json:"userId,optional" validate:"required,numeric,gte=1" comment="用户ID为必填项"`
+	UserID uint64 `json:"userId,optional" validate:"required,numeric,gte=2" comment="用户ID为必填项"`
 	State  string `json:"state,optional" validate:"required,oneof='deleted' 'resume'"`
 }
 
@@ -24,6 +24,10 @@ type UserPageRequest struct {
 	TextColor       string `json:"textColor,default=#fff,optional" validate:"required"`
 }
 
+type UserID struct {
+	ID uint64 `json:"id" validate:"required,numeric,gte=2"`
+}
+
 type PagingUserRequest struct {
 	PagingCommonRequest
 }
@@ -32,6 +36,25 @@ type PagingUserResponse struct {
 	HttpCommonResponse
 	PagingCommonResponse
 	List []User `json:"list"`
+}
+
+type AddUserRequest struct {
+	Name       string   `json:"name,optional" validate:"required,gte=5"`
+	NickName   string   `json:"nick_name,optional" validate:"required,gte=5"`
+	PassWord   string   `json:"password,optional" validate:"required,gte=5"`
+	UserType   int64    `json:"type,default=0,optional"`
+	Email      string   `json:"email,optional" validate:"required,email"`
+	Phone      int64    `json:"phone,optional" validate:"required,numeric,gte=10000000000,lte=19999999999"`
+	Department string   `json:"department,optional"`
+	Position   string   `json:"position,optional"`
+	CreateBy   string   `json:"createBy,optional"`
+	CreateTime int64    `json:"create_time,optional"`
+	UpdateBy   string   `json:"updateBy,optional"`
+	UpdateTime int64    `json:"update_time,optional"`
+	DeleteBy   string   `json:"deleteBy,optional"`
+	DeleteTime int64    `json:"delete_time,optional"`
+	State      string   `json:"state,optional"`    // todelete:用户已删除  resume:用户未删除
+	RoleList   []uint64 `json:"roleList,optional"` // 用户角色
 }
 
 type User struct {

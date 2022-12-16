@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="button-box clearflex">
+      <el-button size="mini" type="primary" icon="el-icon-plus" @click="addUser">新增用户</el-button>
+    </div>
     <el-table :data="tableData" border stripe row-key="id" @cell-click="rowClick">
         <el-table-column label="ID"  prop="id"></el-table-column>
         <el-table-column label="用户名"  prop="name" :show-overflow-tooltip="true"></el-table-column>
@@ -10,7 +13,7 @@
                 <el-input ref="inputpassword" v-if="isEdit[scope.row.id]" v-model="scope.row.password" type="password" @blur="changePassword(scope.row)"></el-input>
             </template>
         </el-table-column>
-        <el-table-column label="用户角色" prop="role">
+        <el-table-column label="用户角色" prop="role" min-width="170">
             <template slot-scope="scope">
                 <el-cascader
                     v-model="scope.row.roleList"
@@ -29,23 +32,23 @@
                 <el-tag v-show="(scope.row.type === 1)" type="success">LDAP用户</el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="邮箱"  prop="email"></el-table-column>
-        <el-table-column label="电话"  prop="phone"></el-table-column>
-        <el-table-column label="部门"  prop="department"></el-table-column>
-        <el-table-column label="职位"  prop="position"></el-table-column>
-        <el-table-column label="创建人"  prop="createBy"></el-table-column>
-        <el-table-column label="创建时间"  prop="create_time">
+        <el-table-column label="邮箱"  prop="email" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="电话"  prop="phone" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="部门"  prop="department" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="职位"  prop="position" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="创建人"  prop="createBy" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="创建时间"  prop="create_time" :show-overflow-tooltip="true">
             <template slot-scope="scope">
                 <div>{{parseTimeStamp(scope.row.create_time)}}</div>
             </template>
         </el-table-column>
-        <el-table-column label="修改人"  prop="updateBy"></el-table-column>
-        <el-table-column label="修改时间"  prop="update_time">
+        <el-table-column label="修改人"  prop="updateBy" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="修改时间"  prop="update_time" :show-overflow-tooltip="true">
             <template slot-scope="scope">
                 <div>{{parseTimeStamp(scope.row.update_time)}}</div>
             </template>
         </el-table-column>
-        <el-table-column label="删除人"  prop="deleteBy"></el-table-column>
+        <el-table-column label="删除人"  prop="deleteBy" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="软删除"  prop="delete_time">
             <template slot-scope="scope">
                 <el-tooltip :content="scope.row.delete_time<=0?'active':parseTimeStamp(scope.row.delete_time)" placement="top">
@@ -61,6 +64,24 @@
                 </el-tooltip>
             </template>
         </el-table-column>
+        <el-table-column label="操作" min-width="150" fixed="right">
+            <template slot-scope="scope">
+                <el-popover
+                    placement="top"
+                    width="160"
+                    trigger="hover"
+                    v-model="scope.row.visible"
+                >
+                    <p>确定要删除此用户吗</p>
+                    <div style="text-align: right; margin: 0">
+                        <el-button size="mini" type="text" @click="scope.row.visible = false">取消</el-button>
+                        <el-button size="mini" type="primary" @click="deleteUser(scope.row)">确定</el-button>
+                    </div>
+                    <el-button size="mini" type="text" icon="el-icon-delete" slot="reference">删除</el-button>
+                </el-popover>
+                <el-button size="mini" type="text" icon="el-icon-edit" @click="editUser(scope.row)">编辑</el-button>
+            </template>
+        </el-table-column>
     </el-table>
     <el-pagination
         :current-page="page"
@@ -72,6 +93,49 @@
         @current-change="handlePageChange"
         @size-change="handlePageSizeChange"
     ></el-pagination>
+
+    <el-dialog :visible.sync="dialogVisible" custom-class="user-dialog" :title="dialogTitle">
+        <el-form ref="userInfoFrom" :rules="rulesadduser" :model="userInfo">
+            <el-form-item label="用户名" label-width="80px" prop="name">
+                <el-input v-model="userInfo.name"></el-input>
+            </el-form-item>
+            <el-form-item label="昵称" label-width="80px" prop="nick_name">
+                <el-input v-model="userInfo.nick_name"></el-input>
+            </el-form-item>
+            <el-form-item v-if="dialogFlag === 'adduser'" label="密码" label-width="80px" prop="password">
+                <el-input show-password v-model="userInfo.password"></el-input>
+            </el-form-item>
+            <el-form-item v-if="dialogFlag === 'adduser'" label="确认密码" label-width="80px" prop="confirmPassword">
+                <el-input show-password v-model="userInfo.confirmPassword"></el-input>
+            </el-form-item>
+            <el-form-item v-if="dialogFlag === 'adduser'" label="角色" label-width="80px" prop="roleList">
+                <el-cascader
+                    v-model="userInfo.roleList"
+                    :options="roleOptions"
+                    :props="{ checkStrictly: true,label:'roleName',value:'roleid',disabled:'disabled', emitPath:false, multiple: true}"
+                    clearable
+                    filterable
+                >
+                </el-cascader>
+            </el-form-item>
+            <el-form-item label="邮箱" label-width="80px" prop="email">
+                <el-input v-model="userInfo.email"></el-input>
+            </el-form-item>
+            <el-form-item label="电话" label-width="80px" prop="phone">
+                <el-input v-model.number="userInfo.phone"></el-input>
+            </el-form-item>
+            <el-form-item label="部门" label-width="80px" prop="department">
+                <el-input v-model="userInfo.department"></el-input>
+            </el-form-item>
+            <el-form-item label="职位" label-width="80px" prop="postition">
+                <el-input v-model="userInfo.postition"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="closeDialog">取 消</el-button>
+            <el-button type="primary" @click="enterDialog">确 定</el-button>
+        </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -81,7 +145,9 @@ import {
     getPagingUser,
     softDeleteUser,
     changeUserPassword,
-    updateUserRole
+    updateUserRole,
+    deleteUser,
+    addUser
 } from '@/api/user/user'
 import {
     getAllRole
@@ -90,13 +156,71 @@ export default {
     name: "User",
     mixins: [infoList],
     data(){
+        var validatePhone = (rule, value, callback) => {
+            const v = value + "a"
+            if (v.length !== 12) {
+                callback(new Error('电话长度为11位'));
+            } else {
+                callback();
+            }
+        };
         return {
+            listApi: getPagingUser,
             isEdit: [],
-            roleOptions: [],
             roleOptions: [],
             roleProps: { multiple: true },
             softDeleteValue: "todelete",
-            listApi: getPagingUser
+            dialogVisible: false,
+            dialogFlag: "",
+            dialogTitle: "",
+            userInfo:{
+                name: "",
+                nick_name:"",
+                password: "",
+                confirmPassword: "",
+                email: "",
+                phone: undefined,
+                department: "",
+                postition: "",
+                roleList:[],
+            },
+            rulesadduser: {
+                name:[
+                    { required: true, message: "输入用户名", trigger: "blur" },
+                    { min: 5, message: "大于5个字符", trigger: "blur" }
+                ],
+                nick_name:[
+                    { required: true, message: "输入用户昵称", trigger: "blur" },
+                    { min: 2, message: "大于5个字符", trigger: "blur" }
+                ],
+                password: [
+                    { required: true, message: "输入用户密码", trigger: "blur" },
+                    { min: 5, message: "大于5个字符", trigger: "blur" }
+                ],
+                confirmPassword: [
+                    { required: true, message: "确认用户密码", trigger: "blur" },
+                    { min: 5, message: "大于5个字符", trigger: "blur" },
+                    { 
+                        validator: (rule, value, callback) => {
+                            if (value !== this.userInfo.password) {
+                                callback(new Error("两次密码不一致"))
+                            }else {
+                                callback()
+                            }
+                        },
+                        trigger: "blur" 
+                    }
+                ],
+                email: [
+                    { required: true, message: "请输入邮箱地址", trigger: "blur"},
+                    { type: "email", message: "请输入正确的邮箱地址", trigger:["blur","change"]}
+                ],
+                phone: [
+                    { required: true, message: "输入电话", trigger: "blur" },
+                    { type: "number", message: "请输入正确的电话", trigger: "blur"},
+                    { validator: validatePhone, trigger: "blur"}
+                ]
+            }
         }
     },
     async created(){
@@ -153,7 +277,6 @@ export default {
             }
         },
         async changePassword(row){
-            console.log("---->", row.password)
             const res = await changeUserPassword({id: row.id, password: row.password})
             if (res.code === 200) {
                 this.$set(this.isEdit,row.id,false)
@@ -191,11 +314,72 @@ export default {
                 })
             }
             this.getTableData()
+        },
+        //删除用户
+        async deleteUser(row) {
+            const res = await deleteUser({id: row.id})
+            if (res.code === 200) {
+                this.getTableData()
+                row.visible = false
+            }else {
+                this.$message({
+                    type:"error",
+                    message: res.msg
+                })
+            }
+        },
+        //添加用户
+        addUser(){
+            this.dialogFlag = "adduser"
+            this.dialogTitle = "新增用户"
+            this.dialogVisible = true
+
+        },
+        editUser(row) {
+            this.userInfo.name = row.name
+            this.userInfo.nick_name = row.nick_name
+            this.userInfo.email = row.email
+            this.userInfo.phone = parseInt(row.phone)
+            this.userInfo.department = row.department
+            this.userInfo.postition = row.postition
+            this.dialogFlag = "edituser"
+            this.dialogTitle = "编辑用户"
+            this.dialogVisible = true
+        },
+        closeDialog(){
+            this.$refs.userInfoFrom.resetFields()
+            this.dialogFlag = ""
+            this.dialogTitle = ""
+            this.dialogVisible = false
+        },
+        async enterDialog(){
+            this.$refs.userInfoFrom.validate(async valid => {
+                if (valid) {
+                    if (this.dialogFlag === "adduser") {
+                        const res = await addUser(this.userInfo)      
+                        if (res.code === 200) {
+                            this.$message({type:"success", message: res.msg})
+                            this.getTableData()
+                        }else {
+                            this.$message({type: "error", message: res.msg})
+                        }
+                        this.closeDialog()
+                    }else if (this.dialogFlag === "edituser"){
+                        console.log(this.userInfo)
+                        this.closeDialog()
+                    }
+                }
+            })
         }
     }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.button-box {
+  padding: 10px 20px;
+  .el-button {
+    float: right;
+  }
+}
 </style>

@@ -38,6 +38,8 @@ type SystemServiceClient interface {
 	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*Empty, error)
 	UpdateUserRole(ctx context.Context, in *UpdateUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 	SoftDeleteUser(ctx context.Context, in *SoftDeleteUserRequest, opts ...grpc.CallOption) (*Empty, error)
+	DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error)
+	AddUserAndUserRole(ctx context.Context, in *AddUserAndUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 	Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 }
 
@@ -193,6 +195,24 @@ func (c *systemServiceClient) SoftDeleteUser(ctx context.Context, in *SoftDelete
 	return out, nil
 }
 
+func (c *systemServiceClient) DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/DeleteUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) AddUserAndUserRole(ctx context.Context, in *AddUserAndUserRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/AddUserAndUserRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *systemServiceClient) Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error) {
 	out := new(Total)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/Test", in, out, opts...)
@@ -222,6 +242,8 @@ type SystemServiceServer interface {
 	ChangePassword(context.Context, *ChangePasswordRequest) (*Empty, error)
 	UpdateUserRole(context.Context, *UpdateUserRoleRequest) (*Empty, error)
 	SoftDeleteUser(context.Context, *SoftDeleteUserRequest) (*Empty, error)
+	DeleteUser(context.Context, *UserID) (*Empty, error)
+	AddUserAndUserRole(context.Context, *AddUserAndUserRoleRequest) (*Empty, error)
 	Test(context.Context, *Empty) (*Total, error)
 	mustEmbedUnimplementedSystemServiceServer()
 }
@@ -277,6 +299,12 @@ func (UnimplementedSystemServiceServer) UpdateUserRole(context.Context, *UpdateU
 }
 func (UnimplementedSystemServiceServer) SoftDeleteUser(context.Context, *SoftDeleteUserRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SoftDeleteUser not implemented")
+}
+func (UnimplementedSystemServiceServer) DeleteUser(context.Context, *UserID) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
+}
+func (UnimplementedSystemServiceServer) AddUserAndUserRole(context.Context, *AddUserAndUserRoleRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddUserAndUserRole not implemented")
 }
 func (UnimplementedSystemServiceServer) Test(context.Context, *Empty) (*Total, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
@@ -582,6 +610,42 @@ func _SystemService_SoftDeleteUser_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SystemService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).DeleteUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/DeleteUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).DeleteUser(ctx, req.(*UserID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_AddUserAndUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUserAndUserRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).AddUserAndUserRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/AddUserAndUserRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).AddUserAndUserRole(ctx, req.(*AddUserAndUserRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SystemService_Test_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Empty)
 	if err := dec(in); err != nil {
@@ -670,6 +734,14 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SoftDeleteUser",
 			Handler:    _SystemService_SoftDeleteUser_Handler,
+		},
+		{
+			MethodName: "DeleteUser",
+			Handler:    _SystemService_DeleteUser_Handler,
+		},
+		{
+			MethodName: "AddUserAndUserRole",
+			Handler:    _SystemService_AddUserAndUserRole_Handler,
 		},
 		{
 			MethodName: "Test",

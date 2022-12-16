@@ -40,6 +40,13 @@ export const softDeleteUser = (data) => {
     })
 }
 
+export const deleteUser = (data) => {
+    return service({
+        url: "/api/v1/system/user/delete",
+        method:"DELETE",
+        data
+    })
+}
 
 export const setUserPageSet = (data) => {
     return service({
@@ -49,10 +56,11 @@ export const setUserPageSet = (data) => {
     })
 }
 
-export const getAllUser = (data) => {
+export const addUser = (data) => {
     return service({
-        url: "/api/v1/usercenter/getalluser",
-        method: "GET",
+        url: "/api/v1/system/user/addUser",
+        method:"POST",
+        data
     })
 }
 

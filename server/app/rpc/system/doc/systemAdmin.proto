@@ -26,6 +26,8 @@ service SystemService {
   rpc ChangePassword(ChangePasswordRequest)returns(Empty);
   rpc UpdateUserRole(UpdateUserRoleRequest) returns(Empty);
   rpc SoftDeleteUser(SoftDeleteUserRequest)returns(Empty);
+  rpc DeleteUser(UserID) returns(Empty);
+  rpc AddUserAndUserRole(AddUserAndUserRoleRequest) returns(Empty);
 
   rpc Test(Empty) returns (Total);
 }
@@ -51,6 +53,11 @@ message Empty {}
 message PagingRequest {
   int64 Page = 1;
   int64 PageSize = 2;
+}
+
+message AddUserAndUserRoleRequest {
+    User User = 1;
+    repeated uint64 RoleList = 2;
 }
 
 message UpdateUserRoleRequest {
