@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="button-box clearflex">
-      <el-button size="mini" type="primary" icon="el-icon-plus" @click="addUser">新增用户</el-button>
+        <el-input style="width:30%" placeholder="搜索用户" v-model="searchInfo.nameX" clearable @change="searchUser"></el-input>
+        <el-button size="mini" type="primary" icon="el-icon-plus" @click="addUser">新增用户</el-button>
     </div>
     <el-table :data="tableData" border stripe row-key="id" @cell-click="rowClick">
         <el-table-column label="ID"  prop="id"></el-table-column>
@@ -94,13 +95,22 @@
         @size-change="handlePageSizeChange"
     ></el-pagination>
 
-    <el-dialog :visible.sync="dialogVisible" custom-class="user-dialog" :title="dialogTitle">
+    <el-dialog :visible.sync="dialogVisible" custom-class="user-dialog" :title="dialogTitle" :before-close="closeDialog">
         <el-form ref="userInfoFrom" :rules="rulesadduser" :model="userInfo">
+            <el-form-item label="用户ID" label-width="80px" prop="id">
+                <el-input v-model.number="userInfo.id" :disabled="true"></el-input>
+            </el-form-item>
             <el-form-item label="用户名" label-width="80px" prop="name">
                 <el-input v-model="userInfo.name"></el-input>
             </el-form-item>
             <el-form-item label="昵称" label-width="80px" prop="nick_name">
                 <el-input v-model="userInfo.nick_name"></el-input>
+            </el-form-item>
+            <el-form-item v-if="dialogFlag === 'adduser'" label="用户类型" prop="type">
+                <el-radio-group v-model.number="userInfo.type">
+                    <el-radio :label="0">本地用户</el-radio>
+                    <el-radio :label="1">LDAP用户</el-radio>
+                </el-radio-group>
             </el-form-item>
             <el-form-item v-if="dialogFlag === 'adduser'" label="密码" label-width="80px" prop="password">
                 <el-input show-password v-model="userInfo.password"></el-input>
@@ -147,7 +157,9 @@ import {
     changeUserPassword,
     updateUserRole,
     deleteUser,
-    addUser
+    addUser,
+    editUser,
+    getUserInfo
 } from '@/api/user/user'
 import {
     getAllRole
@@ -174,15 +186,17 @@ export default {
             dialogFlag: "",
             dialogTitle: "",
             userInfo:{
+                id: "",
                 name: "",
                 nick_name:"",
+                type: "",
                 password: "",
                 confirmPassword: "",
                 email: "",
-                phone: undefined,
+                phone: "",
                 department: "",
                 postition: "",
-                roleList:[],
+                roleList:[]
             },
             rulesadduser: {
                 name:[
@@ -192,6 +206,9 @@ export default {
                 nick_name:[
                     { required: true, message: "输入用户昵称", trigger: "blur" },
                     { min: 2, message: "大于5个字符", trigger: "blur" }
+                ],
+                type: [
+                    { required: true, message: "选择用户类型", trigger: "change" },
                 ],
                 password: [
                     { required: true, message: "输入用户密码", trigger: "blur" },
@@ -266,6 +283,31 @@ export default {
             this.roleOptions = []
             this.setRoleOptions(roleData, this.roleOptions)
         },
+        initForm(){
+            this.$refs.userInfoFrom.resetFields()
+            this.dialogFlag = ""
+            this.dialogTitle = ""
+            this.userInfo = {
+                id: "",
+                name: "",
+                nick_name:"",
+                type: "",
+                password: "",
+                confirmPassword: "",
+                email: "",
+                phone: "",
+                department: "",
+                postition: "",
+                roleList:[]
+            }
+        },
+        handleClose(){
+            this.initForm()
+        },
+        closeDialog(){
+            this.initForm()
+            this.dialogVisible = false
+        },
         rowClick(row, column, cell, event) {
             //判断是否是需要编辑的列 再改变对应的值
             if(column.property == 'password') {
@@ -332,25 +374,24 @@ export default {
         addUser(){
             this.dialogFlag = "adduser"
             this.dialogTitle = "新增用户"
+            this.userInfo.type = 0
             this.dialogVisible = true
+        },
+        async editUser(row) {
+            const res = await getUserInfo(row.id)
+            if (res.code === 200) {
+                // this.userInfo = JSON.parse(JSON.stringify(row))
+                this.userInfo = JSON.parse(JSON.stringify(res.userInfo))
+                this.userInfo.phone = parseInt(this.userInfo.phone)
+                this.dialogFlag = "edituser"
+                this.dialogTitle = "编辑用户"
+                this.dialogVisible = true
+            }
 
         },
-        editUser(row) {
-            this.userInfo.name = row.name
-            this.userInfo.nick_name = row.nick_name
-            this.userInfo.email = row.email
-            this.userInfo.phone = parseInt(row.phone)
-            this.userInfo.department = row.department
-            this.userInfo.postition = row.postition
-            this.dialogFlag = "edituser"
-            this.dialogTitle = "编辑用户"
-            this.dialogVisible = true
-        },
-        closeDialog(){
-            this.$refs.userInfoFrom.resetFields()
-            this.dialogFlag = ""
-            this.dialogTitle = ""
-            this.dialogVisible = false
+        searchUser() {
+            console.log("searchInfo", this.searchUserInfo)
+            this.getTableData()
         },
         async enterDialog(){
             this.$refs.userInfoFrom.validate(async valid => {
@@ -360,13 +401,15 @@ export default {
                         if (res.code === 200) {
                             this.$message({type:"success", message: res.msg})
                             this.getTableData()
-                        }else {
-                            this.$message({type: "error", message: res.msg})
+                            this.closeDialog()
                         }
-                        this.closeDialog()
                     }else if (this.dialogFlag === "edituser"){
-                        console.log(this.userInfo)
-                        this.closeDialog()
+                        const res = await editUser(this.userInfo) 
+                        if (res.code === 200) {
+                            this.$message({type:"success", message: res.msg})
+                            this.closeDialog()
+                            this.getTableData()
+                        }
                     }
                 }
             })

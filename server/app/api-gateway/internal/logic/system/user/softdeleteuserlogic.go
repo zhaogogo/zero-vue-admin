@@ -3,7 +3,6 @@ package user
 import (
 	"context"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/utils"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -27,17 +26,11 @@ func NewSoftDeleteUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *So
 }
 
 func (l *SoftDeleteUserLogic) SoftDeleteUser(req *types.SoftDeleteUserRequest) (resp *types.HttpCommonResponse, err error) {
-	userid, err := utils.GetUserIdWithJWT(l.ctx)
+	username := l.ctx.Value("userName").(string)
+	param := &systemservice.SoftDeleteUserRequest{UserID: req.UserID, DeleteBy: username, State: req.State}
+	_, err = l.svcCtx.SystemRpcClient.SoftDeleteUser(l.ctx, param)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.PARSE_JWTTOKE_NERROR)
-	}
-	user, err := l.svcCtx.SystemRpcClient.UserInfo(l.ctx, &systemservice.UserID{ID: userid})
-	if err != nil {
-		return nil, err
-	}
-	_, err = l.svcCtx.SystemRpcClient.SoftDeleteUser(l.ctx, &systemservice.SoftDeleteUserRequest{UserID: req.UserID, DeleteBy: user.Name, State: req.State})
-	if err != nil {
-		return nil, err
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.SoftDeleteUser", err.Error(), param)
 	}
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
 }

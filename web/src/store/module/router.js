@@ -35,8 +35,11 @@ const actions = {
         if (userMenus.code != 200) {
             return false
         }
-        const asyncRouter = userMenus && userMenus.menus
+        var asyncRouter = userMenus && userMenus.menus
         //返回的是一个数组 因为第二个操作数是 数组 且第一个操作数是对象为true
+        if (asyncRouter === null) {
+            var asyncRouter = new Array()
+        }
         asyncRouter.push({
             path: '404',
             name: '404',
@@ -45,6 +48,15 @@ const actions = {
                 title: '迷路了*.*'
             },
             component: 'view/error/index.vue'
+        })
+        asyncRouter.push({
+            path: 'persionhome',
+            name: 'persionhome',
+            hidden: true,
+            meta: {
+                title: 'home'
+            },
+            component: 'view/home/index.vue'
         })
         formatRouter(asyncRouter)
         baseRouter[0].children = asyncRouter

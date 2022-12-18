@@ -35,6 +35,13 @@ service.interceptors.response.use(
         //     store.commit("user/SETTOKEN",response.headers["new-token"])
         // }
         if (response.status === 200) {
+            if (response.data.code !== 200) {
+                Message({
+                    type: "error",
+                    showClose: true,
+                    message: response.data.msg
+                })
+            }
             return response.data
         } else {
             console.log("logout.........")

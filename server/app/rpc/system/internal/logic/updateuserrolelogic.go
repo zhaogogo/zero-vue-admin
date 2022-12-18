@@ -35,6 +35,7 @@ func (l *UpdateUserRoleLogic) UpdateUserRole(in *pb.UpdateUserRoleRequest) (*pb.
 		if len(in.RoleList) == 0 {
 			return nil
 		}
+
 		rest, err := l.svcCtx.UserRoleModel.TranInsertUserIDRoleIDs(l.ctx, session, in.UserID, in.RoleList)
 		if err != nil {
 			return errors.Wrap(err, "新增用户权限失败")

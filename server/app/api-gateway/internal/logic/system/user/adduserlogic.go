@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
@@ -25,8 +26,8 @@ func NewAddUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddUserLo
 }
 
 func (l *AddUserLogic) AddUser(req *types.AddUserRequest) (resp *types.HttpCommonResponse, err error) {
-	username := l.ctx.Value("c-UserName").(string)
-	_, err = l.svcCtx.SystemRpcClient.AddUserAndUserRole(l.ctx, &systemservice.AddUserAndUserRoleRequest{
+	username := l.ctx.Value("userName").(string)
+	param := &systemservice.AddUserAndUserRoleRequest{
 		User: &systemservice.User{
 			ID:         0,
 			Name:       req.Name,
@@ -42,9 +43,10 @@ func (l *AddUserLogic) AddUser(req *types.AddUserRequest) (resp *types.HttpCommo
 			DeleteBy:   "",
 		},
 		RoleList: req.RoleList,
-	})
+	}
+	_, err = l.svcCtx.SystemRpcClient.AddUserAndUserRole(l.ctx, param)
 	if err != nil {
-		return nil, err
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.AddUserAndUserRole", err.Error(), param)
 	}
 
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil

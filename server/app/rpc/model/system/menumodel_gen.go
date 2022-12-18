@@ -22,15 +22,17 @@ var (
 	menuRowsExpectAutoSet   = strings.Join(stringx.Remove(menuFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), ",")
 	menuRowsWithPlaceHolder = strings.Join(stringx.Remove(menuFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), "=?,") + "=?"
 
-	cacheChaosSystemMenuIdPrefix       = "cache:chaosSystem:menu:id:"
-	cacheChaosSystemMenuNamePathPrefix = "cache:chaosSystem:menu:name:path:"
+	cacheChaosSystemMenuIdPrefix   = "cache:chaosSystem:menu:id:"
+	cacheChaosSystemMenuNamePrefix = "cache:chaosSystem:menu:name:"
+	cacheChaosSystemMenuPathPrefix = "cache:chaosSystem:menu:path:"
 )
 
 type (
 	menuModel interface {
 		Insert(ctx context.Context, data *Menu) (sql.Result, error)
 		FindOne(ctx context.Context, id uint64) (*Menu, error)
-		FindOneByNamePath(ctx context.Context, name string, path string) (*Menu, error)
+		FindOneByName(ctx context.Context, name string) (*Menu, error)
+		FindOneByPath(ctx context.Context, path string) (*Menu, error)
 		Update(ctx context.Context, data *Menu) error
 		Delete(ctx context.Context, id uint64) error
 	}
@@ -48,8 +50,8 @@ type (
 		Component  string       `db:"component"` // 对应前端文件路径
 		Title      string       `db:"title"`     // 附加属性
 		Icon       string       `db:"icon"`      // 附加属性
-		Sort       int64        `db:"sort"`
-		Hidden     int64        `db:"hidden"` // 是否隐藏 0 false/1 true
+		Sort       int64        `db:"sort"`      // 排序
+		Hidden     int64        `db:"hidden"`    // 是否隐藏 0 false/1 true
 		CreateTime time.Time    `db:"create_time"`
 		UpdateTime time.Time    `db:"update_time"`
 		DeleteTime sql.NullTime `db:"delete_time"`
@@ -70,11 +72,12 @@ func (m *defaultMenuModel) Delete(ctx context.Context, id uint64) error {
 	}
 
 	chaosSystemMenuIdKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuIdPrefix, id)
-	chaosSystemMenuNamePathKey := fmt.Sprintf("%s%v:%v", cacheChaosSystemMenuNamePathPrefix, data.Name, data.Path)
+	chaosSystemMenuNameKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuNamePrefix, data.Name)
+	chaosSystemMenuPathKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuPathPrefix, data.Path)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
 		return conn.ExecCtx(ctx, query, id)
-	}, chaosSystemMenuIdKey, chaosSystemMenuNamePathKey)
+	}, chaosSystemMenuIdKey, chaosSystemMenuNameKey, chaosSystemMenuPathKey)
 	return err
 }
 
@@ -95,12 +98,32 @@ func (m *defaultMenuModel) FindOne(ctx context.Context, id uint64) (*Menu, error
 	}
 }
 
-func (m *defaultMenuModel) FindOneByNamePath(ctx context.Context, name string, path string) (*Menu, error) {
-	chaosSystemMenuNamePathKey := fmt.Sprintf("%s%v:%v", cacheChaosSystemMenuNamePathPrefix, name, path)
+func (m *defaultMenuModel) FindOneByName(ctx context.Context, name string) (*Menu, error) {
+	chaosSystemMenuNameKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuNamePrefix, name)
 	var resp Menu
-	err := m.QueryRowIndexCtx(ctx, &resp, chaosSystemMenuNamePathKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
-		query := fmt.Sprintf("select %s from %s where `name` = ? and `path` = ? limit 1", menuRows, m.table)
-		if err := conn.QueryRowCtx(ctx, &resp, query, name, path); err != nil {
+	err := m.QueryRowIndexCtx(ctx, &resp, chaosSystemMenuNameKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
+		query := fmt.Sprintf("select %s from %s where `name` = ? limit 1", menuRows, m.table)
+		if err := conn.QueryRowCtx(ctx, &resp, query, name); err != nil {
+			return nil, err
+		}
+		return resp.Id, nil
+	}, m.queryPrimary)
+	switch err {
+	case nil:
+		return &resp, nil
+	case sqlc.ErrNotFound:
+		return nil, ErrNotFound
+	default:
+		return nil, err
+	}
+}
+
+func (m *defaultMenuModel) FindOneByPath(ctx context.Context, path string) (*Menu, error) {
+	chaosSystemMenuPathKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuPathPrefix, path)
+	var resp Menu
+	err := m.QueryRowIndexCtx(ctx, &resp, chaosSystemMenuPathKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
+		query := fmt.Sprintf("select %s from %s where `path` = ? limit 1", menuRows, m.table)
+		if err := conn.QueryRowCtx(ctx, &resp, query, path); err != nil {
 			return nil, err
 		}
 		return resp.Id, nil
@@ -117,11 +140,12 @@ func (m *defaultMenuModel) FindOneByNamePath(ctx context.Context, name string, p
 
 func (m *defaultMenuModel) Insert(ctx context.Context, data *Menu) (sql.Result, error) {
 	chaosSystemMenuIdKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuIdPrefix, data.Id)
-	chaosSystemMenuNamePathKey := fmt.Sprintf("%s%v:%v", cacheChaosSystemMenuNamePathPrefix, data.Name, data.Path)
+	chaosSystemMenuNameKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuNamePrefix, data.Name)
+	chaosSystemMenuPathKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuPathPrefix, data.Path)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, menuRowsExpectAutoSet)
 		return conn.ExecCtx(ctx, query, data.ParentId, data.Name, data.Path, data.Component, data.Title, data.Icon, data.Sort, data.Hidden, data.DeleteTime)
-	}, chaosSystemMenuIdKey, chaosSystemMenuNamePathKey)
+	}, chaosSystemMenuIdKey, chaosSystemMenuNameKey, chaosSystemMenuPathKey)
 	return ret, err
 }
 
@@ -132,11 +156,12 @@ func (m *defaultMenuModel) Update(ctx context.Context, newData *Menu) error {
 	}
 
 	chaosSystemMenuIdKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuIdPrefix, data.Id)
-	chaosSystemMenuNamePathKey := fmt.Sprintf("%s%v:%v", cacheChaosSystemMenuNamePathPrefix, data.Name, data.Path)
+	chaosSystemMenuNameKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuNamePrefix, data.Name)
+	chaosSystemMenuPathKey := fmt.Sprintf("%s%v", cacheChaosSystemMenuPathPrefix, data.Path)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, menuRowsWithPlaceHolder)
 		return conn.ExecCtx(ctx, query, newData.ParentId, newData.Name, newData.Path, newData.Component, newData.Title, newData.Icon, newData.Sort, newData.Hidden, newData.DeleteTime, newData.Id)
-	}, chaosSystemMenuIdKey, chaosSystemMenuNamePathKey)
+	}, chaosSystemMenuIdKey, chaosSystemMenuNameKey, chaosSystemMenuPathKey)
 	return err
 }
 

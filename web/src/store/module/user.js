@@ -10,7 +10,7 @@ const getDefaultState = () =>{
             name: "",
             nick_name: "",
             avatar: "",
-            defaultRouter: "dashboard",
+            defaultRouter: "",
             sideMode: '#191a23',
             activeTextColor: '#1890ff',
             textColor: "#fff"

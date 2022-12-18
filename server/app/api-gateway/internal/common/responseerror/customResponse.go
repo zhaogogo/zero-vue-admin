@@ -4,14 +4,16 @@ import (
 	"database/sql"
 	"github.com/pkg/errors"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"net/http"
 
 	"google.golang.org/grpc/status"
 )
 
 type ErrorResponse struct {
-	Code     int32  `json:"code"`
-	Msg      string `json:"msg"`
-	CauseErr string `json:"cause_err"`
+	Code     int32       `json:"code"`
+	Msg      string      `json:"msg"`
+	Meta     interface{} `json:"meta"`
+	CauseErr string      `json:"cause_err"`
 }
 
 /*
@@ -23,9 +25,9 @@ func ErrorHandle(err error) (int, interface{}) {
 	switch e := causeErr.(type) {
 	case *errorx.Errorx: //自定义错误
 		if e.Code == errorx.UNAUTHORIZATION {
-			return 401, ErrorResponse{Code: int32(e.Code), Msg: e.Msg, CauseErr: e.Cause.Error()}
+			return http.StatusUnauthorized, ErrorResponse{Code: int32(e.Code), Msg: e.Msg, CauseErr: e.Cause.Error(), Meta: e.Meta}
 		}
-		return 200, ErrorResponse{Code: int32(e.Code), Msg: e.Msg, CauseErr: e.Cause.Error()}
+		return 200, ErrorResponse{Code: int32(e.Code), Msg: e.Msg, CauseErr: e.Cause.Error(), Meta: e.Meta}
 	default:
 		//fmt.Printf("=====>  default  %T %v\n", err, err)
 		//=====>  default  *status.Error      rpc error: code = Unavailable desc = last resolver error: produced zero addresses

@@ -10,25 +10,28 @@ const (
 	USERPASSWORDERROR
 	UNAUTHORIZATION
 	USER_PERMISSION_REJECT
-	TOKEN_GENERATE_ERROR
-	PARSE_JWTTOKE_NERROR
+	JWT_TOKEN_GENERATE_ERROR
+	JWT_TOKEN_PARAM_GET_NERROR
 	DB_ERROR
 	DB_NOTFOUND
 	DB_UPDATE_AFFECTED_ZERO_ERROR
+
+	Validate_RegisterDefaultTranslations_ERROR
 )
 
 var message = map[ErrorCode]string{
-	SERVER_COMMON_ERROR:           "服务内部错误",
-	REUQEST_PARAM_ERROR:           "请求参数错误",
-	GRPC_ERROR:                    "GRPC错误",
-	USERPASSWORDERROR:             "用户名密码错误",
-	UNAUTHORIZATION:               "认证错误",
-	USER_PERMISSION_REJECT:        "用户权限被拒绝",
-	PARSE_JWTTOKE_NERROR:          "解析JWT Token失败",
-	TOKEN_GENERATE_ERROR:          "TOKEN生成失败",
-	DB_ERROR:                      "数据库错误",
-	DB_NOTFOUND:                   "数据库无记录",
-	DB_UPDATE_AFFECTED_ZERO_ERROR: "更新数据影响行数为0",
+	SERVER_COMMON_ERROR:                        "服务内部错误",
+	REUQEST_PARAM_ERROR:                        "请求参数错误",
+	GRPC_ERROR:                                 "GRPC错误",
+	USERPASSWORDERROR:                          "用户名密码错误",
+	UNAUTHORIZATION:                            "认证错误",
+	USER_PERMISSION_REJECT:                     "用户权限被拒绝",
+	JWT_TOKEN_PARAM_GET_NERROR:                 "JWT TOKEN参数获取失败",
+	JWT_TOKEN_GENERATE_ERROR:                   "JWT TOKEN生成失败",
+	DB_ERROR:                                   "数据库错误",
+	DB_NOTFOUND:                                "数据库无记录",
+	DB_UPDATE_AFFECTED_ZERO_ERROR:              "更新数据影响行数为0",
+	Validate_RegisterDefaultTranslations_ERROR: "注册默认翻译失败",
 }
 
 func ErrorxMessage(errorxcode ErrorCode) string {

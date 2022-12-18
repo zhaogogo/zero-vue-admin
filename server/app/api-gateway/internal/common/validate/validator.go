@@ -23,18 +23,18 @@ func StructExceptCtx(ctx context.Context, v interface{}, field ...string) error 
 	uni := ut.New(zh_cn)
 	trans, ok := uni.GetTranslator("zh")
 	if ok {
-		return errorx.New(errors.New("validate未找到指定地区的翻译程序"), errorx.SERVER_COMMON_ERROR, "validate未找到指定地区的翻译程序")
+		return errorx.NewByCode(errors.New("validate未找到指定地区的翻译程序"), errorx.SERVER_COMMON_ERROR)
 	}
 
 	if err := zh_translations.RegisterDefaultTranslations(validate, trans); err != nil {
-		return errorx.New(err, errorx.SERVER_COMMON_ERROR, "注册默认翻译失败")
+		return errorx.NewByCode(err, errorx.Validate_RegisterDefaultTranslations_ERROR)
 	}
 	if err := validate.StructExceptCtx(ctx, v, field...); err != nil {
-		errmsg := ""
+		e := errorx.NewByCode(err, errorx.REUQEST_PARAM_ERROR)
 		for _, err := range err.(validator.ValidationErrors) {
-			errmsg += err.Translate(trans) + "\n"
+			e.WithMeta("", "", err.Translate(trans))
 		}
-		return errorx.New(err, errorx.REUQEST_PARAM_ERROR, errmsg)
+		return e
 	}
 	return nil
 }

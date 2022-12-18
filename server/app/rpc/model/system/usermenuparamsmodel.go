@@ -21,6 +21,7 @@ type (
 	UserMenuParamsModel interface {
 		userMenuParamsModel
 		FindByUserID(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserMenuParams, error)
+		FindAll_NC(ctx context.Context) ([]UserMenuParams, error)
 	}
 
 	customUserMenuParamsModel struct {
@@ -66,4 +67,18 @@ func (m *defaultUserMenuParamsModel) FindByUserID(ctx context.Context, redis *re
 	}
 
 	return nil, err
+}
+
+func (m *defaultUserMenuParamsModel) FindAll_NC(ctx context.Context) ([]UserMenuParams, error) {
+	var resp []UserMenuParams
+	query := fmt.Sprintf("select %s from %s", userMenuParamsRows, m.table)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	if err != nil {
+		return nil, err
+	}
+	if len(resp) == 0 {
+		return nil, ErrNotFound
+	}
+
+	return resp, nil
 }

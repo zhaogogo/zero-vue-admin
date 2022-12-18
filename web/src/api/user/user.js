@@ -15,6 +15,20 @@ export const getPagingUser = (data) => {
     })
 }
 
+export const getUserInfo = (id) => {
+    return service({
+        url:"/api/v1/system/user/" + id,
+        method: "GET"
+    })
+}
+
+export const getAllUser = () => {
+    return service({
+        url:"/api/v1/system/user/alluser",
+        method: "GET"
+    })
+}
+
 export const changeUserPassword = (data) => {
     return service({
         url: "/api/v1/system/user/changeUserPassword",
@@ -60,6 +74,14 @@ export const addUser = (data) => {
     return service({
         url: "/api/v1/system/user/addUser",
         method:"POST",
+        data
+    })
+}
+
+export const editUser = (data) => {
+    return service({
+        url:"/api/v1/system/user/editUser",
+        method: "POST",
         data
     })
 }

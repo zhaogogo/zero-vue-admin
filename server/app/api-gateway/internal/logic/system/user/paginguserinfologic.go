@@ -6,12 +6,10 @@ import (
 	"fmt"
 	"github.com/zeromicro/go-zero/core/mr"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
-	"google.golang.org/grpc/status"
-	"strings"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
+	"google.golang.org/grpc/status"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -31,25 +29,41 @@ func NewPagingUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Pa
 }
 
 func (l *PagingUserInfoLogic) PagingUserInfo(req *types.PagingUserRequest) (resp *types.PagingUserResponse, err error) {
-	userlist, err := l.svcCtx.SystemRpcClient.PagingUserList(l.ctx, &systemservice.PagingRequest{Page: req.Page, PageSize: req.PageSize})
+	var total int64
+	var msgErrList = errorx.MsgErrList{}
+
+	userTotalParam := &systemservice.Empty{}
+	ptotal, err := l.svcCtx.SystemRpcClient.UserTotal(l.ctx, userTotalParam)
+	if err != nil {
+		s, _ := status.FromError(err)
+		if s.Message() == sql.ErrNoRows.Error() {
+		} else {
+			msgErrList.WithMeta("SystemRpcClient.UserTotal", err.Error(), userTotalParam)
+		}
+	}
+	if ptotal != nil {
+		total = ptotal.Total
+	}
+
+	pagingUserParam := &systemservice.PagingUserListRequest{Page: req.Page, PageSize: req.PageSize, NameX: req.NameX}
+	userlist, err := l.svcCtx.SystemRpcClient.PagingUserList(l.ctx, pagingUserParam)
 	if err != nil {
 		e, _ := status.FromError(err)
 		if e.Message() == sql.ErrNoRows.Error() {
 			return &types.PagingUserResponse{
 				HttpCommonResponse:   types.HttpCommonResponse{Code: 200, Msg: "OK"},
-				PagingCommonResponse: types.PagingCommonResponse{Page: req.Page, PageSize: req.PageSize, Total: userlist.Total},
+				PagingCommonResponse: types.PagingCommonResponse{Page: req.Page, PageSize: req.PageSize, Total: total},
 				List:                 []types.User{},
 			}, nil
 		}
-		return nil, err
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("PagingUserList", err.Error(), pagingUserParam)
 	}
+
 	var (
 		state = map[bool]string{
 			true:  "deleted",
 			false: "resume",
 		}
-		msgErrList = errorx.MsgErrList{}
-		msg        = "OK"
 	)
 	list := []types.User{}
 	for _, user := range userlist.List {
@@ -83,10 +97,11 @@ func (l *PagingUserInfoLogic) PagingUserInfo(req *types.PagingUserRequest) (resp
 		},
 		func(item interface{}, writer mr.Writer, cancel func(error)) {
 			userid := item.(uint64)
-			userroles, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, &systemservice.UserID{ID: userid})
+			getUserRoleByUserIDParam := &systemservice.UserID{ID: userid}
+			userroles, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, getUserRoleByUserIDParam)
 			if err != nil {
 				l.Error(err)
-				msgErrList.Append(fmt.Sprintf("获取用户角色错误 [user_id: %d, error: %v]", userid, err.Error()))
+				msgErrList.WithMeta("GetUserRoleByUserID", err.Error(), getUserRoleByUserIDParam)
 				return
 			}
 
@@ -110,12 +125,17 @@ func (l *PagingUserInfoLogic) PagingUserInfo(req *types.PagingUserRequest) (resp
 			}
 		},
 	)
-	if len(msgErrList.List) != 0 {
-		msg = strings.Join(msgErrList.List, " | ")
+
+	var (
+		msg     = "OK"
+		elcount = len(msgErrList.List)
+	)
+	if elcount != 0 {
+		msg = fmt.Sprintf("Not OK(%d)", elcount)
 	}
 	return &types.PagingUserResponse{
-		HttpCommonResponse:   types.HttpCommonResponse{Code: 200, Msg: msg},
-		PagingCommonResponse: types.PagingCommonResponse{Page: req.Page, PageSize: req.PageSize, Total: int64(len(list))},
+		HttpCommonResponse:   types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList.List},
+		PagingCommonResponse: types.PagingCommonResponse{Page: req.Page, PageSize: req.PageSize, Total: total},
 		List:                 list,
 	}, nil
 }

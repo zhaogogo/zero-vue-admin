@@ -12,7 +12,7 @@ import "common.api"
 
 @server(
     jwt: Auth
-    middleware: Casbin,CheckUserExists
+    middleware: ParseJWTToken,CheckUserExists
     group: system/menu
     prefix: /api/v1/system/menu
 )
@@ -21,7 +21,25 @@ service ApiGateway-api {
     @handler UserMenus
     get /usermenus returns (UserMenuResponse)
 }
+@server(
+    jwt: Auth
+    middleware: ParseJWTToken,CheckUserExists,Casbin
+    group: system/menu
+    prefix: /api/v1/system/menu
+)
+service ApiGateway-api {
+    @doc "获取全部菜单"
+    @handler AllMenu
+    get /allmenu returns (AllMenuResponse)
 
+    @doc "获取菜单详情"
+    @handler MenuInfo
+    get /:id (MenuInfoRequest) returns (MenuInfoResponse)
+
+    @doc "新增菜单"
+    @handler AddMenu
+    post /addmenu (AddMenuRequest) returns (HttpCommonResponse)
+}
 //----------------------------------------------
 // 用户动态路由菜单
 //----------------------------------------------
@@ -29,6 +47,11 @@ type (
     UserMenuResponse struct {
         HttpCommonResponse
         Menus []Menu `json:"menus"`
+    }
+    AllMenuResponse struct {
+        HttpCommonResponse
+        Total int64 `json:"total"`
+        List []Menu `json:"list"`
     }
 )
 
@@ -43,13 +66,15 @@ type (
         Path string `json:"path"`
         Component string `json:"component"`
         Sort int64 `json:"sort"`
+        Hidden bool `json:"hidden"`
         MenuMeta MenuMeta `json:"meta"`
         Children []Menu `json:"children,omitempty"`
         Parameters []Parameter `json:"parameters"`
     }
     Parameter struct {
+        ID uint64 `json:"id"`
         UserID uint64 `json:"user_id"`
-        MenuID uint64 `json:"menuId"`
+        MenuID uint64 `json:"menu_id"`
         Type string `json:"type"`
         Key string `json:"key"`
         Value string `json:"value"`
@@ -59,3 +84,29 @@ type (
         Icon string `json:"icon"`
     }
 )
+//----------------------------------------------
+// 获取菜单详情
+//----------------------------------------------
+type (
+    MenuInfoRequest {
+
+    }
+    MenuInfoResponse{
+        HttpCommonResponse
+        MenuInfo Menu `json:"menuInfo"`
+    }
+)
+
+//----------------------------------------------
+// 新增菜单
+//----------------------------------------------
+type AddMenuRequest struct {
+    ParentID uint64 `json:"parentId,optional" validate:"numeric,gte=0"`
+    Name string `json:"name,optional" validate:"required"`
+    Path string `json:"path,optional" validate:"required"`
+    Component string `json:"component,optional" validate:"required"`
+    Title string `json:"title,optional" validate:"required"`
+    Icon string `json:"icon,optional"`
+    Sort int64 `json:"sort,optional"`
+    Hidden bool `json:"hidden,optional"`
+}

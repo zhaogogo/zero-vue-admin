@@ -10,21 +10,19 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 )
 
-func DeleteHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func UserInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.DeleteUserRequest
+		var req types.UserInfoRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
 		}
-
 		if err := validate.StructExceptCtx(r.Context(), req); err != nil {
 			httpx.Error(w, err)
 			return
 		}
-
-		l := user.NewDeleteLogic(r.Context(), svcCtx)
-		resp, err := l.Delete(&req)
+		l := user.NewUserInfoLogic(r.Context(), svcCtx)
+		resp, err := l.UserInfo(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

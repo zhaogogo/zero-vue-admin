@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/mr"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
@@ -11,7 +12,6 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc/status"
-	"strings"
 )
 
 type LoginLogic struct {
@@ -29,17 +29,17 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, err error) {
-	res, err := l.svcCtx.SystemRpcClient.Login(l.ctx, &systemservice.LoginRequest{Name: req.UserName, PassWord: req.PassWord})
+	loginParam := &systemservice.LoginRequest{Name: req.UserName, PassWord: req.PassWord}
+	res, err := l.svcCtx.SystemRpcClient.Login(l.ctx, loginParam)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.USERPASSWORDERROR)
+		return nil, errorx.NewByCode(err, errorx.USERPASSWORDERROR).WithMeta("*SystemRpcClient.Login", err.Error(), loginParam)
 	}
 
 	var (
 		userpageset *systemservice.UserPageSet
 		user        *systemservice.User
-		rolelist           = []string{}
-		msgErrList         = errorx.MsgErrList{}
-		msg         string = "OK"
+		rolelist    = []string{}
+		msgErrList  = errorx.MsgErrList{}
 	)
 
 	gCtx, _ := context.WithCancel(l.ctx)
@@ -51,10 +51,11 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 			}
 		}()
 		//登陆时查询的用户已经过滤掉软删除用户
-		user, err = l.svcCtx.SystemRpcClient.UserInfo(l.ctx, &systemservice.UserID{ID: res.UserId})
+		userInfoParam := &systemservice.UserID{ID: res.UserId}
+		user, err = l.svcCtx.SystemRpcClient.UserInfo(l.ctx, userInfoParam)
 		if err != nil {
 			l.Error(err)
-			msgErrList.Append(err.Error())
+			msgErrList.WithMeta("SystemRpcClient.UserInfo", err.Error(), userInfoParam)
 		}
 		return nil
 	})
@@ -64,7 +65,8 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 				logx.Error(e)
 			}
 		}()
-		userpageset, err = l.svcCtx.SystemRpcClient.UserPageSetInfo(l.ctx, &systemservice.UserID{ID: res.UserId})
+		userPageSetParam := &systemservice.UserID{ID: res.UserId}
+		userpageset, err = l.svcCtx.SystemRpcClient.UserPageSetInfo(l.ctx, userPageSetParam)
 		if err != nil {
 			s, _ := status.FromError(err)
 			if s.Message() == sql.ErrNoRows.Error() {
@@ -78,7 +80,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 				userpageset.TextColor = "#fff"
 			} else {
 				l.Error(err)
-				msgErrList.Append(err.Error())
+				msgErrList.WithMeta("SystemRpcClient.UserPageSetInfo", err.Error(), userPageSetParam)
 			}
 		}
 		return nil
@@ -89,10 +91,11 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 				logx.Error(e)
 			}
 		}()
-		userrole, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, &systemservice.UserID{ID: res.UserId})
+		getUserRoleByIDParam := &systemservice.UserID{ID: res.UserId}
+		userrole, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, getUserRoleByIDParam)
 		if err != nil {
 			l.Error(err)
-			msgErrList.Append(err.Error())
+			msgErrList.WithMeta("SystemRpcClient.GetUserRoleByUserID", err.Error(), getUserRoleByIDParam)
 			return nil
 		}
 
@@ -104,9 +107,10 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 			},
 			func(item interface{}, writer mr.Writer, cancel func(error)) {
 				roleid := item.(uint64)
-				if role, err := l.svcCtx.SystemRpcClient.RoleInfo(l.ctx, &systemservice.RoleID{ID: roleid}); err != nil {
+				roleInfoParam := &systemservice.RoleID{ID: roleid}
+				if role, err := l.svcCtx.SystemRpcClient.RoleInfo(l.ctx, roleInfoParam); err != nil {
 					l.Error(err)
-					msgErrList.Append(err.Error())
+					msgErrList.WithMeta("SystemRpcClient.RoleInfo", err.Error(), roleInfoParam)
 				} else {
 					writer.Write(role)
 				}
@@ -128,11 +132,12 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 	})
 	g.Wait()
 
+	var msg string = "OK"
 	if len(msgErrList.List) != 0 {
-		msg = strings.Join(msgErrList.List, " | ")
+		msg = fmt.Sprintf("Not OK(%d)", len(msgErrList.List))
 	}
 	return &types.LoginResponse{
-		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: msg},
+		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList.List},
 		Token:              res.GetToken(),
 		ExpireAt:           res.GetExporeAt(),
 		RefreshAfter:       res.GetRefreshAfter(),

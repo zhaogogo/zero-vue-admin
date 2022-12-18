@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -25,9 +26,10 @@ func NewUpdateUserRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Up
 }
 
 func (l *UpdateUserRoleLogic) UpdateUserRole(req *types.UpdateUserRoleRequest) (resp *types.HttpCommonResponse, err error) {
-	_, err = l.svcCtx.SystemRpcClient.UpdateUserRole(l.ctx, &systemservice.UpdateUserRoleRequest{UserID: req.UserID, RoleList: req.RoleList})
+	param := &systemservice.UpdateUserRoleRequest{UserID: req.UserID, RoleList: req.RoleList}
+	_, err = l.svcCtx.SystemRpcClient.UpdateUserRole(l.ctx, param)
 	if err != nil {
-		return nil, err
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.UpdateUserRole", err.Error(), param)
 	}
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
 }

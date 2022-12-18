@@ -14,7 +14,7 @@ type (
 	// and implement the added methods in customRoleModel.
 	RoleModel interface {
 		roleModel
-		FindAll(ctx context.Context) ([]Role, error)
+		FindAll_NC(ctx context.Context) ([]Role, error)
 	}
 
 	customRoleModel struct {
@@ -29,7 +29,7 @@ func NewRoleModel(conn sqlx.SqlConn, c cache.CacheConf) RoleModel {
 	}
 }
 
-func (m *defaultRoleModel) FindAll(ctx context.Context) ([]Role, error) {
+func (m *defaultRoleModel) FindAll_NC(ctx context.Context) ([]Role, error) {
 	var resp []Role
 	query := fmt.Sprintf("SELECT %s FROM %s", roleRows, m.table)
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)

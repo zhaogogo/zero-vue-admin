@@ -8,9 +8,12 @@ import (
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"github.com/zeromicro/go-zero/core/stringx"
+	"strings"
 )
 
 var _ UserModel = (*customUserModel)(nil)
+var userRowsWithPlaceHolderWithOutPassword = strings.Join(stringx.Remove(userFieldNames, "`id`", "`password`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), "=?,") + "=?"
 
 type (
 	// UserModel is an interface to be customized, add more methods here,
@@ -18,13 +21,16 @@ type (
 	UserModel interface {
 		userModel
 		FindOneByNameWHEREDeleteTimeISNULL(ctx context.Context, name string) (*User, error)
-		FindListPaging(ctx context.Context, page int64, pageSize int64) ([]User, error)
-		Total(ctx context.Context) (int64, error)
+		FindPagingList_NC(ctx context.Context, r *PagingUserList) ([]User, error)
+		FindAll_NC(ctx context.Context) ([]User, error)
+		Total_NC(ctx context.Context) (int64, error)
 		UpdateUserPassword(ctx context.Context, id uint64, pass string) error
 		UpdateDeleteColumn(ctx context.Context, userid uint64, deleteby string, deletetime sql.NullTime) error
+		UpdateWithOutPassword(ctx context.Context, newData *User) error
 
 		TransCtx(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error
 		TransInsert(ctx context.Context, session sqlx.Session, data *User) (sql.Result, error)
+		TransDelete(ctx context.Context, session sqlx.Session, id uint64) error
 	}
 
 	customUserModel struct {
@@ -55,6 +61,21 @@ func (m *defaultUserModel) TransInsert(ctx context.Context, session sqlx.Session
 	return ret, err
 }
 
+func (m *defaultUserModel) TransDelete(ctx context.Context, session sqlx.Session, id uint64) error {
+	data, err := m.FindOne(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, id)
+	chaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, data.Name)
+	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
+		return session.ExecCtx(ctx, query, id)
+	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
+	return err
+}
+
 func (m *defaultUserModel) FindOneByNameWHEREDeleteTimeISNULL(ctx context.Context, name string) (*User, error) {
 	cacheChaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, name)
 	var resp User
@@ -75,9 +96,22 @@ func (m *defaultUserModel) FindOneByNameWHEREDeleteTimeISNULL(ctx context.Contex
 	}
 }
 
-func (m *defaultUserModel) FindListPaging(ctx context.Context, page int64, pageSize int64) ([]User, error) {
-	var resp []User
-	query := fmt.Sprintf("SELECT %s FROM %s LIMIT %d OFFSET %d", userRows, m.table, pageSize, (page-1)*pageSize)
+type PagingUserList struct {
+	Page     int64
+	PageSize int64
+	NameX    string
+}
+
+func (m *defaultUserModel) FindPagingList_NC(ctx context.Context, r *PagingUserList) ([]User, error) {
+	var (
+		resp  []User
+		query = ""
+	)
+	if r.NameX == "" {
+		query = fmt.Sprintf("SELECT %s FROM %s LIMIT %d OFFSET %d", userRows, m.table, r.PageSize, (r.Page-1)*r.PageSize)
+	} else {
+		query = fmt.Sprintf("SELECT %s FROM %s WHERE `name` LIKE \"%%%s%%\" OR `nick_name` LIKE \"%%%s%%\" OR `email` LIKE \"%%%s%%\" LIMIT %d OFFSET %d", userRows, m.table, r.NameX, r.NameX, r.NameX, r.PageSize, (r.Page-1)*r.PageSize)
+	}
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	if err != nil {
 		return nil, err
@@ -89,7 +123,21 @@ func (m *defaultUserModel) FindListPaging(ctx context.Context, page int64, pageS
 	return resp, nil
 }
 
-func (m *defaultUserModel) Total(ctx context.Context) (int64, error) {
+func (m *defaultUserModel) FindAll_NC(ctx context.Context) ([]User, error) {
+	var resp []User
+	query := fmt.Sprintf("SELECT %s FROM %s", userRows, m.table)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	if err != nil {
+		return nil, err
+	}
+	if len(resp) == 0 {
+		return nil, ErrNotFound
+	}
+
+	return resp, nil
+}
+
+func (m *defaultUserModel) Total_NC(ctx context.Context) (int64, error) {
 	var total int64
 	query := fmt.Sprintf("SELECT count(*) AS total FROM %s", m.table)
 	err := m.QueryRowNoCache(&total, query)
@@ -101,6 +149,22 @@ func (m *defaultUserModel) Total(ctx context.Context) (int64, error) {
 	default:
 		return 0, err
 	}
+}
+
+func (m *defaultUserModel) UpdateWithOutPassword(ctx context.Context, newData *User) error {
+	data, err := m.FindOne(ctx, newData.Id)
+	if err != nil {
+		return err
+	}
+
+	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, data.Id)
+	chaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, data.Name)
+	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, userRowsWithPlaceHolderWithOutPassword)
+		fmt.Println(query)
+		return conn.ExecCtx(ctx, query, newData.Name, newData.NickName, data.Type, newData.Email, newData.Phone, newData.Department, newData.Position, data.CreateBy, newData.UpdateBy, data.DeleteBy, data.DeleteTime, data.PageSetId, newData.Id)
+	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
+	return err
 }
 
 func (m *defaultUserModel) UpdateUserPassword(ctx context.Context, id uint64, pass string) error {

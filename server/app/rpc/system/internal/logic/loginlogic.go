@@ -39,17 +39,17 @@ func (l *LoginLogic) Login(in *pb.LoginRequest) (*pb.LoginResponse, error) {
 	if err := utils.CheckPassword(in.PassWord, user.Password); err != nil {
 		return nil, errors.Wrap(err, "密码错误")
 	}
-	roleid := []uint64{}
-	userroles, err := l.svcCtx.UserRoleModel.FindByUserID(l.ctx, l.svcCtx.Redis, user.Id)
-	if err != nil {
-		logx.Error(err)
-	} else {
-		for _, userrole := range userroles {
-			roleid = append(roleid, userrole.RoleId)
-		}
-	}
+	//roleid := []uint64{}
+	//userroles, err := l.svcCtx.UserRoleModel.FindByUserID(l.ctx, l.svcCtx.Redis, user.Id)
+	//if err != nil {
+	//	logx.Error(err)
+	//} else {
+	//	for _, userrole := range userroles {
+	//		roleid = append(roleid, userrole.RoleId)
+	//	}
+	//}
 
-	token, expire, refresh, err := l.genJWTToken(user.Id, roleid)
+	token, expire, refresh, err := l.genJWTToken(user.Id, user.Name)
 	if err != nil {
 		return nil, errors.Wrap(err, "生成token失败")
 	}
@@ -70,14 +70,14 @@ nbf (Not Before)：生效时间
 iat (Issued At)：签发时间
 jti (JWT ID)：编号
 */
-func (l *LoginLogic) genJWTToken(userID uint64, roleid []uint64) (t string, expire int64, refresh int64, err error) {
+func (l *LoginLogic) genJWTToken(userID uint64, userName string) (t string, expire int64, refresh int64, err error) {
 	now := time.Now().Unix()
 	accessExpire := l.svcCtx.Config.JWT.AccessExpire
 	claims := make(jwt.MapClaims)
 	claims["exp"] = now + accessExpire
 	claims["iat"] = now
 	claims["userID"] = userID
-	claims["roleIDs"] = roleid
+	claims["userName"] = userName
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
 	t, err = token.SignedString([]byte(l.svcCtx.Config.JWT.AccessSecret))

@@ -3,16 +3,15 @@ package menu
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/mr"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/utils"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
 	"sort"
-	"strings"
 )
 
 type UserMenusLogic struct {
@@ -33,17 +32,18 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 	var (
 		setMenus   = make(map[uint64]int)
 		menus      []types.Menu
-		msgErrList        = errorx.MsgErrList{}
-		msg        string = "OK"
+		msgErrList = errorx.MsgErrList{}
 	)
-	userid, err := utils.GetUserIdWithJWT(l.ctx)
-	if err != nil {
-		return nil, errorx.New(err, errorx.SERVER_COMMON_ERROR, "JWT转换用户ID类型失败")
-	}
 
-	userroles, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, &systemservice.UserID{ID: userid})
+	userid := l.ctx.Value("user_id").(uint64)
+	param := &systemservice.UserID{ID: userid}
+	userroles, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, param)
 	if err != nil {
-		return nil, err
+		s, _ := status.FromError(err)
+		if s.Message() == sql.ErrNoRows.Error() {
+			return &types.UserMenuResponse{HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"}, Menus: nil}, nil
+		}
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.GetUserRoleByUserID", err.Error(), param)
 	}
 
 	// 获取menuid列表
@@ -55,10 +55,11 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 		},
 		func(item interface{}, writer mr.Writer, cancel func(error)) {
 			roleid := item.(uint64)
-			roleMenu, err := l.svcCtx.SystemRpcClient.GetRoleMenuByRoleID(l.ctx, &systemservice.RoleID{ID: roleid})
+			getRoleMenuByRoleIDParam := &systemservice.RoleID{ID: roleid}
+			roleMenu, err := l.svcCtx.SystemRpcClient.GetRoleMenuByRoleID(l.ctx, getRoleMenuByRoleIDParam)
 			if err != nil {
 				l.Error(err)
-				msgErrList.Append(err.Error())
+				msgErrList.WithMeta("SystemRpcClient.GetRoleMenuByRoleID", err.Error(), getRoleMenuByRoleIDParam)
 			} else {
 				writer.Write(roleMenu)
 			}
@@ -86,10 +87,11 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 		},
 		func(item interface{}, writer mr.Writer, cancel func(error)) {
 			menuid := item.(uint64)
-			menuInfo, err := l.svcCtx.SystemRpcClient.MenuInfo(l.ctx, &systemservice.MenuID{ID: menuid})
+			menuInfoParam := &systemservice.MenuID{ID: menuid}
+			menuInfo, err := l.svcCtx.SystemRpcClient.MenuInfo(l.ctx, menuInfoParam)
 			if err != nil {
 				l.Error(err)
-				msgErrList.Append(err.Error())
+				msgErrList.WithMeta("SystemRpcClient.MenuInfo", err.Error(), menuInfoParam)
 			} else {
 				if menuInfo.DeleteTime == 0 {
 					writer.Write(menuInfo)
@@ -113,15 +115,17 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 	)
 	// 获取参数
 	params := []types.Parameter{}
-	userMenuParams, err := l.svcCtx.SystemRpcClient.GetUserMenuParams(l.ctx, &systemservice.UserID{ID: userid})
+	getUserMenuParamsParam := &systemservice.UserID{ID: userid}
+	userMenuParams, err := l.svcCtx.SystemRpcClient.GetUserMenuParams(l.ctx, getUserMenuParamsParam)
 	s, _ := status.FromError(err)
 	if s.Message() == sql.ErrNoRows.Error() {
-
+		msgErrList.WithMeta("SystemRpcClient.GetUserMenuParams", err.Error(), getUserMenuParamsParam)
 	} else if err != nil {
-		msgErrList.Append(err.Error())
+		msgErrList.WithMeta("SystemRpcClient.GetUserMenuParams", err.Error(), getUserMenuParamsParam)
 	} else {
 		for _, p := range userMenuParams.UserMenuParams {
 			params = append(params, types.Parameter{
+				ID:     p.ID,
 				UserID: p.UserID,
 				MenuID: p.MenuID,
 				Type:   p.Type,
@@ -133,11 +137,16 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 
 	menuTree := genMenuTreeMap(menus, params)
 
-	if len(msgErrList.List) != 0 {
-		msg = strings.Join(msgErrList.List, " | ")
+	var (
+		msg   string = "OK"
+		count int    = len(msgErrList.List)
+	)
+
+	if count != 0 {
+		msg = fmt.Sprintf("Not OK(%d)", count)
 	}
 	return &types.UserMenuResponse{
-		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: msg},
+		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList.List},
 		Menus:              menuTree,
 	}, nil
 }
@@ -146,11 +155,14 @@ func genMenuTreeMap(menus []types.Menu, params []types.Parameter) []types.Menu {
 	sort.Slice(menus, func(i, j int) bool {
 		return menus[i].Sort < menus[j].Sort
 	})
+	sort.Slice(params, func(i, j int) bool {
+		return params[i].UserID < params[j].UserID
+	})
 	var treeMap = make(map[uint64][]types.Menu)
 	for _, menu := range menus {
 		for _, param := range params {
 			if param.MenuID == menu.ID {
-				menu.Parameters = append(menu.Parameters, types.Parameter{UserID: param.UserID, MenuID: param.MenuID, Type: param.Type, Key: param.Key, Value: param.Value})
+				menu.Parameters = append(menu.Parameters, types.Parameter{ID: param.ID, UserID: param.UserID, MenuID: param.MenuID, Type: param.Type, Key: param.Key, Value: param.Value})
 			}
 		}
 		treeMap[menu.ParentId] = append(treeMap[menu.ParentId], menu)

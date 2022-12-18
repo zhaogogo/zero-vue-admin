@@ -15,6 +15,7 @@ type ServiceContext struct {
 	Config          config.Config
 	Casbin          rest.Middleware
 	CheckUserExists rest.Middleware
+	ParseJWTToken   rest.Middleware
 	SystemRpcClient systemservice.SystemService
 }
 
@@ -32,6 +33,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:          c,
 		Casbin:          middleware.NewCasbinMiddleware().Handle,
 		CheckUserExists: middleware.NewCheckUserExistsMiddleware().Handle,
+		ParseJWTToken:   middleware.NewParseJWTTokenMiddleware().Handle,
 		SystemRpcClient: systemservice.NewSystemService(zrpc.MustNewClient(c.SystemAdminRpcConf)),
 	}
 

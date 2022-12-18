@@ -14,5 +14,5 @@ g = _, _
 e = some(where (p.eft == allow))
 
 [matchers]
-m = r.sub == p.sub && ParamsMatch(r.obj,p.obj) && r.act == p.act
+m = r.sub == p.sub && ParamsMatch(r.obj,p.obj) && r.act == p.act || r.obj == "/api/v1/system/user/persionhome" || r.obj == "/api/v1/system/menu/usermenus"
 `

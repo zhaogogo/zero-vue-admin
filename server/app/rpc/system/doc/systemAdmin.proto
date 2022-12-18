@@ -8,33 +8,41 @@ import "google/protobuf/empty.proto";
 
 service SystemService {
   rpc Login (LoginRequest) returns(LoginResponse); //
-  rpc UserInfoByName(UserName) returns(User); //
+
   rpc UserInfo(UserID) returns (User); //
-  rpc RoleInfo(RoleID) returns (Role); //
-  rpc MenuInfo(MenuID) returns (Menu); //
-  rpc UserPageSetInfo(UserID) returns(UserPageSet); //
-  rpc SetUserPageSet(SetUserPageSetRequest) returns(Empty);
-
-  rpc AllRoleList (Empty) returns (AllRoleListResponse); //
-  rpc PagingUserList(PagingRequest) returns (PagingUserListResponse); //
+  rpc UserInfoByName(UserName) returns(User); //
+  rpc PagingUserList(PagingUserListRequest) returns (PagingUserListResponse); //
   rpc UserTotal(Empty) returns (Total); //
-
-  rpc GetUserRoleByUserID(UserID) returns (UserRoleList);
-  rpc GetRoleMenuByRoleID(RoleID) returns (RoleMenuList);
-  rpc GetUserMenuParams(UserID) returns (UserMenuParamsList);
-
-  rpc ChangePassword(ChangePasswordRequest)returns(Empty);
-  rpc UpdateUserRole(UpdateUserRoleRequest) returns(Empty);
+  rpc AddUserAndUserRole(AddUserAndUserRoleRequest) returns(Empty);
   rpc SoftDeleteUser(SoftDeleteUserRequest)returns(Empty);
   rpc DeleteUser(UserID) returns(Empty);
-  rpc AddUserAndUserRole(AddUserAndUserRoleRequest) returns(Empty);
+  rpc ChangePassword(ChangePasswordRequest)returns(Empty);
+  rpc EditUserInfo(EditUserInfoRequest) returns(Empty);
+
+  rpc UserPageSetInfo(UserID) returns(UserPageSet); //
+  rpc SetUserPageSet(SetUserPageSetRequest) returns(Empty);
+  rpc GetUserMenuParams(UserID) returns (UserMenuParamsList);
+  rpc AllUserMenuParams(Empty) returns (UserMenuParamsList);
+
+  rpc GetUserRoleByUserID(UserID) returns (UserRoleList);
+  rpc UpdateUserRole(UpdateUserRoleRequest) returns(Empty);
+
+  rpc RoleInfo(RoleID) returns (Role); //
+  rpc AllRoleList (Empty) returns (AllRoleListResponse); //
+
+  rpc MenuInfo(MenuID) returns (Menu); //
+  rpc AllMenuList(Empty) returns (AllMenuListResponse);
+  rpc AddMenu(AddMenuRequest) returns (Empty);
+  rpc EditMenu(EditMenuRequest) returns (Empty);
+  rpc GetRoleMenuByRoleID(RoleID) returns (RoleMenuList);
 
   rpc Test(Empty) returns (Total);
 }
 
-message MenuID {
-  uint64 ID = 1;
-}
+//-------------------
+//请求
+//-------------------
+message Empty {}
 
 message UserID {
   uint64 ID = 1;
@@ -48,16 +56,28 @@ message RoleID {
   uint64 ID = 1;
 }
 
-message Empty {}
+message MenuID {
+  uint64 ID = 1;
+}
 
-message PagingRequest {
-  int64 Page = 1;
-  int64 PageSize = 2;
+message Total{
+  int64 Total = 1;
+}
+
+message EditUserInfoRequest {
+  uint64 ID = 1;
+  string Name = 2;
+  string NickName = 3;
+  string Email = 4;
+  string Phone = 5;
+  string Department = 6;
+  string Position = 7;
+  string UpdateBy = 8;
 }
 
 message AddUserAndUserRoleRequest {
-    User User = 1;
-    repeated uint64 RoleList = 2;
+  User User = 1;
+  repeated uint64 RoleList = 2;
 }
 
 message UpdateUserRoleRequest {
@@ -80,28 +100,68 @@ message SoftDeleteUserRequest{
   string State = 3;
 }
 
-message Total{
-  int64 Total = 1;
-}
-
-message AllRoleListResponse {
-  repeated Role List = 1;
-}
-
-message PagingUserListResponse {
-  repeated User List = 1;
-  int64 Total = 2;
-}
-
-message UserMenuParamsList {
-  repeated UserMenuParams UserMenuParams = 1;
-}
-
 message ChangePasswordRequest {
   uint64 ID = 1;
   string Password = 2;
 }
 
+message AddMenuRequest{
+  uint64 ParentID = 1;
+  string Name = 2;
+  string Path = 3;
+  string Component = 4;
+  string Title = 5;
+  string Icon =  6;
+  int64  sort = 7;
+  int64 Hiddent = 8;
+}
+
+message EditMenuRequest{
+  uint64 id = 1;
+  uint64 ParentID = 1;
+  string Name = 2;
+  string Path = 3;
+  string Component = 4;
+  string Title = 5;
+  string Icon =  6;
+  int64  sort = 7;
+  int64 Hiddent = 8;
+}
+
+//-------------
+//请求响应
+message PagingUserListRequest {
+  int64 Page = 1;
+  int64 PageSize = 2;
+  string NameX = 3;
+}
+
+message PagingUserListResponse {
+  repeated User List = 1;
+}
+
+//---------
+message AllRoleListResponse {
+  repeated Role List = 1;
+}
+
+message AllMenuListResponse {
+  repeated Menu List = 1;
+}
+
+
+message UserMenuParamsList {
+  repeated UserMenuParams UserMenuParams = 1;
+}
+
+message RoleMenuList {
+  repeated RoleMenu Rolemenu = 1;
+}
+
+message UserRoleList {
+  repeated UserRole UserRole = 1;
+}
+//user_menu_params模型
 message UserMenuParams {
   uint64 ID = 1;
   uint64 UserID = 2;
@@ -110,7 +170,7 @@ message UserMenuParams {
   string Key = 5;
   string Value = 6;
 }
-
+//menu模型
 message Menu {
   uint64 ID = 1;
   uint64 ParentID = 2;
@@ -125,27 +185,18 @@ message Menu {
   int64 UpdateTime = 11;
   int64 DeleteTime = 12;
 }
-
-message RoleMenuList {
-  repeated RoleMenu Rolemenu = 1;
-}
-
+//roleMenu模型
 message RoleMenu {
   uint64 id = 1;
   uint64 MenuID = 2;
   uint64 RoleID = 3;
 }
-
-message UserRoleList {
-  repeated UserRole UserRole = 1;
-}
-
+//userRole模型
 message UserRole {
   uint64 ID = 1;
   uint64 UserID = 2;
   uint64 RoleID = 3;
 }
-
 //角色模型
 message Role {
   uint64 ID = 1;
@@ -176,7 +227,7 @@ message User {
   string DeleteBy = 14;
   int64 DeleteTime = 15;
 }
-
+//用户页面设置模型
 message UserPageSet {
   uint64 ID = 1;
   uint64 UserId = 2;

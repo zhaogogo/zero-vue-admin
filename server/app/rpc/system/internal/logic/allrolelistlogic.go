@@ -25,7 +25,7 @@ func NewAllRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AllRo
 }
 
 func (l *AllRoleListLogic) AllRoleList(in *pb.Empty) (*pb.AllRoleListResponse, error) {
-	mRole, err := l.svcCtx.RoleModel.FindAll(l.ctx)
+	mRole, err := l.svcCtx.RoleModel.FindAll_NC(l.ctx)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
 			return nil, err

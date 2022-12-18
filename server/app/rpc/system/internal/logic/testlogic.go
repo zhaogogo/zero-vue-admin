@@ -25,13 +25,12 @@ func NewTestLogic(ctx context.Context, svcCtx *svc.ServiceContext) *TestLogic {
 }
 
 func (l *TestLogic) Test(in *pb.Empty) (*pb.Total, error) {
-	total, err := l.svcCtx.UserModel.Total(l.ctx)
+	total, err := l.svcCtx.UserModel.Total_NC(l.ctx)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return &pb.Total{Total: 0}, err
 		}
 		return nil, err
 	}
-
 	return &pb.Total{Total: total}, nil
 }

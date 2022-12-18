@@ -1,13 +1,13 @@
 package middleware
 
 import (
-	"context"
-	"encoding/json"
+	"database/sql"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/middleSvcCtx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
+	"google.golang.org/grpc/status"
 	"net/http"
 )
 
@@ -20,43 +20,23 @@ func NewCheckUserExistsMiddleware() *CheckUserExistsMiddleware {
 
 func (m *CheckUserExistsMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		userid, err := r.Context().Value("userID").(json.Number).Int64()
+		userid := r.Context().Value("user_id").(uint64)
+		userinfoParam := &systemservice.UserID{ID: uint64(userid)}
+		userinfo, err := middleSvcCtx.Ctx.SystemRpcClient.UserInfo(r.Context(), userinfoParam)
 		if err != nil {
-			w.Header().Set(httpx.ContentType, "application/json; charset=utf-8")
-			v := responseerror.ErrorResponse{
-				Code:     int32(errorx.UNAUTHORIZATION),
-				Msg:      errorx.ErrorxMessage(errorx.UNAUTHORIZATION),
-				CauseErr: errorx.ErrorxMessage(errorx.UNAUTHORIZATION),
-			}
-			bs, err := json.Marshal(v)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+			s, _ := status.FromError(err)
+			if s.Message() == sql.ErrNoRows.Error() {
+				httpx.Error(w, errorx.NewByCode(err, errorx.UNAUTHORIZATION).WithMeta("SystemRpcClient.UserInfo", err.Error(), userinfoParam))
 				return
 			}
-			w.WriteHeader(401)
-			w.Write(bs)
+			httpx.Error(w, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UserInfo", err.Error(), userinfoParam))
+			return
+		}
+		if userinfo.DeleteTime != 0 {
+			httpx.Error(w, errorx.NewByCode(errors.New("用户为禁用状态"), errorx.UNAUTHORIZATION))
 			return
 		}
 
-		userinfo, err := middleSvcCtx.Ctx.SystemRpcClient.UserInfo(r.Context(), &systemservice.UserID{ID: uint64(userid)})
-		if err != nil || userinfo.DeleteTime != 0 {
-			w.Header().Set(httpx.ContentType, "application/json; charset=utf-8")
-			v := responseerror.ErrorResponse{
-				Code:     int32(errorx.UNAUTHORIZATION),
-				Msg:      errorx.ErrorxMessage(errorx.UNAUTHORIZATION),
-				CauseErr: errorx.ErrorxMessage(errorx.UNAUTHORIZATION),
-			}
-			bs, err := json.Marshal(v)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-			w.WriteHeader(401)
-			w.Write(bs)
-			return
-		}
-		ctx := r.Context()
-		ctx = context.WithValue(ctx, "c-UserName", userinfo.Name)
-		next(w, r.WithContext(ctx))
+		next(w, r)
 	}
 }

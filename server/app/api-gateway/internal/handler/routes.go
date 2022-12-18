@@ -26,12 +26,22 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.Casbin, serverCtx.CheckUserExists},
+			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
 			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/alluser",
+					Handler: systemuser.AllUserInfoHandler(serverCtx),
+				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/paginguser",
 					Handler: systemuser.PagingUserInfoHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/userinfo/:id",
+					Handler: systemuser.UserInfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
@@ -50,13 +60,18 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodDelete,
-					Path:    "/delete",
+					Path:    "/delete/:id",
 					Handler: systemuser.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/addUser",
 					Handler: systemuser.AddUserHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/editUser",
+					Handler: systemuser.EditUserInfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
@@ -71,7 +86,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.Casbin, serverCtx.CheckUserExists},
+			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
@@ -86,12 +101,32 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.Casbin, serverCtx.CheckUserExists},
+			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists},
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
 					Path:    "/usermenus",
 					Handler: systemmenu.UserMenusHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/api/v1/system/menu"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/allmenu",
+					Handler: systemmenu.AllMenuHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/addmenu",
+					Handler: systemmenu.AddMenuHandler(serverCtx),
 				},
 			}...,
 		),

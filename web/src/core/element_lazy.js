@@ -43,7 +43,9 @@ import {
     Switch,
     Tooltip,
     Pagination,
-    Popover
+    Popover,
+    Radio,
+    RadioGroup
 } from 'element-ui';
 Vue.use(Dropdown)
 Vue.use(DropdownItem)
@@ -83,6 +85,8 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Popover)
+Vue.use(Radio)
+Vue.use(RadioGroup)
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;

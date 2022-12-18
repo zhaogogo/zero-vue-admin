@@ -25,10 +25,12 @@ func NewDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteLogi
 	}
 }
 
-func (l *DeleteLogic) Delete(req *types.UserID) (resp *types.HttpCommonResponse, err error) {
-	_, err = l.svcCtx.SystemRpcClient.DeleteUser(l.ctx, &systemservice.UserID{ID: req.ID})
+func (l *DeleteLogic) Delete(req *types.DeleteUserRequest) (resp *types.HttpCommonResponse, err error) {
+	params := &systemservice.UserID{ID: req.ID}
+	_, err = l.svcCtx.SystemRpcClient.DeleteUser(l.ctx, params)
 	if err != nil {
-		return nil, errorx.New(err, errorx.SERVER_COMMON_ERROR, "删除用户错误")
+		// "删除用户错误"
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.DeleteUser", err.Error(), params)
 	}
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
 }
