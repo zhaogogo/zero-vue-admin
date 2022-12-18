@@ -140,10 +140,11 @@
 
 import { 
     allMenu,
-    addMenu
+    addMenu,
+    menuInfo
 } from "@/api/menu/menu"
 
-import { getAllUser } from '@/api/user/user'
+import { allUser } from '@/api/user/user'
 
 import infoList from "@/mixins/infoList"
 import icon from '@/view/superAdmin/menu/icon.vue'
@@ -199,9 +200,9 @@ export default {
     mixins:[infoList],
     async created(){
         this.getTableData()
-        const alluser = await getAllUser()
-        if (alluser.code === 200) {
-            this.setUserOptions(alluser.list, this.userOption)
+        const allusers = await allUser()
+        if (allusers.code === 200) {
+            this.setUserOptions(allusers.list, this.userOption)
         }
     },
     methods:{
@@ -330,7 +331,7 @@ export default {
                     if (this.isEdit) {
                         res = await updateBaseMenu(this.form)
                     }else {
-                        res = await     addMenu(this.form)
+                        res = await addMenu(this.form)
                     }
                     if (res.code === 200) {
                         this.$message({
@@ -346,10 +347,12 @@ export default {
         },
         async editMenu(row) {
             this.dialogTitle = '编辑菜单'
-            // const res = await getBaseMenuById({id})
-            this.form = JSON.parse(JSON.stringify(row))
-            this.isEdit = true
-            this.setOptions()
+            const res = await menuInfo(row.id)
+            if (res.code === 200) {
+                this.form = JSON.parse(JSON.stringify(res.menuInfo))
+                this.isEdit = true
+                this.setOptions()
+            }
             this.dialogFormVisible = true
         }
     }

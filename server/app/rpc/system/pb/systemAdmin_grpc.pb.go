@@ -23,27 +23,28 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SystemServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
-	UserInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error)
-	UserInfoByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error)
-	PagingUserList(ctx context.Context, in *PagingUserListRequest, opts ...grpc.CallOption) (*PagingUserListResponse, error)
+	UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error)
+	UserDetailByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error)
+	UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error)
 	UserTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
-	AddUserAndUserRole(ctx context.Context, in *AddUserAndUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
-	SoftDeleteUser(ctx context.Context, in *SoftDeleteUserRequest, opts ...grpc.CallOption) (*Empty, error)
+	CreateUser_UserRole(ctx context.Context, in *CreateUser_UserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
+	DeleteSoftUser(ctx context.Context, in *UserDeleteSoftRequest, opts ...grpc.CallOption) (*Empty, error)
 	DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error)
-	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*Empty, error)
-	EditUserInfo(ctx context.Context, in *EditUserInfoRequest, opts ...grpc.CallOption) (*Empty, error)
-	UserPageSetInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSet, error)
-	SetUserPageSet(ctx context.Context, in *SetUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
-	GetUserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsList, error)
-	AllUserMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsList, error)
-	GetUserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleList, error)
+	UpdateUserPassword(ctx context.Context, in *UpdateUserPasswordRequest, opts ...grpc.CallOption) (*Empty, error)
+	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error)
+	UserPageSet(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSetResponse, error)
+	UpdateUserPageSet(ctx context.Context, in *UpdateUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
+	UserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
+	UserAllMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
+	UserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleResponse, error)
 	UpdateUserRole(ctx context.Context, in *UpdateUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
-	RoleInfo(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error)
-	AllRoleList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllRoleListResponse, error)
-	MenuInfo(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error)
-	AllMenuList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllMenuListResponse, error)
-	AddMenu(ctx context.Context, in *AddMenuRequest, opts ...grpc.CallOption) (*Empty, error)
-	GetRoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuList, error)
+	RoleDetail(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error)
+	RoleAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RoleAllResponse, error)
+	MenuDetail(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error)
+	MenuAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MenuAllResponse, error)
+	CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
+	UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
+	RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error)
 	Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 }
 
@@ -64,27 +65,27 @@ func (c *systemServiceClient) Login(ctx context.Context, in *LoginRequest, opts 
 	return out, nil
 }
 
-func (c *systemServiceClient) UserInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error) {
+func (c *systemServiceClient) UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/UserInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserDetail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) UserInfoByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error) {
+func (c *systemServiceClient) UserDetailByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/UserInfoByName", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserDetailByName", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) PagingUserList(ctx context.Context, in *PagingUserListRequest, opts ...grpc.CallOption) (*PagingUserListResponse, error) {
-	out := new(PagingUserListResponse)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/PagingUserList", in, out, opts...)
+func (c *systemServiceClient) UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error) {
+	out := new(UserPagingResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserPaging", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -100,18 +101,18 @@ func (c *systemServiceClient) UserTotal(ctx context.Context, in *Empty, opts ...
 	return out, nil
 }
 
-func (c *systemServiceClient) AddUserAndUserRole(ctx context.Context, in *AddUserAndUserRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *systemServiceClient) CreateUser_UserRole(ctx context.Context, in *CreateUser_UserRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/AddUserAndUserRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/CreateUser_UserRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) SoftDeleteUser(ctx context.Context, in *SoftDeleteUserRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *systemServiceClient) DeleteSoftUser(ctx context.Context, in *UserDeleteSoftRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/SoftDeleteUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/DeleteSoftUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -127,63 +128,63 @@ func (c *systemServiceClient) DeleteUser(ctx context.Context, in *UserID, opts .
 	return out, nil
 }
 
-func (c *systemServiceClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *systemServiceClient) UpdateUserPassword(ctx context.Context, in *UpdateUserPasswordRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/ChangePassword", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateUserPassword", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) EditUserInfo(ctx context.Context, in *EditUserInfoRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *systemServiceClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/EditUserInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) UserPageSetInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSet, error) {
-	out := new(UserPageSet)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/UserPageSetInfo", in, out, opts...)
+func (c *systemServiceClient) UserPageSet(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSetResponse, error) {
+	out := new(UserPageSetResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserPageSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) SetUserPageSet(ctx context.Context, in *SetUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *systemServiceClient) UpdateUserPageSet(ctx context.Context, in *UpdateUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/SetUserPageSet", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateUserPageSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) GetUserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsList, error) {
-	out := new(UserMenuParamsList)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/GetUserMenuParams", in, out, opts...)
+func (c *systemServiceClient) UserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
+	out := new(UserMenuParamsResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserMenuParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) AllUserMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsList, error) {
-	out := new(UserMenuParamsList)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/AllUserMenuParams", in, out, opts...)
+func (c *systemServiceClient) UserAllMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
+	out := new(UserMenuParamsResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserAllMenuParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) GetUserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleList, error) {
-	out := new(UserRoleList)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/GetUserRoleByUserID", in, out, opts...)
+func (c *systemServiceClient) UserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleResponse, error) {
+	out := new(UserRoleResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserRoleByUserID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -199,54 +200,63 @@ func (c *systemServiceClient) UpdateUserRole(ctx context.Context, in *UpdateUser
 	return out, nil
 }
 
-func (c *systemServiceClient) RoleInfo(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error) {
+func (c *systemServiceClient) RoleDetail(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error) {
 	out := new(Role)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/RoleInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/RoleDetail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) AllRoleList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllRoleListResponse, error) {
-	out := new(AllRoleListResponse)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/AllRoleList", in, out, opts...)
+func (c *systemServiceClient) RoleAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RoleAllResponse, error) {
+	out := new(RoleAllResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/RoleAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) MenuInfo(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error) {
+func (c *systemServiceClient) MenuDetail(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error) {
 	out := new(Menu)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/MenuInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/MenuDetail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) AllMenuList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllMenuListResponse, error) {
-	out := new(AllMenuListResponse)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/AllMenuList", in, out, opts...)
+func (c *systemServiceClient) MenuAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MenuAllResponse, error) {
+	out := new(MenuAllResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/MenuAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) AddMenu(ctx context.Context, in *AddMenuRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *systemServiceClient) CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/AddMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/CreateMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *systemServiceClient) GetRoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuList, error) {
-	out := new(RoleMenuList)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/GetRoleMenuByRoleID", in, out, opts...)
+func (c *systemServiceClient) UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error) {
+	out := new(RoleMenuResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/RoleMenuByRoleID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -267,27 +277,28 @@ func (c *systemServiceClient) Test(ctx context.Context, in *Empty, opts ...grpc.
 // for forward compatibility
 type SystemServiceServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
-	UserInfo(context.Context, *UserID) (*User, error)
-	UserInfoByName(context.Context, *UserName) (*User, error)
-	PagingUserList(context.Context, *PagingUserListRequest) (*PagingUserListResponse, error)
+	UserDetail(context.Context, *UserID) (*User, error)
+	UserDetailByName(context.Context, *UserName) (*User, error)
+	UserPaging(context.Context, *UserPagingRequest) (*UserPagingResponse, error)
 	UserTotal(context.Context, *Empty) (*Total, error)
-	AddUserAndUserRole(context.Context, *AddUserAndUserRoleRequest) (*Empty, error)
-	SoftDeleteUser(context.Context, *SoftDeleteUserRequest) (*Empty, error)
+	CreateUser_UserRole(context.Context, *CreateUser_UserRoleRequest) (*Empty, error)
+	DeleteSoftUser(context.Context, *UserDeleteSoftRequest) (*Empty, error)
 	DeleteUser(context.Context, *UserID) (*Empty, error)
-	ChangePassword(context.Context, *ChangePasswordRequest) (*Empty, error)
-	EditUserInfo(context.Context, *EditUserInfoRequest) (*Empty, error)
-	UserPageSetInfo(context.Context, *UserID) (*UserPageSet, error)
-	SetUserPageSet(context.Context, *SetUserPageSetRequest) (*Empty, error)
-	GetUserMenuParams(context.Context, *UserID) (*UserMenuParamsList, error)
-	AllUserMenuParams(context.Context, *Empty) (*UserMenuParamsList, error)
-	GetUserRoleByUserID(context.Context, *UserID) (*UserRoleList, error)
+	UpdateUserPassword(context.Context, *UpdateUserPasswordRequest) (*Empty, error)
+	UpdateUser(context.Context, *UpdateUserRequest) (*Empty, error)
+	UserPageSet(context.Context, *UserID) (*UserPageSetResponse, error)
+	UpdateUserPageSet(context.Context, *UpdateUserPageSetRequest) (*Empty, error)
+	UserMenuParams(context.Context, *UserID) (*UserMenuParamsResponse, error)
+	UserAllMenuParams(context.Context, *Empty) (*UserMenuParamsResponse, error)
+	UserRoleByUserID(context.Context, *UserID) (*UserRoleResponse, error)
 	UpdateUserRole(context.Context, *UpdateUserRoleRequest) (*Empty, error)
-	RoleInfo(context.Context, *RoleID) (*Role, error)
-	AllRoleList(context.Context, *Empty) (*AllRoleListResponse, error)
-	MenuInfo(context.Context, *MenuID) (*Menu, error)
-	AllMenuList(context.Context, *Empty) (*AllMenuListResponse, error)
-	AddMenu(context.Context, *AddMenuRequest) (*Empty, error)
-	GetRoleMenuByRoleID(context.Context, *RoleID) (*RoleMenuList, error)
+	RoleDetail(context.Context, *RoleID) (*Role, error)
+	RoleAll(context.Context, *Empty) (*RoleAllResponse, error)
+	MenuDetail(context.Context, *MenuID) (*Menu, error)
+	MenuAll(context.Context, *Empty) (*MenuAllResponse, error)
+	CreateMenu(context.Context, *CreateMenuRequest) (*Empty, error)
+	UpdateMenu(context.Context, *UpdateMenuRequest) (*Empty, error)
+	RoleMenuByRoleID(context.Context, *RoleID) (*RoleMenuResponse, error)
 	Test(context.Context, *Empty) (*Total, error)
 	mustEmbedUnimplementedSystemServiceServer()
 }
@@ -299,68 +310,71 @@ type UnimplementedSystemServiceServer struct {
 func (UnimplementedSystemServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedSystemServiceServer) UserInfo(context.Context, *UserID) (*User, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserInfo not implemented")
+func (UnimplementedSystemServiceServer) UserDetail(context.Context, *UserID) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserDetail not implemented")
 }
-func (UnimplementedSystemServiceServer) UserInfoByName(context.Context, *UserName) (*User, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserInfoByName not implemented")
+func (UnimplementedSystemServiceServer) UserDetailByName(context.Context, *UserName) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserDetailByName not implemented")
 }
-func (UnimplementedSystemServiceServer) PagingUserList(context.Context, *PagingUserListRequest) (*PagingUserListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PagingUserList not implemented")
+func (UnimplementedSystemServiceServer) UserPaging(context.Context, *UserPagingRequest) (*UserPagingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserPaging not implemented")
 }
 func (UnimplementedSystemServiceServer) UserTotal(context.Context, *Empty) (*Total, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserTotal not implemented")
 }
-func (UnimplementedSystemServiceServer) AddUserAndUserRole(context.Context, *AddUserAndUserRoleRequest) (*Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddUserAndUserRole not implemented")
+func (UnimplementedSystemServiceServer) CreateUser_UserRole(context.Context, *CreateUser_UserRoleRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUser_UserRole not implemented")
 }
-func (UnimplementedSystemServiceServer) SoftDeleteUser(context.Context, *SoftDeleteUserRequest) (*Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SoftDeleteUser not implemented")
+func (UnimplementedSystemServiceServer) DeleteSoftUser(context.Context, *UserDeleteSoftRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSoftUser not implemented")
 }
 func (UnimplementedSystemServiceServer) DeleteUser(context.Context, *UserID) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
-func (UnimplementedSystemServiceServer) ChangePassword(context.Context, *ChangePasswordRequest) (*Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
+func (UnimplementedSystemServiceServer) UpdateUserPassword(context.Context, *UpdateUserPasswordRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserPassword not implemented")
 }
-func (UnimplementedSystemServiceServer) EditUserInfo(context.Context, *EditUserInfoRequest) (*Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditUserInfo not implemented")
+func (UnimplementedSystemServiceServer) UpdateUser(context.Context, *UpdateUserRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
-func (UnimplementedSystemServiceServer) UserPageSetInfo(context.Context, *UserID) (*UserPageSet, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserPageSetInfo not implemented")
+func (UnimplementedSystemServiceServer) UserPageSet(context.Context, *UserID) (*UserPageSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserPageSet not implemented")
 }
-func (UnimplementedSystemServiceServer) SetUserPageSet(context.Context, *SetUserPageSetRequest) (*Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetUserPageSet not implemented")
+func (UnimplementedSystemServiceServer) UpdateUserPageSet(context.Context, *UpdateUserPageSetRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserPageSet not implemented")
 }
-func (UnimplementedSystemServiceServer) GetUserMenuParams(context.Context, *UserID) (*UserMenuParamsList, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserMenuParams not implemented")
+func (UnimplementedSystemServiceServer) UserMenuParams(context.Context, *UserID) (*UserMenuParamsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserMenuParams not implemented")
 }
-func (UnimplementedSystemServiceServer) AllUserMenuParams(context.Context, *Empty) (*UserMenuParamsList, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AllUserMenuParams not implemented")
+func (UnimplementedSystemServiceServer) UserAllMenuParams(context.Context, *Empty) (*UserMenuParamsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserAllMenuParams not implemented")
 }
-func (UnimplementedSystemServiceServer) GetUserRoleByUserID(context.Context, *UserID) (*UserRoleList, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserRoleByUserID not implemented")
+func (UnimplementedSystemServiceServer) UserRoleByUserID(context.Context, *UserID) (*UserRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserRoleByUserID not implemented")
 }
 func (UnimplementedSystemServiceServer) UpdateUserRole(context.Context, *UpdateUserRoleRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserRole not implemented")
 }
-func (UnimplementedSystemServiceServer) RoleInfo(context.Context, *RoleID) (*Role, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RoleInfo not implemented")
+func (UnimplementedSystemServiceServer) RoleDetail(context.Context, *RoleID) (*Role, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleDetail not implemented")
 }
-func (UnimplementedSystemServiceServer) AllRoleList(context.Context, *Empty) (*AllRoleListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AllRoleList not implemented")
+func (UnimplementedSystemServiceServer) RoleAll(context.Context, *Empty) (*RoleAllResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleAll not implemented")
 }
-func (UnimplementedSystemServiceServer) MenuInfo(context.Context, *MenuID) (*Menu, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MenuInfo not implemented")
+func (UnimplementedSystemServiceServer) MenuDetail(context.Context, *MenuID) (*Menu, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MenuDetail not implemented")
 }
-func (UnimplementedSystemServiceServer) AllMenuList(context.Context, *Empty) (*AllMenuListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AllMenuList not implemented")
+func (UnimplementedSystemServiceServer) MenuAll(context.Context, *Empty) (*MenuAllResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MenuAll not implemented")
 }
-func (UnimplementedSystemServiceServer) AddMenu(context.Context, *AddMenuRequest) (*Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddMenu not implemented")
+func (UnimplementedSystemServiceServer) CreateMenu(context.Context, *CreateMenuRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
 }
-func (UnimplementedSystemServiceServer) GetRoleMenuByRoleID(context.Context, *RoleID) (*RoleMenuList, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRoleMenuByRoleID not implemented")
+func (UnimplementedSystemServiceServer) UpdateMenu(context.Context, *UpdateMenuRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
+}
+func (UnimplementedSystemServiceServer) RoleMenuByRoleID(context.Context, *RoleID) (*RoleMenuResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleMenuByRoleID not implemented")
 }
 func (UnimplementedSystemServiceServer) Test(context.Context, *Empty) (*Total, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
@@ -396,56 +410,56 @@ func _SystemService_Login_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_UserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_UserDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).UserInfo(ctx, in)
+		return srv.(SystemServiceServer).UserDetail(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/UserInfo",
+		FullMethod: "/pb.SystemService/UserDetail",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).UserInfo(ctx, req.(*UserID))
+		return srv.(SystemServiceServer).UserDetail(ctx, req.(*UserID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_UserInfoByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_UserDetailByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserName)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).UserInfoByName(ctx, in)
+		return srv.(SystemServiceServer).UserDetailByName(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/UserInfoByName",
+		FullMethod: "/pb.SystemService/UserDetailByName",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).UserInfoByName(ctx, req.(*UserName))
+		return srv.(SystemServiceServer).UserDetailByName(ctx, req.(*UserName))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_PagingUserList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PagingUserListRequest)
+func _SystemService_UserPaging_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserPagingRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).PagingUserList(ctx, in)
+		return srv.(SystemServiceServer).UserPaging(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/PagingUserList",
+		FullMethod: "/pb.SystemService/UserPaging",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).PagingUserList(ctx, req.(*PagingUserListRequest))
+		return srv.(SystemServiceServer).UserPaging(ctx, req.(*UserPagingRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -468,38 +482,38 @@ func _SystemService_UserTotal_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_AddUserAndUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddUserAndUserRoleRequest)
+func _SystemService_CreateUser_UserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUser_UserRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).AddUserAndUserRole(ctx, in)
+		return srv.(SystemServiceServer).CreateUser_UserRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/AddUserAndUserRole",
+		FullMethod: "/pb.SystemService/CreateUser_UserRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).AddUserAndUserRole(ctx, req.(*AddUserAndUserRoleRequest))
+		return srv.(SystemServiceServer).CreateUser_UserRole(ctx, req.(*CreateUser_UserRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_SoftDeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SoftDeleteUserRequest)
+func _SystemService_DeleteSoftUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserDeleteSoftRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).SoftDeleteUser(ctx, in)
+		return srv.(SystemServiceServer).DeleteSoftUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/SoftDeleteUser",
+		FullMethod: "/pb.SystemService/DeleteSoftUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).SoftDeleteUser(ctx, req.(*SoftDeleteUserRequest))
+		return srv.(SystemServiceServer).DeleteSoftUser(ctx, req.(*UserDeleteSoftRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -522,128 +536,128 @@ func _SystemService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ChangePasswordRequest)
+func _SystemService_UpdateUserPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserPasswordRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).ChangePassword(ctx, in)
+		return srv.(SystemServiceServer).UpdateUserPassword(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/ChangePassword",
+		FullMethod: "/pb.SystemService/UpdateUserPassword",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).ChangePassword(ctx, req.(*ChangePasswordRequest))
+		return srv.(SystemServiceServer).UpdateUserPassword(ctx, req.(*UpdateUserPasswordRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_EditUserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EditUserInfoRequest)
+func _SystemService_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).EditUserInfo(ctx, in)
+		return srv.(SystemServiceServer).UpdateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/EditUserInfo",
+		FullMethod: "/pb.SystemService/UpdateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).EditUserInfo(ctx, req.(*EditUserInfoRequest))
+		return srv.(SystemServiceServer).UpdateUser(ctx, req.(*UpdateUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_UserPageSetInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_UserPageSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).UserPageSetInfo(ctx, in)
+		return srv.(SystemServiceServer).UserPageSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/UserPageSetInfo",
+		FullMethod: "/pb.SystemService/UserPageSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).UserPageSetInfo(ctx, req.(*UserID))
+		return srv.(SystemServiceServer).UserPageSet(ctx, req.(*UserID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_SetUserPageSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetUserPageSetRequest)
+func _SystemService_UpdateUserPageSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserPageSetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).SetUserPageSet(ctx, in)
+		return srv.(SystemServiceServer).UpdateUserPageSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/SetUserPageSet",
+		FullMethod: "/pb.SystemService/UpdateUserPageSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).SetUserPageSet(ctx, req.(*SetUserPageSetRequest))
+		return srv.(SystemServiceServer).UpdateUserPageSet(ctx, req.(*UpdateUserPageSetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_GetUserMenuParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_UserMenuParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).GetUserMenuParams(ctx, in)
+		return srv.(SystemServiceServer).UserMenuParams(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/GetUserMenuParams",
+		FullMethod: "/pb.SystemService/UserMenuParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).GetUserMenuParams(ctx, req.(*UserID))
+		return srv.(SystemServiceServer).UserMenuParams(ctx, req.(*UserID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_AllUserMenuParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_UserAllMenuParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).AllUserMenuParams(ctx, in)
+		return srv.(SystemServiceServer).UserAllMenuParams(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/AllUserMenuParams",
+		FullMethod: "/pb.SystemService/UserAllMenuParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).AllUserMenuParams(ctx, req.(*Empty))
+		return srv.(SystemServiceServer).UserAllMenuParams(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_GetUserRoleByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_UserRoleByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).GetUserRoleByUserID(ctx, in)
+		return srv.(SystemServiceServer).UserRoleByUserID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/GetUserRoleByUserID",
+		FullMethod: "/pb.SystemService/UserRoleByUserID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).GetUserRoleByUserID(ctx, req.(*UserID))
+		return srv.(SystemServiceServer).UserRoleByUserID(ctx, req.(*UserID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -666,110 +680,128 @@ func _SystemService_UpdateUserRole_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_RoleInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_RoleDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RoleID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).RoleInfo(ctx, in)
+		return srv.(SystemServiceServer).RoleDetail(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/RoleInfo",
+		FullMethod: "/pb.SystemService/RoleDetail",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).RoleInfo(ctx, req.(*RoleID))
+		return srv.(SystemServiceServer).RoleDetail(ctx, req.(*RoleID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_AllRoleList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_RoleAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).AllRoleList(ctx, in)
+		return srv.(SystemServiceServer).RoleAll(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/AllRoleList",
+		FullMethod: "/pb.SystemService/RoleAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).AllRoleList(ctx, req.(*Empty))
+		return srv.(SystemServiceServer).RoleAll(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_MenuInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_MenuDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MenuID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).MenuInfo(ctx, in)
+		return srv.(SystemServiceServer).MenuDetail(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/MenuInfo",
+		FullMethod: "/pb.SystemService/MenuDetail",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).MenuInfo(ctx, req.(*MenuID))
+		return srv.(SystemServiceServer).MenuDetail(ctx, req.(*MenuID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_AllMenuList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_MenuAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).AllMenuList(ctx, in)
+		return srv.(SystemServiceServer).MenuAll(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/AllMenuList",
+		FullMethod: "/pb.SystemService/MenuAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).AllMenuList(ctx, req.(*Empty))
+		return srv.(SystemServiceServer).MenuAll(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_AddMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddMenuRequest)
+func _SystemService_CreateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateMenuRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).AddMenu(ctx, in)
+		return srv.(SystemServiceServer).CreateMenu(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/AddMenu",
+		FullMethod: "/pb.SystemService/CreateMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).AddMenu(ctx, req.(*AddMenuRequest))
+		return srv.(SystemServiceServer).CreateMenu(ctx, req.(*CreateMenuRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_GetRoleMenuByRoleID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMenuRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UpdateMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UpdateMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UpdateMenu(ctx, req.(*UpdateMenuRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_RoleMenuByRoleID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RoleID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).GetRoleMenuByRoleID(ctx, in)
+		return srv.(SystemServiceServer).RoleMenuByRoleID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/GetRoleMenuByRoleID",
+		FullMethod: "/pb.SystemService/RoleMenuByRoleID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).GetRoleMenuByRoleID(ctx, req.(*RoleID))
+		return srv.(SystemServiceServer).RoleMenuByRoleID(ctx, req.(*RoleID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -804,88 +836,92 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SystemService_Login_Handler,
 		},
 		{
-			MethodName: "UserInfo",
-			Handler:    _SystemService_UserInfo_Handler,
+			MethodName: "UserDetail",
+			Handler:    _SystemService_UserDetail_Handler,
 		},
 		{
-			MethodName: "UserInfoByName",
-			Handler:    _SystemService_UserInfoByName_Handler,
+			MethodName: "UserDetailByName",
+			Handler:    _SystemService_UserDetailByName_Handler,
 		},
 		{
-			MethodName: "PagingUserList",
-			Handler:    _SystemService_PagingUserList_Handler,
+			MethodName: "UserPaging",
+			Handler:    _SystemService_UserPaging_Handler,
 		},
 		{
 			MethodName: "UserTotal",
 			Handler:    _SystemService_UserTotal_Handler,
 		},
 		{
-			MethodName: "AddUserAndUserRole",
-			Handler:    _SystemService_AddUserAndUserRole_Handler,
+			MethodName: "CreateUser_UserRole",
+			Handler:    _SystemService_CreateUser_UserRole_Handler,
 		},
 		{
-			MethodName: "SoftDeleteUser",
-			Handler:    _SystemService_SoftDeleteUser_Handler,
+			MethodName: "DeleteSoftUser",
+			Handler:    _SystemService_DeleteSoftUser_Handler,
 		},
 		{
 			MethodName: "DeleteUser",
 			Handler:    _SystemService_DeleteUser_Handler,
 		},
 		{
-			MethodName: "ChangePassword",
-			Handler:    _SystemService_ChangePassword_Handler,
+			MethodName: "UpdateUserPassword",
+			Handler:    _SystemService_UpdateUserPassword_Handler,
 		},
 		{
-			MethodName: "EditUserInfo",
-			Handler:    _SystemService_EditUserInfo_Handler,
+			MethodName: "UpdateUser",
+			Handler:    _SystemService_UpdateUser_Handler,
 		},
 		{
-			MethodName: "UserPageSetInfo",
-			Handler:    _SystemService_UserPageSetInfo_Handler,
+			MethodName: "UserPageSet",
+			Handler:    _SystemService_UserPageSet_Handler,
 		},
 		{
-			MethodName: "SetUserPageSet",
-			Handler:    _SystemService_SetUserPageSet_Handler,
+			MethodName: "UpdateUserPageSet",
+			Handler:    _SystemService_UpdateUserPageSet_Handler,
 		},
 		{
-			MethodName: "GetUserMenuParams",
-			Handler:    _SystemService_GetUserMenuParams_Handler,
+			MethodName: "UserMenuParams",
+			Handler:    _SystemService_UserMenuParams_Handler,
 		},
 		{
-			MethodName: "AllUserMenuParams",
-			Handler:    _SystemService_AllUserMenuParams_Handler,
+			MethodName: "UserAllMenuParams",
+			Handler:    _SystemService_UserAllMenuParams_Handler,
 		},
 		{
-			MethodName: "GetUserRoleByUserID",
-			Handler:    _SystemService_GetUserRoleByUserID_Handler,
+			MethodName: "UserRoleByUserID",
+			Handler:    _SystemService_UserRoleByUserID_Handler,
 		},
 		{
 			MethodName: "UpdateUserRole",
 			Handler:    _SystemService_UpdateUserRole_Handler,
 		},
 		{
-			MethodName: "RoleInfo",
-			Handler:    _SystemService_RoleInfo_Handler,
+			MethodName: "RoleDetail",
+			Handler:    _SystemService_RoleDetail_Handler,
 		},
 		{
-			MethodName: "AllRoleList",
-			Handler:    _SystemService_AllRoleList_Handler,
+			MethodName: "RoleAll",
+			Handler:    _SystemService_RoleAll_Handler,
 		},
 		{
-			MethodName: "MenuInfo",
-			Handler:    _SystemService_MenuInfo_Handler,
+			MethodName: "MenuDetail",
+			Handler:    _SystemService_MenuDetail_Handler,
 		},
 		{
-			MethodName: "AllMenuList",
-			Handler:    _SystemService_AllMenuList_Handler,
+			MethodName: "MenuAll",
+			Handler:    _SystemService_MenuAll_Handler,
 		},
 		{
-			MethodName: "AddMenu",
-			Handler:    _SystemService_AddMenu_Handler,
+			MethodName: "CreateMenu",
+			Handler:    _SystemService_CreateMenu_Handler,
 		},
 		{
-			MethodName: "GetRoleMenuByRoleID",
-			Handler:    _SystemService_GetRoleMenuByRoleID_Handler,
+			MethodName: "UpdateMenu",
+			Handler:    _SystemService_UpdateMenu_Handler,
+		},
+		{
+			MethodName: "RoleMenuByRoleID",
+			Handler:    _SystemService_RoleMenuByRoleID_Handler,
 		},
 		{
 			MethodName: "Test",

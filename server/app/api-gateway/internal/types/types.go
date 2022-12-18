@@ -46,33 +46,39 @@ type LoginResponse struct {
 	UserPageSet  UserPageSet `json:"userPageSet"`
 }
 
-type PagingUserRequest struct {
+type UserPagingRequest struct {
 	PagingCommonRequest
 	NameX string `json:"nameX,optional"`
 }
 
-type PagingUserResponse struct {
+type UserPagingResponse struct {
 	HttpCommonResponse
 	PagingCommonResponse
 	List []User `json:"list"`
 }
 
-type UserInfoRequest struct {
+type UserAllResponse struct {
+	HttpCommonResponse
+	Total int64  `json:"total"`
+	List  []User `json:"list"`
+}
+
+type UserDetailRequest struct {
 	ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
 }
 
-type UserInfoResponse struct {
+type UserDetailResponse struct {
 	HttpCommonResponse
 	UserInfo User `json:"userInfo"`
 }
 
 type ChangePasswordRequest struct {
-	ID       uint64 `json:"id,optional" validate:"required,numeric,gte=1"`
+	ID       uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
 	Password string `json:"password,optional" validate:"required"`
 }
 
-type UpdateUserRoleRequest struct {
-	UserID   uint64   `json:"userId,optional" validate:"required"`
+type UpdateRoleRequest struct {
+	ID       uint64   `path:"id,optional" validate:"required"`
 	RoleList []uint64 `json:"roleList,optional"`
 }
 
@@ -105,7 +111,7 @@ type AddUserRequest struct {
 }
 
 type EditUserInfoRequest struct {
-	ID         uint64 `json:"id,optional" validate:"required,numeric,gt=0"`
+	ID         uint64 `path:"id,optional" validate:"required,numeric,gt=0"`
 	Name       string `json:"name,optional" validate:"required,gte=5"`
 	NickName   string `json:"nick_name,optional" validate:"required,gte=5"`
 	Email      string `json:"email,optional" validate:"required,email"`
@@ -188,6 +194,15 @@ type Parameter struct {
 type MenuMeta struct {
 	Title string `json:"title"`
 	Icon  string `json:"icon"`
+}
+
+type MenuInfoRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+}
+
+type MenuInfoResponse struct {
+	HttpCommonResponse
+	MenuInfo Menu `json:"menuInfo"`
 }
 
 type AddMenuRequest struct {

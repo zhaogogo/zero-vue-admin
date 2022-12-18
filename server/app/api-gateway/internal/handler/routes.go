@@ -30,33 +30,33 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
-					Path:    "/alluser",
-					Handler: systemuser.AllUserInfoHandler(serverCtx),
+					Path:    "/all",
+					Handler: systemuser.AllHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/paginguser",
-					Handler: systemuser.PagingUserInfoHandler(serverCtx),
+					Path:    "/paging",
+					Handler: systemuser.PagingHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
-					Path:    "/userinfo/:id",
-					Handler: systemuser.UserInfoHandler(serverCtx),
+					Path:    "/detail/:id",
+					Handler: systemuser.DetailHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/changeUserPassword",
-					Handler: systemuser.ChangeUserPasswordHandler(serverCtx),
+					Path:    "/password",
+					Handler: systemuser.PasswordHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/updateUserRole",
-					Handler: systemuser.UpdateUserRoleHandler(serverCtx),
+					Path:    "/updaterole/:id",
+					Handler: systemuser.UpdateRoleHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
-					Path:    "/softdelete",
-					Handler: systemuser.SoftDeleteUserHandler(serverCtx),
+					Path:    "/deletesoft/:id",
+					Handler: systemuser.DeleteSoftHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
@@ -65,13 +65,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/addUser",
-					Handler: systemuser.AddUserHandler(serverCtx),
+					Path:    "/add",
+					Handler: systemuser.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/editUser",
-					Handler: systemuser.EditUserInfoHandler(serverCtx),
+					Path:    "/edit/:id",
+					Handler: systemuser.EditHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
@@ -90,8 +90,8 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
-					Path:    "/allrole",
-					Handler: systemrole.AllRoleHandler(serverCtx),
+					Path:    "/all",
+					Handler: systemrole.AllHandler(serverCtx),
 				},
 			}...,
 		),
@@ -122,6 +122,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodGet,
 					Path:    "/allmenu",
 					Handler: systemmenu.AllMenuHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/:id",
+					Handler: systemmenu.MenuInfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,

@@ -27,41 +27,41 @@ service ApiGateway-api {
     prefix: /api/v1/system/user
 )
 service ApiGateway-api {
-    @doc "获取全部用户"
-    @handler AllUserInfo
-    get /alluser returns (PagingUserResponse)
+    @doc "全部用户详情"
+    @handler All
+    get /all returns (UserAllResponse)
 
-    @doc "分页获取用户"
-    @handler PagingUserInfo
-    post /paginguser (PagingUserRequest) returns (PagingUserResponse)
+    @doc "分页用户详情"
+    @handler Paging
+    post /paging (UserPagingRequest) returns (UserPagingResponse)
 
-    @doc "获取用户信息"
-    @handler UserInfo
-    get /:id (UserInfoRequest) returns (UserInfoResponse)
+    @doc "用户详情"
+    @handler Detail
+    get /detail/:id (UserDetailRequest) returns (UserDetailResponse)
 
     @doc "修改用户密码"
-    @handler ChangeUserPassword
-    post /changeUserPassword(ChangePasswordRequest) returns(HttpCommonResponse)
+    @handler Password
+    post /password(ChangePasswordRequest) returns(HttpCommonResponse)
 
     @doc "修改用户角色"
-    @handler UpdateUserRole
-    post /updateUserRole(UpdateUserRoleRequest) returns(HttpCommonResponse)
+    @handler UpdateRole
+    post /updaterole/:id (UpdateRoleRequest) returns(HttpCommonResponse)
 
     @doc "软删除用户"
-    @handler SoftDeleteUser
-    delete /softdelete(SoftDeleteUserRequest) returns (HttpCommonResponse)
+    @handler DeleteSoft
+    delete /deletesoft/:id (SoftDeleteUserRequest) returns (HttpCommonResponse)
 
     @doc "删除用户"
     @handler Delete
     delete /delete/:id (DeleteUserRequest) returns (HttpCommonResponse)
 
     @doc "新增用户"
-    @handler AddUser
-    post /addUser (AddUserRequest) returns (HttpCommonResponse)
+    @handler Add
+    post /add (AddUserRequest) returns (HttpCommonResponse)
 
     @doc "编辑用户"
-    @handler EditUserInfo
-    post /editUser (EditUserInfoRequest) returns (HttpCommonResponse)
+    @handler Edit
+    post /edit/:id (EditUserInfoRequest) returns (HttpCommonResponse)
 
     @doc "修改用户页面配置"
     @handler SetUserPage
@@ -125,25 +125,31 @@ type (
 // 用户列表
 //----------------------------------------------
 type (
-    PagingUserRequest struct {
+
+    UserPagingRequest struct {
         PagingCommonRequest
         NameX string `json:"nameX,optional"`
     }
-    PagingUserResponse struct {
+    UserPagingResponse struct {
         HttpCommonResponse
         PagingCommonResponse
+        List []User `json:"list"`
+    }
+    UserAllResponse struct{
+        HttpCommonResponse
+        Total int64 `json:"total"`
         List []User `json:"list"`
     }
 )
 
 //----------------------------------------------
-// 用户信息
+// 用户详情
 //----------------------------------------------
 type(
-    UserInfoRequest struct {
+    UserDetailRequest struct {
         ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
     }
-    UserInfoResponse struct {
+    UserDetailResponse struct {
         HttpCommonResponse
         UserInfo User `json:"userInfo"`
     }
@@ -153,15 +159,15 @@ type(
 // 修改用户密码
 //----------------------------------------------
 type ChangePasswordRequest struct {
-    ID uint64 `json:"id,optional" validate:"required,numeric,gte=1"`
+    ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
     Password string `json:"password,optional" validate:"required"`
 }
 
 //----------------------------------------------
 // 修改用户角色
 //----------------------------------------------
-type UpdateUserRoleRequest struct {
-    UserID uint64 `json:"userId,optional" validate:"required"`
+type UpdateRoleRequest struct {
+    ID uint64 `path:"id,optional" validate:"required"`
     RoleList []uint64 `json:"roleList,optional"`
 }
 
@@ -205,7 +211,7 @@ type AddUserRequest struct {
 //编辑用户
 //----------------------------------------------
 type EditUserInfoRequest struct {
-    ID uint64 `json:"id,optional" validate:"required,numeric,gt=0"`
+    ID uint64 `path:"id,optional" validate:"required,numeric,gt=0"`
     Name string `json:"name,optional" validate:"required,gte=5"`
     NickName string `json:"nick_name,optional" validate:"required,gte=5"`
     Email string `json:"email,optional" validate:"required,email"`

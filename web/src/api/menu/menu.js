@@ -14,3 +14,10 @@ export const addMenu = (data) => {
         data
     })
 }
+
+export const menuInfo = (id) => {
+    return service({
+        url:"/api/v1/system/menu/" + id,
+        method: "GET"
+    })
+}

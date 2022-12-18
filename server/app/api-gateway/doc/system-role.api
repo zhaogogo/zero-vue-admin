@@ -18,8 +18,8 @@ import "common.api"
 )
 service ApiGateway-api {
     @doc "获取全部角色"
-    @handler AllRole
-    get /allrole returns (AllRoleResponse)
+    @handler All
+    get /all returns (AllRoleResponse)
 }
 
 //----------------------------------------------

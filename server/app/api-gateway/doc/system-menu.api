@@ -89,7 +89,7 @@ type (
 //----------------------------------------------
 type (
     MenuInfoRequest {
-
+        ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
     }
     MenuInfoResponse{
         HttpCommonResponse

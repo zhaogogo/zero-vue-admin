@@ -9,32 +9,32 @@ import "google/protobuf/empty.proto";
 service SystemService {
   rpc Login (LoginRequest) returns(LoginResponse); //
 
-  rpc UserInfo(UserID) returns (User); //
-  rpc UserInfoByName(UserName) returns(User); //
-  rpc PagingUserList(PagingUserListRequest) returns (PagingUserListResponse); //
+  rpc UserDetail(UserID) returns (User); //
+  rpc UserDetailByName(UserName) returns(User); //
+  rpc UserPaging(UserPagingRequest) returns (UserPagingResponse); //
   rpc UserTotal(Empty) returns (Total); //
-  rpc AddUserAndUserRole(AddUserAndUserRoleRequest) returns(Empty);
-  rpc SoftDeleteUser(SoftDeleteUserRequest)returns(Empty);
+  rpc CreateUser_UserRole(CreateUser_UserRoleRequest) returns(Empty);
+  rpc DeleteSoftUser(UserDeleteSoftRequest)returns(Empty);
   rpc DeleteUser(UserID) returns(Empty);
-  rpc ChangePassword(ChangePasswordRequest)returns(Empty);
-  rpc EditUserInfo(EditUserInfoRequest) returns(Empty);
+  rpc UpdateUserPassword(UpdateUserPasswordRequest)returns(Empty);
+  rpc UpdateUser(UpdateUserRequest) returns(Empty);
 
-  rpc UserPageSetInfo(UserID) returns(UserPageSet); //
-  rpc SetUserPageSet(SetUserPageSetRequest) returns(Empty);
-  rpc GetUserMenuParams(UserID) returns (UserMenuParamsList);
-  rpc AllUserMenuParams(Empty) returns (UserMenuParamsList);
+  rpc UserPageSet(UserID) returns(UserPageSetResponse); //
+  rpc UpdateUserPageSet(UpdateUserPageSetRequest) returns(Empty);
+  rpc UserMenuParams(UserID) returns (UserMenuParamsResponse);
+  rpc UserAllMenuParams(Empty) returns (UserMenuParamsResponse);
 
-  rpc GetUserRoleByUserID(UserID) returns (UserRoleList);
+  rpc UserRoleByUserID(UserID) returns (UserRoleResponse);
   rpc UpdateUserRole(UpdateUserRoleRequest) returns(Empty);
 
-  rpc RoleInfo(RoleID) returns (Role); //
-  rpc AllRoleList (Empty) returns (AllRoleListResponse); //
+  rpc RoleDetail(RoleID) returns (Role); //
+  rpc RoleAll (Empty) returns (RoleAllResponse); //
 
-  rpc MenuInfo(MenuID) returns (Menu); //
-  rpc AllMenuList(Empty) returns (AllMenuListResponse);
-  rpc AddMenu(AddMenuRequest) returns (Empty);
-  rpc EditMenu(EditMenuRequest) returns (Empty);
-  rpc GetRoleMenuByRoleID(RoleID) returns (RoleMenuList);
+  rpc MenuDetail(MenuID) returns (Menu); //
+  rpc MenuAll(Empty) returns (MenuAllResponse);
+  rpc CreateMenu(CreateMenuRequest) returns (Empty);
+  rpc UpdateMenu(UpdateMenuRequest) returns (Empty);
+  rpc RoleMenuByRoleID(RoleID) returns (RoleMenuResponse);
 
   rpc Test(Empty) returns (Total);
 }
@@ -64,7 +64,7 @@ message Total{
   int64 Total = 1;
 }
 
-message EditUserInfoRequest {
+message UpdateUserRequest {
   uint64 ID = 1;
   string Name = 2;
   string NickName = 3;
@@ -75,7 +75,7 @@ message EditUserInfoRequest {
   string UpdateBy = 8;
 }
 
-message AddUserAndUserRoleRequest {
+message CreateUser_UserRoleRequest {
   User User = 1;
   repeated uint64 RoleList = 2;
 }
@@ -85,7 +85,7 @@ message UpdateUserRoleRequest {
   repeated uint64 RoleList = 2;
 }
 
-message SetUserPageSetRequest {
+message UpdateUserPageSetRequest {
   uint64 UserID = 1;
   string Avatar = 2;
   string DefaultRouter = 3;
@@ -94,18 +94,18 @@ message SetUserPageSetRequest {
   string TextColor = 6;
 }
 
-message SoftDeleteUserRequest{
+message UserDeleteSoftRequest{
   uint64 UserID = 1;
   string DeleteBy = 2;
   string State = 3;
 }
 
-message ChangePasswordRequest {
+message UpdateUserPasswordRequest {
   uint64 ID = 1;
   string Password = 2;
 }
 
-message AddMenuRequest{
+message CreateMenuRequest{
   uint64 ParentID = 1;
   string Name = 2;
   string Path = 3;
@@ -116,50 +116,50 @@ message AddMenuRequest{
   int64 Hiddent = 8;
 }
 
-message EditMenuRequest{
+message UpdateMenuRequest{
   uint64 id = 1;
-  uint64 ParentID = 1;
-  string Name = 2;
-  string Path = 3;
-  string Component = 4;
-  string Title = 5;
-  string Icon =  6;
-  int64  sort = 7;
-  int64 Hiddent = 8;
+  uint64 ParentID = 2;
+  string Name = 3;
+  string Path = 4;
+  string Component = 5;
+  string Title = 6;
+  string Icon =  7;
+  int64  sort = 8;
+  int64 Hiddent = 9;
 }
 
 //-------------
 //请求响应
-message PagingUserListRequest {
+message UserPagingRequest {
   int64 Page = 1;
   int64 PageSize = 2;
   string NameX = 3;
 }
 
-message PagingUserListResponse {
-  repeated User List = 1;
+message UserPagingResponse {
+  repeated User Users = 1;
 }
 
 //---------
-message AllRoleListResponse {
-  repeated Role List = 1;
+message RoleAllResponse {
+  repeated Role Roles = 1;
 }
 
-message AllMenuListResponse {
-  repeated Menu List = 1;
+message MenuAllResponse {
+  repeated Menu Menus = 1;
 }
 
 
-message UserMenuParamsList {
+message UserMenuParamsResponse {
   repeated UserMenuParams UserMenuParams = 1;
 }
 
-message RoleMenuList {
-  repeated RoleMenu Rolemenu = 1;
+message RoleMenuResponse {
+  repeated RoleMenu Rolemenus = 1;
 }
 
-message UserRoleList {
-  repeated UserRole UserRole = 1;
+message UserRoleResponse {
+  repeated UserRole UserRoles = 1;
 }
 //user_menu_params模型
 message UserMenuParams {
@@ -228,7 +228,7 @@ message User {
   int64 DeleteTime = 15;
 }
 //用户页面设置模型
-message UserPageSet {
+message UserPageSetResponse {
   uint64 ID = 1;
   uint64 UserId = 2;
   string Avatar = 3;

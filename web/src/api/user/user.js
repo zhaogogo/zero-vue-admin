@@ -7,32 +7,34 @@ export const getPermission = () => {
     })
 }
 
-export const getPagingUser = (data) => {
+export const allUser = () => {
     return service({
-        url: "/api/v1/system/user/paginguser",
+        url:"/api/v1/system/user/all",
+        method: "GET"
+    })
+}
+
+export const pagingUser = (data) => {
+    return service({
+        url: "/api/v1/system/user/paging",
         method: "POST",
         data
     })
 }
 
-export const getUserInfo = (id) => {
+export const userInfo = (id) => {
     return service({
-        url:"/api/v1/system/user/" + id,
+        url:"/api/v1/system/user/detail/" + id,
         method: "GET"
     })
 }
 
-export const getAllUser = () => {
-    return service({
-        url:"/api/v1/system/user/alluser",
-        method: "GET"
-    })
-}
+
 
 export const changeUserPassword = (data) => {
     return service({
-        url: "/api/v1/system/user/changeUserPassword",
-        method: "post",
+        url: "/api/v1/system/user/password",
+        method: "POST",
         data
     })
 }
@@ -46,9 +48,8 @@ export const updateUserRole = (data) => {
 }
 
 export const softDeleteUser = (data) => {
-    console.log(data)
     return service({
-        url: "/api/v1/system/user/softdelete",
+        url: "/api/v1/system/user/deletesoft/" + data.id,
         method: "DELETE",
         data
     })
@@ -56,9 +57,8 @@ export const softDeleteUser = (data) => {
 
 export const deleteUser = (data) => {
     return service({
-        url: "/api/v1/system/user/delete",
-        method:"DELETE",
-        data
+        url: "/api/v1/system/user/delete/" + data.id,
+        method:"DELETE"
     })
 }
 
@@ -72,7 +72,7 @@ export const setUserPageSet = (data) => {
 
 export const addUser = (data) => {
     return service({
-        url: "/api/v1/system/user/addUser",
+        url: "/api/v1/system/user/add",
         method:"POST",
         data
     })
@@ -80,7 +80,7 @@ export const addUser = (data) => {
 
 export const editUser = (data) => {
     return service({
-        url:"/api/v1/system/user/editUser",
+        url:"/api/v1/system/user/edit/" + data.id,
         method: "POST",
         data
     })

@@ -13,59 +13,61 @@ import (
 )
 
 type (
-	AddMenuRequest            = pb.AddMenuRequest
-	AddUserAndUserRoleRequest = pb.AddUserAndUserRoleRequest
-	AllMenuListResponse       = pb.AllMenuListResponse
-	AllRoleListResponse       = pb.AllRoleListResponse
-	ChangePasswordRequest     = pb.ChangePasswordRequest
-	EditUserInfoRequest       = pb.EditUserInfoRequest
-	Empty                     = pb.Empty
-	LoginRequest              = pb.LoginRequest
-	LoginResponse             = pb.LoginResponse
-	Menu                      = pb.Menu
-	MenuID                    = pb.MenuID
-	PagingUserListRequest     = pb.PagingUserListRequest
-	PagingUserListResponse    = pb.PagingUserListResponse
-	Role                      = pb.Role
-	RoleID                    = pb.RoleID
-	RoleMenu                  = pb.RoleMenu
-	RoleMenuList              = pb.RoleMenuList
-	SetUserPageSetRequest     = pb.SetUserPageSetRequest
-	SoftDeleteUserRequest     = pb.SoftDeleteUserRequest
-	Total                     = pb.Total
-	UpdateUserRoleRequest     = pb.UpdateUserRoleRequest
-	User                      = pb.User
-	UserID                    = pb.UserID
-	UserMenuParams            = pb.UserMenuParams
-	UserMenuParamsList        = pb.UserMenuParamsList
-	UserName                  = pb.UserName
-	UserPageSet               = pb.UserPageSet
-	UserRole                  = pb.UserRole
-	UserRoleList              = pb.UserRoleList
+	CreateMenuRequest          = pb.CreateMenuRequest
+	CreateUser_UserRoleRequest = pb.CreateUser_UserRoleRequest
+	Empty                      = pb.Empty
+	LoginRequest               = pb.LoginRequest
+	LoginResponse              = pb.LoginResponse
+	Menu                       = pb.Menu
+	MenuAllResponse            = pb.MenuAllResponse
+	MenuID                     = pb.MenuID
+	Role                       = pb.Role
+	RoleAllResponse            = pb.RoleAllResponse
+	RoleID                     = pb.RoleID
+	RoleMenu                   = pb.RoleMenu
+	RoleMenuResponse           = pb.RoleMenuResponse
+	Total                      = pb.Total
+	UpdateMenuRequest          = pb.UpdateMenuRequest
+	UpdateUserPageSetRequest   = pb.UpdateUserPageSetRequest
+	UpdateUserPasswordRequest  = pb.UpdateUserPasswordRequest
+	UpdateUserRequest          = pb.UpdateUserRequest
+	UpdateUserRoleRequest      = pb.UpdateUserRoleRequest
+	User                       = pb.User
+	UserDeleteSoftRequest      = pb.UserDeleteSoftRequest
+	UserID                     = pb.UserID
+	UserMenuParams             = pb.UserMenuParams
+	UserMenuParamsResponse     = pb.UserMenuParamsResponse
+	UserName                   = pb.UserName
+	UserPageSetResponse        = pb.UserPageSetResponse
+	UserPagingRequest          = pb.UserPagingRequest
+	UserPagingResponse         = pb.UserPagingResponse
+	UserRole                   = pb.UserRole
+	UserRoleResponse           = pb.UserRoleResponse
 
 	SystemService interface {
 		Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
-		UserInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error)
-		UserInfoByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error)
-		PagingUserList(ctx context.Context, in *PagingUserListRequest, opts ...grpc.CallOption) (*PagingUserListResponse, error)
+		UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error)
+		UserDetailByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error)
+		UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error)
 		UserTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
-		AddUserAndUserRole(ctx context.Context, in *AddUserAndUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
-		SoftDeleteUser(ctx context.Context, in *SoftDeleteUserRequest, opts ...grpc.CallOption) (*Empty, error)
+		CreateUser_UserRole(ctx context.Context, in *CreateUser_UserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
+		DeleteSoftUser(ctx context.Context, in *UserDeleteSoftRequest, opts ...grpc.CallOption) (*Empty, error)
 		DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error)
-		ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*Empty, error)
-		EditUserInfo(ctx context.Context, in *EditUserInfoRequest, opts ...grpc.CallOption) (*Empty, error)
-		UserPageSetInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSet, error)
-		SetUserPageSet(ctx context.Context, in *SetUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
-		GetUserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsList, error)
-		AllUserMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsList, error)
-		GetUserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleList, error)
+		UpdateUserPassword(ctx context.Context, in *UpdateUserPasswordRequest, opts ...grpc.CallOption) (*Empty, error)
+		UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error)
+		UserPageSet(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSetResponse, error)
+		UpdateUserPageSet(ctx context.Context, in *UpdateUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
+		UserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
+		UserAllMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
+		UserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleResponse, error)
 		UpdateUserRole(ctx context.Context, in *UpdateUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
-		RoleInfo(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error)
-		AllRoleList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllRoleListResponse, error)
-		MenuInfo(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error)
-		AllMenuList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllMenuListResponse, error)
-		AddMenu(ctx context.Context, in *AddMenuRequest, opts ...grpc.CallOption) (*Empty, error)
-		GetRoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuList, error)
+		RoleDetail(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error)
+		RoleAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RoleAllResponse, error)
+		MenuDetail(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error)
+		MenuAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MenuAllResponse, error)
+		CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
+		UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
+		RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error)
 		Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 	}
 
@@ -85,19 +87,19 @@ func (m *defaultSystemService) Login(ctx context.Context, in *LoginRequest, opts
 	return client.Login(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) UserInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error) {
+func (m *defaultSystemService) UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.UserInfo(ctx, in, opts...)
+	return client.UserDetail(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) UserInfoByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error) {
+func (m *defaultSystemService) UserDetailByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.UserInfoByName(ctx, in, opts...)
+	return client.UserDetailByName(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) PagingUserList(ctx context.Context, in *PagingUserListRequest, opts ...grpc.CallOption) (*PagingUserListResponse, error) {
+func (m *defaultSystemService) UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.PagingUserList(ctx, in, opts...)
+	return client.UserPaging(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) UserTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error) {
@@ -105,14 +107,14 @@ func (m *defaultSystemService) UserTotal(ctx context.Context, in *Empty, opts ..
 	return client.UserTotal(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) AddUserAndUserRole(ctx context.Context, in *AddUserAndUserRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (m *defaultSystemService) CreateUser_UserRole(ctx context.Context, in *CreateUser_UserRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.AddUserAndUserRole(ctx, in, opts...)
+	return client.CreateUser_UserRole(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) SoftDeleteUser(ctx context.Context, in *SoftDeleteUserRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (m *defaultSystemService) DeleteSoftUser(ctx context.Context, in *UserDeleteSoftRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.SoftDeleteUser(ctx, in, opts...)
+	return client.DeleteSoftUser(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error) {
@@ -120,39 +122,39 @@ func (m *defaultSystemService) DeleteUser(ctx context.Context, in *UserID, opts 
 	return client.DeleteUser(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (m *defaultSystemService) UpdateUserPassword(ctx context.Context, in *UpdateUserPasswordRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.ChangePassword(ctx, in, opts...)
+	return client.UpdateUserPassword(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) EditUserInfo(ctx context.Context, in *EditUserInfoRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (m *defaultSystemService) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.EditUserInfo(ctx, in, opts...)
+	return client.UpdateUser(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) UserPageSetInfo(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSet, error) {
+func (m *defaultSystemService) UserPageSet(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSetResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.UserPageSetInfo(ctx, in, opts...)
+	return client.UserPageSet(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) SetUserPageSet(ctx context.Context, in *SetUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (m *defaultSystemService) UpdateUserPageSet(ctx context.Context, in *UpdateUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.SetUserPageSet(ctx, in, opts...)
+	return client.UpdateUserPageSet(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) GetUserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsList, error) {
+func (m *defaultSystemService) UserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.GetUserMenuParams(ctx, in, opts...)
+	return client.UserMenuParams(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) AllUserMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsList, error) {
+func (m *defaultSystemService) UserAllMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.AllUserMenuParams(ctx, in, opts...)
+	return client.UserAllMenuParams(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) GetUserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleList, error) {
+func (m *defaultSystemService) UserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.GetUserRoleByUserID(ctx, in, opts...)
+	return client.UserRoleByUserID(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) UpdateUserRole(ctx context.Context, in *UpdateUserRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
@@ -160,34 +162,39 @@ func (m *defaultSystemService) UpdateUserRole(ctx context.Context, in *UpdateUse
 	return client.UpdateUserRole(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) RoleInfo(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error) {
+func (m *defaultSystemService) RoleDetail(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.RoleInfo(ctx, in, opts...)
+	return client.RoleDetail(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) AllRoleList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllRoleListResponse, error) {
+func (m *defaultSystemService) RoleAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RoleAllResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.AllRoleList(ctx, in, opts...)
+	return client.RoleAll(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) MenuInfo(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error) {
+func (m *defaultSystemService) MenuDetail(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.MenuInfo(ctx, in, opts...)
+	return client.MenuDetail(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) AllMenuList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllMenuListResponse, error) {
+func (m *defaultSystemService) MenuAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MenuAllResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.AllMenuList(ctx, in, opts...)
+	return client.MenuAll(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) AddMenu(ctx context.Context, in *AddMenuRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (m *defaultSystemService) CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.AddMenu(ctx, in, opts...)
+	return client.CreateMenu(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) GetRoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuList, error) {
+func (m *defaultSystemService) UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.GetRoleMenuByRoleID(ctx, in, opts...)
+	return client.UpdateMenu(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.RoleMenuByRoleID(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error) {

@@ -151,16 +151,17 @@
 
 <script>
 import infoList from '@/mixins/infoList'
-import { 
-    getPagingUser,
+import {
+    userInfo,
+    addUser,
+    pagingUser,
     softDeleteUser,
     changeUserPassword,
     updateUserRole,
     deleteUser,
-    addUser,
-    editUser,
-    getUserInfo
+    editUser
 } from '@/api/user/user'
+
 import {
     getAllRole
 } from '@/api/role/role'
@@ -177,7 +178,7 @@ export default {
             }
         };
         return {
-            listApi: getPagingUser,
+            listApi: pagingUser,
             isEdit: [],
             roleOptions: [],
             roleProps: { multiple: true },
@@ -378,7 +379,7 @@ export default {
             this.dialogVisible = true
         },
         async editUser(row) {
-            const res = await getUserInfo(row.id)
+            const res = await userInfo(row.id)
             if (res.code === 200) {
                 // this.userInfo = JSON.parse(JSON.stringify(row))
                 this.userInfo = JSON.parse(JSON.stringify(res.userInfo))
