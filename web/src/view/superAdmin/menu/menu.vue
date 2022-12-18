@@ -144,7 +144,7 @@ import {
     menuInfo
 } from "@/api/menu/menu"
 
-import { allUser } from '@/api/user/user'
+import { all } from '@/api/user/user'
 
 import infoList from "@/mixins/infoList"
 import icon from '@/view/superAdmin/menu/icon.vue'
@@ -200,7 +200,7 @@ export default {
     mixins:[infoList],
     async created(){
         this.getTableData()
-        const allusers = await allUser()
+        const allusers = await all()
         if (allusers.code === 200) {
             this.setUserOptions(allusers.list, this.userOption)
         }

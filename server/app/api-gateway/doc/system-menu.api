@@ -29,16 +29,16 @@ service ApiGateway-api {
 )
 service ApiGateway-api {
     @doc "获取全部菜单"
-    @handler AllMenu
-    get /allmenu returns (AllMenuResponse)
+    @handler All
+    get /all returns (MenuAllResponse)
 
     @doc "获取菜单详情"
-    @handler MenuInfo
-    get /:id (MenuInfoRequest) returns (MenuInfoResponse)
+    @handler Detail
+    get /:id (MenuDetailRequest) returns (MenuDetailResponse)
 
     @doc "新增菜单"
-    @handler AddMenu
-    post /addmenu (AddMenuRequest) returns (HttpCommonResponse)
+    @handler Create
+    post /create (CreateMenuRequest) returns (HttpCommonResponse)
 }
 //----------------------------------------------
 // 用户动态路由菜单
@@ -48,7 +48,7 @@ type (
         HttpCommonResponse
         Menus []Menu `json:"menus"`
     }
-    AllMenuResponse struct {
+    MenuAllResponse struct {
         HttpCommonResponse
         Total int64 `json:"total"`
         List []Menu `json:"list"`
@@ -88,10 +88,10 @@ type (
 // 获取菜单详情
 //----------------------------------------------
 type (
-    MenuInfoRequest {
+    MenuDetailRequest {
         ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
     }
-    MenuInfoResponse{
+    MenuDetailResponse{
         HttpCommonResponse
         MenuInfo Menu `json:"menuInfo"`
     }
@@ -100,7 +100,7 @@ type (
 //----------------------------------------------
 // 新增菜单
 //----------------------------------------------
-type AddMenuRequest struct {
+type CreateMenuRequest struct {
     ParentID uint64 `json:"parentId,optional" validate:"numeric,gte=0"`
     Name string `json:"name,optional" validate:"required"`
     Path string `json:"path,optional" validate:"required"`

@@ -25,10 +25,10 @@ func NewDeleteSoftLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 	}
 }
 
-func (l *DeleteSoftLogic) DeleteSoft(req *types.SoftDeleteUserRequest) (resp *types.HttpCommonResponse, err error) {
+func (l *DeleteSoftLogic) DeleteSoft(req *types.UserDeleteSoftRequest) (resp *types.HttpCommonResponse, err error) {
 	username := l.ctx.Value("userName").(string)
-	param := &systemservice.SoftDeleteUserRequest{UserID: req.UserID, DeleteBy: username, State: req.State}
-	_, err = l.svcCtx.SystemRpcClient.SoftDeleteUser(l.ctx, param)
+	param := &systemservice.DeleteSoftUserRequest{UserID: req.ID, DeleteBy: username, State: req.State}
+	_, err = l.svcCtx.SystemRpcClient.DeleteSoftUser(l.ctx, param)
 	if err != nil {
 		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.SoftDeleteUser", err.Error(), param)
 	}

@@ -8,10 +8,10 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 )
 
-func AllMenuHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func AllHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := menu.NewAllMenuLogic(r.Context(), svcCtx)
-		resp, err := l.AllMenu()
+		l := menu.NewAllLogic(r.Context(), svcCtx)
+		resp, err := l.All()
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

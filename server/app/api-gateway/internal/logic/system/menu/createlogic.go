@@ -11,22 +11,22 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type AddMenuLogic struct {
+type CreateLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewAddMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddMenuLogic {
-	return &AddMenuLogic{
+func NewCreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateLogic {
+	return &CreateLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *AddMenuLogic) AddMenu(req *types.AddMenuRequest) (resp *types.HttpCommonResponse, err error) {
-	param := &systemservice.AddMenuRequest{
+func (l *CreateLogic) Create(req *types.CreateMenuRequest) (resp *types.HttpCommonResponse, err error) {
+	param := &systemservice.CreateMenuRequest{
 		ParentID:  req.ParentID,
 		Name:      req.Name,
 		Path:      req.Name,
@@ -38,9 +38,9 @@ func (l *AddMenuLogic) AddMenu(req *types.AddMenuRequest) (resp *types.HttpCommo
 	if req.Hidden {
 		param.Hiddent = 1
 	}
-	_, err = l.svcCtx.SystemRpcClient.AddMenu(l.ctx, param)
+	_, err = l.svcCtx.SystemRpcClient.CreateMenu(l.ctx, param)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.AddMenu", err.Error(), param)
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.CreateMenu", err.Error(), param)
 	}
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
 }

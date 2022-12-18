@@ -72,26 +72,26 @@ type UserDetailResponse struct {
 	UserInfo User `json:"userInfo"`
 }
 
-type ChangePasswordRequest struct {
+type UpdatePasswordRequest struct {
 	ID       uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
 	Password string `json:"password,optional" validate:"required"`
 }
 
-type UpdateRoleRequest struct {
+type UpdateUserRoleRequest struct {
 	ID       uint64   `path:"id,optional" validate:"required"`
 	RoleList []uint64 `json:"roleList,optional"`
 }
 
-type SoftDeleteUserRequest struct {
-	UserID uint64 `json:"userId,optional" validate:"required,numeric,gte=2" comment="用户ID为必填项"`
-	State  string `json:"state,optional" validate:"required,oneof='deleted' 'resume'"`
+type UserDeleteSoftRequest struct {
+	ID    uint64 `path:"id,optional" validate:"required,numeric,gte=2" comment="用户ID为必填项"`
+	State string `json:"state,optional" validate:"required,oneof='deleted' 'resume'"`
 }
 
-type DeleteUserRequest struct {
+type UserDeleteRequest struct {
 	ID uint64 `path:"id,optional" validate:"required,numeric,gte=2"`
 }
 
-type AddUserRequest struct {
+type UserCreateRequest struct {
 	Name       string   `json:"name,optional" validate:"required,gte=5"`
 	NickName   string   `json:"nick_name,optional" validate:"required,gte=5"`
 	PassWord   string   `json:"password,optional" validate:"required,gte=5"`
@@ -110,7 +110,7 @@ type AddUserRequest struct {
 	RoleList   []uint64 `json:"roleList,optional"` // 用户角色
 }
 
-type EditUserInfoRequest struct {
+type UserUpdateRequest struct {
 	ID         uint64 `path:"id,optional" validate:"required,numeric,gt=0"`
 	Name       string `json:"name,optional" validate:"required,gte=5"`
 	NickName   string `json:"nick_name,optional" validate:"required,gte=5"`
@@ -146,7 +146,7 @@ type PagingCommonResponse struct {
 	Total    int64 `json:"total"`
 }
 
-type AllRoleResponse struct {
+type RoleAllResponse struct {
 	HttpCommonResponse
 	Total int    `json:"total"`
 	List  []Role `json:"list"`
@@ -163,7 +163,7 @@ type UserMenuResponse struct {
 	Menus []Menu `json:"menus"`
 }
 
-type AllMenuResponse struct {
+type MenuAllResponse struct {
 	HttpCommonResponse
 	Total int64  `json:"total"`
 	List  []Menu `json:"list"`
@@ -196,16 +196,16 @@ type MenuMeta struct {
 	Icon  string `json:"icon"`
 }
 
-type MenuInfoRequest struct {
+type MenuDetailRequest struct {
 	ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
 }
 
-type MenuInfoResponse struct {
+type MenuDetailResponse struct {
 	HttpCommonResponse
 	MenuInfo Menu `json:"menuInfo"`
 }
 
-type AddMenuRequest struct {
+type CreateMenuRequest struct {
 	ParentID  uint64 `json:"parentId,optional" validate:"numeric,gte=0"`
 	Name      string `json:"name,optional" validate:"required"`
 	Path      string `json:"path,optional" validate:"required"`

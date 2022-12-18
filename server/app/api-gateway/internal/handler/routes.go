@@ -30,6 +30,36 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
+					Path:    "/:id",
+					Handler: systemuser.DetailHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/:id",
+					Handler: systemuser.DeleteHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/soft/:id",
+					Handler: systemuser.DeleteSoftHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/:id",
+					Handler: systemuser.UpdateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/role/:id",
+					Handler: systemuser.UpdateUserRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/password/:id",
+					Handler: systemuser.UpdatePasswordHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
 					Path:    "/all",
 					Handler: systemuser.AllHandler(serverCtx),
 				},
@@ -39,44 +69,14 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: systemuser.PagingHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodGet,
-					Path:    "/detail/:id",
-					Handler: systemuser.DetailHandler(serverCtx),
-				},
-				{
 					Method:  http.MethodPost,
-					Path:    "/password",
-					Handler: systemuser.PasswordHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/updaterole/:id",
-					Handler: systemuser.UpdateRoleHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodDelete,
-					Path:    "/deletesoft/:id",
-					Handler: systemuser.DeleteSoftHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodDelete,
-					Path:    "/delete/:id",
-					Handler: systemuser.DeleteHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/add",
-					Handler: systemuser.AddHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/edit/:id",
-					Handler: systemuser.EditHandler(serverCtx),
+					Path:    "/create",
+					Handler: systemuser.CreateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
-					Path:    "/setuserpageset",
-					Handler: systemuser.SetUserPageHandler(serverCtx),
+					Path:    "/page",
+					Handler: systemuser.PageHandler(serverCtx),
 				},
 			}...,
 		),
@@ -120,18 +120,18 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
-					Path:    "/allmenu",
-					Handler: systemmenu.AllMenuHandler(serverCtx),
+					Path:    "/all",
+					Handler: systemmenu.AllHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: systemmenu.MenuInfoHandler(serverCtx),
+					Handler: systemmenu.DetailHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/addmenu",
-					Handler: systemmenu.AddMenuHandler(serverCtx),
+					Path:    "/create",
+					Handler: systemmenu.CreateHandler(serverCtx),
 				},
 			}...,
 		),

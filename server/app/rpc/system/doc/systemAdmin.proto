@@ -14,7 +14,7 @@ service SystemService {
   rpc UserPaging(UserPagingRequest) returns (UserPagingResponse); //
   rpc UserTotal(Empty) returns (Total); //
   rpc CreateUser_UserRole(CreateUser_UserRoleRequest) returns(Empty);
-  rpc DeleteSoftUser(UserDeleteSoftRequest)returns(Empty);
+  rpc DeleteSoftUser(DeleteSoftUserRequest)returns(Empty);
   rpc DeleteUser(UserID) returns(Empty);
   rpc UpdateUserPassword(UpdateUserPasswordRequest)returns(Empty);
   rpc UpdateUser(UpdateUserRequest) returns(Empty);
@@ -94,7 +94,7 @@ message UpdateUserPageSetRequest {
   string TextColor = 6;
 }
 
-message UserDeleteSoftRequest{
+message DeleteSoftUserRequest{
   uint64 UserID = 1;
   string DeleteBy = 2;
   string State = 3;

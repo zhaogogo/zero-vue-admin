@@ -29,14 +29,14 @@ func NewDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DetailLogi
 
 func (l *DetailLogic) Detail(req *types.UserDetailRequest) (resp *types.UserDetailResponse, err error) {
 	username := l.ctx.Value("userName").(string)
-	param := &systemservice.UserID{ID: req.ID}
-	user, err := l.svcCtx.SystemRpcClient.UserInfo(l.ctx, param)
+	userDetailParam := &systemservice.UserID{ID: req.ID}
+	user, err := l.svcCtx.SystemRpcClient.UserDetail(l.ctx, userDetailParam)
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
-			return nil, errorx.NewByCode(err, errorx.DB_NOTFOUND).WithMeta("SystemRpcClient.UserInfo", err.Error(), param)
+			return nil, errorx.NewByCode(err, errorx.DB_NOTFOUND).WithMeta("SystemRpcClient.UserInfo", err.Error(), userDetailParam)
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UserInfo", err.Error(), param)
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UserInfo", err.Error(), userDetailParam)
 	}
 	var state = map[bool]string{
 		true:  "deleted",

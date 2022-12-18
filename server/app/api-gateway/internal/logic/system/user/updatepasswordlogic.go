@@ -11,25 +11,25 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type PasswordLogic struct {
+type UpdatePasswordLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewPasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PasswordLogic {
-	return &PasswordLogic{
+func NewUpdatePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdatePasswordLogic {
+	return &UpdatePasswordLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *PasswordLogic) Password(req *types.ChangePasswordRequest) (resp *types.HttpCommonResponse, err error) {
-	param := &systemservice.ChangePasswordRequest{ID: req.ID, Password: req.Password}
-	_, err = l.svcCtx.SystemRpcClient.ChangePassword(l.ctx, param)
+func (l *UpdatePasswordLogic) UpdatePassword(req *types.UpdatePasswordRequest) (resp *types.HttpCommonResponse, err error) {
+	updateUserPassowrdParam := &systemservice.UpdateUserPasswordRequest{ID: req.ID, Password: req.Password}
+	_, err = l.svcCtx.SystemRpcClient.UpdateUserPassword(l.ctx, updateUserPassowrdParam)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.ChangePassword", err.Error(), param)
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.ChangePassword", err.Error(), updateUserPassowrdParam)
 	}
 	return &types.HttpCommonResponse{
 		Code: 200,

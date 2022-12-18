@@ -25,7 +25,7 @@ func NewDeleteSoftUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *De
 	}
 }
 
-func (l *DeleteSoftUserLogic) DeleteSoftUser(in *pb.UserDeleteSoftRequest) (*pb.Empty, error) {
+func (l *DeleteSoftUserLogic) DeleteSoftUser(in *pb.DeleteSoftUserRequest) (*pb.Empty, error) {
 	switch in.State {
 	case "deleted":
 		if err := l.svcCtx.UserModel.UpdateDeleteColumn(l.ctx, in.UserID, in.DeleteBy, sql.NullTime{Time: time.Now(), Valid: true}); err != nil {

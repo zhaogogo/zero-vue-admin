@@ -52,7 +52,7 @@ func (s *SystemServiceServer) CreateUser_UserRole(ctx context.Context, in *pb.Cr
 	return l.CreateUser_UserRole(in)
 }
 
-func (s *SystemServiceServer) DeleteSoftUser(ctx context.Context, in *pb.UserDeleteSoftRequest) (*pb.Empty, error) {
+func (s *SystemServiceServer) DeleteSoftUser(ctx context.Context, in *pb.DeleteSoftUserRequest) (*pb.Empty, error) {
 	l := logic.NewDeleteSoftUserLogic(ctx, s.svcCtx)
 	return l.DeleteSoftUser(in)
 }

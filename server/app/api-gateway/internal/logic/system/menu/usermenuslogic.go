@@ -37,7 +37,7 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 
 	userid := l.ctx.Value("user_id").(uint64)
 	param := &systemservice.UserID{ID: userid}
-	userroles, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, param)
+	userroles, err := l.svcCtx.SystemRpcClient.UserRoleByUserID(l.ctx, param)
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
@@ -49,26 +49,26 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 	// 获取menuid列表
 	mr.MapReduce(
 		func(source chan<- interface{}) {
-			for _, userrole := range userroles.UserRole {
+			for _, userrole := range userroles.UserRoles {
 				source <- userrole.RoleID
 			}
 		},
 		func(item interface{}, writer mr.Writer, cancel func(error)) {
 			roleid := item.(uint64)
 			getRoleMenuByRoleIDParam := &systemservice.RoleID{ID: roleid}
-			roleMenu, err := l.svcCtx.SystemRpcClient.GetRoleMenuByRoleID(l.ctx, getRoleMenuByRoleIDParam)
+			roleMenu, err := l.svcCtx.SystemRpcClient.RoleMenuByRoleID(l.ctx, getRoleMenuByRoleIDParam)
 			if err != nil {
 				l.Error(err)
-				msgErrList.WithMeta("SystemRpcClient.GetRoleMenuByRoleID", err.Error(), getRoleMenuByRoleIDParam)
+				msgErrList.WithMeta("SystemRpcClient.RoleMenuByRoleID", err.Error(), getRoleMenuByRoleIDParam)
 			} else {
 				writer.Write(roleMenu)
 			}
 		},
 		func(pipe <-chan interface{}, writer mr.Writer, cancel func(error)) {
 			for v := range pipe {
-				rolemenu, ok := v.(*systemservice.RoleMenuList)
+				rolemenu, ok := v.(*systemservice.RoleMenuResponse)
 				if ok {
-					for _, rm := range rolemenu.Rolemenu {
+					for _, rm := range rolemenu.Rolemenus {
 						setMenus[rm.MenuID] += 1
 					}
 				} else {
@@ -88,10 +88,10 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 		func(item interface{}, writer mr.Writer, cancel func(error)) {
 			menuid := item.(uint64)
 			menuInfoParam := &systemservice.MenuID{ID: menuid}
-			menuInfo, err := l.svcCtx.SystemRpcClient.MenuInfo(l.ctx, menuInfoParam)
+			menuInfo, err := l.svcCtx.SystemRpcClient.MenuDetail(l.ctx, menuInfoParam)
 			if err != nil {
 				l.Error(err)
-				msgErrList.WithMeta("SystemRpcClient.MenuInfo", err.Error(), menuInfoParam)
+				msgErrList.WithMeta("SystemRpcClient.MenuDetail", err.Error(), menuInfoParam)
 			} else {
 				if menuInfo.DeleteTime == 0 {
 					writer.Write(menuInfo)
@@ -116,7 +116,7 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 	// 获取参数
 	params := []types.Parameter{}
 	getUserMenuParamsParam := &systemservice.UserID{ID: userid}
-	userMenuParams, err := l.svcCtx.SystemRpcClient.GetUserMenuParams(l.ctx, getUserMenuParamsParam)
+	userMenuParams, err := l.svcCtx.SystemRpcClient.UserMenuParams(l.ctx, getUserMenuParamsParam)
 	s, _ := status.FromError(err)
 	if s.Message() == sql.ErrNoRows.Error() {
 		msgErrList.WithMeta("SystemRpcClient.GetUserMenuParams", err.Error(), getUserMenuParamsParam)

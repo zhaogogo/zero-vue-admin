@@ -11,23 +11,23 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type SetUserPageLogic struct {
+type PageLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewSetUserPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SetUserPageLogic {
-	return &SetUserPageLogic{
+func NewPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageLogic {
+	return &PageLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *SetUserPageLogic) SetUserPage(req *types.UserPageRequest) (resp *types.HttpCommonResponse, err error) {
+func (l *PageLogic) Page(req *types.UserPageRequest) (resp *types.HttpCommonResponse, err error) {
 	userid := l.ctx.Value("user_id").(uint64)
-	params := &systemservice.SetUserPageSetRequest{
+	params := &systemservice.UpdateUserPageSetRequest{
 		UserID:          userid,
 		Avatar:          req.Avatar,
 		DefaultRouter:   req.DefaultRouter,
@@ -35,7 +35,7 @@ func (l *SetUserPageLogic) SetUserPage(req *types.UserPageRequest) (resp *types.
 		ActiveTextColor: req.ActiveTextColor,
 		TextColor:       req.TextColor,
 	}
-	_, err = l.svcCtx.SystemRpcClient.SetUserPageSet(l.ctx, params)
+	_, err = l.svcCtx.SystemRpcClient.UpdateUserPageSet(l.ctx, params)
 	if err != nil {
 		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SetUserPageSet", err.Error(), params)
 	}
@@ -44,4 +44,5 @@ func (l *SetUserPageLogic) SetUserPage(req *types.UserPageRequest) (resp *types.
 		Code: 200,
 		Msg:  "OK",
 	}, nil
+	return
 }

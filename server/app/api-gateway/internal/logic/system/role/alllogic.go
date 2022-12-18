@@ -27,14 +27,14 @@ func NewAllLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AllLogic {
 	}
 }
 
-func (l *AllLogic) All() (resp *types.AllRoleResponse, err error) {
+func (l *AllLogic) All() (resp *types.RoleAllResponse, err error) {
 	roleList := []types.Role{}
 	param := &systemservice.Empty{}
-	proles, err := l.svcCtx.SystemRpcClient.AllRoleList(l.ctx, param)
+	roles, err := l.svcCtx.SystemRpcClient.RoleAll(l.ctx, param)
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
-			return &types.AllRoleResponse{
+			return &types.RoleAllResponse{
 				HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"},
 				Total:              0,
 				List:               roleList,
@@ -43,7 +43,7 @@ func (l *AllLogic) All() (resp *types.AllRoleResponse, err error) {
 		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.AllRoleList", err.Error(), param)
 	}
 
-	for _, prole := range proles.List {
+	for _, prole := range roles.Roles {
 		role := types.Role{
 			ID:   prole.ID,
 			Role: prole.Role,
@@ -52,7 +52,7 @@ func (l *AllLogic) All() (resp *types.AllRoleResponse, err error) {
 		roleList = append(roleList, role)
 	}
 
-	return &types.AllRoleResponse{
+	return &types.RoleAllResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"},
 		Total:              len(roleList),
 		List:               roleList,

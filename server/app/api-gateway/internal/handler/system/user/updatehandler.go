@@ -1,18 +1,18 @@
-package menu
+package user
 
 import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/validate"
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/logic/system/menu"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/logic/system/user"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 )
 
-func MenuInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func UpdateHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.MenuInfoRequest
+		var req types.UserUpdateRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
@@ -21,8 +21,8 @@ func MenuInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
-		l := menu.NewMenuInfoLogic(r.Context(), svcCtx)
-		resp, err := l.MenuInfo(&req)
+		l := user.NewUpdateLogic(r.Context(), svcCtx)
+		resp, err := l.Update(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

@@ -11,25 +11,25 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type UpdateRoleLogic struct {
+type UpdateUserRoleLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateRoleLogic {
-	return &UpdateRoleLogic{
+func NewUpdateUserRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateUserRoleLogic {
+	return &UpdateUserRoleLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *UpdateRoleLogic) UpdateRole(req *types.UpdateRoleRequest) (resp *types.HttpCommonResponse, err error) {
-	param := &systemservice.UpdateUserRoleRequest{UserID: req.UserID, RoleList: req.RoleList}
-	_, err = l.svcCtx.SystemRpcClient.UpdateUserRole(l.ctx, param)
+func (l *UpdateUserRoleLogic) UpdateUserRole(req *types.UpdateUserRoleRequest) (resp *types.HttpCommonResponse, err error) {
+	updateUserRoleParam := &systemservice.UpdateUserRoleRequest{UserID: req.ID, RoleList: req.RoleList}
+	_, err = l.svcCtx.SystemRpcClient.UpdateUserRole(l.ctx, updateUserRoleParam)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.UpdateUserRole", err.Error(), param)
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.UpdateUserRole", err.Error(), updateUserRoleParam)
 	}
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
 }

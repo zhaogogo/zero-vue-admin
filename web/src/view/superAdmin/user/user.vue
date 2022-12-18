@@ -152,12 +152,12 @@
 <script>
 import infoList from '@/mixins/infoList'
 import {
-    userInfo,
+    detail,
     addUser,
-    pagingUser,
-    softDeleteUser,
-    changeUserPassword,
-    updateUserRole,
+    paging,
+    deleteSoft,
+    updatepassword,
+    updateRole,
     deleteUser,
     editUser
 } from '@/api/user/user'
@@ -178,7 +178,7 @@ export default {
             }
         };
         return {
-            listApi: pagingUser,
+            listApi: paging,
             isEdit: [],
             roleOptions: [],
             roleProps: { multiple: true },
@@ -320,7 +320,8 @@ export default {
             }
         },
         async changePassword(row){
-            const res = await changeUserPassword({id: row.id, password: row.password})
+            console.log(row)
+            const res = await updatepassword({id: row.id, password: row.password})
             if (res.code === 200) {
                 this.$set(this.isEdit,row.id,false)
                 this.getTableData()
@@ -333,7 +334,7 @@ export default {
             }
         },
         async changeRole(row) {
-            const res = await updateUserRole({userId: row.id, roleList: row.roleList})
+            const res = await updateRole({id: row.id, roleList: row.roleList})
             if (res.code !== 200) {
                 this.$message({
                     type: "error",
@@ -344,7 +345,7 @@ export default {
         },
         //软删除用户
         async softDeleteUser(e,row,index){
-            const res = await softDeleteUser({userId: row.id, state: e})
+            const res = await deleteSoft({id: row.id, state: e})
             if (res.code === 200) {
                 this.$message({
                     type: "success",
@@ -379,7 +380,7 @@ export default {
             this.dialogVisible = true
         },
         async editUser(row) {
-            const res = await userInfo(row.id)
+            const res = await detail(row.id)
             if (res.code === 200) {
                 // this.userInfo = JSON.parse(JSON.stringify(row))
                 this.userInfo = JSON.parse(JSON.stringify(res.userInfo))

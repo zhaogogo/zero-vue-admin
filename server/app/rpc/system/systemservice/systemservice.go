@@ -15,6 +15,7 @@ import (
 type (
 	CreateMenuRequest          = pb.CreateMenuRequest
 	CreateUser_UserRoleRequest = pb.CreateUser_UserRoleRequest
+	DeleteSoftUserRequest      = pb.DeleteSoftUserRequest
 	Empty                      = pb.Empty
 	LoginRequest               = pb.LoginRequest
 	LoginResponse              = pb.LoginResponse
@@ -33,7 +34,6 @@ type (
 	UpdateUserRequest          = pb.UpdateUserRequest
 	UpdateUserRoleRequest      = pb.UpdateUserRoleRequest
 	User                       = pb.User
-	UserDeleteSoftRequest      = pb.UserDeleteSoftRequest
 	UserID                     = pb.UserID
 	UserMenuParams             = pb.UserMenuParams
 	UserMenuParamsResponse     = pb.UserMenuParamsResponse
@@ -51,7 +51,7 @@ type (
 		UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error)
 		UserTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 		CreateUser_UserRole(ctx context.Context, in *CreateUser_UserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
-		DeleteSoftUser(ctx context.Context, in *UserDeleteSoftRequest, opts ...grpc.CallOption) (*Empty, error)
+		DeleteSoftUser(ctx context.Context, in *DeleteSoftUserRequest, opts ...grpc.CallOption) (*Empty, error)
 		DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error)
 		UpdateUserPassword(ctx context.Context, in *UpdateUserPasswordRequest, opts ...grpc.CallOption) (*Empty, error)
 		UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error)
@@ -112,7 +112,7 @@ func (m *defaultSystemService) CreateUser_UserRole(ctx context.Context, in *Crea
 	return client.CreateUser_UserRole(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) DeleteSoftUser(ctx context.Context, in *UserDeleteSoftRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (m *defaultSystemService) DeleteSoftUser(ctx context.Context, in *DeleteSoftUserRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.DeleteSoftUser(ctx, in, opts...)
 }

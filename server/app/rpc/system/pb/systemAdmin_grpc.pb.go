@@ -28,7 +28,7 @@ type SystemServiceClient interface {
 	UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error)
 	UserTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 	CreateUser_UserRole(ctx context.Context, in *CreateUser_UserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
-	DeleteSoftUser(ctx context.Context, in *UserDeleteSoftRequest, opts ...grpc.CallOption) (*Empty, error)
+	DeleteSoftUser(ctx context.Context, in *DeleteSoftUserRequest, opts ...grpc.CallOption) (*Empty, error)
 	DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error)
 	UpdateUserPassword(ctx context.Context, in *UpdateUserPasswordRequest, opts ...grpc.CallOption) (*Empty, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error)
@@ -110,7 +110,7 @@ func (c *systemServiceClient) CreateUser_UserRole(ctx context.Context, in *Creat
 	return out, nil
 }
 
-func (c *systemServiceClient) DeleteSoftUser(ctx context.Context, in *UserDeleteSoftRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *systemServiceClient) DeleteSoftUser(ctx context.Context, in *DeleteSoftUserRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/DeleteSoftUser", in, out, opts...)
 	if err != nil {
@@ -282,7 +282,7 @@ type SystemServiceServer interface {
 	UserPaging(context.Context, *UserPagingRequest) (*UserPagingResponse, error)
 	UserTotal(context.Context, *Empty) (*Total, error)
 	CreateUser_UserRole(context.Context, *CreateUser_UserRoleRequest) (*Empty, error)
-	DeleteSoftUser(context.Context, *UserDeleteSoftRequest) (*Empty, error)
+	DeleteSoftUser(context.Context, *DeleteSoftUserRequest) (*Empty, error)
 	DeleteUser(context.Context, *UserID) (*Empty, error)
 	UpdateUserPassword(context.Context, *UpdateUserPasswordRequest) (*Empty, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*Empty, error)
@@ -325,7 +325,7 @@ func (UnimplementedSystemServiceServer) UserTotal(context.Context, *Empty) (*Tot
 func (UnimplementedSystemServiceServer) CreateUser_UserRole(context.Context, *CreateUser_UserRoleRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser_UserRole not implemented")
 }
-func (UnimplementedSystemServiceServer) DeleteSoftUser(context.Context, *UserDeleteSoftRequest) (*Empty, error) {
+func (UnimplementedSystemServiceServer) DeleteSoftUser(context.Context, *DeleteSoftUserRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSoftUser not implemented")
 }
 func (UnimplementedSystemServiceServer) DeleteUser(context.Context, *UserID) (*Empty, error) {
@@ -501,7 +501,7 @@ func _SystemService_CreateUser_UserRole_Handler(srv interface{}, ctx context.Con
 }
 
 func _SystemService_DeleteSoftUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserDeleteSoftRequest)
+	in := new(DeleteSoftUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -513,7 +513,7 @@ func _SystemService_DeleteSoftUser_Handler(srv interface{}, ctx context.Context,
 		FullMethod: "/pb.SystemService/DeleteSoftUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).DeleteSoftUser(ctx, req.(*UserDeleteSoftRequest))
+		return srv.(SystemServiceServer).DeleteSoftUser(ctx, req.(*DeleteSoftUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

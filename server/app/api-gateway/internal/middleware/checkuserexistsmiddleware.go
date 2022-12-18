@@ -22,7 +22,7 @@ func (m *CheckUserExistsMiddleware) Handle(next http.HandlerFunc) http.HandlerFu
 	return func(w http.ResponseWriter, r *http.Request) {
 		userid := r.Context().Value("user_id").(uint64)
 		userinfoParam := &systemservice.UserID{ID: uint64(userid)}
-		userinfo, err := middleSvcCtx.Ctx.SystemRpcClient.UserInfo(r.Context(), userinfoParam)
+		userinfo, err := middleSvcCtx.Ctx.SystemRpcClient.UserDetail(r.Context(), userinfoParam)
 		if err != nil {
 			s, _ := status.FromError(err)
 			if s.Message() == sql.ErrNoRows.Error() {

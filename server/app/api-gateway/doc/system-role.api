@@ -19,14 +19,14 @@ import "common.api"
 service ApiGateway-api {
     @doc "获取全部角色"
     @handler All
-    get /all returns (AllRoleResponse)
+    get /all returns (RoleAllResponse)
 }
 
 //----------------------------------------------
 // 角色登陆模型
 //----------------------------------------------
 type (
-    AllRoleResponse struct {
+    RoleAllResponse struct {
         HttpCommonResponse
         Total int `json:"total"`
         List []Role `json:"list"`

@@ -14,21 +14,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type AllMenuLogic struct {
+type AllLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewAllMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AllMenuLogic {
-	return &AllMenuLogic{
+func NewAllLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AllLogic {
+	return &AllLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *AllMenuLogic) AllMenu() (resp *types.AllMenuResponse, err error) {
+func (l *AllLogic) All() (resp *types.MenuAllResponse, err error) {
 	var (
 		menuList           []types.Menu
 		userMenuParamsList = []types.Parameter{}
@@ -36,15 +36,15 @@ func (l *AllMenuLogic) AllMenu() (resp *types.AllMenuResponse, err error) {
 	)
 
 	param := &systemservice.Empty{}
-	allmenus, err := l.svcCtx.SystemRpcClient.AllMenuList(l.ctx, param)
+	allmenus, err := l.svcCtx.SystemRpcClient.MenuAll(l.ctx, param)
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
-			return &types.AllMenuResponse{HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"}, Total: 0, List: []types.Menu{}}, nil
+			return &types.MenuAllResponse{HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"}, Total: 0, List: []types.Menu{}}, nil
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.AllMenuList", err.Error(), param)
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.MenuAll", err.Error(), param)
 	}
-	for _, menu := range allmenus.List {
+	for _, menu := range allmenus.Menus {
 		m := types.Menu{
 			ID:        menu.ID,
 			ParentId:  menu.ParentID,
@@ -57,15 +57,15 @@ func (l *AllMenuLogic) AllMenu() (resp *types.AllMenuResponse, err error) {
 		menuList = append(menuList, m)
 	}
 
-	usermenuparam, err := l.svcCtx.SystemRpcClient.AllUserMenuParams(l.ctx, param)
+	usermenuparam, err := l.svcCtx.SystemRpcClient.UserAllMenuParams(l.ctx, param)
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
 
 		} else {
-			msgErrList.WithMeta("SystemRpcClient.AllUserMenuParams", err.Error(), param)
+			msgErrList.WithMeta("SystemRpcClient.UserAllMenuParams", err.Error(), param)
 		}
-		usermenuparam = new(systemservice.UserMenuParamsList)
+		usermenuparam = new(systemservice.UserMenuParamsResponse)
 	}
 	for _, v := range usermenuparam.UserMenuParams {
 		p := types.Parameter{
@@ -87,9 +87,9 @@ func (l *AllMenuLogic) AllMenu() (resp *types.AllMenuResponse, err error) {
 	if count != 0 {
 		msg = fmt.Sprintf("Not OK(%d)", count)
 	}
-	return &types.AllMenuResponse{
+	return &types.MenuAllResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList},
-		Total:              int64(len(allmenus.List)),
+		Total:              int64(len(allmenus.Menus)),
 		List:               menuTree,
 	}, nil
 }

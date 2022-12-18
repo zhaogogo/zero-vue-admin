@@ -25,7 +25,7 @@ func NewDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteLogi
 	}
 }
 
-func (l *DeleteLogic) Delete(req *types.DeleteUserRequest) (resp *types.HttpCommonResponse, err error) {
+func (l *DeleteLogic) Delete(req *types.UserDeleteRequest) (resp *types.HttpCommonResponse, err error) {
 	params := &systemservice.UserID{ID: req.ID}
 	_, err = l.svcCtx.SystemRpcClient.DeleteUser(l.ctx, params)
 	if err != nil {

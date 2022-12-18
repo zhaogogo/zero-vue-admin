@@ -46,8 +46,8 @@ func (l *PagingLogic) Paging(req *types.UserPagingRequest) (resp *types.UserPagi
 		total = ptotal.Total
 	}
 
-	pagingUserParam := &systemservice.PagingUserListRequest{Page: req.Page, PageSize: req.PageSize, NameX: req.NameX}
-	userlist, err := l.svcCtx.SystemRpcClient.PagingUserList(l.ctx, pagingUserParam)
+	pagingUserParam := &systemservice.UserPagingRequest{Page: req.Page, PageSize: req.PageSize, NameX: req.NameX}
+	userlist, err := l.svcCtx.SystemRpcClient.UserPaging(l.ctx, pagingUserParam)
 	if err != nil {
 		e, _ := status.FromError(err)
 		if e.Message() == sql.ErrNoRows.Error() {
@@ -57,7 +57,7 @@ func (l *PagingLogic) Paging(req *types.UserPagingRequest) (resp *types.UserPagi
 				List:                 []types.User{},
 			}, nil
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.PagingUserList", err.Error(), pagingUserParam)
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UserPaging", err.Error(), pagingUserParam)
 	}
 
 	var (
@@ -67,7 +67,7 @@ func (l *PagingLogic) Paging(req *types.UserPagingRequest) (resp *types.UserPagi
 		}
 	)
 	list := []types.User{}
-	for _, user := range userlist.List {
+	for _, user := range userlist.Users {
 		ut := types.User{
 			ID:         user.ID,
 			Name:       user.Name,
@@ -98,11 +98,11 @@ func (l *PagingLogic) Paging(req *types.UserPagingRequest) (resp *types.UserPagi
 		},
 		func(item interface{}, writer mr.Writer, cancel func(error)) {
 			userid := item.(uint64)
-			getUserRoleByUserIDParam := &systemservice.UserID{ID: userid}
-			userroles, err := l.svcCtx.SystemRpcClient.GetUserRoleByUserID(l.ctx, getUserRoleByUserIDParam)
+			userRoleByUserIDParam := &systemservice.UserID{ID: userid}
+			userroles, err := l.svcCtx.SystemRpcClient.UserRoleByUserID(l.ctx, userRoleByUserIDParam)
 			if err != nil {
 				l.Error(err)
-				msgErrList.WithMeta("SystemRpcClient.GetUserRoleByUserID", err.Error(), getUserRoleByUserIDParam)
+				msgErrList.WithMeta("SystemRpcClient.GetUserRoleByUserID", err.Error(), userRoleByUserIDParam)
 				return
 			}
 
@@ -110,9 +110,9 @@ func (l *PagingLogic) Paging(req *types.UserPagingRequest) (resp *types.UserPagi
 		},
 		func(pipe <-chan interface{}, writer mr.Writer, cancel func(error)) {
 			for v := range pipe {
-				userroles, ok := v.(*systemservice.UserRoleList)
+				userroles, ok := v.(*systemservice.UserRoleResponse)
 				if ok {
-					for _, userrole := range userroles.UserRole {
+					for _, userrole := range userroles.UserRoles {
 						for index, user := range list {
 							if user.ID == userrole.UserID {
 								list[index].RoleList = append(list[index].RoleList, userrole.RoleID)

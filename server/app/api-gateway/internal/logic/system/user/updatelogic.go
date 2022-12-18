@@ -12,23 +12,23 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type EditLogic struct {
+type UpdateLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewEditLogic(ctx context.Context, svcCtx *svc.ServiceContext) *EditLogic {
-	return &EditLogic{
+func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogic {
+	return &UpdateLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *EditLogic) Edit(req *types.EditUserInfoRequest) (resp *types.HttpCommonResponse, err error) {
+func (l *UpdateLogic) Update(req *types.UserUpdateRequest) (resp *types.HttpCommonResponse, err error) {
 	loginUser := l.ctx.Value("userName").(string)
-	param := &systemservice.EditUserInfoRequest{
+	param := &systemservice.UpdateUserRequest{
 		ID:         req.ID,
 		Name:       req.Name,
 		NickName:   req.NickName,
@@ -38,7 +38,7 @@ func (l *EditLogic) Edit(req *types.EditUserInfoRequest) (resp *types.HttpCommon
 		Position:   req.Position,
 		UpdateBy:   loginUser,
 	}
-	_, err = l.svcCtx.SystemRpcClient.EditUserInfo(l.ctx, param)
+	_, err = l.svcCtx.SystemRpcClient.UpdateUser(l.ctx, param)
 	if err != nil {
 		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.EditUserInfo", err.Error(), param)
 	}

@@ -27,6 +27,31 @@ service ApiGateway-api {
     prefix: /api/v1/system/user
 )
 service ApiGateway-api {
+    @doc "用户详情"
+    @handler Detail
+    get /:id (UserDetailRequest) returns (UserDetailResponse)
+
+    @doc "删除用户"
+    @handler Delete
+    delete /:id (UserDeleteRequest) returns (HttpCommonResponse)
+
+    @doc "软删除用户"
+    @handler DeleteSoft
+    delete /soft/:id (UserDeleteSoftRequest) returns (HttpCommonResponse)
+
+    @doc "更新用户"
+    @handler Update
+    post /:id (UserUpdateRequest) returns (HttpCommonResponse)
+
+    @doc "修改用户角色"
+    @handler UpdateUserRole
+    post /role/:id (UpdateUserRoleRequest) returns(HttpCommonResponse)
+
+    @doc "修改用户密码"
+    @handler UpdatePassword
+    post /password/:id(UpdatePasswordRequest) returns(HttpCommonResponse)
+
+
     @doc "全部用户详情"
     @handler All
     get /all returns (UserAllResponse)
@@ -35,37 +60,13 @@ service ApiGateway-api {
     @handler Paging
     post /paging (UserPagingRequest) returns (UserPagingResponse)
 
-    @doc "用户详情"
-    @handler Detail
-    get /detail/:id (UserDetailRequest) returns (UserDetailResponse)
-
-    @doc "修改用户密码"
-    @handler Password
-    post /password(ChangePasswordRequest) returns(HttpCommonResponse)
-
-    @doc "修改用户角色"
-    @handler UpdateRole
-    post /updaterole/:id (UpdateRoleRequest) returns(HttpCommonResponse)
-
-    @doc "软删除用户"
-    @handler DeleteSoft
-    delete /deletesoft/:id (SoftDeleteUserRequest) returns (HttpCommonResponse)
-
-    @doc "删除用户"
-    @handler Delete
-    delete /delete/:id (DeleteUserRequest) returns (HttpCommonResponse)
-
     @doc "新增用户"
-    @handler Add
-    post /add (AddUserRequest) returns (HttpCommonResponse)
-
-    @doc "编辑用户"
-    @handler Edit
-    post /edit/:id (EditUserInfoRequest) returns (HttpCommonResponse)
+    @handler Create
+    post /create (UserCreateRequest) returns (HttpCommonResponse)
 
     @doc "修改用户页面配置"
-    @handler SetUserPage
-    put /setuserpageset (UserPageRequest) returns (HttpCommonResponse)
+    @handler Page
+    put /page (UserPageRequest) returns (HttpCommonResponse)
 }
 
 //----------------------------------------------
@@ -158,7 +159,7 @@ type(
 //----------------------------------------------
 // 修改用户密码
 //----------------------------------------------
-type ChangePasswordRequest struct {
+type UpdatePasswordRequest struct {
     ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
     Password string `json:"password,optional" validate:"required"`
 }
@@ -166,7 +167,7 @@ type ChangePasswordRequest struct {
 //----------------------------------------------
 // 修改用户角色
 //----------------------------------------------
-type UpdateRoleRequest struct {
+type UpdateUserRoleRequest struct {
     ID uint64 `path:"id,optional" validate:"required"`
     RoleList []uint64 `json:"roleList,optional"`
 }
@@ -174,21 +175,21 @@ type UpdateRoleRequest struct {
 //----------------------------------------------
 // 软删除用户
 //----------------------------------------------
-type SoftDeleteUserRequest struct {
-    UserID uint64 `json:"userId,optional" validate:"required,numeric,gte=2" comment="用户ID为必填项"`
+type UserDeleteSoftRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric,gte=2" comment="用户ID为必填项"`
     State string `json:"state,optional" validate:"required,oneof='deleted' 'resume'"`
 }
 //----------------------------------------------
 //删除用户
 //----------------------------------------------
-type DeleteUserRequest struct {
+type UserDeleteRequest struct {
     ID uint64 `path:"id,optional" validate:"required,numeric,gte=2"`
 }
 
 //----------------------------------------------
 //新增用户
 //----------------------------------------------
-type AddUserRequest struct {
+type UserCreateRequest struct {
     Name string `json:"name,optional" validate:"required,gte=5"`
     NickName string `json:"nick_name,optional" validate:"required,gte=5"`
     PassWord string `json:"password,optional" validate:"required,gte=5"`
@@ -210,7 +211,7 @@ type AddUserRequest struct {
 //----------------------------------------------
 //编辑用户
 //----------------------------------------------
-type EditUserInfoRequest struct {
+type UserUpdateRequest struct {
     ID uint64 `path:"id,optional" validate:"required,numeric,gt=0"`
     Name string `json:"name,optional" validate:"required,gte=5"`
     NickName string `json:"nick_name,optional" validate:"required,gte=5"`

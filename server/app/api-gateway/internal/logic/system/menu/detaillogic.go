@@ -13,29 +13,29 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type MenuInfoLogic struct {
+type DetailLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewMenuInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *MenuInfoLogic {
-	return &MenuInfoLogic{
+func NewDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DetailLogic {
+	return &DetailLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *MenuInfoLogic) MenuInfo(req *types.MenuInfoRequest) (resp *types.MenuInfoResponse, err error) {
+func (l *DetailLogic) Detail(req *types.MenuDetailRequest) (resp *types.MenuDetailResponse, err error) {
 	param := &systemservice.MenuID{ID: req.ID}
-	pmenu, err := l.svcCtx.SystemRpcClient.MenuInfo(l.ctx, param)
+	pmenu, err := l.svcCtx.SystemRpcClient.MenuDetail(l.ctx, param)
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
-			return nil, errorx.NewByCode(err, errorx.DB_NOTFOUND).WithMeta("SystemRpcClient.MenuInfo", err.Error(), param)
+			return nil, errorx.NewByCode(err, errorx.DB_NOTFOUND).WithMeta("SystemRpcClient.MenuDetail", err.Error(), param)
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.MenuInfo", err.Error(), param)
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.MenuDetail", err.Error(), param)
 	}
 
 	menu := types.Menu{
@@ -49,7 +49,7 @@ func (l *MenuInfoLogic) MenuInfo(req *types.MenuInfoRequest) (resp *types.MenuIn
 		MenuMeta:  types.MenuMeta{Title: pmenu.Title, Icon: pmenu.Icon},
 	}
 
-	return &types.MenuInfoResponse{
+	return &types.MenuDetailResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"},
 		MenuInfo:           menu,
 	}, nil

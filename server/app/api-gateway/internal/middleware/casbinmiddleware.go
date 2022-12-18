@@ -31,14 +31,14 @@ func (m *CasbinMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		)
 		userid := r.Context().Value("user_id").(uint64)
 		params := &systemservice.UserID{ID: userid}
-		userRoleList, err := middleSvcCtx.Ctx.SystemRpcClient.GetUserRoleByUserID(r.Context(), params)
+		userRoleList, err := middleSvcCtx.Ctx.SystemRpcClient.UserRoleByUserID(r.Context(), params)
 		if err != nil {
 			s, _ := status.FromError(err)
 			if s.Message() == sql.ErrNoRows.Error() {
-				userRoleList = new(systemservice.UserRoleList)
+				userRoleList = new(systemservice.UserRoleResponse)
 				goto TOPERMISSION
 			}
-			httpx.Error(w, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.GetUserRoleByUserID", err.Error(), params))
+			httpx.Error(w, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.UserRoleByUserID", err.Error(), params))
 			return
 		}
 	TOPERMISSION:
@@ -47,7 +47,7 @@ func (m *CasbinMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// 获取请求方法
 		act := r.Method
 		// 获取用户的角色
-		for _, userRole := range userRoleList.UserRole {
+		for _, userRole := range userRoleList.UserRoles {
 			hasPerimisstion, err = casbinx.Casbin.Enforce(strconv.FormatUint(userRole.RoleID, 10), obj, act)
 			if err != nil {
 				logx.Errorf("roleid: %v, error: %v", r, err)

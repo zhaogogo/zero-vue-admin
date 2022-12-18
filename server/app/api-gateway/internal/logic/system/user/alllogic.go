@@ -28,7 +28,7 @@ func NewAllLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AllLogic {
 }
 
 func (l *AllLogic) All() (resp *types.UserAllResponse, err error) {
-	userlist, err := l.svcCtx.SystemRpcClient.PagingUserList(l.ctx, &systemservice.PagingUserListRequest{Page: 0, PageSize: 0})
+	pagingUser, err := l.svcCtx.SystemRpcClient.UserPaging(l.ctx, &systemservice.UserPagingRequest{Page: 0, PageSize: 0})
 	if err != nil {
 		e, _ := status.FromError(err)
 		if e.Message() == sql.ErrNoRows.Error() {
@@ -38,14 +38,14 @@ func (l *AllLogic) All() (resp *types.UserAllResponse, err error) {
 				List:               []types.User{},
 			}, nil
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("PagingUserList", err.Error(), "")
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.PagingUserList", err.Error(), "")
 	}
 	state := map[bool]string{
 		true:  "deleted",
 		false: "resume",
 	}
 	list := []types.User{}
-	for _, user := range userlist.List {
+	for _, user := range pagingUser.Users {
 		ut := types.User{
 			ID:         user.ID,
 			Name:       user.Name,
@@ -69,7 +69,7 @@ func (l *AllLogic) All() (resp *types.UserAllResponse, err error) {
 
 	return &types.UserAllResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"},
-		Total:              int64(len(userlist.List)),
+		Total:              int64(len(pagingUser.Users)),
 		List:               list,
 	}, nil
 }

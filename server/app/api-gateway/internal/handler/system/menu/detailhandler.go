@@ -10,9 +10,9 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 )
 
-func AddMenuHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func DetailHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.AddMenuRequest
+		var req types.MenuDetailRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
@@ -21,8 +21,8 @@ func AddMenuHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
-		l := menu.NewAddMenuLogic(r.Context(), svcCtx)
-		resp, err := l.AddMenu(&req)
+		l := menu.NewDetailLogic(r.Context(), svcCtx)
+		resp, err := l.Detail(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

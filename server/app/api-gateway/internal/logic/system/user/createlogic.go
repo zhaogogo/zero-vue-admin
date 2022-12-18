@@ -12,23 +12,23 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type AddLogic struct {
+type CreateLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddLogic {
-	return &AddLogic{
+func NewCreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateLogic {
+	return &CreateLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *AddLogic) Add(req *types.AddUserRequest) (resp *types.HttpCommonResponse, err error) {
+func (l *CreateLogic) Create(req *types.UserCreateRequest) (resp *types.HttpCommonResponse, err error) {
 	username := l.ctx.Value("userName").(string)
-	param := &systemservice.AddUserAndUserRoleRequest{
+	param := &systemservice.CreateUser_UserRoleRequest{
 		User: &systemservice.User{
 			ID:         0,
 			Name:       req.Name,
@@ -45,9 +45,9 @@ func (l *AddLogic) Add(req *types.AddUserRequest) (resp *types.HttpCommonRespons
 		},
 		RoleList: req.RoleList,
 	}
-	_, err = l.svcCtx.SystemRpcClient.AddUserAndUserRole(l.ctx, param)
+	_, err = l.svcCtx.SystemRpcClient.CreateUser_UserRole(l.ctx, param)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.AddUserAndUserRole", err.Error(), param)
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.CreateUser_UserRole", err.Error(), param)
 	}
 
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
