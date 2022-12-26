@@ -3,6 +3,7 @@ package menu
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
@@ -28,6 +29,8 @@ func NewDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DetailLogi
 }
 
 func (l *DetailLogic) Detail(req *types.MenuDetailRequest) (resp *types.MenuDetailResponse, err error) {
+	msgErrList := errorx.MsgErrList{}
+
 	param := &systemservice.MenuID{ID: req.ID}
 	pmenu, err := l.svcCtx.SystemRpcClient.MenuDetail(l.ctx, param)
 	if err != nil {
@@ -36,6 +39,17 @@ func (l *DetailLogic) Detail(req *types.MenuDetailRequest) (resp *types.MenuDeta
 			return nil, errorx.NewByCode(err, errorx.DB_NOTFOUND).WithMeta("SystemRpcClient.MenuDetail", err.Error(), param)
 		}
 		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.MenuDetail", err.Error(), param)
+	}
+
+	userMenuParamsParam := &systemservice.Empty{}
+	usermenuparams, err := l.svcCtx.SystemRpcClient.UserAllMenuParams(l.ctx, userMenuParamsParam)
+	if err != nil {
+		s, _ := status.FromError(err)
+		if s.Message() == sql.ErrNoRows.Error() {
+			usermenuparams = new(systemservice.UserMenuParamsResponse)
+		} else {
+			msgErrList.WithMeta("SystemRpcClient.UserAllMenuParams", err.Error(), userMenuParamsParam)
+		}
 	}
 
 	menu := types.Menu{
@@ -49,8 +63,31 @@ func (l *DetailLogic) Detail(req *types.MenuDetailRequest) (resp *types.MenuDeta
 		MenuMeta:  types.MenuMeta{Title: pmenu.Title, Icon: pmenu.Icon},
 	}
 
+	menuParam := []types.Parameter{}
+	for _, usermenuparam := range usermenuparams.UserMenuParams {
+		if menu.ID == usermenuparam.MenuID {
+			menuParam = append(menuParam, types.Parameter{
+				ID:     usermenuparam.ID,
+				UserID: usermenuparam.UserID,
+				MenuID: usermenuparam.MenuID,
+				Type:   usermenuparam.Type,
+				Key:    usermenuparam.Key,
+				Value:  usermenuparam.Value,
+			})
+		}
+	}
+	menu.Parameters = menuParam
+
+	var (
+		msg      = "OK"
+		errcount = len(msgErrList.List)
+	)
+	if errcount != 0 {
+		msg = fmt.Sprintf("Not OK(%v)", errcount)
+	}
+
 	return &types.MenuDetailResponse{
-		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"},
-		MenuInfo:           menu,
+		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList.List},
+		Detail:             menu,
 	}, nil
 }

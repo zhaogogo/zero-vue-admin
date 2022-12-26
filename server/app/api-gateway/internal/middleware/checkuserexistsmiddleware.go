@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"context"
 	"database/sql"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -32,11 +33,14 @@ func (m *CheckUserExistsMiddleware) Handle(next http.HandlerFunc) http.HandlerFu
 			httpx.Error(w, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UserInfo", err.Error(), userinfoParam))
 			return
 		}
+
 		if userinfo.DeleteTime != 0 {
 			httpx.Error(w, errorx.NewByCode(errors.New("用户为禁用状态"), errorx.UNAUTHORIZATION))
 			return
 		}
 
-		next(w, r)
+		ctx := r.Context()
+		ctx = context.WithValue(ctx, "userinfo", userinfo)
+		next(w, r.WithContext(ctx))
 	}
 }

@@ -20,8 +20,11 @@ type (
 	// RoleMenuModel is an interface to be customized, add more methods here,
 	// and implement the added methods in customRoleMenuModel.
 	RoleMenuModel interface {
-		roleMenuModel
+		FindByMenuID_NC(ctx context.Context, menuid uint64) ([]RoleMenu, error)
 		FindByRoleID(ctx context.Context, redis *redis.Redis, roleID uint64) ([]RoleMenu, error)
+
+		TransDeleteByMenuId(ctx context.Context, session sqlx.Session, menuid uint64) error
+		TransDeleteByRoleId(ctx context.Context, session sqlx.Session, roleid uint64) error
 	}
 
 	customRoleMenuModel struct {
@@ -34,6 +37,21 @@ func NewRoleMenuModel(conn sqlx.SqlConn, c cache.CacheConf) RoleMenuModel {
 	return &customRoleMenuModel{
 		defaultRoleMenuModel: newRoleMenuModel(conn, c),
 	}
+}
+
+func (m *defaultRoleMenuModel) FindByMenuID_NC(ctx context.Context, menuid uint64) ([]RoleMenu, error) {
+	var resp []RoleMenu
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE `menu_id` = ?", roleMenuRows, m.table)
+
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, menuid)
+	if err != nil {
+		return nil, err
+	}
+	if len(resp) == 0 {
+		return nil, ErrNotFound
+	}
+
+	return resp, nil
 }
 
 func (m *defaultRoleMenuModel) FindByRoleID(ctx context.Context, redis *redis.Redis, roleID uint64) ([]RoleMenu, error) {
@@ -67,4 +85,38 @@ func (m *defaultRoleMenuModel) FindByRoleID(ctx context.Context, redis *redis.Re
 	}
 
 	return nil, err
+}
+
+func (m *defaultRoleMenuModel) TransDeleteByMenuId(ctx context.Context, session sqlx.Session, menuid uint64) error {
+	cacheChaosSystemRoleMenu_RoleId_Keys := []string{}
+	roleidSet := make(map[uint64]int64)
+
+	var rolemenu []RoleMenu
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE `menu_id` = ?", roleMenuRows, m.table)
+	err := session.QueryRowsCtx(ctx, &rolemenu, query, menuid)
+	if err != nil {
+		return err
+	}
+	for _, rolemenu := range rolemenu {
+		roleidSet[rolemenu.RoleId] += 1
+	}
+	for roleid, _ := range roleidSet {
+		cacheChaosSystemRoleMenu_RoleId_Keys = append(cacheChaosSystemRoleMenu_RoleId_Keys, fmt.Sprintf("%s%v", cacheChaosSystemRoleMenuRoleIdPrefix, roleid))
+	}
+
+	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("delete from %s where `menu_id` = ?", m.table)
+		return conn.ExecCtx(ctx, query, menuid)
+	}, cacheChaosSystemRoleMenu_RoleId_Keys...)
+	return err
+}
+
+func (m *defaultRoleMenuModel) TransDeleteByRoleId(ctx context.Context, session sqlx.Session, roleid uint64) error {
+	cacheChaosSystemRoleMenu_RoleId_Keys := fmt.Sprintf("%s%v", cacheChaosSystemRoleMenuRoleIdPrefix, roleid)
+
+	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("delete from %s where `role_id` = ?", m.table)
+		return session.ExecCtx(ctx, query, roleid)
+	}, cacheChaosSystemRoleMenu_RoleId_Keys)
+	return err
 }

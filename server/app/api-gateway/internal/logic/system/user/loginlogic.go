@@ -38,7 +38,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 	var (
 		userpageset *systemservice.UserPageSetResponse
 		user        *systemservice.User
-		rolelist    = []string{}
+		rolelist    = []types.RoleRes{}
 		msgErrList  = errorx.MsgErrList{}
 	)
 
@@ -95,7 +95,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 		userrole, err := l.svcCtx.SystemRpcClient.UserRoleByUserID(l.ctx, userRoleByUserIDParam)
 		if err != nil {
 			l.Error(err)
-			msgErrList.WithMeta("SystemRpcClient.GetUserRoleByUserID", err.Error(), userRoleByUserIDParam)
+			msgErrList.WithMeta("SystemRpcClient.UserRoleByUserID", err.Error(), userRoleByUserIDParam)
 			return nil
 		}
 
@@ -120,7 +120,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 					role, ok := v.(*systemservice.Role)
 					if ok {
 						if role.DeleteTime == 0 {
-							rolelist = append(rolelist, role.Role)
+							rolelist = append(rolelist, types.RoleRes{RoleId: role.ID, RoleName: role.Name})
 						}
 					} else {
 						logx.Errorf("mr reducer断言失败, 实际类型: (%T), 断言类型: (*systemservice.Role)", v, v)
@@ -151,16 +151,11 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 			ActiveTextColor: userpageset.ActiveTextColor,
 			TextColor:       userpageset.TextColor,
 		},
-		Role: rolelist,
+		Roles: rolelist,
 	}, nil
 }
 
 /*
-2022-12-19T03:19:55.128+08:00    stat   p2c - conn: 127.0.0.1:8080, load: 15939, reqs: 1        caller=p2c/p2c.go:181
-=====> 1 /api/v1/system/user/soft/4 DELETE true
-2022-12-19T03:19:55.242+08:00    info   [HTTP]  200  -  DELETE  /api/v1/system/user/soft/4 - 127.0.0.1 - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36       duration=372.7ms        trace=5ed0dea9cbfdb6724f5068d73ad8a6d1  span=5cda9c7fcdc9808f   caller=handler/loghandler.go:197
-2022-12-19T03:19:55.415+08:00    info   [HTTP]  401  -  POST  /api/v1/system/user/paging - 127.0.0.1 - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 duration=30.5ms trace=cfa2d984dfd0b31268c195f0988b8ecf  span=a46095f18a1ff3bd   caller=handler/loghandler.go:197
-==================
 WARNING: DATA RACE
 Write at 0x00c000491a60 by goroutine 83:
   github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/logic/system/user.(*LoginLogic).Login.func2()

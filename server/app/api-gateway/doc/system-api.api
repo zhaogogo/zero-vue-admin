@@ -1,0 +1,137 @@
+syntax = "v1"
+
+info(
+    title: "系统api"
+    desc: "系统api"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+import "common.api"
+
+@server(
+    jwt: Auth
+    middleware: ParseJWTToken,CheckUserExists,Casbin
+    group: system/api
+    prefix: /api/v1/system/api
+)
+service ApiGateway-api {
+    @doc "API详情"
+    @handler Detail
+    get /:id (APIDetailRequest) returns (APIDetailResponse)
+
+    @doc "删除API"
+    @handler Delete
+    delete /:id (APIDeleteRequest) returns (HttpCommonResponse)
+
+    @doc "批量删除API"
+    @handler DeleteMultiple
+    delete /multiple (APIDeleteMultipleRequest) returns (HttpCommonResponse)
+
+    @doc "编辑API"
+    @handler Update
+    put /:id (APIUpdateRequest) returns(HttpCommonResponse)
+
+    @doc "创建API"
+    @handler Create
+    post /create (APICreateRequest) returns (HttpCommonResponse)
+
+    @doc "分页API详情及过滤查询"
+    @handler Paging
+    post /paging (APIPagingRequest) returns (APIPagingResponse)
+
+    @doc "分页API详情及过滤查询"
+    @handler All
+    get /all returns (APIAllResponse)
+}
+
+// ------------------------
+// common模型
+// ------------------------
+type API struct {
+    ID uint64 `json:"id"`
+    API string `json:"api"`
+    Group string `json:"group"`
+    Describe string `json:"describe"`
+    Method string `json:"method"`
+}
+
+// ------------------------
+// "API详情"
+// ------------------------
+type (
+    APIDetailRequest struct {
+        ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+    }
+    APIDetailResponse struct {
+        HttpCommonResponse
+        Detail API `json:"detail"`
+    }
+)
+// ------------------------
+// 编辑API
+// ------------------------
+type APIUpdateRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+    Api string `json:"api,optional" validate:"required"`
+    Describe string `json:"describe,optional" validate:"required"`
+    Group string `json:"group,optional" validate:"required"`
+    Method string `json:"method,optional" validate:"required,oneof='GET' 'PUT' 'DELETE' 'POST'"`
+}
+
+// ------------------------
+//"创建API"
+// ------------------------
+type APICreateRequest struct {
+    Api string `json:"api,optional" validate:"required"`
+    Describe string `json:"describe,optional" validate:"required"`
+    Group string `json:"group,optional" validate:"required"`
+    Method string `json:"method,optional" validate:"required,oneof='GET' 'PUT' 'DELETE' 'POST'"`
+}
+// ------------------------
+// "删除API"
+// ------------------------
+type APIDeleteRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+    Api string `json:"api,optional" validate:"required"`
+    Method string `json:"method,optional" validate:"required,oneof='GET' 'PUT' 'DELETE' 'POST'"`
+}
+
+// ------------------------
+// "批量删除API"
+// ------------------------
+type APIDeleteMultipleRequest struct {
+    APIs []APIDeleteMultipRequest `json:"apis,optional" validate:"slice_c='gte=0',dive" commen:"slice长度必须大于等于0"`
+}
+type APIDeleteMultipRequest struct {
+    ID uint64 `json:"id,optional" validate:"required,numeric,gte=1"`
+    Api string `json:"api,optional" validate:"required"`
+    Method string `json:"method,optional" validate:"required,oneof='GET' 'PUT' 'DELETE' 'POST'"`
+}
+
+// ------------------------
+// 分页API详情及过滤查询
+// ------------------------
+type (
+    APIPagingRequest struct {
+        PagingCommonRequest
+        OrderKey string `json:"orderKey,optional"`
+        Order string `json:"order,optional"  validate:"oneof='ascending' 'descending' ''"`
+        Api string `json:"api,optional"`
+        Describe string `json:"describe,optional"`
+        Group string `json:"group,optional"`
+        Method string `json:"method,optional" validate:"oneof='GET' 'PUT' 'DELETE' 'POST' ''"`
+    }
+    APIPagingResponse  struct {
+        HttpCommonResponse
+        PagingCommonResponse
+        List []API `json:"list"`
+    }
+)
+
+type APIAllResponse struct{
+    HttpCommonResponse
+    Total int64 `json:"total"`
+    List []API `json:"list"`
+}

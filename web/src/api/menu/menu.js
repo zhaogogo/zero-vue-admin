@@ -21,3 +21,26 @@ export const menuInfo = (id) => {
         method: "GET"
     })
 }
+
+export const deleteMenu = (id) => {
+    return service({
+        url: "/api/v1/system/menu/" + id,
+        method: "DELETE"
+    })
+}
+
+export const updateMenu = (data) => {
+    return service({
+        url: "/api/v1/system/menu/" + data.id,
+        method: "PUT",
+        data
+    })
+}
+
+export const updateUsermenuParam = (data) => {
+    return service({
+        url: "/api/v1/system/menu/" + data.id + "/userparam",
+        method: "POST",
+        data
+    })
+}

@@ -13,39 +13,55 @@ import (
 )
 
 type (
-	CreateMenuRequest          = pb.CreateMenuRequest
-	CreateUser_UserRoleRequest = pb.CreateUser_UserRoleRequest
-	DeleteSoftUserRequest      = pb.DeleteSoftUserRequest
-	Empty                      = pb.Empty
-	LoginRequest               = pb.LoginRequest
-	LoginResponse              = pb.LoginResponse
-	Menu                       = pb.Menu
-	MenuAllResponse            = pb.MenuAllResponse
-	MenuID                     = pb.MenuID
-	Role                       = pb.Role
-	RoleAllResponse            = pb.RoleAllResponse
-	RoleID                     = pb.RoleID
-	RoleMenu                   = pb.RoleMenu
-	RoleMenuResponse           = pb.RoleMenuResponse
-	Total                      = pb.Total
-	UpdateMenuRequest          = pb.UpdateMenuRequest
-	UpdateUserPageSetRequest   = pb.UpdateUserPageSetRequest
-	UpdateUserPasswordRequest  = pb.UpdateUserPasswordRequest
-	UpdateUserRequest          = pb.UpdateUserRequest
-	UpdateUserRoleRequest      = pb.UpdateUserRoleRequest
-	User                       = pb.User
-	UserID                     = pb.UserID
-	UserMenuParams             = pb.UserMenuParams
-	UserMenuParamsResponse     = pb.UserMenuParamsResponse
-	UserName                   = pb.UserName
-	UserPageSetResponse        = pb.UserPageSetResponse
-	UserPagingRequest          = pb.UserPagingRequest
-	UserPagingResponse         = pb.UserPagingResponse
-	UserRole                   = pb.UserRole
-	UserRoleResponse           = pb.UserRoleResponse
+	API                               = pb.API
+	APIAllResponse                    = pb.APIAllResponse
+	APIPagingRequest                  = pb.APIPagingRequest
+	APIPagingResponse                 = pb.APIPagingResponse
+	ApiID                             = pb.ApiID
+	CasbinEnforceRequest              = pb.CasbinEnforceRequest
+	CasbinEnforceResponse             = pb.CasbinEnforceResponse
+	CreateAPIRequest                  = pb.CreateAPIRequest
+	CreateMenuRequest                 = pb.CreateMenuRequest
+	CreateRoleRequest                 = pb.CreateRoleRequest
+	CreateUser_UserRoleRequest        = pb.CreateUser_UserRoleRequest
+	DeleteAPIAndCasbinRequest         = pb.DeleteAPIAndCasbinRequest
+	DeleteAPIMultipleAndCasbinRequest = pb.DeleteAPIMultipleAndCasbinRequest
+	DeleteSoftRoleRequest             = pb.DeleteSoftRoleRequest
+	DeleteSoftUserRequest             = pb.DeleteSoftUserRequest
+	Empty                             = pb.Empty
+	LoginRequest                      = pb.LoginRequest
+	LoginResponse                     = pb.LoginResponse
+	Menu                              = pb.Menu
+	MenuAllResponse                   = pb.MenuAllResponse
+	MenuID                            = pb.MenuID
+	Role                              = pb.Role
+	RoleAllResponse                   = pb.RoleAllResponse
+	RoleID                            = pb.RoleID
+	RoleMenu                          = pb.RoleMenu
+	RoleMenuResponse                  = pb.RoleMenuResponse
+	Total                             = pb.Total
+	UpdateMenuRequest                 = pb.UpdateMenuRequest
+	UpdateRoleRequest                 = pb.UpdateRoleRequest
+	UpdateUserMenuParamsRequest       = pb.UpdateUserMenuParamsRequest
+	UpdateUserPageSetRequest          = pb.UpdateUserPageSetRequest
+	UpdateUserPasswordRequest         = pb.UpdateUserPasswordRequest
+	UpdateUserRequest                 = pb.UpdateUserRequest
+	UpdateUserRoleRequest             = pb.UpdateUserRoleRequest
+	User                              = pb.User
+	UserID                            = pb.UserID
+	UserMenuParams                    = pb.UserMenuParams
+	UserMenuParamsResponse            = pb.UserMenuParamsResponse
+	UserName                          = pb.UserName
+	UserPageSetResponse               = pb.UserPageSetResponse
+	UserPagingRequest                 = pb.UserPagingRequest
+	UserPagingResponse                = pb.UserPagingResponse
+	UserRole                          = pb.UserRole
+	UserRoleResponse                  = pb.UserRoleResponse
 
 	SystemService interface {
 		Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+		CasbinEnforcer(ctx context.Context, in *CasbinEnforceRequest, opts ...grpc.CallOption) (*CasbinEnforceResponse, error)
+		RefreshCasbinPolicy(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error)
 		UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error)
 		UserDetailByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error)
 		UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error)
@@ -57,17 +73,31 @@ type (
 		UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error)
 		UserPageSet(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSetResponse, error)
 		UpdateUserPageSet(ctx context.Context, in *UpdateUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
-		UserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
+		UserMenuParamsByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
 		UserAllMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
+		UpdateUserMenuParams(ctx context.Context, in *UpdateUserMenuParamsRequest, opts ...grpc.CallOption) (*Empty, error)
 		UserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleResponse, error)
 		UpdateUserRole(ctx context.Context, in *UpdateUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 		RoleDetail(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error)
 		RoleAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RoleAllResponse, error)
+		DeleteRole(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Empty, error)
+		DeleteSoftRole(ctx context.Context, in *DeleteSoftRoleRequest, opts ...grpc.CallOption) (*Empty, error)
+		CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*Empty, error)
+		UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 		MenuDetail(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error)
 		MenuAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MenuAllResponse, error)
 		CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
 		UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
+		DeleteMenu_RoleMenu_UserMenuParam(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Empty, error)
 		RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error)
+		APIDetail(ctx context.Context, in *ApiID, opts ...grpc.CallOption) (*API, error)
+		APIAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*APIAllResponse, error)
+		APIPaging(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*APIPagingResponse, error)
+		APITotal(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*Total, error)
+		CreateAPI(ctx context.Context, in *CreateAPIRequest, opts ...grpc.CallOption) (*Empty, error)
+		UpdateAPI(ctx context.Context, in *API, opts ...grpc.CallOption) (*Empty, error)
+		DeleteAPIAndCasbin(ctx context.Context, in *DeleteAPIAndCasbinRequest, opts ...grpc.CallOption) (*Empty, error)
+		DeleteAPIMultipleAndCasbin(ctx context.Context, in *DeleteAPIMultipleAndCasbinRequest, opts ...grpc.CallOption) (*Empty, error)
 		Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 	}
 
@@ -85,6 +115,16 @@ func NewSystemService(cli zrpc.Client) SystemService {
 func (m *defaultSystemService) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.Login(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) CasbinEnforcer(ctx context.Context, in *CasbinEnforceRequest, opts ...grpc.CallOption) (*CasbinEnforceResponse, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.CasbinEnforcer(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) RefreshCasbinPolicy(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.RefreshCasbinPolicy(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error) {
@@ -142,14 +182,19 @@ func (m *defaultSystemService) UpdateUserPageSet(ctx context.Context, in *Update
 	return client.UpdateUserPageSet(ctx, in, opts...)
 }
 
-func (m *defaultSystemService) UserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
+func (m *defaultSystemService) UserMenuParamsByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
-	return client.UserMenuParams(ctx, in, opts...)
+	return client.UserMenuParamsByUserID(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) UserAllMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.UserAllMenuParams(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) UpdateUserMenuParams(ctx context.Context, in *UpdateUserMenuParamsRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.UpdateUserMenuParams(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) UserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleResponse, error) {
@@ -172,6 +217,26 @@ func (m *defaultSystemService) RoleAll(ctx context.Context, in *Empty, opts ...g
 	return client.RoleAll(ctx, in, opts...)
 }
 
+func (m *defaultSystemService) DeleteRole(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.DeleteRole(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) DeleteSoftRole(ctx context.Context, in *DeleteSoftRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.DeleteSoftRole(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.CreateRole(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.UpdateRole(ctx, in, opts...)
+}
+
 func (m *defaultSystemService) MenuDetail(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.MenuDetail(ctx, in, opts...)
@@ -192,9 +257,54 @@ func (m *defaultSystemService) UpdateMenu(ctx context.Context, in *UpdateMenuReq
 	return client.UpdateMenu(ctx, in, opts...)
 }
 
+func (m *defaultSystemService) DeleteMenu_RoleMenu_UserMenuParam(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.DeleteMenu_RoleMenu_UserMenuParam(ctx, in, opts...)
+}
+
 func (m *defaultSystemService) RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.RoleMenuByRoleID(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) APIDetail(ctx context.Context, in *ApiID, opts ...grpc.CallOption) (*API, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.APIDetail(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) APIAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*APIAllResponse, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.APIAll(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) APIPaging(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*APIPagingResponse, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.APIPaging(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) APITotal(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*Total, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.APITotal(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) CreateAPI(ctx context.Context, in *CreateAPIRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.CreateAPI(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) UpdateAPI(ctx context.Context, in *API, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.UpdateAPI(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) DeleteAPIAndCasbin(ctx context.Context, in *DeleteAPIAndCasbinRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.DeleteAPIAndCasbin(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) DeleteAPIMultipleAndCasbin(ctx context.Context, in *DeleteAPIMultipleAndCasbinRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.DeleteAPIMultipleAndCasbin(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error) {

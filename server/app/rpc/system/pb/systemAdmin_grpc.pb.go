@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SystemServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	CasbinEnforcer(ctx context.Context, in *CasbinEnforceRequest, opts ...grpc.CallOption) (*CasbinEnforceResponse, error)
+	RefreshCasbinPolicy(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error)
 	UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error)
 	UserDetailByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error)
 	UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error)
@@ -34,17 +36,31 @@ type SystemServiceClient interface {
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error)
 	UserPageSet(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSetResponse, error)
 	UpdateUserPageSet(ctx context.Context, in *UpdateUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
-	UserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
+	UserMenuParamsByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
 	UserAllMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
+	UpdateUserMenuParams(ctx context.Context, in *UpdateUserMenuParamsRequest, opts ...grpc.CallOption) (*Empty, error)
 	UserRoleByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserRoleResponse, error)
 	UpdateUserRole(ctx context.Context, in *UpdateUserRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 	RoleDetail(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Role, error)
 	RoleAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RoleAllResponse, error)
+	DeleteRole(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Empty, error)
+	DeleteSoftRole(ctx context.Context, in *DeleteSoftRoleRequest, opts ...grpc.CallOption) (*Empty, error)
+	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*Empty, error)
+	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 	MenuDetail(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error)
 	MenuAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MenuAllResponse, error)
 	CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
 	UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
+	DeleteMenu_RoleMenu_UserMenuParam(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Empty, error)
 	RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error)
+	APIDetail(ctx context.Context, in *ApiID, opts ...grpc.CallOption) (*API, error)
+	APIAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*APIAllResponse, error)
+	APIPaging(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*APIPagingResponse, error)
+	APITotal(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*Total, error)
+	CreateAPI(ctx context.Context, in *CreateAPIRequest, opts ...grpc.CallOption) (*Empty, error)
+	UpdateAPI(ctx context.Context, in *API, opts ...grpc.CallOption) (*Empty, error)
+	DeleteAPIAndCasbin(ctx context.Context, in *DeleteAPIAndCasbinRequest, opts ...grpc.CallOption) (*Empty, error)
+	DeleteAPIMultipleAndCasbin(ctx context.Context, in *DeleteAPIMultipleAndCasbinRequest, opts ...grpc.CallOption) (*Empty, error)
 	Test(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 }
 
@@ -59,6 +75,24 @@ func NewSystemServiceClient(cc grpc.ClientConnInterface) SystemServiceClient {
 func (c *systemServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	out := new(LoginResponse)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) CasbinEnforcer(ctx context.Context, in *CasbinEnforceRequest, opts ...grpc.CallOption) (*CasbinEnforceResponse, error) {
+	out := new(CasbinEnforceResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/CasbinEnforcer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) RefreshCasbinPolicy(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/RefreshCasbinPolicy", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -164,9 +198,9 @@ func (c *systemServiceClient) UpdateUserPageSet(ctx context.Context, in *UpdateU
 	return out, nil
 }
 
-func (c *systemServiceClient) UserMenuParams(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
+func (c *systemServiceClient) UserMenuParamsByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
 	out := new(UserMenuParamsResponse)
-	err := c.cc.Invoke(ctx, "/pb.SystemService/UserMenuParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UserMenuParamsByUserID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -176,6 +210,15 @@ func (c *systemServiceClient) UserMenuParams(ctx context.Context, in *UserID, op
 func (c *systemServiceClient) UserAllMenuParams(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UserMenuParamsResponse, error) {
 	out := new(UserMenuParamsResponse)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/UserAllMenuParams", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) UpdateUserMenuParams(ctx context.Context, in *UpdateUserMenuParamsRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateUserMenuParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -218,6 +261,42 @@ func (c *systemServiceClient) RoleAll(ctx context.Context, in *Empty, opts ...gr
 	return out, nil
 }
 
+func (c *systemServiceClient) DeleteRole(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/DeleteRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) DeleteSoftRole(ctx context.Context, in *DeleteSoftRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/DeleteSoftRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/CreateRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *systemServiceClient) MenuDetail(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Menu, error) {
 	out := new(Menu)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/MenuDetail", in, out, opts...)
@@ -254,9 +333,90 @@ func (c *systemServiceClient) UpdateMenu(ctx context.Context, in *UpdateMenuRequ
 	return out, nil
 }
 
+func (c *systemServiceClient) DeleteMenu_RoleMenu_UserMenuParam(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/DeleteMenu_RoleMenu_UserMenuParam", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *systemServiceClient) RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error) {
 	out := new(RoleMenuResponse)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/RoleMenuByRoleID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) APIDetail(ctx context.Context, in *ApiID, opts ...grpc.CallOption) (*API, error) {
+	out := new(API)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/APIDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) APIAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*APIAllResponse, error) {
+	out := new(APIAllResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/APIAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) APIPaging(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*APIPagingResponse, error) {
+	out := new(APIPagingResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/APIPaging", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) APITotal(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*Total, error) {
+	out := new(Total)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/APITotal", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) CreateAPI(ctx context.Context, in *CreateAPIRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/CreateAPI", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) UpdateAPI(ctx context.Context, in *API, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateAPI", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) DeleteAPIAndCasbin(ctx context.Context, in *DeleteAPIAndCasbinRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/DeleteAPIAndCasbin", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) DeleteAPIMultipleAndCasbin(ctx context.Context, in *DeleteAPIMultipleAndCasbinRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/DeleteAPIMultipleAndCasbin", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -277,6 +437,8 @@ func (c *systemServiceClient) Test(ctx context.Context, in *Empty, opts ...grpc.
 // for forward compatibility
 type SystemServiceServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	CasbinEnforcer(context.Context, *CasbinEnforceRequest) (*CasbinEnforceResponse, error)
+	RefreshCasbinPolicy(context.Context, *Empty) (*Empty, error)
 	UserDetail(context.Context, *UserID) (*User, error)
 	UserDetailByName(context.Context, *UserName) (*User, error)
 	UserPaging(context.Context, *UserPagingRequest) (*UserPagingResponse, error)
@@ -288,17 +450,31 @@ type SystemServiceServer interface {
 	UpdateUser(context.Context, *UpdateUserRequest) (*Empty, error)
 	UserPageSet(context.Context, *UserID) (*UserPageSetResponse, error)
 	UpdateUserPageSet(context.Context, *UpdateUserPageSetRequest) (*Empty, error)
-	UserMenuParams(context.Context, *UserID) (*UserMenuParamsResponse, error)
+	UserMenuParamsByUserID(context.Context, *UserID) (*UserMenuParamsResponse, error)
 	UserAllMenuParams(context.Context, *Empty) (*UserMenuParamsResponse, error)
+	UpdateUserMenuParams(context.Context, *UpdateUserMenuParamsRequest) (*Empty, error)
 	UserRoleByUserID(context.Context, *UserID) (*UserRoleResponse, error)
 	UpdateUserRole(context.Context, *UpdateUserRoleRequest) (*Empty, error)
 	RoleDetail(context.Context, *RoleID) (*Role, error)
 	RoleAll(context.Context, *Empty) (*RoleAllResponse, error)
+	DeleteRole(context.Context, *RoleID) (*Empty, error)
+	DeleteSoftRole(context.Context, *DeleteSoftRoleRequest) (*Empty, error)
+	CreateRole(context.Context, *CreateRoleRequest) (*Empty, error)
+	UpdateRole(context.Context, *UpdateRoleRequest) (*Empty, error)
 	MenuDetail(context.Context, *MenuID) (*Menu, error)
 	MenuAll(context.Context, *Empty) (*MenuAllResponse, error)
 	CreateMenu(context.Context, *CreateMenuRequest) (*Empty, error)
 	UpdateMenu(context.Context, *UpdateMenuRequest) (*Empty, error)
+	DeleteMenu_RoleMenu_UserMenuParam(context.Context, *MenuID) (*Empty, error)
 	RoleMenuByRoleID(context.Context, *RoleID) (*RoleMenuResponse, error)
+	APIDetail(context.Context, *ApiID) (*API, error)
+	APIAll(context.Context, *Empty) (*APIAllResponse, error)
+	APIPaging(context.Context, *APIPagingRequest) (*APIPagingResponse, error)
+	APITotal(context.Context, *APIPagingRequest) (*Total, error)
+	CreateAPI(context.Context, *CreateAPIRequest) (*Empty, error)
+	UpdateAPI(context.Context, *API) (*Empty, error)
+	DeleteAPIAndCasbin(context.Context, *DeleteAPIAndCasbinRequest) (*Empty, error)
+	DeleteAPIMultipleAndCasbin(context.Context, *DeleteAPIMultipleAndCasbinRequest) (*Empty, error)
 	Test(context.Context, *Empty) (*Total, error)
 	mustEmbedUnimplementedSystemServiceServer()
 }
@@ -309,6 +485,12 @@ type UnimplementedSystemServiceServer struct {
 
 func (UnimplementedSystemServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedSystemServiceServer) CasbinEnforcer(context.Context, *CasbinEnforceRequest) (*CasbinEnforceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CasbinEnforcer not implemented")
+}
+func (UnimplementedSystemServiceServer) RefreshCasbinPolicy(context.Context, *Empty) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RefreshCasbinPolicy not implemented")
 }
 func (UnimplementedSystemServiceServer) UserDetail(context.Context, *UserID) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserDetail not implemented")
@@ -343,11 +525,14 @@ func (UnimplementedSystemServiceServer) UserPageSet(context.Context, *UserID) (*
 func (UnimplementedSystemServiceServer) UpdateUserPageSet(context.Context, *UpdateUserPageSetRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserPageSet not implemented")
 }
-func (UnimplementedSystemServiceServer) UserMenuParams(context.Context, *UserID) (*UserMenuParamsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserMenuParams not implemented")
+func (UnimplementedSystemServiceServer) UserMenuParamsByUserID(context.Context, *UserID) (*UserMenuParamsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserMenuParamsByUserID not implemented")
 }
 func (UnimplementedSystemServiceServer) UserAllMenuParams(context.Context, *Empty) (*UserMenuParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserAllMenuParams not implemented")
+}
+func (UnimplementedSystemServiceServer) UpdateUserMenuParams(context.Context, *UpdateUserMenuParamsRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserMenuParams not implemented")
 }
 func (UnimplementedSystemServiceServer) UserRoleByUserID(context.Context, *UserID) (*UserRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserRoleByUserID not implemented")
@@ -361,6 +546,18 @@ func (UnimplementedSystemServiceServer) RoleDetail(context.Context, *RoleID) (*R
 func (UnimplementedSystemServiceServer) RoleAll(context.Context, *Empty) (*RoleAllResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RoleAll not implemented")
 }
+func (UnimplementedSystemServiceServer) DeleteRole(context.Context, *RoleID) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedSystemServiceServer) DeleteSoftRole(context.Context, *DeleteSoftRoleRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSoftRole not implemented")
+}
+func (UnimplementedSystemServiceServer) CreateRole(context.Context, *CreateRoleRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
+}
+func (UnimplementedSystemServiceServer) UpdateRole(context.Context, *UpdateRoleRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
+}
 func (UnimplementedSystemServiceServer) MenuDetail(context.Context, *MenuID) (*Menu, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MenuDetail not implemented")
 }
@@ -373,8 +570,35 @@ func (UnimplementedSystemServiceServer) CreateMenu(context.Context, *CreateMenuR
 func (UnimplementedSystemServiceServer) UpdateMenu(context.Context, *UpdateMenuRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
 }
+func (UnimplementedSystemServiceServer) DeleteMenu_RoleMenu_UserMenuParam(context.Context, *MenuID) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu_RoleMenu_UserMenuParam not implemented")
+}
 func (UnimplementedSystemServiceServer) RoleMenuByRoleID(context.Context, *RoleID) (*RoleMenuResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RoleMenuByRoleID not implemented")
+}
+func (UnimplementedSystemServiceServer) APIDetail(context.Context, *ApiID) (*API, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method APIDetail not implemented")
+}
+func (UnimplementedSystemServiceServer) APIAll(context.Context, *Empty) (*APIAllResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method APIAll not implemented")
+}
+func (UnimplementedSystemServiceServer) APIPaging(context.Context, *APIPagingRequest) (*APIPagingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method APIPaging not implemented")
+}
+func (UnimplementedSystemServiceServer) APITotal(context.Context, *APIPagingRequest) (*Total, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method APITotal not implemented")
+}
+func (UnimplementedSystemServiceServer) CreateAPI(context.Context, *CreateAPIRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAPI not implemented")
+}
+func (UnimplementedSystemServiceServer) UpdateAPI(context.Context, *API) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAPI not implemented")
+}
+func (UnimplementedSystemServiceServer) DeleteAPIAndCasbin(context.Context, *DeleteAPIAndCasbinRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAPIAndCasbin not implemented")
+}
+func (UnimplementedSystemServiceServer) DeleteAPIMultipleAndCasbin(context.Context, *DeleteAPIMultipleAndCasbinRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAPIMultipleAndCasbin not implemented")
 }
 func (UnimplementedSystemServiceServer) Test(context.Context, *Empty) (*Total, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
@@ -406,6 +630,42 @@ func _SystemService_Login_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SystemServiceServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_CasbinEnforcer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CasbinEnforceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).CasbinEnforcer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/CasbinEnforcer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).CasbinEnforcer(ctx, req.(*CasbinEnforceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_RefreshCasbinPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).RefreshCasbinPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/RefreshCasbinPolicy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).RefreshCasbinPolicy(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -608,20 +868,20 @@ func _SystemService_UpdateUserPageSet_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SystemService_UserMenuParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SystemService_UserMenuParamsByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SystemServiceServer).UserMenuParams(ctx, in)
+		return srv.(SystemServiceServer).UserMenuParamsByUserID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SystemService/UserMenuParams",
+		FullMethod: "/pb.SystemService/UserMenuParamsByUserID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SystemServiceServer).UserMenuParams(ctx, req.(*UserID))
+		return srv.(SystemServiceServer).UserMenuParamsByUserID(ctx, req.(*UserID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -640,6 +900,24 @@ func _SystemService_UserAllMenuParams_Handler(srv interface{}, ctx context.Conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SystemServiceServer).UserAllMenuParams(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_UpdateUserMenuParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserMenuParamsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UpdateUserMenuParams(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UpdateUserMenuParams",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UpdateUserMenuParams(ctx, req.(*UpdateUserMenuParamsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -716,6 +994,78 @@ func _SystemService_RoleAll_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SystemService_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).DeleteRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/DeleteRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).DeleteRole(ctx, req.(*RoleID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_DeleteSoftRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteSoftRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).DeleteSoftRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/DeleteSoftRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).DeleteSoftRole(ctx, req.(*DeleteSoftRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).CreateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/CreateRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).CreateRole(ctx, req.(*CreateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UpdateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UpdateRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UpdateRole(ctx, req.(*UpdateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SystemService_MenuDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MenuID)
 	if err := dec(in); err != nil {
@@ -788,6 +1138,24 @@ func _SystemService_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SystemService_DeleteMenu_RoleMenu_UserMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MenuID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).DeleteMenu_RoleMenu_UserMenuParam(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/DeleteMenu_RoleMenu_UserMenuParam",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).DeleteMenu_RoleMenu_UserMenuParam(ctx, req.(*MenuID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SystemService_RoleMenuByRoleID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RoleID)
 	if err := dec(in); err != nil {
@@ -802,6 +1170,150 @@ func _SystemService_RoleMenuByRoleID_Handler(srv interface{}, ctx context.Contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SystemServiceServer).RoleMenuByRoleID(ctx, req.(*RoleID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_APIDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApiID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).APIDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/APIDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).APIDetail(ctx, req.(*ApiID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_APIAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).APIAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/APIAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).APIAll(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_APIPaging_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(APIPagingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).APIPaging(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/APIPaging",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).APIPaging(ctx, req.(*APIPagingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_APITotal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(APIPagingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).APITotal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/APITotal",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).APITotal(ctx, req.(*APIPagingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_CreateAPI_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAPIRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).CreateAPI(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/CreateAPI",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).CreateAPI(ctx, req.(*CreateAPIRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_UpdateAPI_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(API)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UpdateAPI(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UpdateAPI",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UpdateAPI(ctx, req.(*API))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_DeleteAPIAndCasbin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAPIAndCasbinRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).DeleteAPIAndCasbin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/DeleteAPIAndCasbin",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).DeleteAPIAndCasbin(ctx, req.(*DeleteAPIAndCasbinRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_DeleteAPIMultipleAndCasbin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAPIMultipleAndCasbinRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).DeleteAPIMultipleAndCasbin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/DeleteAPIMultipleAndCasbin",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).DeleteAPIMultipleAndCasbin(ctx, req.(*DeleteAPIMultipleAndCasbinRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -834,6 +1346,14 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _SystemService_Login_Handler,
+		},
+		{
+			MethodName: "CasbinEnforcer",
+			Handler:    _SystemService_CasbinEnforcer_Handler,
+		},
+		{
+			MethodName: "RefreshCasbinPolicy",
+			Handler:    _SystemService_RefreshCasbinPolicy_Handler,
 		},
 		{
 			MethodName: "UserDetail",
@@ -880,12 +1400,16 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SystemService_UpdateUserPageSet_Handler,
 		},
 		{
-			MethodName: "UserMenuParams",
-			Handler:    _SystemService_UserMenuParams_Handler,
+			MethodName: "UserMenuParamsByUserID",
+			Handler:    _SystemService_UserMenuParamsByUserID_Handler,
 		},
 		{
 			MethodName: "UserAllMenuParams",
 			Handler:    _SystemService_UserAllMenuParams_Handler,
+		},
+		{
+			MethodName: "UpdateUserMenuParams",
+			Handler:    _SystemService_UpdateUserMenuParams_Handler,
 		},
 		{
 			MethodName: "UserRoleByUserID",
@@ -904,6 +1428,22 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SystemService_RoleAll_Handler,
 		},
 		{
+			MethodName: "DeleteRole",
+			Handler:    _SystemService_DeleteRole_Handler,
+		},
+		{
+			MethodName: "DeleteSoftRole",
+			Handler:    _SystemService_DeleteSoftRole_Handler,
+		},
+		{
+			MethodName: "CreateRole",
+			Handler:    _SystemService_CreateRole_Handler,
+		},
+		{
+			MethodName: "UpdateRole",
+			Handler:    _SystemService_UpdateRole_Handler,
+		},
+		{
 			MethodName: "MenuDetail",
 			Handler:    _SystemService_MenuDetail_Handler,
 		},
@@ -920,8 +1460,44 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SystemService_UpdateMenu_Handler,
 		},
 		{
+			MethodName: "DeleteMenu_RoleMenu_UserMenuParam",
+			Handler:    _SystemService_DeleteMenu_RoleMenu_UserMenuParam_Handler,
+		},
+		{
 			MethodName: "RoleMenuByRoleID",
 			Handler:    _SystemService_RoleMenuByRoleID_Handler,
+		},
+		{
+			MethodName: "APIDetail",
+			Handler:    _SystemService_APIDetail_Handler,
+		},
+		{
+			MethodName: "APIAll",
+			Handler:    _SystemService_APIAll_Handler,
+		},
+		{
+			MethodName: "APIPaging",
+			Handler:    _SystemService_APIPaging_Handler,
+		},
+		{
+			MethodName: "APITotal",
+			Handler:    _SystemService_APITotal_Handler,
+		},
+		{
+			MethodName: "CreateAPI",
+			Handler:    _SystemService_CreateAPI_Handler,
+		},
+		{
+			MethodName: "UpdateAPI",
+			Handler:    _SystemService_UpdateAPI_Handler,
+		},
+		{
+			MethodName: "DeleteAPIAndCasbin",
+			Handler:    _SystemService_DeleteAPIAndCasbin_Handler,
+		},
+		{
+			MethodName: "DeleteAPIMultipleAndCasbin",
+			Handler:    _SystemService_DeleteAPIMultipleAndCasbin_Handler,
 		},
 		{
 			MethodName: "Test",

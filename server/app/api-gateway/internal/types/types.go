@@ -42,8 +42,21 @@ type LoginResponse struct {
 	ExpireAt     int64       `json:"expireAt"`
 	RefreshAfter int64       `json:"refreshAfter"`
 	Name         string      `json:"name"`
-	Role         []string    `json:"role"`
+	Roles        []RoleRes   `json:"roles"`
 	UserPageSet  UserPageSet `json:"userPageSet"`
+}
+
+type RoleRes struct {
+	RoleId   uint64 `json:"roleId"`
+	RoleName string `json:"roleName"`
+}
+
+type CurrentUserSetResponse struct {
+	HttpCommonResponse
+	User        User        `json:"user"`
+	UserPageSet UserPageSet `json:"userPageSet"`
+	Roles       []Role      `json:"roles"`
+	CurrentRole Role        `json:"currentRole"`
 }
 
 type UserPagingRequest struct {
@@ -69,7 +82,7 @@ type UserDetailRequest struct {
 
 type UserDetailResponse struct {
 	HttpCommonResponse
-	UserInfo User `json:"userInfo"`
+	Detail User `json:"detail"`
 }
 
 type UpdatePasswordRequest struct {
@@ -146,16 +159,55 @@ type PagingCommonResponse struct {
 	Total    int64 `json:"total"`
 }
 
+type Role struct {
+	ID         uint64 `json:"id"`
+	Role       string `json:"role"`
+	Name       string `json:"name"`
+	CreateBy   string `json:"createBy"`
+	CreateTime int64  `json:"create_time"`
+	UpdateBy   string `json:"updateBy"`
+	UpdateTime int64  `json:"update_time"`
+	DeleteBy   string `json:"deleteBy"`
+	DeleteTime int64  `json:"delete_time"`
+	State      string `json:"state,optional"` // todelete:用户已删除  resume:用户未删除
+}
+
+type RoleDetailRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+}
+
+type RoleDetailResponse struct {
+	HttpCommonResponse
+	Detail Role `json:"detail"`
+}
+
+type RoleDeleteRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric,gte=2" comment="用户ID为必填项"`
+}
+
+type RoleDeleteSoftRequest struct {
+	ID    uint64 `path:"id,optional" validate:"required,numeric,gte=2" comment="用户ID为必填项"`
+	State string `json:"state,optional" validate:"required,oneof='deleted' 'resume'"`
+}
+
+type RoleUpdateRequest struct {
+	ID       uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+	Role     string `json:"role,optional" validate:"required"`
+	Name     string `json:"name,optional" validate:"required"`
+	CreateBy string `json:"createBy,optional" validate:"required"`
+	UpdateBy string `json:"updateBy,optional" validate:"required"`
+	DeleteBy string `json:"deleteBy,optional"`
+}
+
+type RoleCreateRequest struct {
+	Role string `json:"role,optional" validate:"required"`
+	Name string `json:"name,optional" validate:"required"`
+}
+
 type RoleAllResponse struct {
 	HttpCommonResponse
 	Total int    `json:"total"`
 	List  []Role `json:"list"`
-}
-
-type Role struct {
-	ID   uint64 `json:"id"`
-	Role string `json:"role"`
-	Name string `json:"name"`
 }
 
 type UserMenuResponse struct {
@@ -202,16 +254,118 @@ type MenuDetailRequest struct {
 
 type MenuDetailResponse struct {
 	HttpCommonResponse
-	MenuInfo Menu `json:"menuInfo"`
+	Detail Menu `json:"detail"`
 }
 
-type CreateMenuRequest struct {
-	ParentID  uint64 `json:"parentId,optional" validate:"numeric,gte=0"`
-	Name      string `json:"name,optional" validate:"required"`
-	Path      string `json:"path,optional" validate:"required"`
-	Component string `json:"component,optional" validate:"required"`
-	Title     string `json:"title,optional" validate:"required"`
-	Icon      string `json:"icon,optional"`
-	Sort      int64  `json:"sort,optional"`
-	Hidden    bool   `json:"hidden,optional"`
+type MenuCreateRequest struct {
+	ParentID  uint64      `json:"parentId,optional" validate:"numeric,gte=0"`
+	Name      string      `json:"name,optional" validate:"required"`
+	Path      string      `json:"path,optional" validate:"required"`
+	Component string      `json:"component,optional" validate:"required"`
+	Meta      MetaRequest `json:"meta"`
+	Sort      int64       `json:"sort,optional"`
+	Hidden    bool        `json:"hidden,optional"`
+}
+
+type MetaRequest struct {
+	Title string `json:"title,optional" validate:"required"`
+	Icon  string `json:"icon,optional"`
+}
+
+type MenuDeleteRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+}
+
+type MenuUpdateRequest struct {
+	ID        uint64      `path:"id,optional" validate:"required,numeric,gte=1"`
+	ParentID  uint64      `json:"parentId,optional" validate:"numeric,gte=0"`
+	Name      string      `json:"name,optional" validate:"required"`
+	Path      string      `json:"path,optional" validate:"required"`
+	Hidden    bool        `json:"hidden,optional"`
+	Component string      `json:"component,optional" validate:"required"`
+	Meta      MetaRequest `json:"meta,optional"`
+	Sort      int64       `json:"sort,optional" validate:"numeric,gte=0"`
+}
+
+type MenuUserParamRequest struct {
+	ID         uint64             `path:"id,optional" validate:"required,numeric,gte=1"`
+	Parameters []ParameterRequest `json:"parameters" validate:"slice_c='gte=0',dive" commen:"slice长度必须大于等于0"` //不写
+}
+
+type ParameterRequest struct {
+	ID     uint64 `json:"id,optional"`
+	UserID uint64 `json:"user_id,optional" validate:"numeric,gte=1"`
+	Type   string `json:"type,optional" validate:"oneof='query' 'params'"`
+	Key    string `json:"key,optional" validate:"required"`
+	Value  string `json:"value,optional" validate:"required"`
+}
+
+type API struct {
+	ID       uint64 `json:"id"`
+	API      string `json:"api"`
+	Group    string `json:"group"`
+	Describe string `json:"describe"`
+	Method   string `json:"method"`
+}
+
+type APIDetailRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+}
+
+type APIDetailResponse struct {
+	HttpCommonResponse
+	Detail API `json:"detail"`
+}
+
+type APIUpdateRequest struct {
+	ID       uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+	Api      string `json:"api,optional" validate:"required"`
+	Describe string `json:"describe,optional" validate:"required"`
+	Group    string `json:"group,optional" validate:"required"`
+	Method   string `json:"method,optional" validate:"required,oneof='GET' 'PUT' 'DELETE' 'POST'"`
+}
+
+type APICreateRequest struct {
+	Api      string `json:"api,optional" validate:"required"`
+	Describe string `json:"describe,optional" validate:"required"`
+	Group    string `json:"group,optional" validate:"required"`
+	Method   string `json:"method,optional" validate:"required,oneof='GET' 'PUT' 'DELETE' 'POST'"`
+}
+
+type APIDeleteRequest struct {
+	ID     uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+	Api    string `json:"api,optional" validate:"required"`
+	Method string `json:"method,optional" validate:"required,oneof='GET' 'PUT' 'DELETE' 'POST'"`
+}
+
+type APIDeleteMultipleRequest struct {
+	APIs []APIDeleteMultipRequest `json:"apis,optional" validate:"slice_c='gte=0',dive" commen:"slice长度必须大于等于0"`
+}
+
+type APIDeleteMultipRequest struct {
+	ID     uint64 `json:"id,optional" validate:"required,numeric,gte=1"`
+	Api    string `json:"api,optional" validate:"required"`
+	Method string `json:"method,optional" validate:"required,oneof='GET' 'PUT' 'DELETE' 'POST'"`
+}
+
+type APIPagingRequest struct {
+	PagingCommonRequest
+	OrderKey string `json:"orderKey,optional"`
+	Order    string `json:"order,optional"  validate:"oneof='ascending' 'descending' ''"`
+	Api      string `json:"api,optional"`
+	Describe string `json:"describe,optional"`
+	Group    string `json:"group,optional"`
+	Method   string `json:"method,optional" validate:"oneof='GET' 'PUT' 'DELETE' 'POST' ''"`
+}
+
+type APIPagingResponse struct {
+	HttpCommonResponse
+	PagingCommonResponse
+	List []API `json:"list"`
+}
+
+type APIAllResponse struct {
+	HttpCommonResponse
+	Total int64 `json:"total"`
+	List  []API `json:"list"`
 }

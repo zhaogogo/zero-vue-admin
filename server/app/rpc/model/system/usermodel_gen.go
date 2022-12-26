@@ -41,22 +41,23 @@ type (
 	}
 
 	User struct {
-		Id         uint64        `db:"id"`
-		Name       string        `db:"name"`        // 用户名
-		NickName   string        `db:"nick_name"`   // 中文名
-		Password   string        `db:"password"`    // 密码
-		Type       int64         `db:"type"`        // 账户类型 0-本地用户 1-ldap用户
-		Email      string        `db:"email"`       // 邮箱
-		Phone      string        `db:"phone"`       // 电话
-		Department string        `db:"department"`  // 部门
-		Position   string        `db:"position"`    // 职位
-		CreateBy   string        `db:"create_by"`   // 创建人
-		CreateTime time.Time     `db:"create_time"` // 创建时间
-		UpdateBy   string        `db:"update_by"`   // 更新人
-		UpdateTime time.Time     `db:"update_time"` // 更新时间
-		DeleteBy   string        `db:"delete_by"`   // 删除人
-		DeleteTime sql.NullTime  `db:"delete_time"` // 删除时间
-		PageSetId  sql.NullInt64 `db:"page_set_id"`
+		Id          uint64        `db:"id"`
+		Name        string        `db:"name"`         // 用户名
+		NickName    string        `db:"nick_name"`    // 中文名
+		Password    string        `db:"password"`     // 密码
+		Type        int64         `db:"type"`         // 账户类型 0-本地用户 1-ldap用户
+		Email       string        `db:"email"`        // 邮箱
+		Phone       string        `db:"phone"`        // 电话
+		Department  string        `db:"department"`   // 部门
+		Position    string        `db:"position"`     // 职位
+		CurrentRole uint64        `db:"current_role"` // 当前用户角色
+		CreateBy    string        `db:"create_by"`    // 创建人
+		CreateTime  time.Time     `db:"create_time"`  // 创建时间
+		UpdateBy    string        `db:"update_by"`    // 更新人
+		UpdateTime  time.Time     `db:"update_time"`  // 更新时间
+		DeleteBy    string        `db:"delete_by"`    // 删除人
+		DeleteTime  sql.NullTime  `db:"delete_time"`  // 删除时间
+		PageSetId   sql.NullInt64 `db:"page_set_id"`
 	}
 )
 
@@ -123,8 +124,8 @@ func (m *defaultUserModel) Insert(ctx context.Context, data *User) (sql.Result, 
 	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, data.Id)
 	chaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, data.Name)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, userRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.Name, data.NickName, data.Password, data.Type, data.Email, data.Phone, data.Department, data.Position, data.CreateBy, data.UpdateBy, data.DeleteBy, data.DeleteTime, data.PageSetId)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, userRowsExpectAutoSet)
+		return conn.ExecCtx(ctx, query, data.Name, data.NickName, data.Password, data.Type, data.Email, data.Phone, data.Department, data.Position, data.CurrentRole, data.CreateBy, data.UpdateBy, data.DeleteBy, data.DeleteTime, data.PageSetId)
 	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
 	return ret, err
 }
@@ -139,7 +140,7 @@ func (m *defaultUserModel) Update(ctx context.Context, newData *User) error {
 	chaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, data.Name)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, userRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.Name, newData.NickName, newData.Password, newData.Type, newData.Email, newData.Phone, newData.Department, newData.Position, newData.CreateBy, newData.UpdateBy, newData.DeleteBy, newData.DeleteTime, newData.PageSetId, newData.Id)
+		return conn.ExecCtx(ctx, query, newData.Name, newData.NickName, newData.Password, newData.Type, newData.Email, newData.Phone, newData.Department, newData.Position, newData.CurrentRole, newData.CreateBy, newData.UpdateBy, newData.DeleteBy, newData.DeleteTime, newData.PageSetId, newData.Id)
 	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
 	return err
 }

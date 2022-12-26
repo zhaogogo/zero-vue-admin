@@ -42,12 +42,24 @@ func (l *AllLogic) All() (resp *types.RoleAllResponse, err error) {
 		}
 		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.AllRoleList", err.Error(), param)
 	}
-
+	var (
+		state = map[bool]string{
+			true:  "deleted",
+			false: "resume",
+		}
+	)
 	for _, prole := range roles.Roles {
 		role := types.Role{
-			ID:   prole.ID,
-			Role: prole.Role,
-			Name: prole.Name,
+			ID:         prole.ID,
+			Role:       prole.Role,
+			Name:       prole.Name,
+			CreateBy:   prole.CreateBy,
+			CreateTime: prole.CreateTime,
+			UpdateBy:   prole.UpdateBy,
+			UpdateTime: prole.UpdateTime,
+			DeleteBy:   prole.DeleteBy,
+			DeleteTime: prole.DeleteTime,
+			State:      state[prole.DeleteTime != 0],
 		}
 		roleList = append(roleList, role)
 	}

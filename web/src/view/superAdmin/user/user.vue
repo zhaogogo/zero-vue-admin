@@ -122,7 +122,7 @@
                 <el-cascader
                     v-model="userInfo.roleList"
                     :options="roleOptions"
-                    :props="{ checkStrictly: true,label:'roleName',value:'roleid',disabled:'disabled', emitPath:false, multiple: true}"
+                    :props="{ checkStrictly: true,label:'roleName',value:'roledata',disabled:'disabled', emitPath:false, multiple: true}"
                     clearable
                     filterable
                 >
@@ -152,9 +152,9 @@
 <script>
 import infoList from '@/mixins/infoList'
 import {
-    detail,
+    userDetail,
     addUser,
-    paging,
+    pagingUser,
     deleteSoft,
     updatepassword,
     updateRole,
@@ -178,7 +178,7 @@ export default {
             }
         };
         return {
-            listApi: paging,
+            listApi: pagingUser,
             isEdit: [],
             roleOptions: [],
             roleProps: { multiple: true },
@@ -351,11 +351,6 @@ export default {
                     type: "success",
                     message: res.msg
                 })
-            }else {
-                this.$message({
-                    type: "error",
-                    message: res.msg
-                })
             }
             this.getTableData()
         },
@@ -380,10 +375,10 @@ export default {
             this.dialogVisible = true
         },
         async editUser(row) {
-            const res = await detail(row.id)
+            const res = await userDetail(row.id)
             if (res.code === 200) {
                 // this.userInfo = JSON.parse(JSON.stringify(row))
-                this.userInfo = JSON.parse(JSON.stringify(res.userInfo))
+                this.userInfo = JSON.parse(JSON.stringify(res.detail))
                 this.userInfo.phone = parseInt(this.userInfo.phone)
                 this.dialogFlag = "edituser"
                 this.dialogTitle = "编辑用户"
@@ -392,7 +387,6 @@ export default {
 
         },
         searchUser() {
-            console.log("searchInfo", this.searchUserInfo)
             this.getTableData()
         },
         async enterDialog(){

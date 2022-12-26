@@ -21,11 +21,13 @@ type (
 	// UserRoleModel is an interface to be customized, add more methods here,
 	// and implement the added methods in customUserRoleModel.
 	UserRoleModel interface {
-		userRoleModel
-		FindByUserID(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserRole, error)
 		TransCtx(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error
-		TransDeleteByUserID(ctx context.Context, session sqlx.Session, userID uint64) error
+
+		FindByUserIDWhereRoleNotDel(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserRole, error)
+
 		TranInsertUserIDRoleIDs(ctx context.Context, session sqlx.Session, userID uint64, role_id_s []uint64) (sql.Result, error)
+		TransDeleteByUserID(ctx context.Context, session sqlx.Session, userID uint64) error
+		TransDeleteByRoleID(ctx context.Context, session sqlx.Session, roleID uint64) error
 	}
 
 	customUserRoleModel struct {
@@ -56,6 +58,31 @@ func (m *defaultUserRoleModel) TransDeleteByUserID(ctx context.Context, session 
 	return err
 }
 
+func (m *defaultUserRoleModel) TransDeleteByRoleID(ctx context.Context, session sqlx.Session, roleID uint64) error {
+	//查询删除缓存
+	cacheKeys := []string{}
+	useridSet := make(map[uint64]int64)
+	userroles := []UserRole{}
+	q := fmt.Sprintf("SELECT %s FROM %s WHERE `role_id` = ?", userRoleRows, m.table)
+	err := session.QueryRowsCtx(ctx, &userroles, q, roleID)
+	if err != nil {
+		return err
+	}
+	for _, userrole := range userroles {
+		useridSet[userrole.UserId] += 1
+	}
+	for userid, _ := range useridSet {
+		cacheKeys = append(cacheKeys, fmt.Sprintf("%s%v", cacheChaosSystemUserRoleUserIdPrefix, userid))
+	}
+
+	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (sql.Result, error) {
+		query := fmt.Sprintf("DELETE FROM %s WHERE `role_id` = ?", m.table)
+		return session.ExecCtx(ctx, query, roleID)
+	}, cacheKeys...)
+
+	return err
+}
+
 func (m *defaultUserRoleModel) TranInsertUserIDRoleIDs(ctx context.Context, session sqlx.Session, userID uint64, role_id_s []uint64) (sql.Result, error) {
 	userChaosSystemUserRoleUserIDKey := fmt.Sprintf("%s%v", cacheChaosSystemUserRoleUserIdPrefix, userID)
 	query := fmt.Sprintf("insert into %s (%s) values ", m.table, userRoleRowsExpectAutoSet)
@@ -71,7 +98,7 @@ func (m *defaultUserRoleModel) TranInsertUserIDRoleIDs(ctx context.Context, sess
 	return ret, err
 }
 
-func (m *defaultUserRoleModel) FindByUserID(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserRole, error) {
+func (m *defaultUserRoleModel) FindByUserIDWhereRoleNotDel(ctx context.Context, redis *redis.Redis, userID uint64) ([]UserRole, error) {
 	var resp []UserRole
 	chaosSystemUserRoleUserIDKey := fmt.Sprintf("%s%v", cacheChaosSystemUserRoleUserIdPrefix, userID)
 	err := m.GetCacheCtx(ctx, chaosSystemUserRoleUserIDKey, &resp)
@@ -82,7 +109,7 @@ func (m *defaultUserRoleModel) FindByUserID(ctx context.Context, redis *redis.Re
 		return nil, ErrNotFound
 	}
 	if err == sql.ErrNoRows { //redis查询
-		query := fmt.Sprintf("SELECT %s FROM %s WHERE `user_id` = ?", userRoleRows, m.table)
+		query := fmt.Sprintf("SELECT `user_role`.`id`, `user_role`.`user_id`, `user_role`.`role_id` FROM %s JOIN `role` ON `role`.`id` = `user_role`.`role_id` AND `role`.`delete_time` IS NULL WHERE `user_role`.`user_id` = ?", m.table)
 		err = m.QueryRowsNoCacheCtx(ctx, &resp, query, userID)
 		if err != nil {
 			return nil, err

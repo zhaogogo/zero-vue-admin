@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/config"
@@ -28,6 +29,8 @@ func main() {
 	handler.RegisterHandlers(server, ctx)
 
 	httpx.SetErrorHandler(responseerror.ErrorHandle)
+
+	logx.DisableStat()
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()

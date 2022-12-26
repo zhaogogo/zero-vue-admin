@@ -1,5 +1,5 @@
 import {login} from '@/api/user/login'
-import {setUserPageSet} from '@/api/user/user'
+import {setUserPageSet,currentUserInfo} from '@/api/user/user'
 import router from '@/router/index'
 import { Message } from 'element-ui'
 
@@ -14,7 +14,9 @@ const getDefaultState = () =>{
             sideMode: '#191a23',
             activeTextColor: '#1890ff',
             textColor: "#fff"
-        }
+        },
+        roles: [],
+        current_role: {}
     }
 }
 
@@ -29,25 +31,17 @@ const actions = {
             const asyncRouters = ctx.rootGetters['router/asyncRouters']
             router.addRoutes(asyncRouters)
             ctx.commit("SETUSERPAGESET", res.userPageSet)
+            ctx.commit("SETUSERROLE",res.roles)
             router.push({name: ctx.getters["userPageSet"].defaultRouter })
             return true
         }else {
-            Message({
-                type: "error",
-                message: res.msg
-            })
             return false
         }
     },
     async changeSideMode(ctx, data) {
         ctx.commit("CHANGESIDEMODE", data)
         const userpageset = await setUserPageSet(ctx.state.userPageSet)
-        if (userpageset.code === 200) {
-            Message({
-                type: "success",
-                message: userpageset.msg
-            })
-        }else {
+        if (userpageset.code !== 200) {
             Message({
                 type: "error",
                 message: userpageset.msg
@@ -57,12 +51,7 @@ const actions = {
     async changeTextColor(ctx, data) {
         ctx.commit("CHANGETEXTCOLOR", data)
         const userpageset = await setUserPageSet(ctx.state.userPageSet)
-        if (userpageset.code === 200) {
-            Message({
-                type: "success",
-                message: userpageset.msg
-            })
-        }else {
+        if (userpageset.code !== 200) {
             Message({
                 type: "error",
                 message: userpageset.msg
@@ -72,17 +61,18 @@ const actions = {
     async changeActiveColor(ctx, data) {
         ctx.commit("CHANGEACTIVECOLOR", data)
         const userpageset = await setUserPageSet(ctx.state.userPageSet)
-        if (userpageset.code === 200) {
-            Message({
-                type: "success",
-                message: userpageset.msg
-            })
-        }else {
+        if (userpageset.code !== 200) {
             Message({
                 type: "error",
                 message: userpageset.msg
             })
         }
+    },
+    async getUserInfo(ctx, data) {
+        const res = await currentUserInfo()
+        ctx.commit("SETUSERPAGESET", res.userPageSet)
+        ctx.commit("SETUSERROLE", res.roles)
+        ctx.commit("SETCURRENTROLE", res.currentRole)
     }
 }
 
@@ -104,6 +94,16 @@ const mutations = {
         state.userPageSet.textColor = user.textColor
         state.userPageSet.name = user.name
         state.userPageSet.nick_name = user.nick_name
+    },
+    SETUSERROLE(state,rolelist) {
+        // for (var index in rolelist) {
+        //     console.log("===>", index, rolelist[index])
+        //     this.$set(state.roles, index, rolelist[index])
+        // }
+        state.roles = rolelist
+    },
+    SETCURRENTROLE(state,role) {
+        state.current_role = role
     },
     CHANGESIDEMODE(state,sidemode){
         state.userPageSet.sideMode = sidemode
@@ -130,6 +130,12 @@ const getters = {
     },
     activeTextColor(state) {
         return state.userPageSet.activeTextColor
+    },
+    roles(state) {
+        return state.roles
+    },
+    currentRole(state) {
+        return state.current_role
     }
 }
 

@@ -3,7 +3,7 @@
         <div>
             <el-button type="primary" icon="el-icon-plus" size="mini" style="float:right" @click="addMenu(0)">添加根菜单</el-button>
         </div>
-        <el-table :data="tableData" border row-key="id" stripe>
+        <el-table :data="tableData" v-loading="loading" border row-key="id" stripe>
             <el-table-column label="id" min-width="100" prop="id"></el-table-column>
             <el-table-column label="展示名称" min-width="120">
                 <template slot-scope="scop">
@@ -67,8 +67,8 @@
                     <el-input v-model="form.component" autocomplete="off"></el-input>
                     <span style="font-size: 12px;margin-right:12px">如果菜单包含子菜单，请创建router-view二级路由页面或者</span><el-button size="mini" @click="form.component = 'view/routerHolder.vue'">点我设置</el-button>
                 </el-form-item>
-                <el-form-item label="页面title" prop="title" style="width:30%">
-                    <el-input v-model="form.title" autocomplete="off"></el-input>
+                <el-form-item label="页面title" prop="meta.title" style="width:30%">
+                    <el-input v-model="form.meta.title" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="图标" prop="icon" style="width:30%">
                     <icon :meta="form.meta">
@@ -106,7 +106,6 @@
                                 clearable
                                 filterable
                             >
-
                             </el-cascader>
                         </template>
                     </el-table-column>
@@ -126,11 +125,12 @@
                         </template>
                     </el-table-column>
                 </el-table>
+                <el-button size="small" type="primary" @click="updateUserMenuParam">提交菜单参数</el-button>
             </div>
 
             <div slot="footer">
                 <el-button @click="closeDialog">取消</el-button>
-                <el-button type="primary" @click="enterDialog">确定</el-button>
+                <el-button type="primary" @click="enterDialog">{{isEdit?'修改菜单':'新增菜单'}}</el-button>
             </div>
         </el-dialog> 
     </div>
@@ -141,10 +141,13 @@
 import { 
     allMenu,
     addMenu,
-    menuInfo
+    menuInfo,
+    deleteMenu,
+    updateMenu,
+    updateUsermenuParam
 } from "@/api/menu/menu"
 
-import { all } from '@/api/user/user'
+import { allUser } from '@/api/user/user'
 
 import infoList from "@/mixins/infoList"
 import icon from '@/view/superAdmin/menu/icon.vue'
@@ -170,14 +173,20 @@ export default {
                 name: '',
                 hidden: false,
                 parentId: '',
-                component: '',
-                title: '',
-                icon: '',
+                component: '', 
+                meta:{
+                    title: '',
+                    icon: '',
+                },
+                sort: '',
                 parameters: []
             },
             rules: {
                 parentId: [
                     {required: true, message:"输入菜单名字", trigger: 'blur'},
+                    {type: "number", message:"必须是数字", trigger: 'blur'}
+                ],
+                sort: [
                     {type: "number", message:"必须是数字", trigger: 'blur'}
                 ],
                 name: [
@@ -189,7 +198,7 @@ export default {
                 component: [
                     {required:true, message:"输入文件路径", trigger:'blur'}
                 ],
-                title: [
+                "meta.title": [
                     {required: true, message:"输入菜单展示名称", trigger:'blur'}
                 ]
             },
@@ -199,8 +208,10 @@ export default {
     },
     mixins:[infoList],
     async created(){
+        this.loading = true
         this.getTableData()
-        const allusers = await all()
+
+        const allusers = await allUser()
         if (allusers.code === 200) {
             this.setUserOptions(allusers.list, this.userOption)
         }
@@ -276,32 +287,33 @@ export default {
             this.initForm()
             done()
         },
-        // deleteMenu(row){
-        //     this.$confirm('此操作将永久删除所有角色下该菜单, 是否继续?', '提示', {
-        //         confirmButtonText: '确定',
-        //         cancelButtonText: '取消',
-        //         type: 'warning'
-        //     })
-        //         .then(async () => {
-        //             const res = await deleteBaseMenu({id: row.id})
-        //             if (res.code === 0){
-        //                 this.$message({
-        //                     type:"success",
-        //                     message:res.msg
-        //                 })
-        //                 if (this.tableData.length === 1 && this.page > 1) {
-        //                     this.page--
-        //                 }
-        //                 this.getTableData()
-        //             }
-        //         })
-        //         .catch(() => {
-        //             this.$message({
-        //                 type:"info",
-        //                 message:"已取消删除"
-        //             })
-        //         })
-        // },
+        //删除菜单
+        deleteMenu(row){
+            this.$confirm('此操作将永久删除所有角色下该菜单, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            })
+            .then(async () => {
+                const res = await deleteMenu(row.id)
+                if (res.code === 200){
+                    this.$message({
+                        type:"success",
+                        message:res.msg
+                    })
+                    if (this.tableData.length === 1 && this.page > 1) {
+                        this.page--
+                    }
+                    this.getTableData()
+                }
+            })
+            .catch(() => {
+                this.$message({
+                    type:"info",
+                    message:"已取消删除"
+                })
+            })
+        },
         initForm(){
             this.checkFlag = false
             this.$refs.menuForm.resetFields()
@@ -326,10 +338,10 @@ export default {
         enterDialog(){
             this.$refs.menuForm.validate(async(valid)=>{
                 if(valid) {
-
                     let res 
                     if (this.isEdit) {
-                        res = await updateBaseMenu(this.form)
+                        res = await updateMenu(this.form)
+                        console.log(this.form)
                     }else {
                         res = await addMenu(this.form)
                     }
@@ -349,11 +361,22 @@ export default {
             this.dialogTitle = '编辑菜单'
             const res = await menuInfo(row.id)
             if (res.code === 200) {
-                this.form = JSON.parse(JSON.stringify(res.menuInfo))
+                this.form = JSON.parse(JSON.stringify(res.detail))
                 this.isEdit = true
                 this.setOptions()
+                this.dialogFormVisible = true
             }
-            this.dialogFormVisible = true
+        },
+        async updateUserMenuParam() {
+            const res = await updateUsermenuParam(this.form)
+            if (res.code === 200) {
+                this.$message({
+                    type: 'success',
+                    message: res.msg
+                })
+                this.initForm()
+                this.dialogFormVisible = false
+            }
         }
     }
 }

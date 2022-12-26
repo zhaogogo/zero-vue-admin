@@ -20,15 +20,17 @@ type (
 	// and implement the added methods in customUserModel.
 	UserModel interface {
 		userModel
-		FindOneByNameWHEREDeleteTimeISNULL(ctx context.Context, name string) (*User, error)
+		TransCtx(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error
 		FindPagingList_NC(ctx context.Context, r *PagingUserList) ([]User, error)
 		FindAll_NC(ctx context.Context) ([]User, error)
 		Total_NC(ctx context.Context) (int64, error)
+
+		FindOneByNameWHEREDeleteTimeISNULL(ctx context.Context, name string) (*User, error)
+
 		UpdateUserPassword(ctx context.Context, id uint64, pass string) error
 		UpdateDeleteColumn(ctx context.Context, userid uint64, deleteby string, deletetime sql.NullTime) error
 		UpdateWithOutPassword(ctx context.Context, newData *User) error
 
-		TransCtx(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error
 		TransInsert(ctx context.Context, session sqlx.Session, data *User) (sql.Result, error)
 		TransDelete(ctx context.Context, session sqlx.Session, id uint64) error
 	}
@@ -69,10 +71,11 @@ func (m *defaultUserModel) TransDelete(ctx context.Context, session sqlx.Session
 
 	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, id)
 	chaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, data.Name)
+	chaossystemUserMode_userId_key := fmt.Sprintf("%v%v", cacheChaosSystemUserRoleUserIdPrefix, id) //删除user_role中间表
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
 		return session.ExecCtx(ctx, query, id)
-	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
+	}, chaosSystemUserIdKey, chaosSystemUserNameKey, chaossystemUserMode_userId_key)
 	return err
 }
 
@@ -161,7 +164,6 @@ func (m *defaultUserModel) UpdateWithOutPassword(ctx context.Context, newData *U
 	chaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, data.Name)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, userRowsWithPlaceHolderWithOutPassword)
-		fmt.Println(query)
 		return conn.ExecCtx(ctx, query, newData.Name, newData.NickName, data.Type, newData.Email, newData.Phone, newData.Department, newData.Position, data.CreateBy, newData.UpdateBy, data.DeleteBy, data.DeleteTime, data.PageSetId, newData.Id)
 	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
 	return err
@@ -188,10 +190,14 @@ func (m *defaultUserModel) UpdateUserPassword(ctx context.Context, id uint64, pa
 }
 
 func (m *defaultUserModel) UpdateDeleteColumn(ctx context.Context, userid uint64, deleteby string, deletetime sql.NullTime) error {
+	//软删除 需要删除中间表缓存
+	cacheChaosSystemUserRole_UserId_Key := fmt.Sprintf("%v%v", cacheChaosSystemUserRoleUserIdPrefix, userid)
+
 	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, userid)
+	chaossystemUserMode_userId_key := fmt.Sprintf("%v%v", cacheChaosSystemUserRoleUserIdPrefix, userid) //删除user_role中间表
 	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("UPDATE %s set `delete_by` = ?, `delete_time` = ? where `id` = ?", m.table)
 		return conn.ExecCtx(ctx, query, deleteby, deletetime, userid)
-	}, chaosSystemUserIdKey)
+	}, chaosSystemUserIdKey, chaossystemUserMode_userId_key, cacheChaosSystemUserRole_UserId_Key)
 	return err
 }

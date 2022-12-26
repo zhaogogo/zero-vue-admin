@@ -17,24 +17,103 @@ import "common.api"
     prefix: /api/v1/system/role
 )
 service ApiGateway-api {
+    @doc "角色详情"
+    @handler Detail
+    get /:id (RoleDetailRequest) returns (RoleDetailResponse)
+
+    @doc "更新角色"
+    @handler Update
+    put /:id (RoleUpdateRequest) returns (HttpCommonResponse)
+
+    @doc "删除角色"
+    @handler Delete
+    delete /:id (RoleDeleteRequest) returns (HttpCommonResponse)
+
+    @doc "软删除角色"
+    @handler DeleteSoft
+    delete /:id/soft (RoleDeleteSoftRequest) returns (HttpCommonResponse)
+
+    @doc "创建角色"
+    @handler Create
+    post /create (RoleCreateRequest) returns (HttpCommonResponse)
+
     @doc "获取全部角色"
     @handler All
     get /all returns (RoleAllResponse)
+
+    @doc "刷新权限"
+    @handler RefreshPermission
+    get /refreshpermission returns (HttpCommonResponse)
 }
 
 //----------------------------------------------
-// 角色登陆模型
+// 角色公共模型
+//----------------------------------------------
+type Role struct {
+    ID uint64 `json:"id"`
+    Role string `json:"role"`
+    Name string `json:"name"`
+    CreateBy string `json:"createBy"`
+    CreateTime int64 `json:"create_time"`
+    UpdateBy string `json:"updateBy"`
+    UpdateTime int64 `json:"update_time"`
+    DeleteBy string `json:"deleteBy"`
+    DeleteTime int64 `json:"delete_time"`
+    State string `json:"state,optional"` // todelete:用户已删除  resume:用户未删除
+}
+
+//----------------------------------------------
+// 角色详情
 //----------------------------------------------
 type (
-    RoleAllResponse struct {
-        HttpCommonResponse
-        Total int `json:"total"`
-        List []Role `json:"list"`
+    RoleDetailRequest struct {
+        ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
     }
-
-    Role struct {
-        ID uint64 `json:"id"`
-        role string `json:"role"`
-        name string `json:"name"`
+    RoleDetailResponse struct {
+        HttpCommonResponse
+        Detail Role `json:"detail"`
     }
 )
+//----------------------------------------------
+// 删除角色
+//----------------------------------------------
+type  RoleDeleteRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric,gte=2" comment="用户ID为必填项"`
+}
+
+//----------------------------------------------
+// 软删除角色
+//----------------------------------------------
+type RoleDeleteSoftRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric,gte=2" comment="用户ID为必填项"`
+    State string `json:"state,optional" validate:"required,oneof='deleted' 'resume'"`
+}
+
+//----------------------------------------------
+// 更新角色
+//----------------------------------------------
+type RoleUpdateRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+    Role string `json:"role,optional" validate:"required"`
+    Name string `json:"name,optional" validate:"required"`
+    CreateBy string `json:"createBy,optional" validate:"required"`
+    UpdateBy string `json:"updateBy,optional" validate:"required"`
+    DeleteBy string `json:"deleteBy,optional"`
+}
+
+//----------------------------------------------
+// 创建角色
+//----------------------------------------------
+type RoleCreateRequest struct {
+    Role string `json:"role,optional" validate:"required"`
+    Name string `json:"name,optional" validate:"required"`
+}
+
+//----------------------------------------------
+// 获取全部角色
+//----------------------------------------------
+type RoleAllResponse struct {
+    HttpCommonResponse
+    Total int `json:"total"`
+    List []Role `json:"list"`
+}

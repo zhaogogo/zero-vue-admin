@@ -8,6 +8,7 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
+	"sync"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
@@ -32,19 +33,30 @@ func NewPagingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PagingLogi
 func (l *PagingLogic) Paging(req *types.UserPagingRequest) (resp *types.UserPagingResponse, err error) {
 	var total int64
 	var msgErrList = errorx.MsgErrList{}
+	var wg sync.WaitGroup
 
-	userTotalParam := &systemservice.Empty{}
-	ptotal, err := l.svcCtx.SystemRpcClient.UserTotal(l.ctx, userTotalParam)
-	if err != nil {
-		s, _ := status.FromError(err)
-		if s.Message() == sql.ErrNoRows.Error() {
-		} else {
-			msgErrList.WithMeta("SystemRpcClient.UserTotal", err.Error(), userTotalParam)
+	wg.Add(1)
+	go func() {
+		defer func() {
+			wg.Done()
+			if r := recover(); r != nil {
+				logx.Error(r)
+			}
+		}()
+		userTotalParam := &systemservice.Empty{}
+		ptotal, err := l.svcCtx.SystemRpcClient.UserTotal(l.ctx, userTotalParam)
+		if err != nil {
+			s, _ := status.FromError(err)
+			if s.Message() == sql.ErrNoRows.Error() {
+				msgErrList.WithMeta("SystemRpcClient.UserTotal", err.Error(), userTotalParam)
+			} else {
+				msgErrList.WithMeta("SystemRpcClient.UserTotal", err.Error(), userTotalParam)
+			}
 		}
-	}
-	if ptotal != nil {
-		total = ptotal.Total
-	}
+		if ptotal != nil {
+			total = ptotal.Total
+		}
+	}()
 
 	pagingUserParam := &systemservice.UserPagingRequest{Page: req.Page, PageSize: req.PageSize, NameX: req.NameX}
 	userlist, err := l.svcCtx.SystemRpcClient.UserPaging(l.ctx, pagingUserParam)
@@ -115,6 +127,7 @@ func (l *PagingLogic) Paging(req *types.UserPagingRequest) (resp *types.UserPagi
 					for _, userrole := range userroles.UserRoles {
 						for index, user := range list {
 							if user.ID == userrole.UserID {
+								//roleallList = append(roleallList, userrole.RoleID)
 								list[index].RoleList = append(list[index].RoleList, userrole.RoleID)
 							}
 						}
@@ -126,7 +139,7 @@ func (l *PagingLogic) Paging(req *types.UserPagingRequest) (resp *types.UserPagi
 			}
 		},
 	)
-
+	wg.Wait()
 	var (
 		msg     = "OK"
 		elcount = len(msgErrList.List)

@@ -34,9 +34,9 @@ func (l *DetailLogic) Detail(req *types.UserDetailRequest) (resp *types.UserDeta
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
-			return nil, errorx.NewByCode(err, errorx.DB_NOTFOUND).WithMeta("SystemRpcClient.UserInfo", err.Error(), userDetailParam)
+			return nil, errorx.NewByCode(err, errorx.DB_NOTFOUND).WithMeta("SystemRpcClient.UserDetail", err.Error(), userDetailParam)
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UserInfo", err.Error(), userDetailParam)
+		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UserDetail", err.Error(), userDetailParam)
 	}
 	var state = map[bool]string{
 		true:  "deleted",
@@ -62,6 +62,6 @@ func (l *DetailLogic) Detail(req *types.UserDetailRequest) (resp *types.UserDeta
 	}
 	return &types.UserDetailResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"},
-		UserInfo:           u,
+		Detail:             u,
 	}, err
 }

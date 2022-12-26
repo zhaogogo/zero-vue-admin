@@ -11,21 +11,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type UserMenuParamsLogic struct {
+type UserMenuParamsByUserIDLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewUserMenuParamsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserMenuParamsLogic {
-	return &UserMenuParamsLogic{
+func NewUserMenuParamsByUserIDLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserMenuParamsByUserIDLogic {
+	return &UserMenuParamsByUserIDLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *UserMenuParamsLogic) UserMenuParams(in *pb.UserID) (*pb.UserMenuParamsResponse, error) {
+func (l *UserMenuParamsByUserIDLogic) UserMenuParamsByUserID(in *pb.UserID) (*pb.UserMenuParamsResponse, error) {
 	userMenuParams, err := l.svcCtx.UserMenuParamsModel.FindByUserID(l.ctx, l.svcCtx.Redis, in.ID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {

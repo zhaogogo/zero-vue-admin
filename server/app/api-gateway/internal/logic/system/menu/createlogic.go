@@ -25,14 +25,14 @@ func NewCreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateLogi
 	}
 }
 
-func (l *CreateLogic) Create(req *types.CreateMenuRequest) (resp *types.HttpCommonResponse, err error) {
+func (l *CreateLogic) Create(req *types.MenuCreateRequest) (resp *types.HttpCommonResponse, err error) {
 	param := &systemservice.CreateMenuRequest{
 		ParentID:  req.ParentID,
 		Name:      req.Name,
 		Path:      req.Name,
 		Component: req.Component,
-		Title:     req.Title,
-		Icon:      req.Icon,
+		Title:     req.Meta.Title,
+		Icon:      req.Meta.Icon,
 		Sort:      req.Sort,
 	}
 	if req.Hidden {

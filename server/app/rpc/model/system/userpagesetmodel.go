@@ -15,6 +15,7 @@ type (
 	// and implement the added methods in customUserPageSetModel.
 	UserPageSetModel interface {
 		userPageSetModel
+		TransDeleteByUserID(ctx context.Context, session sqlx.Session, userid uint64) error
 	}
 
 	customUserPageSetModel struct {
@@ -28,8 +29,9 @@ func NewUserPageSetModel(conn sqlx.SqlConn, c cache.CacheConf) UserPageSetModel 
 		defaultUserPageSetModel: newUserPageSetModel(conn, c),
 	}
 }
-func (m *defaultUserPageSetModel) UpdateByUserID(ctx context.Context, newData *UserPageSet) error {
-	data, err := m.FindOne(ctx, newData.Id)
+
+func (m *defaultUserPageSetModel) TransDeleteByUserID(ctx context.Context, session sqlx.Session, userid uint64) error {
+	data, err := m.FindOneByUserId(ctx, userid)
 	if err != nil {
 		return err
 	}
@@ -37,8 +39,8 @@ func (m *defaultUserPageSetModel) UpdateByUserID(ctx context.Context, newData *U
 	chaosSystemUserPageSetIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserPageSetIdPrefix, data.Id)
 	chaosSystemUserPageSetUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserPageSetUserIdPrefix, data.UserId)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, userPageSetRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.UserId, newData.Avatar, newData.DefaultRouter, newData.SideMode, newData.TextColor, newData.ActiveTextColor, newData.Id)
+		query := fmt.Sprintf("delete from %s where `user_id` = ?", m.table)
+		return session.ExecCtx(ctx, query, userid)
 	}, chaosSystemUserPageSetIdKey, chaosSystemUserPageSetUserIdKey)
 	return err
 }

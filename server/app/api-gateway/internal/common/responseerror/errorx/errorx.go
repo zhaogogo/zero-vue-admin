@@ -39,13 +39,13 @@ func (e *Errorx) Message() string {
 	return fmt.Sprintf("%s", e.Msg)
 }
 
-//func New(causeErr error, errorxcode ErrorCode, msg string) *Errorx {
-//	return &Errorx{
-//		Code:  errorxcode,
-//		Msg:   msg,
-//		Cause: causeErr,
-//	}
-//}
+func New(causeErr error, msg string) *Errorx {
+	return &Errorx{
+		Code:  SERVER_COMMON_ERROR,
+		Msg:   msg,
+		Cause: causeErr,
+	}
+}
 
 func NewByCode(causeErr error, code ErrorCode) *Errorx {
 	return &Errorx{

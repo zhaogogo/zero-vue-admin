@@ -27,6 +27,16 @@ func (s *SystemServiceServer) Login(ctx context.Context, in *pb.LoginRequest) (*
 	return l.Login(in)
 }
 
+func (s *SystemServiceServer) CasbinEnforcer(ctx context.Context, in *pb.CasbinEnforceRequest) (*pb.CasbinEnforceResponse, error) {
+	l := logic.NewCasbinEnforcerLogic(ctx, s.svcCtx)
+	return l.CasbinEnforcer(in)
+}
+
+func (s *SystemServiceServer) RefreshCasbinPolicy(ctx context.Context, in *pb.Empty) (*pb.Empty, error) {
+	l := logic.NewRefreshCasbinPolicyLogic(ctx, s.svcCtx)
+	return l.RefreshCasbinPolicy(in)
+}
+
 func (s *SystemServiceServer) UserDetail(ctx context.Context, in *pb.UserID) (*pb.User, error) {
 	l := logic.NewUserDetailLogic(ctx, s.svcCtx)
 	return l.UserDetail(in)
@@ -82,14 +92,19 @@ func (s *SystemServiceServer) UpdateUserPageSet(ctx context.Context, in *pb.Upda
 	return l.UpdateUserPageSet(in)
 }
 
-func (s *SystemServiceServer) UserMenuParams(ctx context.Context, in *pb.UserID) (*pb.UserMenuParamsResponse, error) {
-	l := logic.NewUserMenuParamsLogic(ctx, s.svcCtx)
-	return l.UserMenuParams(in)
+func (s *SystemServiceServer) UserMenuParamsByUserID(ctx context.Context, in *pb.UserID) (*pb.UserMenuParamsResponse, error) {
+	l := logic.NewUserMenuParamsByUserIDLogic(ctx, s.svcCtx)
+	return l.UserMenuParamsByUserID(in)
 }
 
 func (s *SystemServiceServer) UserAllMenuParams(ctx context.Context, in *pb.Empty) (*pb.UserMenuParamsResponse, error) {
 	l := logic.NewUserAllMenuParamsLogic(ctx, s.svcCtx)
 	return l.UserAllMenuParams(in)
+}
+
+func (s *SystemServiceServer) UpdateUserMenuParams(ctx context.Context, in *pb.UpdateUserMenuParamsRequest) (*pb.Empty, error) {
+	l := logic.NewUpdateUserMenuParamsLogic(ctx, s.svcCtx)
+	return l.UpdateUserMenuParams(in)
 }
 
 func (s *SystemServiceServer) UserRoleByUserID(ctx context.Context, in *pb.UserID) (*pb.UserRoleResponse, error) {
@@ -112,6 +127,26 @@ func (s *SystemServiceServer) RoleAll(ctx context.Context, in *pb.Empty) (*pb.Ro
 	return l.RoleAll(in)
 }
 
+func (s *SystemServiceServer) DeleteRole(ctx context.Context, in *pb.RoleID) (*pb.Empty, error) {
+	l := logic.NewDeleteRoleLogic(ctx, s.svcCtx)
+	return l.DeleteRole(in)
+}
+
+func (s *SystemServiceServer) DeleteSoftRole(ctx context.Context, in *pb.DeleteSoftRoleRequest) (*pb.Empty, error) {
+	l := logic.NewDeleteSoftRoleLogic(ctx, s.svcCtx)
+	return l.DeleteSoftRole(in)
+}
+
+func (s *SystemServiceServer) CreateRole(ctx context.Context, in *pb.CreateRoleRequest) (*pb.Empty, error) {
+	l := logic.NewCreateRoleLogic(ctx, s.svcCtx)
+	return l.CreateRole(in)
+}
+
+func (s *SystemServiceServer) UpdateRole(ctx context.Context, in *pb.UpdateRoleRequest) (*pb.Empty, error) {
+	l := logic.NewUpdateRoleLogic(ctx, s.svcCtx)
+	return l.UpdateRole(in)
+}
+
 func (s *SystemServiceServer) MenuDetail(ctx context.Context, in *pb.MenuID) (*pb.Menu, error) {
 	l := logic.NewMenuDetailLogic(ctx, s.svcCtx)
 	return l.MenuDetail(in)
@@ -132,9 +167,54 @@ func (s *SystemServiceServer) UpdateMenu(ctx context.Context, in *pb.UpdateMenuR
 	return l.UpdateMenu(in)
 }
 
+func (s *SystemServiceServer) DeleteMenu_RoleMenu_UserMenuParam(ctx context.Context, in *pb.MenuID) (*pb.Empty, error) {
+	l := logic.NewDeleteMenuRoleMenuUserMenuParamLogic(ctx, s.svcCtx)
+	return l.DeleteMenu_RoleMenu_UserMenuParam(in)
+}
+
 func (s *SystemServiceServer) RoleMenuByRoleID(ctx context.Context, in *pb.RoleID) (*pb.RoleMenuResponse, error) {
 	l := logic.NewRoleMenuByRoleIDLogic(ctx, s.svcCtx)
 	return l.RoleMenuByRoleID(in)
+}
+
+func (s *SystemServiceServer) APIDetail(ctx context.Context, in *pb.ApiID) (*pb.API, error) {
+	l := logic.NewAPIDetailLogic(ctx, s.svcCtx)
+	return l.APIDetail(in)
+}
+
+func (s *SystemServiceServer) APIAll(ctx context.Context, in *pb.Empty) (*pb.APIAllResponse, error) {
+	l := logic.NewAPIAllLogic(ctx, s.svcCtx)
+	return l.APIAll(in)
+}
+
+func (s *SystemServiceServer) APIPaging(ctx context.Context, in *pb.APIPagingRequest) (*pb.APIPagingResponse, error) {
+	l := logic.NewAPIPagingLogic(ctx, s.svcCtx)
+	return l.APIPaging(in)
+}
+
+func (s *SystemServiceServer) APITotal(ctx context.Context, in *pb.APIPagingRequest) (*pb.Total, error) {
+	l := logic.NewAPITotalLogic(ctx, s.svcCtx)
+	return l.APITotal(in)
+}
+
+func (s *SystemServiceServer) CreateAPI(ctx context.Context, in *pb.CreateAPIRequest) (*pb.Empty, error) {
+	l := logic.NewCreateAPILogic(ctx, s.svcCtx)
+	return l.CreateAPI(in)
+}
+
+func (s *SystemServiceServer) UpdateAPI(ctx context.Context, in *pb.API) (*pb.Empty, error) {
+	l := logic.NewUpdateAPILogic(ctx, s.svcCtx)
+	return l.UpdateAPI(in)
+}
+
+func (s *SystemServiceServer) DeleteAPIAndCasbin(ctx context.Context, in *pb.DeleteAPIAndCasbinRequest) (*pb.Empty, error) {
+	l := logic.NewDeleteAPIAndCasbinLogic(ctx, s.svcCtx)
+	return l.DeleteAPIAndCasbin(in)
+}
+
+func (s *SystemServiceServer) DeleteAPIMultipleAndCasbin(ctx context.Context, in *pb.DeleteAPIMultipleAndCasbinRequest) (*pb.Empty, error) {
+	l := logic.NewDeleteAPIMultipleAndCasbinLogic(ctx, s.svcCtx)
+	return l.DeleteAPIMultipleAndCasbin(in)
 }
 
 func (s *SystemServiceServer) Test(ctx context.Context, in *pb.Empty) (*pb.Total, error) {

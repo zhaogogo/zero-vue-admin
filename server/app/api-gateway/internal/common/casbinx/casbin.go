@@ -52,7 +52,7 @@ func (casbinx *Casbinx) Enforce(rvals ...interface{}) (bool, error) {
 			err = errors.Wrapf(err, "casbin mysql adapter创建失败")
 			return
 		}
-
+		casbin.NewSyncedEnforcer()
 		casbinx.enforcer, err = casbin.NewEnforcer(casbinx.m, casbinx.a)
 		if err != nil {
 			err = errors.Wrapf(err, "创建syncEnforcer失败")

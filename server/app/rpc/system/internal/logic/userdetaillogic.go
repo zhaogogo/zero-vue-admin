@@ -34,20 +34,21 @@ func (l *UserDetailLogic) UserDetail(in *pb.UserID) (*pb.User, error) {
 		return nil, errors.Wrap(err, "数据库查询失败")
 	}
 	res := &pb.User{
-		ID:         user.Id,
-		Name:       user.Name,
-		NickName:   user.NickName,
-		PassWord:   user.Password,
-		UserType:   user.Type,
-		Email:      user.Email,
-		Phone:      user.Phone,
-		Department: user.Department,
-		Position:   user.Position,
-		CreateBy:   user.CreateBy,
-		CreateTime: user.CreateTime.Unix(),
-		UpdateBy:   user.UpdateBy,
-		UpdateTime: user.UpdateTime.Unix(),
-		DeleteBy:   user.DeleteBy,
+		ID:          user.Id,
+		Name:        user.Name,
+		NickName:    user.NickName,
+		PassWord:    user.Password,
+		UserType:    user.Type,
+		Email:       user.Email,
+		Phone:       user.Phone,
+		Department:  user.Department,
+		Position:    user.Position,
+		CurrentRole: user.CurrentRole,
+		CreateBy:    user.CreateBy,
+		CreateTime:  user.CreateTime.Unix(),
+		UpdateBy:    user.UpdateBy,
+		UpdateTime:  user.UpdateTime.Unix(),
+		DeleteBy:    user.DeleteBy,
 	}
 	if user.DeleteTime.Valid {
 		res.DeleteTime = user.DeleteTime.Time.Unix()

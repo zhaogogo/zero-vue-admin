@@ -12,7 +12,7 @@ import "common.api"
 
 @server(
     jwt: Auth
-    middleware: ParseJWTToken,CheckUserExists
+    middleware: ParseJWTToken,CheckUserExists,Casbin
     group: system/menu
     prefix: /api/v1/system/menu
 )
@@ -38,7 +38,19 @@ service ApiGateway-api {
 
     @doc "新增菜单"
     @handler Create
-    post /create (CreateMenuRequest) returns (HttpCommonResponse)
+    post /create (MenuCreateRequest) returns (HttpCommonResponse)
+
+    @doc "删除菜单"
+    @handler Delete
+    delete /:id (MenuDeleteRequest) returns (HttpCommonResponse)
+
+    @doc "更新菜单"
+    @handler Update
+    put /:id (MenuUpdateRequest) returns (HttpCommonResponse)
+
+    @doc "更新菜单用户参数"
+    @handler UpdateUserParam
+    post /:id/userparam (MenuUserParamRequest) returns (HttpCommonResponse)
 }
 //----------------------------------------------
 // 用户动态路由菜单
@@ -93,20 +105,60 @@ type (
     }
     MenuDetailResponse{
         HttpCommonResponse
-        MenuInfo Menu `json:"menuInfo"`
+        Detail Menu `json:"detail"`
     }
 )
 
 //----------------------------------------------
 // 新增菜单
 //----------------------------------------------
-type CreateMenuRequest struct {
+type (
+    MenuCreateRequest struct {
+        ParentID uint64 `json:"parentId,optional" validate:"numeric,gte=0"`
+        Name string `json:"name,optional" validate:"required"`
+        Path string `json:"path,optional" validate:"required"`
+        Component string `json:"component,optional" validate:"required"`
+        Meta MetaRequest `json:"meta"`
+        Sort int64 `json:"sort,optional"`
+        Hidden bool `json:"hidden,optional"`
+    }
+    MetaRequest struct {
+        Title string `json:"title,optional" validate:"required"`
+        Icon string `json:"icon,optional"`
+    }
+)
+
+//----------------------------------------------
+// 删除菜单
+//----------------------------------------------
+type MenuDeleteRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+}
+
+//----------------------------------------------
+// 修改菜单
+//----------------------------------------------
+type MenuUpdateRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
     ParentID uint64 `json:"parentId,optional" validate:"numeric,gte=0"`
     Name string `json:"name,optional" validate:"required"`
     Path string `json:"path,optional" validate:"required"`
-    Component string `json:"component,optional" validate:"required"`
-    Title string `json:"title,optional" validate:"required"`
-    Icon string `json:"icon,optional"`
-    Sort int64 `json:"sort,optional"`
     Hidden bool `json:"hidden,optional"`
+    Component string `json:"component,optional" validate:"required"`
+    Meta MetaRequest `json:"meta,optional"`
+    Sort int64 `json:"sort,optional" validate:"numeric,gte=0"`
 }
+
+type (
+    MenuUserParamRequest struct {
+        ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+        Parameters []ParameterRequest `json:"parameters" validate:"slice_c='gte=0',dive" commen:"slice长度必须大于等于0"` //不写
+    }
+    ParameterRequest struct {
+        ID uint64 `json:"id,optional"`
+        UserID uint64 `json:"user_id,optional" validate:"numeric,gte=1"`
+        Type string `json:"type,optional" validate:"oneof='query' 'params'"`
+        Key string `json:"key,optional" validate:"required"`
+        Value string `json:"value,optional" validate:"required"`
+    }
+)

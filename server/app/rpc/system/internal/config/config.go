@@ -14,6 +14,11 @@ type Config struct {
 	Mysql struct {
 		DataSource string
 	}
+	CasbinConfig struct {
+		Driver    string
+		TableName string
+		Model     string
+	}
 	CacheConf        cache.CacheConf
 	RedisCacheConfig struct {
 		Host string

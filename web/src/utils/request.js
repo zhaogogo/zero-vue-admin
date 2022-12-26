@@ -60,7 +60,7 @@ service.interceptors.response.use(
         console.log("响应拦截器错误 ==> ",error)
         if (error.response.status === 401) {
             store.commit("user/LOGOUT")
-        }else {
+        } else {
             Message({
                 type: 'error',
                 message: '请求拦截器错误'+ error,

@@ -26,7 +26,7 @@ func NewUserRoleByUserIDLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *UserRoleByUserIDLogic) UserRoleByUserID(in *pb.UserID) (*pb.UserRoleResponse, error) {
-	userRoles, err := l.svcCtx.UserRoleModel.FindByUserID(l.ctx, l.svcCtx.Redis, in.ID)
+	userRoles, err := l.svcCtx.UserRoleModel.FindByUserIDWhereRoleNotDel(l.ctx, l.svcCtx.Redis, in.ID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
 			return nil, err

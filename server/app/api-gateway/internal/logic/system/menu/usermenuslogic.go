@@ -36,22 +36,35 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 	)
 
 	userid := l.ctx.Value("user_id").(uint64)
+	userinfo := l.ctx.Value("userinfo").(*systemservice.User)
+	roleFlag := false
 	param := &systemservice.UserID{ID: userid}
 	userroles, err := l.svcCtx.SystemRpcClient.UserRoleByUserID(l.ctx, param)
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
-			return &types.UserMenuResponse{HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"}, Menus: nil}, nil
+			msgErrList.WithMeta("SystemRpcClient.UserRoleByUserID", err.Error(), param)
+			return &types.UserMenuResponse{HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK", Meta: msgErrList.List}, Menus: nil}, nil
 		}
 		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.GetUserRoleByUserID", err.Error(), param)
+	}
+	for _, v := range userroles.UserRoles {
+		if v.RoleID == userinfo.CurrentRole {
+			roleFlag = true
+			break
+		}
+	}
+	if !roleFlag {
+		return &types.UserMenuResponse{HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK", Meta: msgErrList.List}, Menus: nil}, nil
 	}
 
 	// 获取menuid列表
 	mr.MapReduce(
 		func(source chan<- interface{}) {
-			for _, userrole := range userroles.UserRoles {
-				source <- userrole.RoleID
-			}
+			//for _, userrole := range userroles.UserRoles {
+			//	source <- userrole.RoleID
+			//}
+			source <- userinfo.CurrentRole
 		},
 		func(item interface{}, writer mr.Writer, cancel func(error)) {
 			roleid := item.(uint64)
@@ -116,7 +129,7 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 	// 获取参数
 	params := []types.Parameter{}
 	getUserMenuParamsParam := &systemservice.UserID{ID: userid}
-	userMenuParams, err := l.svcCtx.SystemRpcClient.UserMenuParams(l.ctx, getUserMenuParamsParam)
+	userMenuParams, err := l.svcCtx.SystemRpcClient.UserMenuParamsByUserID(l.ctx, getUserMenuParamsParam)
 	s, _ := status.FromError(err)
 	if s.Message() == sql.ErrNoRows.Error() {
 		msgErrList.WithMeta("SystemRpcClient.GetUserMenuParams", err.Error(), getUserMenuParamsParam)

@@ -7,14 +7,21 @@ export const getPermission = () => {
     })
 }
 
-export const all = () => {
+export const currentUserInfo = () => {
+    return service({
+        url:"/api/v1/system/user/currentset",
+        method: "GET"
+    })
+}
+
+export const allUser = () => {
     return service({
         url:"/api/v1/system/user/all",
         method: "GET"
     })
 }
 
-export const paging = (data) => {
+export const pagingUser = (data) => {
     return service({
         url: "/api/v1/system/user/paging",
         method: "POST",
@@ -22,7 +29,7 @@ export const paging = (data) => {
     })
 }
 
-export const detail = (id) => {
+export const userDetail = (id) => {
     return service({
         url:"/api/v1/system/user/" + id,
         method: "GET"
@@ -31,23 +38,23 @@ export const detail = (id) => {
 
 export const updatepassword = (data) => {
     return service({
-        url: "/api/v1/system/user/password/" + data.id,
-        method: "POST",
+        url: "/api/v1/system/user/" + data.id + "/password",
+        method: "PUT",
         data
     })
 }
 
 export const updateRole = (data) => {
     return service({
-        url: "/api/v1/system/user/role/" + data.id,
-        method: "POST",
+        url: "/api/v1/system/user/" + data.id + "/role",
+        method: "PUT",
         data
     })
 }
 
 export const deleteSoft = (data) => {
     return service({
-        url: "/api/v1/system/user/soft/" + data.id,
+        url: "/api/v1/system/user/" + data.id + "/soft",
         method: "DELETE",
         data
     })
@@ -79,7 +86,7 @@ export const addUser = (data) => {
 export const editUser = (data) => {
     return service({
         url:"/api/v1/system/user/" + data.id,
-        method: "POST",
+        method: "PUT",
         data
     })
 }

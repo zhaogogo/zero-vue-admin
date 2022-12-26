@@ -15,6 +15,28 @@ RedisCacheConfig:
   Pass: zhaO..123
 Mysql:
   DataSource: root:zhaO..123@tcp(127.0.0.1:3306)/chaos_system?collation=utf8mb4_general_ci&parseTime=true&loc=Asia%2FShanghai&timeout=2s&readTimeout=1s&writeTimeout=1s
+CasbinConfig:
+  Driver: "mysql"
+  TableName: "casbin_rule"
+  Model: '[request_definition]
+  
+r = sub, obj, act
+
+[policy_definition]
+
+p = sub, obj, act
+
+[role_definition]
+
+g = _, _
+
+[policy_effect]
+
+e = some(where (p.eft == allow))
+
+[matchers]
+
+m = r.sub == p.sub && ParamsMatch(r.obj,p.obj) && r.act == p.act || r.obj == "/api/v1/system/user/persionhome" || r.obj == "/api/v1/system/menu/usermenus"'
 JWT:
   AccessSecret: ad879037-c7a4-4063-9236-6bfc35d54b7d
   AccessExpire: 86400

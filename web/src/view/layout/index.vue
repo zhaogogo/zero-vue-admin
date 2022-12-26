@@ -36,6 +36,18 @@
                       <i class="el-icon-arrow-down" />
                     </span>
                     <el-dropdown-menu slot="dropdown" class="dropdown-group">
+                      <el-dropdown-item>
+                        <span style="font-wight: 600;">
+                          当前角色: {{ currentRole.name }}
+                        </span>
+                      </el-dropdown-item>
+                      <template v-if="roles">
+                        <el-dropdown-item v-for="item in roles.filter(i=>i.id!==currentRole.id)" :key="item.id">
+                          <span>
+                            切换为: {{ item.name }}
+                          </span>
+                        </el-dropdown-item>
+                      </template>
                       <el-dropdown-item icon="el-icon-s-custom" @click.native="toPerson">个人信息</el-dropdown-item>
                       <el-dropdown-item icon="el-icon-table-lamp" @click.native="LOGOUT">登 出</el-dropdown-item>
                     </el-dropdown-menu>
@@ -78,7 +90,7 @@ export default {
       }
     },
     computed: {
-      ...mapGetters("user",["userPageSet"]),
+      ...mapGetters("user",["userPageSet","roles","currentRole"]),
       matched() {
         return this.$route.matched
       }
