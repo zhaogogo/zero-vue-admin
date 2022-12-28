@@ -41,6 +41,7 @@ type (
 	RoleMenuResponse                  = pb.RoleMenuResponse
 	Total                             = pb.Total
 	UpdateMenuRequest                 = pb.UpdateMenuRequest
+	UpdateRoleMenusRequest            = pb.UpdateRoleMenusRequest
 	UpdateRoleRequest                 = pb.UpdateRoleRequest
 	UpdateUserCurrentRoleRequest      = pb.UpdateUserCurrentRoleRequest
 	UpdateUserMenuParamsRequest       = pb.UpdateUserMenuParamsRequest
@@ -92,6 +93,7 @@ type (
 		UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
 		DeleteMenu_RoleMenu_UserMenuParam(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Empty, error)
 		RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error)
+		UpdateRoleMenus(ctx context.Context, in *UpdateRoleMenusRequest, opts ...grpc.CallOption) (*Empty, error)
 		APIDetail(ctx context.Context, in *ApiID, opts ...grpc.CallOption) (*API, error)
 		APIAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*APIAllResponse, error)
 		APIPaging(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*APIPagingResponse, error)
@@ -272,6 +274,11 @@ func (m *defaultSystemService) DeleteMenu_RoleMenu_UserMenuParam(ctx context.Con
 func (m *defaultSystemService) RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.RoleMenuByRoleID(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) UpdateRoleMenus(ctx context.Context, in *UpdateRoleMenusRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.UpdateRoleMenus(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) APIDetail(ctx context.Context, in *ApiID, opts ...grpc.CallOption) (*API, error) {

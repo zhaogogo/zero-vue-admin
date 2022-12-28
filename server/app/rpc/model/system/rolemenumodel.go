@@ -4,10 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"strconv"
+	"strings"
 )
 
 var (
@@ -20,11 +23,14 @@ type (
 	// RoleMenuModel is an interface to be customized, add more methods here,
 	// and implement the added methods in customRoleMenuModel.
 	RoleMenuModel interface {
+		Trans(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error
 		FindByMenuID_NC(ctx context.Context, menuid uint64) ([]RoleMenu, error)
 		FindByRoleID(ctx context.Context, redis *redis.Redis, roleID uint64) ([]RoleMenu, error)
 
 		TransDeleteByMenuId(ctx context.Context, session sqlx.Session, menuid uint64) error
 		TransDeleteByRoleId(ctx context.Context, session sqlx.Session, roleid uint64) error
+
+		TransReplaceByMenus(ctx context.Context, session sqlx.Session, roleid uint64, menuIDs []uint64) error
 	}
 
 	customRoleMenuModel struct {
@@ -87,6 +93,12 @@ func (m *defaultRoleMenuModel) FindByRoleID(ctx context.Context, redis *redis.Re
 	return nil, err
 }
 
+func (m *defaultRoleMenuModel) Trans(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error {
+	return m.TransactCtx(ctx, func(ctx context.Context, session sqlx.Session) error {
+		return fn(ctx, session)
+	})
+}
+
 func (m *defaultRoleMenuModel) TransDeleteByMenuId(ctx context.Context, session sqlx.Session, menuid uint64) error {
 	cacheChaosSystemRoleMenu_RoleId_Keys := []string{}
 	roleidSet := make(map[uint64]int64)
@@ -119,4 +131,72 @@ func (m *defaultRoleMenuModel) TransDeleteByRoleId(ctx context.Context, session 
 		return session.ExecCtx(ctx, query, roleid)
 	}, cacheChaosSystemRoleMenu_RoleId_Keys)
 	return err
+}
+
+func (m *defaultRoleMenuModel) TransReplaceByMenus(ctx context.Context, session sqlx.Session, roleid uint64, menuIDs []uint64) error {
+	cacheChaosSystemRoleMenu_RoleId_Keys := fmt.Sprintf("%s%v", cacheChaosSystemRoleMenuRoleIdPrefix, roleid)
+
+	if len(menuIDs) == 0 {
+		return m.TransDeleteByRoleId(ctx, session, roleid)
+	}
+
+	roleMenus := []RoleMenu{}
+	query := fmt.Sprintf("SELECT %s FROM %s where `role_id` = ?", roleMenuRows, m.table)
+	err := session.QueryRowsCtx(ctx, &roleMenus, query, roleid)
+	if err != nil {
+		return errors.Wrap(err, "查询数据库role_menu失败")
+	}
+	shouleAddMenuid := []uint64{}
+	for _, menuid := range menuIDs {
+		addflag := false
+		for _, rolemenu := range roleMenus {
+			if menuid == rolemenu.MenuId {
+				addflag = true
+				break
+			}
+		}
+		fmt.Println("---->", addflag, menuid)
+		if !addflag {
+			shouleAddMenuid = append(shouleAddMenuid, menuid)
+		}
+	}
+	if len(shouleAddMenuid) == 0 {
+		menuid := []string{}
+		for _, v := range menuIDs {
+			menuid = append(menuid, strconv.FormatUint(v, 10))
+		}
+		query = fmt.Sprintf("DELETE FROM %s WHERE `menu_id` NOT IN (%s) AND `role_id` = ?", m.table, strings.Join(menuid, ","))
+		_, err = session.ExecCtx(ctx, query, roleid)
+		if err != nil {
+			return errors.Wrap(err, "删除数据失败"+m.table)
+		}
+		return m.DelCache(cacheChaosSystemRoleMenu_RoleId_Keys)
+	}
+	fmt.Println("menuIDs", menuIDs)
+	fmt.Println("shouleAddMenuid", shouleAddMenuid)
+	values := []string{}
+	for _, menuid := range shouleAddMenuid {
+		values = append(values, fmt.Sprintf("(%v,%v)", menuid, roleid))
+	}
+	query = fmt.Sprintf("INSERT INTO %s(%s) values %s", m.table, roleMenuRowsExpectAutoSet, strings.Join(values, ","))
+
+	_, err = session.ExecCtx(ctx, query)
+	if err != nil {
+		return errors.Wrap(err, "插入数据失败"+m.table)
+	}
+
+	menuid := []string{}
+	for _, v := range menuIDs {
+		menuid = append(menuid, strconv.FormatUint(v, 10))
+	}
+	query = fmt.Sprintf("DELETE FROM %s WHERE `menu_id` NOT IN (%s) AND `role_id` = ?", m.table, strings.Join(menuid, ","))
+	_, err = session.ExecCtx(ctx, query, roleid)
+	if err != nil {
+		return errors.Wrap(err, "删除数据失败"+m.table)
+	}
+
+	if err = m.DelCacheCtx(ctx, cacheChaosSystemRoleMenu_RoleId_Keys); err != nil {
+		return errors.Wrap(err, "删除缓存失败"+cacheChaosSystemRoleMenu_RoleId_Keys)
+	}
+	return nil
 }

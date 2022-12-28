@@ -234,6 +234,11 @@ type MenuResp struct {
 	MenuMeta  MenuMeta `json:"meta"`
 }
 
+type UpdateRoleMenuPermissionRequest struct {
+	ID         uint64   `path:"id,optional" validate:"numeric,gte=1"`
+	MenuIDList []uint64 `json:"menuIdList,optional"`
+}
+
 type UserMenuResponse struct {
 	HttpCommonResponse
 	Menus []Menu `json:"menus"`

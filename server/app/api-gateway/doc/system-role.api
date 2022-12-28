@@ -45,6 +45,10 @@ service ApiGateway-api {
     @handler MenuPermission
     get /menupermission/:id (RoleMenuPermissionRequest) returns (RoleMenuPermissionResponse)
 
+    @doc "更新角色菜单权限"
+    @handler UpdateMenuPermission
+    post /menupermission/:id (UpdateRoleMenuPermissionRequest) returns (HttpCommonResponse)
+
     @doc "刷新权限"
     @handler RefreshPermission
     get /refreshpermission returns (HttpCommonResponse)
@@ -121,7 +125,9 @@ type RoleAllResponse struct {
     Total int `json:"total"`
     List []Role `json:"list"`
 }
-
+//----------------------------------------------
+// 获取角色菜单权限
+//----------------------------------------------
 type (
     RoleMenuPermissionRequest {
        ID uint64 `path:"id,optional" validate:"numeric,gte=1"`
@@ -141,3 +147,11 @@ type (
         MenuMeta MenuMeta `json:"meta"`
     }
 )
+
+//----------------------------------------------
+// 更新角色菜单权限
+//----------------------------------------------
+type UpdateRoleMenuPermissionRequest struct {
+    ID uint64 `path:"id,optional" validate:"numeric,gte=1"`
+    MenuIDList []uint64 `json:"menuIdList,optional"`
+}

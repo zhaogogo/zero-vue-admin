@@ -59,3 +59,12 @@ export const getroleMenu = (data) => {
         method:"GET"
     })
 }
+
+export const replaceRoleMenuPermission = (data) => {
+    console.log("===>",{"menuIdList": data.menuids},data)
+    return service({
+        url: "/api/v1/system/role/menupermission/" + data.id,
+        method: "POST",
+        data: {"menuIdList": data.menuIdList}
+    })
+}

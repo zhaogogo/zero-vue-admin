@@ -54,6 +54,7 @@ type SystemServiceClient interface {
 	UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*Empty, error)
 	DeleteMenu_RoleMenu_UserMenuParam(ctx context.Context, in *MenuID, opts ...grpc.CallOption) (*Empty, error)
 	RoleMenuByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*RoleMenuResponse, error)
+	UpdateRoleMenus(ctx context.Context, in *UpdateRoleMenusRequest, opts ...grpc.CallOption) (*Empty, error)
 	APIDetail(ctx context.Context, in *ApiID, opts ...grpc.CallOption) (*API, error)
 	APIAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*APIAllResponse, error)
 	APIPaging(ctx context.Context, in *APIPagingRequest, opts ...grpc.CallOption) (*APIPagingResponse, error)
@@ -361,6 +362,15 @@ func (c *systemServiceClient) RoleMenuByRoleID(ctx context.Context, in *RoleID, 
 	return out, nil
 }
 
+func (c *systemServiceClient) UpdateRoleMenus(ctx context.Context, in *UpdateRoleMenusRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateRoleMenus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *systemServiceClient) APIDetail(ctx context.Context, in *ApiID, opts ...grpc.CallOption) (*API, error) {
 	out := new(API)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/APIDetail", in, out, opts...)
@@ -478,6 +488,7 @@ type SystemServiceServer interface {
 	UpdateMenu(context.Context, *UpdateMenuRequest) (*Empty, error)
 	DeleteMenu_RoleMenu_UserMenuParam(context.Context, *MenuID) (*Empty, error)
 	RoleMenuByRoleID(context.Context, *RoleID) (*RoleMenuResponse, error)
+	UpdateRoleMenus(context.Context, *UpdateRoleMenusRequest) (*Empty, error)
 	APIDetail(context.Context, *ApiID) (*API, error)
 	APIAll(context.Context, *Empty) (*APIAllResponse, error)
 	APIPaging(context.Context, *APIPagingRequest) (*APIPagingResponse, error)
@@ -589,6 +600,9 @@ func (UnimplementedSystemServiceServer) DeleteMenu_RoleMenu_UserMenuParam(contex
 }
 func (UnimplementedSystemServiceServer) RoleMenuByRoleID(context.Context, *RoleID) (*RoleMenuResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RoleMenuByRoleID not implemented")
+}
+func (UnimplementedSystemServiceServer) UpdateRoleMenus(context.Context, *UpdateRoleMenusRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRoleMenus not implemented")
 }
 func (UnimplementedSystemServiceServer) APIDetail(context.Context, *ApiID) (*API, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method APIDetail not implemented")
@@ -1206,6 +1220,24 @@ func _SystemService_RoleMenuByRoleID_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SystemService_UpdateRoleMenus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRoleMenusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UpdateRoleMenus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UpdateRoleMenus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UpdateRoleMenus(ctx, req.(*UpdateRoleMenusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SystemService_APIDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ApiID)
 	if err := dec(in); err != nil {
@@ -1502,6 +1534,10 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RoleMenuByRoleID",
 			Handler:    _SystemService_RoleMenuByRoleID_Handler,
+		},
+		{
+			MethodName: "UpdateRoleMenus",
+			Handler:    _SystemService_UpdateRoleMenus_Handler,
 		},
 		{
 			MethodName: "APIDetail",

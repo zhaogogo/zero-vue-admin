@@ -150,6 +150,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: systemrole.MenuPermissionHandler(serverCtx),
 				},
 				{
+					Method:  http.MethodPost,
+					Path:    "/menupermission/:id",
+					Handler: systemrole.UpdateMenuPermissionHandler(serverCtx),
+				},
+				{
 					Method:  http.MethodGet,
 					Path:    "/refreshpermission",
 					Handler: systemrole.RefreshPermissionHandler(serverCtx),

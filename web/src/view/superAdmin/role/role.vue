@@ -22,7 +22,7 @@
                         v-model="scope.row.state"
                         active-color="#13ce66"
                         inactive-color="#ff4949"
-                        @change="softDeleteRole($event,scope.row,scope)"
+                        @change="softDeleteRole($event,scope.row)"
                         active-value="deleted"
                         inactive-value="resume"
                     >
@@ -58,9 +58,9 @@
     </el-dialog>
 
     <el-drawer v-if="drawerVisible" :visible.sync="drawerVisible" :with-header="false" size="40%" title="角色配置">
-        <el-tabs>
+        <el-tabs class="role-box" type="border-card">
             <el-tab-pane label="菜单">
-                <Menus ref="menus" :row="activeRow" ></Menus>
+                <menu-permission ref="menus" :row="activeRow" ></menu-permission>
             </el-tab-pane>
             <el-tab-pane label="按钮"></el-tab-pane>
         </el-tabs>
@@ -79,12 +79,12 @@ import {
     deleteRole
 } from '@/api/role/role'
 import infoList from '@/mixins/infoList'
-import Menus from '@/view/superAdmin/role/components/menus.vue'
+import menuPermission from '@/view/superAdmin/role/components/menupermission.vue'
 export default {
     name: "RoleManager",
     mixins: [infoList],
     components: {
-        Menus
+        menuPermission
     },
     data(){
         return {
@@ -139,7 +139,7 @@ export default {
             }
         },
         //软删除用户
-        async softDeleteRole(e,row,index){
+        async softDeleteRole(e,row){
             const res = await deleteSoftRole({id: row.id, state: e})
             if (res.code === 200) {
                 this.$message({
@@ -254,6 +254,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.role-box {
+  .el-tabs__content {
+    height: calc(100vh - 150px);
+    overflow: auto;
+  }
+}
 </style>

@@ -182,6 +182,11 @@ func (s *SystemServiceServer) RoleMenuByRoleID(ctx context.Context, in *pb.RoleI
 	return l.RoleMenuByRoleID(in)
 }
 
+func (s *SystemServiceServer) UpdateRoleMenus(ctx context.Context, in *pb.UpdateRoleMenusRequest) (*pb.Empty, error) {
+	l := logic.NewUpdateRoleMenusLogic(ctx, s.svcCtx)
+	return l.UpdateRoleMenus(in)
+}
+
 func (s *SystemServiceServer) APIDetail(ctx context.Context, in *pb.ApiID) (*pb.API, error) {
 	l := logic.NewAPIDetailLogic(ctx, s.svcCtx)
 	return l.APIDetail(in)

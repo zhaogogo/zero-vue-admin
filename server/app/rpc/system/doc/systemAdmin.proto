@@ -46,6 +46,7 @@ service SystemService {
   rpc DeleteMenu_RoleMenu_UserMenuParam(MenuID) returns(Empty);
 
   rpc RoleMenuByRoleID(RoleID) returns (RoleMenuResponse);
+  rpc UpdateRoleMenus(UpdateRoleMenusRequest) returns (Empty);
 
   rpc APIDetail (ApiID) returns (API);
   rpc APIAll(Empty) returns(APIAllResponse);
@@ -152,6 +153,11 @@ message CreateRoleRequest {
 message UpdateUserRoleRequest {
   uint64 UserID = 1;
   repeated uint64 RoleList = 2;
+}
+
+message UpdateRoleMenusRequest {
+  uint64 RoleID = 1;
+  repeated uint64 MenuIDList = 2;
 }
 
 message UpdateUserPageSetRequest {
