@@ -32,6 +32,7 @@ const actions = {
             router.addRoutes(asyncRouters)
             ctx.commit("SETUSERPAGESET", res.userPageSet)
             ctx.commit("SETUSERROLE",res.roles)
+            ctx.commit("SETCURRENTROLE", res.currentRole)
             router.push({name: ctx.getters["userPageSet"].defaultRouter })
             return true
         }else {

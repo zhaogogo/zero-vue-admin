@@ -82,6 +82,11 @@ func (s *SystemServiceServer) UpdateUser(ctx context.Context, in *pb.UpdateUserR
 	return l.UpdateUser(in)
 }
 
+func (s *SystemServiceServer) UpdateUserCurrentRole(ctx context.Context, in *pb.UpdateUserCurrentRoleRequest) (*pb.Empty, error) {
+	l := logic.NewUpdateUserCurrentRoleLogic(ctx, s.svcCtx)
+	return l.UpdateUserCurrentRole(in)
+}
+
 func (s *SystemServiceServer) UserPageSet(ctx context.Context, in *pb.UserID) (*pb.UserPageSetResponse, error) {
 	l := logic.NewUserPageSetLogic(ctx, s.svcCtx)
 	return l.UserPageSet(in)

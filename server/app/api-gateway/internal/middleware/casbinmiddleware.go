@@ -23,7 +23,6 @@ func NewCasbinMiddleware() *CasbinMiddleware {
 
 func (m *CasbinMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		hasInRole := false
 		userid := r.Context().Value("user_id").(uint64)
 		userinfo := r.Context().Value("userinfo").(*systemservice.User)
 		params := &systemservice.UserID{ID: userid}
@@ -31,22 +30,14 @@ func (m *CasbinMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		if err != nil {
 			s, _ := status.FromError(err)
 			if s.Message() == sql.ErrNoRows.Error() {
-				httpx.Error(w, errorx.NewByCode(errors.New("用户权限被拒绝"), errorx.USER_PERMISSION_REJECT))
-				return
+				//httpx.Error(w, errorx.NewByCode(errors.New("用户权限被拒绝"), errorx.USER_PERMISSION_REJECT))
+				userRoleList = new(systemservice.UserRoleResponse)
+				goto PERMISSION
 			}
 			httpx.Error(w, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.UserRoleByUserID", err.Error(), params))
 			return
 		}
-		for _, v := range userRoleList.UserRoles {
-			if v.RoleID == userinfo.CurrentRole {
-				hasInRole = true
-			}
-		}
-
-		if !hasInRole {
-			httpx.Error(w, errorx.NewByCode(errors.New("用户未分配角色"), errorx.USER_PERMISSION_REJECT))
-			return
-		}
+	PERMISSION:
 		ctx := r.Context()
 		ctx = context.WithValue(ctx, "userroleinfo", userRoleList.UserRoles)
 		// 获取请求的URI

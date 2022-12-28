@@ -619,6 +619,61 @@ func (x *CasbinEnforceResponse) GetSuccess() bool {
 	return false
 }
 
+type UpdateUserCurrentRoleRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserID uint64 `protobuf:"varint,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	RoleID uint64 `protobuf:"varint,2,opt,name=RoleID,proto3" json:"RoleID,omitempty"`
+}
+
+func (x *UpdateUserCurrentRoleRequest) Reset() {
+	*x = UpdateUserCurrentRoleRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_doc_systemAdmin_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateUserCurrentRoleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateUserCurrentRoleRequest) ProtoMessage() {}
+
+func (x *UpdateUserCurrentRoleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_doc_systemAdmin_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateUserCurrentRoleRequest.ProtoReflect.Descriptor instead.
+func (*UpdateUserCurrentRoleRequest) Descriptor() ([]byte, []int) {
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *UpdateUserCurrentRoleRequest) GetUserID() uint64 {
+	if x != nil {
+		return x.UserID
+	}
+	return 0
+}
+
+func (x *UpdateUserCurrentRoleRequest) GetRoleID() uint64 {
+	if x != nil {
+		return x.RoleID
+	}
+	return 0
+}
+
 type UpdateUserRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -637,7 +692,7 @@ type UpdateUserRequest struct {
 func (x *UpdateUserRequest) Reset() {
 	*x = UpdateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[12]
+		mi := &file_doc_systemAdmin_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -650,7 +705,7 @@ func (x *UpdateUserRequest) String() string {
 func (*UpdateUserRequest) ProtoMessage() {}
 
 func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[12]
+	mi := &file_doc_systemAdmin_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -663,7 +718,7 @@ func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{12}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *UpdateUserRequest) GetID() uint64 {
@@ -734,7 +789,7 @@ type CreateUser_UserRoleRequest struct {
 func (x *CreateUser_UserRoleRequest) Reset() {
 	*x = CreateUser_UserRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[13]
+		mi := &file_doc_systemAdmin_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -747,7 +802,7 @@ func (x *CreateUser_UserRoleRequest) String() string {
 func (*CreateUser_UserRoleRequest) ProtoMessage() {}
 
 func (x *CreateUser_UserRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[13]
+	mi := &file_doc_systemAdmin_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -760,7 +815,7 @@ func (x *CreateUser_UserRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUser_UserRoleRequest.ProtoReflect.Descriptor instead.
 func (*CreateUser_UserRoleRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{13}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *CreateUser_UserRoleRequest) GetUser() *User {
@@ -793,7 +848,7 @@ type UpdateRoleRequest struct {
 func (x *UpdateRoleRequest) Reset() {
 	*x = UpdateRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[14]
+		mi := &file_doc_systemAdmin_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -806,7 +861,7 @@ func (x *UpdateRoleRequest) String() string {
 func (*UpdateRoleRequest) ProtoMessage() {}
 
 func (x *UpdateRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[14]
+	mi := &file_doc_systemAdmin_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -819,7 +874,7 @@ func (x *UpdateRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateRoleRequest.ProtoReflect.Descriptor instead.
 func (*UpdateRoleRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{14}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *UpdateRoleRequest) GetID() uint64 {
@@ -877,7 +932,7 @@ type CreateRoleRequest struct {
 func (x *CreateRoleRequest) Reset() {
 	*x = CreateRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[15]
+		mi := &file_doc_systemAdmin_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -890,7 +945,7 @@ func (x *CreateRoleRequest) String() string {
 func (*CreateRoleRequest) ProtoMessage() {}
 
 func (x *CreateRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[15]
+	mi := &file_doc_systemAdmin_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -903,7 +958,7 @@ func (x *CreateRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateRoleRequest.ProtoReflect.Descriptor instead.
 func (*CreateRoleRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{15}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *CreateRoleRequest) GetRole() string {
@@ -939,7 +994,7 @@ type UpdateUserRoleRequest struct {
 func (x *UpdateUserRoleRequest) Reset() {
 	*x = UpdateUserRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[16]
+		mi := &file_doc_systemAdmin_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -952,7 +1007,7 @@ func (x *UpdateUserRoleRequest) String() string {
 func (*UpdateUserRoleRequest) ProtoMessage() {}
 
 func (x *UpdateUserRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[16]
+	mi := &file_doc_systemAdmin_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -965,7 +1020,7 @@ func (x *UpdateUserRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRoleRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRoleRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{16}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *UpdateUserRoleRequest) GetUserID() uint64 {
@@ -998,7 +1053,7 @@ type UpdateUserPageSetRequest struct {
 func (x *UpdateUserPageSetRequest) Reset() {
 	*x = UpdateUserPageSetRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[17]
+		mi := &file_doc_systemAdmin_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1011,7 +1066,7 @@ func (x *UpdateUserPageSetRequest) String() string {
 func (*UpdateUserPageSetRequest) ProtoMessage() {}
 
 func (x *UpdateUserPageSetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[17]
+	mi := &file_doc_systemAdmin_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1024,7 +1079,7 @@ func (x *UpdateUserPageSetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserPageSetRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserPageSetRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{17}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *UpdateUserPageSetRequest) GetUserID() uint64 {
@@ -1082,7 +1137,7 @@ type DeleteSoftUserRequest struct {
 func (x *DeleteSoftUserRequest) Reset() {
 	*x = DeleteSoftUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[18]
+		mi := &file_doc_systemAdmin_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1095,7 +1150,7 @@ func (x *DeleteSoftUserRequest) String() string {
 func (*DeleteSoftUserRequest) ProtoMessage() {}
 
 func (x *DeleteSoftUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[18]
+	mi := &file_doc_systemAdmin_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1108,7 +1163,7 @@ func (x *DeleteSoftUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteSoftUserRequest.ProtoReflect.Descriptor instead.
 func (*DeleteSoftUserRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{18}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *DeleteSoftUserRequest) GetUserID() uint64 {
@@ -1145,7 +1200,7 @@ type DeleteSoftRoleRequest struct {
 func (x *DeleteSoftRoleRequest) Reset() {
 	*x = DeleteSoftRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[19]
+		mi := &file_doc_systemAdmin_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1158,7 +1213,7 @@ func (x *DeleteSoftRoleRequest) String() string {
 func (*DeleteSoftRoleRequest) ProtoMessage() {}
 
 func (x *DeleteSoftRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[19]
+	mi := &file_doc_systemAdmin_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1171,7 +1226,7 @@ func (x *DeleteSoftRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteSoftRoleRequest.ProtoReflect.Descriptor instead.
 func (*DeleteSoftRoleRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{19}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *DeleteSoftRoleRequest) GetRoleID() uint64 {
@@ -1207,7 +1262,7 @@ type UpdateUserPasswordRequest struct {
 func (x *UpdateUserPasswordRequest) Reset() {
 	*x = UpdateUserPasswordRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[20]
+		mi := &file_doc_systemAdmin_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1220,7 +1275,7 @@ func (x *UpdateUserPasswordRequest) String() string {
 func (*UpdateUserPasswordRequest) ProtoMessage() {}
 
 func (x *UpdateUserPasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[20]
+	mi := &file_doc_systemAdmin_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1233,7 +1288,7 @@ func (x *UpdateUserPasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserPasswordRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserPasswordRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{20}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *UpdateUserPasswordRequest) GetID() uint64 {
@@ -1268,7 +1323,7 @@ type CreateMenuRequest struct {
 func (x *CreateMenuRequest) Reset() {
 	*x = CreateMenuRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[21]
+		mi := &file_doc_systemAdmin_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1281,7 +1336,7 @@ func (x *CreateMenuRequest) String() string {
 func (*CreateMenuRequest) ProtoMessage() {}
 
 func (x *CreateMenuRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[21]
+	mi := &file_doc_systemAdmin_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1294,7 +1349,7 @@ func (x *CreateMenuRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateMenuRequest.ProtoReflect.Descriptor instead.
 func (*CreateMenuRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{21}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *CreateMenuRequest) GetParentID() uint64 {
@@ -1367,7 +1422,7 @@ type CreateAPIRequest struct {
 func (x *CreateAPIRequest) Reset() {
 	*x = CreateAPIRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[22]
+		mi := &file_doc_systemAdmin_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1380,7 +1435,7 @@ func (x *CreateAPIRequest) String() string {
 func (*CreateAPIRequest) ProtoMessage() {}
 
 func (x *CreateAPIRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[22]
+	mi := &file_doc_systemAdmin_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1393,7 +1448,7 @@ func (x *CreateAPIRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateAPIRequest.ProtoReflect.Descriptor instead.
 func (*CreateAPIRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{22}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *CreateAPIRequest) GetAPI() string {
@@ -1443,7 +1498,7 @@ type UpdateMenuRequest struct {
 func (x *UpdateMenuRequest) Reset() {
 	*x = UpdateMenuRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[23]
+		mi := &file_doc_systemAdmin_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1456,7 +1511,7 @@ func (x *UpdateMenuRequest) String() string {
 func (*UpdateMenuRequest) ProtoMessage() {}
 
 func (x *UpdateMenuRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[23]
+	mi := &file_doc_systemAdmin_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1469,7 +1524,7 @@ func (x *UpdateMenuRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMenuRequest.ProtoReflect.Descriptor instead.
 func (*UpdateMenuRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{23}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *UpdateMenuRequest) GetId() uint64 {
@@ -1550,7 +1605,7 @@ type UserPagingRequest struct {
 func (x *UserPagingRequest) Reset() {
 	*x = UserPagingRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[24]
+		mi := &file_doc_systemAdmin_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1563,7 +1618,7 @@ func (x *UserPagingRequest) String() string {
 func (*UserPagingRequest) ProtoMessage() {}
 
 func (x *UserPagingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[24]
+	mi := &file_doc_systemAdmin_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1576,7 +1631,7 @@ func (x *UserPagingRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserPagingRequest.ProtoReflect.Descriptor instead.
 func (*UserPagingRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{24}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *UserPagingRequest) GetPage() int64 {
@@ -1611,7 +1666,7 @@ type UserPagingResponse struct {
 func (x *UserPagingResponse) Reset() {
 	*x = UserPagingResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[25]
+		mi := &file_doc_systemAdmin_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1624,7 +1679,7 @@ func (x *UserPagingResponse) String() string {
 func (*UserPagingResponse) ProtoMessage() {}
 
 func (x *UserPagingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[25]
+	mi := &file_doc_systemAdmin_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1637,7 +1692,7 @@ func (x *UserPagingResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserPagingResponse.ProtoReflect.Descriptor instead.
 func (*UserPagingResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{25}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *UserPagingResponse) GetUsers() []*User {
@@ -1658,7 +1713,7 @@ type APIAllResponse struct {
 func (x *APIAllResponse) Reset() {
 	*x = APIAllResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[26]
+		mi := &file_doc_systemAdmin_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1671,7 +1726,7 @@ func (x *APIAllResponse) String() string {
 func (*APIAllResponse) ProtoMessage() {}
 
 func (x *APIAllResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[26]
+	mi := &file_doc_systemAdmin_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1684,7 +1739,7 @@ func (x *APIAllResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use APIAllResponse.ProtoReflect.Descriptor instead.
 func (*APIAllResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{26}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *APIAllResponse) GetAPIs() []*API {
@@ -1712,7 +1767,7 @@ type APIPagingRequest struct {
 func (x *APIPagingRequest) Reset() {
 	*x = APIPagingRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[27]
+		mi := &file_doc_systemAdmin_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1725,7 +1780,7 @@ func (x *APIPagingRequest) String() string {
 func (*APIPagingRequest) ProtoMessage() {}
 
 func (x *APIPagingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[27]
+	mi := &file_doc_systemAdmin_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1738,7 +1793,7 @@ func (x *APIPagingRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use APIPagingRequest.ProtoReflect.Descriptor instead.
 func (*APIPagingRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{27}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *APIPagingRequest) GetPage() int64 {
@@ -1808,7 +1863,7 @@ type APIPagingResponse struct {
 func (x *APIPagingResponse) Reset() {
 	*x = APIPagingResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[28]
+		mi := &file_doc_systemAdmin_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1821,7 +1876,7 @@ func (x *APIPagingResponse) String() string {
 func (*APIPagingResponse) ProtoMessage() {}
 
 func (x *APIPagingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[28]
+	mi := &file_doc_systemAdmin_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1834,7 +1889,7 @@ func (x *APIPagingResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use APIPagingResponse.ProtoReflect.Descriptor instead.
 func (*APIPagingResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{28}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *APIPagingResponse) GetAPIs() []*API {
@@ -1856,7 +1911,7 @@ type RoleAllResponse struct {
 func (x *RoleAllResponse) Reset() {
 	*x = RoleAllResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[29]
+		mi := &file_doc_systemAdmin_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1869,7 +1924,7 @@ func (x *RoleAllResponse) String() string {
 func (*RoleAllResponse) ProtoMessage() {}
 
 func (x *RoleAllResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[29]
+	mi := &file_doc_systemAdmin_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1882,7 +1937,7 @@ func (x *RoleAllResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RoleAllResponse.ProtoReflect.Descriptor instead.
 func (*RoleAllResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{29}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *RoleAllResponse) GetRoles() []*Role {
@@ -1903,7 +1958,7 @@ type MenuAllResponse struct {
 func (x *MenuAllResponse) Reset() {
 	*x = MenuAllResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[30]
+		mi := &file_doc_systemAdmin_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1916,7 +1971,7 @@ func (x *MenuAllResponse) String() string {
 func (*MenuAllResponse) ProtoMessage() {}
 
 func (x *MenuAllResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[30]
+	mi := &file_doc_systemAdmin_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1929,7 +1984,7 @@ func (x *MenuAllResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MenuAllResponse.ProtoReflect.Descriptor instead.
 func (*MenuAllResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{30}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *MenuAllResponse) GetMenus() []*Menu {
@@ -1950,7 +2005,7 @@ type UserMenuParamsResponse struct {
 func (x *UserMenuParamsResponse) Reset() {
 	*x = UserMenuParamsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[31]
+		mi := &file_doc_systemAdmin_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1963,7 +2018,7 @@ func (x *UserMenuParamsResponse) String() string {
 func (*UserMenuParamsResponse) ProtoMessage() {}
 
 func (x *UserMenuParamsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[31]
+	mi := &file_doc_systemAdmin_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1976,7 +2031,7 @@ func (x *UserMenuParamsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserMenuParamsResponse.ProtoReflect.Descriptor instead.
 func (*UserMenuParamsResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{31}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *UserMenuParamsResponse) GetUserMenuParams() []*UserMenuParams {
@@ -1997,7 +2052,7 @@ type RoleMenuResponse struct {
 func (x *RoleMenuResponse) Reset() {
 	*x = RoleMenuResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[32]
+		mi := &file_doc_systemAdmin_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2010,7 +2065,7 @@ func (x *RoleMenuResponse) String() string {
 func (*RoleMenuResponse) ProtoMessage() {}
 
 func (x *RoleMenuResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[32]
+	mi := &file_doc_systemAdmin_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2023,7 +2078,7 @@ func (x *RoleMenuResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RoleMenuResponse.ProtoReflect.Descriptor instead.
 func (*RoleMenuResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{32}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *RoleMenuResponse) GetRolemenus() []*RoleMenu {
@@ -2044,7 +2099,7 @@ type UserRoleResponse struct {
 func (x *UserRoleResponse) Reset() {
 	*x = UserRoleResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[33]
+		mi := &file_doc_systemAdmin_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2057,7 +2112,7 @@ func (x *UserRoleResponse) String() string {
 func (*UserRoleResponse) ProtoMessage() {}
 
 func (x *UserRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[33]
+	mi := &file_doc_systemAdmin_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2070,7 +2125,7 @@ func (x *UserRoleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserRoleResponse.ProtoReflect.Descriptor instead.
 func (*UserRoleResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{33}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *UserRoleResponse) GetUserRoles() []*UserRole {
@@ -2097,7 +2152,7 @@ type UserMenuParams struct {
 func (x *UserMenuParams) Reset() {
 	*x = UserMenuParams{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[34]
+		mi := &file_doc_systemAdmin_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2110,7 +2165,7 @@ func (x *UserMenuParams) String() string {
 func (*UserMenuParams) ProtoMessage() {}
 
 func (x *UserMenuParams) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[34]
+	mi := &file_doc_systemAdmin_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2123,7 +2178,7 @@ func (x *UserMenuParams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserMenuParams.ProtoReflect.Descriptor instead.
 func (*UserMenuParams) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{34}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *UserMenuParams) GetID() uint64 {
@@ -2191,7 +2246,7 @@ type Menu struct {
 func (x *Menu) Reset() {
 	*x = Menu{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[35]
+		mi := &file_doc_systemAdmin_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2204,7 +2259,7 @@ func (x *Menu) String() string {
 func (*Menu) ProtoMessage() {}
 
 func (x *Menu) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[35]
+	mi := &file_doc_systemAdmin_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2217,7 +2272,7 @@ func (x *Menu) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Menu.ProtoReflect.Descriptor instead.
 func (*Menu) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{35}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *Menu) GetID() uint64 {
@@ -2318,7 +2373,7 @@ type RoleMenu struct {
 func (x *RoleMenu) Reset() {
 	*x = RoleMenu{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[36]
+		mi := &file_doc_systemAdmin_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2331,7 +2386,7 @@ func (x *RoleMenu) String() string {
 func (*RoleMenu) ProtoMessage() {}
 
 func (x *RoleMenu) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[36]
+	mi := &file_doc_systemAdmin_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2344,7 +2399,7 @@ func (x *RoleMenu) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RoleMenu.ProtoReflect.Descriptor instead.
 func (*RoleMenu) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{36}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *RoleMenu) GetId() uint64 {
@@ -2382,7 +2437,7 @@ type UserRole struct {
 func (x *UserRole) Reset() {
 	*x = UserRole{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[37]
+		mi := &file_doc_systemAdmin_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2395,7 +2450,7 @@ func (x *UserRole) String() string {
 func (*UserRole) ProtoMessage() {}
 
 func (x *UserRole) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[37]
+	mi := &file_doc_systemAdmin_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2408,7 +2463,7 @@ func (x *UserRole) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserRole.ProtoReflect.Descriptor instead.
 func (*UserRole) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{37}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *UserRole) GetID() uint64 {
@@ -2448,7 +2503,7 @@ type API struct {
 func (x *API) Reset() {
 	*x = API{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[38]
+		mi := &file_doc_systemAdmin_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2461,7 +2516,7 @@ func (x *API) String() string {
 func (*API) ProtoMessage() {}
 
 func (x *API) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[38]
+	mi := &file_doc_systemAdmin_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2474,7 +2529,7 @@ func (x *API) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use API.ProtoReflect.Descriptor instead.
 func (*API) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{38}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *API) GetID() uint64 {
@@ -2532,7 +2587,7 @@ type Role struct {
 func (x *Role) Reset() {
 	*x = Role{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[39]
+		mi := &file_doc_systemAdmin_proto_msgTypes[40]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2545,7 +2600,7 @@ func (x *Role) String() string {
 func (*Role) ProtoMessage() {}
 
 func (x *Role) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[39]
+	mi := &file_doc_systemAdmin_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2558,7 +2613,7 @@ func (x *Role) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Role.ProtoReflect.Descriptor instead.
 func (*Role) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{39}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *Role) GetID() uint64 {
@@ -2651,7 +2706,7 @@ type User struct {
 func (x *User) Reset() {
 	*x = User{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[40]
+		mi := &file_doc_systemAdmin_proto_msgTypes[41]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2664,7 +2719,7 @@ func (x *User) String() string {
 func (*User) ProtoMessage() {}
 
 func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[40]
+	mi := &file_doc_systemAdmin_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2677,7 +2732,7 @@ func (x *User) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use User.ProtoReflect.Descriptor instead.
 func (*User) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{40}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *User) GetID() uint64 {
@@ -2810,7 +2865,7 @@ type UserPageSetResponse struct {
 func (x *UserPageSetResponse) Reset() {
 	*x = UserPageSetResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[41]
+		mi := &file_doc_systemAdmin_proto_msgTypes[42]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2823,7 +2878,7 @@ func (x *UserPageSetResponse) String() string {
 func (*UserPageSetResponse) ProtoMessage() {}
 
 func (x *UserPageSetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[41]
+	mi := &file_doc_systemAdmin_proto_msgTypes[42]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2836,7 +2891,7 @@ func (x *UserPageSetResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserPageSetResponse.ProtoReflect.Descriptor instead.
 func (*UserPageSetResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{41}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *UserPageSetResponse) GetID() uint64 {
@@ -2900,7 +2955,7 @@ type LoginRequest struct {
 func (x *LoginRequest) Reset() {
 	*x = LoginRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[42]
+		mi := &file_doc_systemAdmin_proto_msgTypes[43]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2913,7 +2968,7 @@ func (x *LoginRequest) String() string {
 func (*LoginRequest) ProtoMessage() {}
 
 func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[42]
+	mi := &file_doc_systemAdmin_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2926,7 +2981,7 @@ func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{42}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *LoginRequest) GetName() string {
@@ -2951,13 +3006,14 @@ type LoginResponse struct {
 	Token        string `protobuf:"bytes,1,opt,name=Token,proto3" json:"Token,omitempty"`
 	ExporeAt     int64  `protobuf:"varint,2,opt,name=ExporeAt,proto3" json:"ExporeAt,omitempty"`
 	RefreshAfter int64  `protobuf:"varint,3,opt,name=RefreshAfter,proto3" json:"RefreshAfter,omitempty"`
-	UserId       uint64 `protobuf:"varint,4,opt,name=UserId,proto3" json:"UserId,omitempty"`
+	CurrentRole  uint64 `protobuf:"varint,4,opt,name=CurrentRole,proto3" json:"CurrentRole,omitempty"`
+	UserID       uint64 `protobuf:"varint,5,opt,name=UserID,proto3" json:"UserID,omitempty"`
 }
 
 func (x *LoginResponse) Reset() {
 	*x = LoginResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_doc_systemAdmin_proto_msgTypes[43]
+		mi := &file_doc_systemAdmin_proto_msgTypes[44]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2970,7 +3026,7 @@ func (x *LoginResponse) String() string {
 func (*LoginResponse) ProtoMessage() {}
 
 func (x *LoginResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_doc_systemAdmin_proto_msgTypes[43]
+	mi := &file_doc_systemAdmin_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2983,7 +3039,7 @@ func (x *LoginResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
 func (*LoginResponse) Descriptor() ([]byte, []int) {
-	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{43}
+	return file_doc_systemAdmin_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *LoginResponse) GetToken() string {
@@ -3007,9 +3063,16 @@ func (x *LoginResponse) GetRefreshAfter() int64 {
 	return 0
 }
 
-func (x *LoginResponse) GetUserId() uint64 {
+func (x *LoginResponse) GetCurrentRole() uint64 {
 	if x != nil {
-		return x.UserId
+		return x.CurrentRole
+	}
+	return 0
+}
+
+func (x *LoginResponse) GetUserID() uint64 {
+	if x != nil {
+		return x.UserID
 	}
 	return 0
 }
@@ -3057,7 +3120,12 @@ var file_doc_systemAdmin_proto_rawDesc = []byte{
 	0x28, 0x09, 0x52, 0x03, 0x41, 0x63, 0x74, 0x22, 0x31, 0x0a, 0x15, 0x43, 0x61, 0x73, 0x62, 0x69,
 	0x6e, 0x45, 0x6e, 0x66, 0x6f, 0x72, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x12, 0x18, 0x0a, 0x07, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x08, 0x52, 0x07, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x22, 0xd7, 0x01, 0x0a, 0x11, 0x55,
+	0x08, 0x52, 0x07, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x22, 0x4e, 0x0a, 0x1c, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x43, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x52,
+	0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73,
+	0x65, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72,
+	0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x04, 0x52, 0x06, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x44, 0x22, 0xd7, 0x01, 0x0a, 0x11, 0x55,
 	0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
 	0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x49, 0x44,
 	0x12, 0x12, 0x0a, 0x04, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
@@ -3315,143 +3383,150 @@ var file_doc_systemAdmin_proto_rawDesc = []byte{
 	0x0a, 0x0c, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12,
 	0x0a, 0x04, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x4e, 0x61,
 	0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x50, 0x61, 0x73, 0x73, 0x57, 0x6f, 0x72, 0x64, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x50, 0x61, 0x73, 0x73, 0x57, 0x6f, 0x72, 0x64, 0x22, 0x7d,
-	0x0a, 0x0d, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x14, 0x0a, 0x05, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
-	0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x45, 0x78, 0x70, 0x6f, 0x72, 0x65, 0x41,
-	0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x45, 0x78, 0x70, 0x6f, 0x72, 0x65, 0x41,
-	0x74, 0x12, 0x22, 0x0a, 0x0c, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x41, 0x66, 0x74, 0x65,
-	0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0c, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68,
-	0x41, 0x66, 0x74, 0x65, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x18,
-	0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x32, 0xed, 0x0f,
-	0x0a, 0x0d, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
-	0x2c, 0x0a, 0x05, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x12, 0x10, 0x2e, 0x70, 0x62, 0x2e, 0x4c, 0x6f,
-	0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x70, 0x62, 0x2e,
-	0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x45, 0x0a,
-	0x0e, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x45, 0x6e, 0x66, 0x6f, 0x72, 0x63, 0x65, 0x72, 0x12,
-	0x18, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x45, 0x6e, 0x66, 0x6f, 0x72,
-	0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x70, 0x62, 0x2e, 0x43,
-	0x61, 0x73, 0x62, 0x69, 0x6e, 0x45, 0x6e, 0x66, 0x6f, 0x72, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x13, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x43,
-	0x61, 0x73, 0x62, 0x69, 0x6e, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x12, 0x09, 0x2e, 0x70, 0x62,
-	0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74,
-	0x79, 0x12, 0x22, 0x0a, 0x0a, 0x55, 0x73, 0x65, 0x72, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x12,
-	0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x1a, 0x08, 0x2e, 0x70, 0x62,
-	0x2e, 0x55, 0x73, 0x65, 0x72, 0x12, 0x2a, 0x0a, 0x10, 0x55, 0x73, 0x65, 0x72, 0x44, 0x65, 0x74,
-	0x61, 0x69, 0x6c, 0x42, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x0c, 0x2e, 0x70, 0x62, 0x2e, 0x55,
-	0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x1a, 0x08, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65,
-	0x72, 0x12, 0x3b, 0x0a, 0x0a, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x12,
-	0x15, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72,
-	0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x21,
-	0x0a, 0x09, 0x55, 0x73, 0x65, 0x72, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x09, 0x2e, 0x70, 0x62,
-	0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x54, 0x6f, 0x74, 0x61,
-	0x6c, 0x12, 0x40, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x5f,
-	0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x1e, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x72,
-	0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x5f, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c,
-	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d,
-	0x70, 0x74, 0x79, 0x12, 0x36, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x6f, 0x66,
-	0x74, 0x55, 0x73, 0x65, 0x72, 0x12, 0x19, 0x2e, 0x70, 0x62, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x53, 0x6f, 0x66, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x23, 0x0a, 0x0a, 0x44,
-	0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x55,
-	0x73, 0x65, 0x72, 0x49, 0x44, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79,
-	0x12, 0x3e, 0x0a, 0x12, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61,
-	0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x1d, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79,
-	0x12, 0x2e, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x15,
-	0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79,
-	0x12, 0x32, 0x0a, 0x0b, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x67, 0x65, 0x53, 0x65, 0x74, 0x12,
-	0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x1a, 0x17, 0x2e, 0x70, 0x62,
-	0x2e, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x67, 0x65, 0x53, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3c, 0x0a, 0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73,
-	0x65, 0x72, 0x50, 0x61, 0x67, 0x65, 0x53, 0x65, 0x74, 0x12, 0x1c, 0x2e, 0x70, 0x62, 0x2e, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x67, 0x65, 0x53, 0x65, 0x74,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70,
-	0x74, 0x79, 0x12, 0x40, 0x0a, 0x16, 0x55, 0x73, 0x65, 0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61,
-	0x72, 0x61, 0x6d, 0x73, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x0a, 0x2e, 0x70,
-	0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x1a, 0x1a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73,
-	0x65, 0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3a, 0x0a, 0x11, 0x55, 0x73, 0x65, 0x72, 0x41, 0x6c, 0x6c, 0x4d,
-	0x65, 0x6e, 0x75, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45,
-	0x6d, 0x70, 0x74, 0x79, 0x1a, 0x1a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x4d, 0x65,
-	0x6e, 0x75, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x42, 0x0a, 0x14, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x4d, 0x65,
-	0x6e, 0x75, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x1f, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61, 0x72, 0x61,
-	0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45,
-	0x6d, 0x70, 0x74, 0x79, 0x12, 0x34, 0x0a, 0x10, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65,
-	0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73,
-	0x65, 0x72, 0x49, 0x44, 0x1a, 0x14, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f,
-	0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x36, 0x0a, 0x0e, 0x55, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19, 0x2e, 0x70,
-	0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70,
-	0x74, 0x79, 0x12, 0x22, 0x0a, 0x0a, 0x52, 0x6f, 0x6c, 0x65, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c,
-	0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x44, 0x1a, 0x08, 0x2e, 0x70,
-	0x62, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x29, 0x0a, 0x07, 0x52, 0x6f, 0x6c, 0x65, 0x41, 0x6c,
-	0x6c, 0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x13, 0x2e, 0x70,
-	0x62, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x23, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12,
-	0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x44, 0x1a, 0x09, 0x2e, 0x70, 0x62,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x50, 0x61, 0x73, 0x73, 0x57, 0x6f, 0x72, 0x64, 0x22, 0x9f,
+	0x01, 0x0a, 0x0d, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x14, 0x0a, 0x05, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x45, 0x78, 0x70, 0x6f, 0x72, 0x65,
+	0x41, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x45, 0x78, 0x70, 0x6f, 0x72, 0x65,
+	0x41, 0x74, 0x12, 0x22, 0x0a, 0x0c, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x41, 0x66, 0x74,
+	0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0c, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73,
+	0x68, 0x41, 0x66, 0x74, 0x65, 0x72, 0x12, 0x20, 0x0a, 0x0b, 0x43, 0x75, 0x72, 0x72, 0x65, 0x6e,
+	0x74, 0x52, 0x6f, 0x6c, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0b, 0x43, 0x75, 0x72,
+	0x72, 0x65, 0x6e, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73, 0x65, 0x72,
+	0x49, 0x44, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44,
+	0x32, 0xb3, 0x10, 0x0a, 0x0d, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x12, 0x2c, 0x0a, 0x05, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x12, 0x10, 0x2e, 0x70, 0x62,
+	0x2e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e,
+	0x70, 0x62, 0x2e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x45, 0x0a, 0x0e, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x45, 0x6e, 0x66, 0x6f, 0x72, 0x63,
+	0x65, 0x72, 0x12, 0x18, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x45, 0x6e,
+	0x66, 0x6f, 0x72, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x70,
+	0x62, 0x2e, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x45, 0x6e, 0x66, 0x6f, 0x72, 0x63, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x13, 0x52, 0x65, 0x66, 0x72, 0x65,
+	0x73, 0x68, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x12, 0x09,
+	0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45,
+	0x6d, 0x70, 0x74, 0x79, 0x12, 0x22, 0x0a, 0x0a, 0x55, 0x73, 0x65, 0x72, 0x44, 0x65, 0x74, 0x61,
+	0x69, 0x6c, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x1a, 0x08,
+	0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x12, 0x2a, 0x0a, 0x10, 0x55, 0x73, 0x65, 0x72,
+	0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x42, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x0c, 0x2e, 0x70,
+	0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x1a, 0x08, 0x2e, 0x70, 0x62, 0x2e,
+	0x55, 0x73, 0x65, 0x72, 0x12, 0x3b, 0x0a, 0x0a, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x67, 0x69,
+	0x6e, 0x67, 0x12, 0x15, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x67, 0x69,
+	0x6e, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x62, 0x2e, 0x55,
+	0x73, 0x65, 0x72, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x21, 0x0a, 0x09, 0x55, 0x73, 0x65, 0x72, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x09,
+	0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x54,
+	0x6f, 0x74, 0x61, 0x6c, 0x12, 0x40, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73,
+	0x65, 0x72, 0x5f, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x1e, 0x2e, 0x70, 0x62,
+	0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x5f, 0x55, 0x73, 0x65, 0x72,
+	0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62,
 	0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x36, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
-	0x53, 0x6f, 0x66, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19, 0x2e, 0x70, 0x62, 0x2e, 0x44, 0x65,
-	0x6c, 0x65, 0x74, 0x65, 0x53, 0x6f, 0x66, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x2e,
-	0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x15, 0x2e, 0x70,
-	0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x2e,
-	0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x15, 0x2e, 0x70,
-	0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x22,
-	0x0a, 0x0a, 0x4d, 0x65, 0x6e, 0x75, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x0a, 0x2e, 0x70,
-	0x62, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x49, 0x44, 0x1a, 0x08, 0x2e, 0x70, 0x62, 0x2e, 0x4d, 0x65,
-	0x6e, 0x75, 0x12, 0x29, 0x0a, 0x07, 0x4d, 0x65, 0x6e, 0x75, 0x41, 0x6c, 0x6c, 0x12, 0x09, 0x2e,
-	0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x13, 0x2e, 0x70, 0x62, 0x2e, 0x4d, 0x65,
-	0x6e, 0x75, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2e, 0x0a,
-	0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6e, 0x75, 0x12, 0x15, 0x2e, 0x70, 0x62,
-	0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6e, 0x75, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x2e, 0x0a,
-	0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6e, 0x75, 0x12, 0x15, 0x2e, 0x70, 0x62,
-	0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6e, 0x75, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x3a, 0x0a,
-	0x21, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4d, 0x65, 0x6e, 0x75, 0x5f, 0x52, 0x6f, 0x6c, 0x65,
-	0x4d, 0x65, 0x6e, 0x75, 0x5f, 0x55, 0x73, 0x65, 0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61, 0x72,
-	0x61, 0x6d, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x49, 0x44, 0x1a, 0x09,
-	0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x34, 0x0a, 0x10, 0x52, 0x6f, 0x6c,
-	0x65, 0x4d, 0x65, 0x6e, 0x75, 0x42, 0x79, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x44, 0x12, 0x0a, 0x2e,
-	0x70, 0x62, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x44, 0x1a, 0x14, 0x2e, 0x70, 0x62, 0x2e, 0x52,
-	0x6f, 0x6c, 0x65, 0x4d, 0x65, 0x6e, 0x75, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x1f, 0x0a, 0x09, 0x41, 0x50, 0x49, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x09, 0x2e, 0x70,
-	0x62, 0x2e, 0x41, 0x70, 0x69, 0x49, 0x44, 0x1a, 0x07, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x50, 0x49,
-	0x12, 0x27, 0x0a, 0x06, 0x41, 0x50, 0x49, 0x41, 0x6c, 0x6c, 0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e,
-	0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x12, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x50, 0x49, 0x41, 0x6c,
-	0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x38, 0x0a, 0x09, 0x41, 0x50, 0x49,
-	0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x12, 0x14, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x50, 0x49, 0x50,
-	0x61, 0x67, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x70,
-	0x62, 0x2e, 0x41, 0x50, 0x49, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x08, 0x41, 0x50, 0x49, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x12,
+	0x53, 0x6f, 0x66, 0x74, 0x55, 0x73, 0x65, 0x72, 0x12, 0x19, 0x2e, 0x70, 0x62, 0x2e, 0x44, 0x65,
+	0x6c, 0x65, 0x74, 0x65, 0x53, 0x6f, 0x66, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x23,
+	0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x0a, 0x2e, 0x70,
+	0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d,
+	0x70, 0x74, 0x79, 0x12, 0x3e, 0x0a, 0x12, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
+	0x72, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x1d, 0x2e, 0x70, 0x62, 0x2e, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72,
+	0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d,
+	0x70, 0x74, 0x79, 0x12, 0x2e, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
+	0x72, 0x12, 0x15, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
+	0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d,
+	0x70, 0x74, 0x79, 0x12, 0x44, 0x0a, 0x15, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
+	0x72, 0x43, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x20, 0x2e, 0x70,
+	0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x43, 0x75, 0x72, 0x72,
+	0x65, 0x6e, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09,
+	0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x32, 0x0a, 0x0b, 0x55, 0x73, 0x65,
+	0x72, 0x50, 0x61, 0x67, 0x65, 0x53, 0x65, 0x74, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73,
+	0x65, 0x72, 0x49, 0x44, 0x1a, 0x17, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61,
+	0x67, 0x65, 0x53, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3c, 0x0a,
+	0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x67, 0x65, 0x53,
+	0x65, 0x74, 0x12, 0x1c, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73,
+	0x65, 0x72, 0x50, 0x61, 0x67, 0x65, 0x53, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x40, 0x0a, 0x16, 0x55,
+	0x73, 0x65, 0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42, 0x79, 0x55,
+	0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49,
+	0x44, 0x1a, 0x1a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50,
+	0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3a, 0x0a,
+	0x11, 0x55, 0x73, 0x65, 0x72, 0x41, 0x6c, 0x6c, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61, 0x72, 0x61,
+	0x6d, 0x73, 0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x1a, 0x2e,
+	0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x42, 0x0a, 0x14, 0x55, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x12, 0x1f, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
+	0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x34, 0x0a,
+	0x10, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49,
+	0x44, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x1a, 0x14, 0x2e,
+	0x70, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x36, 0x0a, 0x0e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
+	0x72, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x22, 0x0a, 0x0a, 0x52,
+	0x6f, 0x6c, 0x65, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x52,
+	0x6f, 0x6c, 0x65, 0x49, 0x44, 0x1a, 0x08, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x12,
+	0x29, 0x0a, 0x07, 0x52, 0x6f, 0x6c, 0x65, 0x41, 0x6c, 0x6c, 0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e,
+	0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x13, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x41,
+	0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x23, 0x0a, 0x0a, 0x44, 0x65,
+	0x6c, 0x65, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x6f,
+	0x6c, 0x65, 0x49, 0x44, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12,
+	0x36, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x6f, 0x66, 0x74, 0x52, 0x6f, 0x6c,
+	0x65, 0x12, 0x19, 0x2e, 0x70, 0x62, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x6f, 0x66,
+	0x74, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70,
+	0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x2e, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x15, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70,
+	0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x2e, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x15, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70,
+	0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x22, 0x0a, 0x0a, 0x4d, 0x65, 0x6e, 0x75, 0x44,
+	0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x49,
+	0x44, 0x1a, 0x08, 0x2e, 0x70, 0x62, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x12, 0x29, 0x0a, 0x07, 0x4d,
+	0x65, 0x6e, 0x75, 0x41, 0x6c, 0x6c, 0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74,
+	0x79, 0x1a, 0x13, 0x2e, 0x70, 0x62, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x41, 0x6c, 0x6c, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2e, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x4d, 0x65, 0x6e, 0x75, 0x12, 0x15, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x4d, 0x65, 0x6e, 0x75, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62,
+	0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x2e, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x4d, 0x65, 0x6e, 0x75, 0x12, 0x15, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x4d, 0x65, 0x6e, 0x75, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62,
+	0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x3a, 0x0a, 0x21, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x4d, 0x65, 0x6e, 0x75, 0x5f, 0x52, 0x6f, 0x6c, 0x65, 0x4d, 0x65, 0x6e, 0x75, 0x5f, 0x55, 0x73,
+	0x65, 0x72, 0x4d, 0x65, 0x6e, 0x75, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x12, 0x0a, 0x2e, 0x70, 0x62,
+	0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x49, 0x44, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70,
+	0x74, 0x79, 0x12, 0x34, 0x0a, 0x10, 0x52, 0x6f, 0x6c, 0x65, 0x4d, 0x65, 0x6e, 0x75, 0x42, 0x79,
+	0x52, 0x6f, 0x6c, 0x65, 0x49, 0x44, 0x12, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x6f, 0x6c, 0x65,
+	0x49, 0x44, 0x1a, 0x14, 0x2e, 0x70, 0x62, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x4d, 0x65, 0x6e, 0x75,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1f, 0x0a, 0x09, 0x41, 0x50, 0x49, 0x44,
+	0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x70, 0x69, 0x49, 0x44,
+	0x1a, 0x07, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x50, 0x49, 0x12, 0x27, 0x0a, 0x06, 0x41, 0x50, 0x49,
+	0x41, 0x6c, 0x6c, 0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x12,
+	0x2e, 0x70, 0x62, 0x2e, 0x41, 0x50, 0x49, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x38, 0x0a, 0x09, 0x41, 0x50, 0x49, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x12,
 	0x14, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x50, 0x49, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x54, 0x6f, 0x74, 0x61, 0x6c,
-	0x12, 0x2c, 0x0a, 0x09, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x41, 0x50, 0x49, 0x12, 0x14, 0x2e,
-	0x70, 0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x41, 0x50, 0x49, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x1f,
-	0x0a, 0x09, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x41, 0x50, 0x49, 0x12, 0x07, 0x2e, 0x70, 0x62,
-	0x2e, 0x41, 0x50, 0x49, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12,
-	0x3e, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x50, 0x49, 0x41, 0x6e, 0x64, 0x43,
-	0x61, 0x73, 0x62, 0x69, 0x6e, 0x12, 0x1d, 0x2e, 0x70, 0x62, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x41, 0x50, 0x49, 0x41, 0x6e, 0x64, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12,
-	0x4e, 0x0a, 0x1a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x50, 0x49, 0x4d, 0x75, 0x6c, 0x74,
-	0x69, 0x70, 0x6c, 0x65, 0x41, 0x6e, 0x64, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x12, 0x25, 0x2e,
-	0x70, 0x62, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x50, 0x49, 0x4d, 0x75, 0x6c, 0x74,
-	0x69, 0x70, 0x6c, 0x65, 0x41, 0x6e, 0x64, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12,
-	0x1c, 0x0a, 0x04, 0x54, 0x65, 0x73, 0x74, 0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70,
-	0x74, 0x79, 0x1a, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x42, 0x06, 0x5a,
-	0x04, 0x2e, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x50, 0x49, 0x50, 0x61,
+	0x67, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x08,
+	0x41, 0x50, 0x49, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x14, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x50,
+	0x49, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09,
+	0x2e, 0x70, 0x62, 0x2e, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x2c, 0x0a, 0x09, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x41, 0x50, 0x49, 0x12, 0x14, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x41, 0x50, 0x49, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x70,
+	0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x1f, 0x0a, 0x09, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x41, 0x50, 0x49, 0x12, 0x07, 0x2e, 0x70, 0x62, 0x2e, 0x41, 0x50, 0x49, 0x1a, 0x09, 0x2e,
+	0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x3e, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x41, 0x50, 0x49, 0x41, 0x6e, 0x64, 0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x12, 0x1d,
+	0x2e, 0x70, 0x62, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x50, 0x49, 0x41, 0x6e, 0x64,
+	0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e,
+	0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x4e, 0x0a, 0x1a, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x41, 0x50, 0x49, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x65, 0x41, 0x6e, 0x64,
+	0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x12, 0x25, 0x2e, 0x70, 0x62, 0x2e, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x41, 0x50, 0x49, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x65, 0x41, 0x6e, 0x64,
+	0x43, 0x61, 0x73, 0x62, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e,
+	0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x1c, 0x0a, 0x04, 0x54, 0x65, 0x73, 0x74,
+	0x12, 0x09, 0x2e, 0x70, 0x62, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x09, 0x2e, 0x70, 0x62,
+	0x2e, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x42, 0x06, 0x5a, 0x04, 0x2e, 0x2f, 0x70, 0x62, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -3466,7 +3541,7 @@ func file_doc_systemAdmin_proto_rawDescGZIP() []byte {
 	return file_doc_systemAdmin_proto_rawDescData
 }
 
-var file_doc_systemAdmin_proto_msgTypes = make([]protoimpl.MessageInfo, 44)
+var file_doc_systemAdmin_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
 var file_doc_systemAdmin_proto_goTypes = []interface{}{
 	(*Empty)(nil),    // 0: pb.Empty
 	(*UserID)(nil),   // 1: pb.UserID
@@ -3480,133 +3555,136 @@ var file_doc_systemAdmin_proto_goTypes = []interface{}{
 	(*UpdateUserMenuParamsRequest)(nil),       // 9: pb.UpdateUserMenuParamsRequest
 	(*CasbinEnforceRequest)(nil),              // 10: pb.CasbinEnforceRequest
 	(*CasbinEnforceResponse)(nil),             // 11: pb.CasbinEnforceResponse
-	(*UpdateUserRequest)(nil),                 // 12: pb.UpdateUserRequest
-	(*CreateUser_UserRoleRequest)(nil),        // 13: pb.CreateUser_UserRoleRequest
-	(*UpdateRoleRequest)(nil),                 // 14: pb.UpdateRoleRequest
-	(*CreateRoleRequest)(nil),                 // 15: pb.CreateRoleRequest
-	(*UpdateUserRoleRequest)(nil),             // 16: pb.UpdateUserRoleRequest
-	(*UpdateUserPageSetRequest)(nil),          // 17: pb.UpdateUserPageSetRequest
-	(*DeleteSoftUserRequest)(nil),             // 18: pb.DeleteSoftUserRequest
-	(*DeleteSoftRoleRequest)(nil),             // 19: pb.DeleteSoftRoleRequest
-	(*UpdateUserPasswordRequest)(nil),         // 20: pb.UpdateUserPasswordRequest
-	(*CreateMenuRequest)(nil),                 // 21: pb.CreateMenuRequest
-	(*CreateAPIRequest)(nil),                  // 22: pb.CreateAPIRequest
-	(*UpdateMenuRequest)(nil),                 // 23: pb.UpdateMenuRequest
-	(*UserPagingRequest)(nil),                 // 24: pb.UserPagingRequest
-	(*UserPagingResponse)(nil),                // 25: pb.UserPagingResponse
-	(*APIAllResponse)(nil),                    // 26: pb.APIAllResponse
-	(*APIPagingRequest)(nil),                  // 27: pb.APIPagingRequest
-	(*APIPagingResponse)(nil),                 // 28: pb.APIPagingResponse
-	(*RoleAllResponse)(nil),                   // 29: pb.RoleAllResponse
-	(*MenuAllResponse)(nil),                   // 30: pb.MenuAllResponse
-	(*UserMenuParamsResponse)(nil),            // 31: pb.UserMenuParamsResponse
-	(*RoleMenuResponse)(nil),                  // 32: pb.RoleMenuResponse
-	(*UserRoleResponse)(nil),                  // 33: pb.UserRoleResponse
-	(*UserMenuParams)(nil),                    // 34: pb.UserMenuParams
-	(*Menu)(nil),                              // 35: pb.Menu
-	(*RoleMenu)(nil),                          // 36: pb.RoleMenu
-	(*UserRole)(nil),                          // 37: pb.UserRole
-	(*API)(nil),                               // 38: pb.API
-	(*Role)(nil),                              // 39: pb.Role
-	(*User)(nil),                              // 40: pb.User
-	(*UserPageSetResponse)(nil),               // 41: pb.UserPageSetResponse
-	(*LoginRequest)(nil),                      // 42: pb.LoginRequest
-	(*LoginResponse)(nil),                     // 43: pb.LoginResponse
+	(*UpdateUserCurrentRoleRequest)(nil),      // 12: pb.UpdateUserCurrentRoleRequest
+	(*UpdateUserRequest)(nil),                 // 13: pb.UpdateUserRequest
+	(*CreateUser_UserRoleRequest)(nil),        // 14: pb.CreateUser_UserRoleRequest
+	(*UpdateRoleRequest)(nil),                 // 15: pb.UpdateRoleRequest
+	(*CreateRoleRequest)(nil),                 // 16: pb.CreateRoleRequest
+	(*UpdateUserRoleRequest)(nil),             // 17: pb.UpdateUserRoleRequest
+	(*UpdateUserPageSetRequest)(nil),          // 18: pb.UpdateUserPageSetRequest
+	(*DeleteSoftUserRequest)(nil),             // 19: pb.DeleteSoftUserRequest
+	(*DeleteSoftRoleRequest)(nil),             // 20: pb.DeleteSoftRoleRequest
+	(*UpdateUserPasswordRequest)(nil),         // 21: pb.UpdateUserPasswordRequest
+	(*CreateMenuRequest)(nil),                 // 22: pb.CreateMenuRequest
+	(*CreateAPIRequest)(nil),                  // 23: pb.CreateAPIRequest
+	(*UpdateMenuRequest)(nil),                 // 24: pb.UpdateMenuRequest
+	(*UserPagingRequest)(nil),                 // 25: pb.UserPagingRequest
+	(*UserPagingResponse)(nil),                // 26: pb.UserPagingResponse
+	(*APIAllResponse)(nil),                    // 27: pb.APIAllResponse
+	(*APIPagingRequest)(nil),                  // 28: pb.APIPagingRequest
+	(*APIPagingResponse)(nil),                 // 29: pb.APIPagingResponse
+	(*RoleAllResponse)(nil),                   // 30: pb.RoleAllResponse
+	(*MenuAllResponse)(nil),                   // 31: pb.MenuAllResponse
+	(*UserMenuParamsResponse)(nil),            // 32: pb.UserMenuParamsResponse
+	(*RoleMenuResponse)(nil),                  // 33: pb.RoleMenuResponse
+	(*UserRoleResponse)(nil),                  // 34: pb.UserRoleResponse
+	(*UserMenuParams)(nil),                    // 35: pb.UserMenuParams
+	(*Menu)(nil),                              // 36: pb.Menu
+	(*RoleMenu)(nil),                          // 37: pb.RoleMenu
+	(*UserRole)(nil),                          // 38: pb.UserRole
+	(*API)(nil),                               // 39: pb.API
+	(*Role)(nil),                              // 40: pb.Role
+	(*User)(nil),                              // 41: pb.User
+	(*UserPageSetResponse)(nil),               // 42: pb.UserPageSetResponse
+	(*LoginRequest)(nil),                      // 43: pb.LoginRequest
+	(*LoginResponse)(nil),                     // 44: pb.LoginResponse
 }
 var file_doc_systemAdmin_proto_depIdxs = []int32{
 	7,  // 0: pb.DeleteAPIMultipleAndCasbinRequest.APIs:type_name -> pb.DeleteAPIAndCasbinRequest
-	34, // 1: pb.UpdateUserMenuParamsRequest.UserMenuParams:type_name -> pb.UserMenuParams
-	40, // 2: pb.CreateUser_UserRoleRequest.User:type_name -> pb.User
-	40, // 3: pb.UserPagingResponse.Users:type_name -> pb.User
-	38, // 4: pb.APIAllResponse.APIs:type_name -> pb.API
-	38, // 5: pb.APIPagingResponse.APIs:type_name -> pb.API
-	39, // 6: pb.RoleAllResponse.Roles:type_name -> pb.Role
-	35, // 7: pb.MenuAllResponse.Menus:type_name -> pb.Menu
-	34, // 8: pb.UserMenuParamsResponse.UserMenuParams:type_name -> pb.UserMenuParams
-	36, // 9: pb.RoleMenuResponse.Rolemenus:type_name -> pb.RoleMenu
-	37, // 10: pb.UserRoleResponse.UserRoles:type_name -> pb.UserRole
-	42, // 11: pb.SystemService.Login:input_type -> pb.LoginRequest
+	35, // 1: pb.UpdateUserMenuParamsRequest.UserMenuParams:type_name -> pb.UserMenuParams
+	41, // 2: pb.CreateUser_UserRoleRequest.User:type_name -> pb.User
+	41, // 3: pb.UserPagingResponse.Users:type_name -> pb.User
+	39, // 4: pb.APIAllResponse.APIs:type_name -> pb.API
+	39, // 5: pb.APIPagingResponse.APIs:type_name -> pb.API
+	40, // 6: pb.RoleAllResponse.Roles:type_name -> pb.Role
+	36, // 7: pb.MenuAllResponse.Menus:type_name -> pb.Menu
+	35, // 8: pb.UserMenuParamsResponse.UserMenuParams:type_name -> pb.UserMenuParams
+	37, // 9: pb.RoleMenuResponse.Rolemenus:type_name -> pb.RoleMenu
+	38, // 10: pb.UserRoleResponse.UserRoles:type_name -> pb.UserRole
+	43, // 11: pb.SystemService.Login:input_type -> pb.LoginRequest
 	10, // 12: pb.SystemService.CasbinEnforcer:input_type -> pb.CasbinEnforceRequest
 	0,  // 13: pb.SystemService.RefreshCasbinPolicy:input_type -> pb.Empty
 	1,  // 14: pb.SystemService.UserDetail:input_type -> pb.UserID
 	2,  // 15: pb.SystemService.UserDetailByName:input_type -> pb.UserName
-	24, // 16: pb.SystemService.UserPaging:input_type -> pb.UserPagingRequest
+	25, // 16: pb.SystemService.UserPaging:input_type -> pb.UserPagingRequest
 	0,  // 17: pb.SystemService.UserTotal:input_type -> pb.Empty
-	13, // 18: pb.SystemService.CreateUser_UserRole:input_type -> pb.CreateUser_UserRoleRequest
-	18, // 19: pb.SystemService.DeleteSoftUser:input_type -> pb.DeleteSoftUserRequest
+	14, // 18: pb.SystemService.CreateUser_UserRole:input_type -> pb.CreateUser_UserRoleRequest
+	19, // 19: pb.SystemService.DeleteSoftUser:input_type -> pb.DeleteSoftUserRequest
 	1,  // 20: pb.SystemService.DeleteUser:input_type -> pb.UserID
-	20, // 21: pb.SystemService.UpdateUserPassword:input_type -> pb.UpdateUserPasswordRequest
-	12, // 22: pb.SystemService.UpdateUser:input_type -> pb.UpdateUserRequest
-	1,  // 23: pb.SystemService.UserPageSet:input_type -> pb.UserID
-	17, // 24: pb.SystemService.UpdateUserPageSet:input_type -> pb.UpdateUserPageSetRequest
-	1,  // 25: pb.SystemService.UserMenuParamsByUserID:input_type -> pb.UserID
-	0,  // 26: pb.SystemService.UserAllMenuParams:input_type -> pb.Empty
-	9,  // 27: pb.SystemService.UpdateUserMenuParams:input_type -> pb.UpdateUserMenuParamsRequest
-	1,  // 28: pb.SystemService.UserRoleByUserID:input_type -> pb.UserID
-	16, // 29: pb.SystemService.UpdateUserRole:input_type -> pb.UpdateUserRoleRequest
-	3,  // 30: pb.SystemService.RoleDetail:input_type -> pb.RoleID
-	0,  // 31: pb.SystemService.RoleAll:input_type -> pb.Empty
-	3,  // 32: pb.SystemService.DeleteRole:input_type -> pb.RoleID
-	19, // 33: pb.SystemService.DeleteSoftRole:input_type -> pb.DeleteSoftRoleRequest
-	15, // 34: pb.SystemService.CreateRole:input_type -> pb.CreateRoleRequest
-	14, // 35: pb.SystemService.UpdateRole:input_type -> pb.UpdateRoleRequest
-	4,  // 36: pb.SystemService.MenuDetail:input_type -> pb.MenuID
-	0,  // 37: pb.SystemService.MenuAll:input_type -> pb.Empty
-	21, // 38: pb.SystemService.CreateMenu:input_type -> pb.CreateMenuRequest
-	23, // 39: pb.SystemService.UpdateMenu:input_type -> pb.UpdateMenuRequest
-	4,  // 40: pb.SystemService.DeleteMenu_RoleMenu_UserMenuParam:input_type -> pb.MenuID
-	3,  // 41: pb.SystemService.RoleMenuByRoleID:input_type -> pb.RoleID
-	5,  // 42: pb.SystemService.APIDetail:input_type -> pb.ApiID
-	0,  // 43: pb.SystemService.APIAll:input_type -> pb.Empty
-	27, // 44: pb.SystemService.APIPaging:input_type -> pb.APIPagingRequest
-	27, // 45: pb.SystemService.APITotal:input_type -> pb.APIPagingRequest
-	22, // 46: pb.SystemService.CreateAPI:input_type -> pb.CreateAPIRequest
-	38, // 47: pb.SystemService.UpdateAPI:input_type -> pb.API
-	7,  // 48: pb.SystemService.DeleteAPIAndCasbin:input_type -> pb.DeleteAPIAndCasbinRequest
-	6,  // 49: pb.SystemService.DeleteAPIMultipleAndCasbin:input_type -> pb.DeleteAPIMultipleAndCasbinRequest
-	0,  // 50: pb.SystemService.Test:input_type -> pb.Empty
-	43, // 51: pb.SystemService.Login:output_type -> pb.LoginResponse
-	11, // 52: pb.SystemService.CasbinEnforcer:output_type -> pb.CasbinEnforceResponse
-	0,  // 53: pb.SystemService.RefreshCasbinPolicy:output_type -> pb.Empty
-	40, // 54: pb.SystemService.UserDetail:output_type -> pb.User
-	40, // 55: pb.SystemService.UserDetailByName:output_type -> pb.User
-	25, // 56: pb.SystemService.UserPaging:output_type -> pb.UserPagingResponse
-	8,  // 57: pb.SystemService.UserTotal:output_type -> pb.Total
-	0,  // 58: pb.SystemService.CreateUser_UserRole:output_type -> pb.Empty
-	0,  // 59: pb.SystemService.DeleteSoftUser:output_type -> pb.Empty
-	0,  // 60: pb.SystemService.DeleteUser:output_type -> pb.Empty
-	0,  // 61: pb.SystemService.UpdateUserPassword:output_type -> pb.Empty
-	0,  // 62: pb.SystemService.UpdateUser:output_type -> pb.Empty
-	41, // 63: pb.SystemService.UserPageSet:output_type -> pb.UserPageSetResponse
-	0,  // 64: pb.SystemService.UpdateUserPageSet:output_type -> pb.Empty
-	31, // 65: pb.SystemService.UserMenuParamsByUserID:output_type -> pb.UserMenuParamsResponse
-	31, // 66: pb.SystemService.UserAllMenuParams:output_type -> pb.UserMenuParamsResponse
-	0,  // 67: pb.SystemService.UpdateUserMenuParams:output_type -> pb.Empty
-	33, // 68: pb.SystemService.UserRoleByUserID:output_type -> pb.UserRoleResponse
-	0,  // 69: pb.SystemService.UpdateUserRole:output_type -> pb.Empty
-	39, // 70: pb.SystemService.RoleDetail:output_type -> pb.Role
-	29, // 71: pb.SystemService.RoleAll:output_type -> pb.RoleAllResponse
-	0,  // 72: pb.SystemService.DeleteRole:output_type -> pb.Empty
-	0,  // 73: pb.SystemService.DeleteSoftRole:output_type -> pb.Empty
-	0,  // 74: pb.SystemService.CreateRole:output_type -> pb.Empty
-	0,  // 75: pb.SystemService.UpdateRole:output_type -> pb.Empty
-	35, // 76: pb.SystemService.MenuDetail:output_type -> pb.Menu
-	30, // 77: pb.SystemService.MenuAll:output_type -> pb.MenuAllResponse
-	0,  // 78: pb.SystemService.CreateMenu:output_type -> pb.Empty
-	0,  // 79: pb.SystemService.UpdateMenu:output_type -> pb.Empty
-	0,  // 80: pb.SystemService.DeleteMenu_RoleMenu_UserMenuParam:output_type -> pb.Empty
-	32, // 81: pb.SystemService.RoleMenuByRoleID:output_type -> pb.RoleMenuResponse
-	38, // 82: pb.SystemService.APIDetail:output_type -> pb.API
-	26, // 83: pb.SystemService.APIAll:output_type -> pb.APIAllResponse
-	28, // 84: pb.SystemService.APIPaging:output_type -> pb.APIPagingResponse
-	8,  // 85: pb.SystemService.APITotal:output_type -> pb.Total
-	0,  // 86: pb.SystemService.CreateAPI:output_type -> pb.Empty
-	0,  // 87: pb.SystemService.UpdateAPI:output_type -> pb.Empty
-	0,  // 88: pb.SystemService.DeleteAPIAndCasbin:output_type -> pb.Empty
-	0,  // 89: pb.SystemService.DeleteAPIMultipleAndCasbin:output_type -> pb.Empty
-	8,  // 90: pb.SystemService.Test:output_type -> pb.Total
-	51, // [51:91] is the sub-list for method output_type
-	11, // [11:51] is the sub-list for method input_type
+	21, // 21: pb.SystemService.UpdateUserPassword:input_type -> pb.UpdateUserPasswordRequest
+	13, // 22: pb.SystemService.UpdateUser:input_type -> pb.UpdateUserRequest
+	12, // 23: pb.SystemService.UpdateUserCurrentRole:input_type -> pb.UpdateUserCurrentRoleRequest
+	1,  // 24: pb.SystemService.UserPageSet:input_type -> pb.UserID
+	18, // 25: pb.SystemService.UpdateUserPageSet:input_type -> pb.UpdateUserPageSetRequest
+	1,  // 26: pb.SystemService.UserMenuParamsByUserID:input_type -> pb.UserID
+	0,  // 27: pb.SystemService.UserAllMenuParams:input_type -> pb.Empty
+	9,  // 28: pb.SystemService.UpdateUserMenuParams:input_type -> pb.UpdateUserMenuParamsRequest
+	1,  // 29: pb.SystemService.UserRoleByUserID:input_type -> pb.UserID
+	17, // 30: pb.SystemService.UpdateUserRole:input_type -> pb.UpdateUserRoleRequest
+	3,  // 31: pb.SystemService.RoleDetail:input_type -> pb.RoleID
+	0,  // 32: pb.SystemService.RoleAll:input_type -> pb.Empty
+	3,  // 33: pb.SystemService.DeleteRole:input_type -> pb.RoleID
+	20, // 34: pb.SystemService.DeleteSoftRole:input_type -> pb.DeleteSoftRoleRequest
+	16, // 35: pb.SystemService.CreateRole:input_type -> pb.CreateRoleRequest
+	15, // 36: pb.SystemService.UpdateRole:input_type -> pb.UpdateRoleRequest
+	4,  // 37: pb.SystemService.MenuDetail:input_type -> pb.MenuID
+	0,  // 38: pb.SystemService.MenuAll:input_type -> pb.Empty
+	22, // 39: pb.SystemService.CreateMenu:input_type -> pb.CreateMenuRequest
+	24, // 40: pb.SystemService.UpdateMenu:input_type -> pb.UpdateMenuRequest
+	4,  // 41: pb.SystemService.DeleteMenu_RoleMenu_UserMenuParam:input_type -> pb.MenuID
+	3,  // 42: pb.SystemService.RoleMenuByRoleID:input_type -> pb.RoleID
+	5,  // 43: pb.SystemService.APIDetail:input_type -> pb.ApiID
+	0,  // 44: pb.SystemService.APIAll:input_type -> pb.Empty
+	28, // 45: pb.SystemService.APIPaging:input_type -> pb.APIPagingRequest
+	28, // 46: pb.SystemService.APITotal:input_type -> pb.APIPagingRequest
+	23, // 47: pb.SystemService.CreateAPI:input_type -> pb.CreateAPIRequest
+	39, // 48: pb.SystemService.UpdateAPI:input_type -> pb.API
+	7,  // 49: pb.SystemService.DeleteAPIAndCasbin:input_type -> pb.DeleteAPIAndCasbinRequest
+	6,  // 50: pb.SystemService.DeleteAPIMultipleAndCasbin:input_type -> pb.DeleteAPIMultipleAndCasbinRequest
+	0,  // 51: pb.SystemService.Test:input_type -> pb.Empty
+	44, // 52: pb.SystemService.Login:output_type -> pb.LoginResponse
+	11, // 53: pb.SystemService.CasbinEnforcer:output_type -> pb.CasbinEnforceResponse
+	0,  // 54: pb.SystemService.RefreshCasbinPolicy:output_type -> pb.Empty
+	41, // 55: pb.SystemService.UserDetail:output_type -> pb.User
+	41, // 56: pb.SystemService.UserDetailByName:output_type -> pb.User
+	26, // 57: pb.SystemService.UserPaging:output_type -> pb.UserPagingResponse
+	8,  // 58: pb.SystemService.UserTotal:output_type -> pb.Total
+	0,  // 59: pb.SystemService.CreateUser_UserRole:output_type -> pb.Empty
+	0,  // 60: pb.SystemService.DeleteSoftUser:output_type -> pb.Empty
+	0,  // 61: pb.SystemService.DeleteUser:output_type -> pb.Empty
+	0,  // 62: pb.SystemService.UpdateUserPassword:output_type -> pb.Empty
+	0,  // 63: pb.SystemService.UpdateUser:output_type -> pb.Empty
+	0,  // 64: pb.SystemService.UpdateUserCurrentRole:output_type -> pb.Empty
+	42, // 65: pb.SystemService.UserPageSet:output_type -> pb.UserPageSetResponse
+	0,  // 66: pb.SystemService.UpdateUserPageSet:output_type -> pb.Empty
+	32, // 67: pb.SystemService.UserMenuParamsByUserID:output_type -> pb.UserMenuParamsResponse
+	32, // 68: pb.SystemService.UserAllMenuParams:output_type -> pb.UserMenuParamsResponse
+	0,  // 69: pb.SystemService.UpdateUserMenuParams:output_type -> pb.Empty
+	34, // 70: pb.SystemService.UserRoleByUserID:output_type -> pb.UserRoleResponse
+	0,  // 71: pb.SystemService.UpdateUserRole:output_type -> pb.Empty
+	40, // 72: pb.SystemService.RoleDetail:output_type -> pb.Role
+	30, // 73: pb.SystemService.RoleAll:output_type -> pb.RoleAllResponse
+	0,  // 74: pb.SystemService.DeleteRole:output_type -> pb.Empty
+	0,  // 75: pb.SystemService.DeleteSoftRole:output_type -> pb.Empty
+	0,  // 76: pb.SystemService.CreateRole:output_type -> pb.Empty
+	0,  // 77: pb.SystemService.UpdateRole:output_type -> pb.Empty
+	36, // 78: pb.SystemService.MenuDetail:output_type -> pb.Menu
+	31, // 79: pb.SystemService.MenuAll:output_type -> pb.MenuAllResponse
+	0,  // 80: pb.SystemService.CreateMenu:output_type -> pb.Empty
+	0,  // 81: pb.SystemService.UpdateMenu:output_type -> pb.Empty
+	0,  // 82: pb.SystemService.DeleteMenu_RoleMenu_UserMenuParam:output_type -> pb.Empty
+	33, // 83: pb.SystemService.RoleMenuByRoleID:output_type -> pb.RoleMenuResponse
+	39, // 84: pb.SystemService.APIDetail:output_type -> pb.API
+	27, // 85: pb.SystemService.APIAll:output_type -> pb.APIAllResponse
+	29, // 86: pb.SystemService.APIPaging:output_type -> pb.APIPagingResponse
+	8,  // 87: pb.SystemService.APITotal:output_type -> pb.Total
+	0,  // 88: pb.SystemService.CreateAPI:output_type -> pb.Empty
+	0,  // 89: pb.SystemService.UpdateAPI:output_type -> pb.Empty
+	0,  // 90: pb.SystemService.DeleteAPIAndCasbin:output_type -> pb.Empty
+	0,  // 91: pb.SystemService.DeleteAPIMultipleAndCasbin:output_type -> pb.Empty
+	8,  // 92: pb.SystemService.Test:output_type -> pb.Total
+	52, // [52:93] is the sub-list for method output_type
+	11, // [11:52] is the sub-list for method input_type
 	11, // [11:11] is the sub-list for extension type_name
 	11, // [11:11] is the sub-list for extension extendee
 	0,  // [0:11] is the sub-list for field type_name
@@ -3763,7 +3841,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateUserRequest); i {
+			switch v := v.(*UpdateUserCurrentRoleRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3775,7 +3853,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateUser_UserRoleRequest); i {
+			switch v := v.(*UpdateUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3787,7 +3865,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateRoleRequest); i {
+			switch v := v.(*CreateUser_UserRoleRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3799,7 +3877,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateRoleRequest); i {
+			switch v := v.(*UpdateRoleRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3811,7 +3889,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateUserRoleRequest); i {
+			switch v := v.(*CreateRoleRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3823,7 +3901,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateUserPageSetRequest); i {
+			switch v := v.(*UpdateUserRoleRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3835,7 +3913,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteSoftUserRequest); i {
+			switch v := v.(*UpdateUserPageSetRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3847,7 +3925,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteSoftRoleRequest); i {
+			switch v := v.(*DeleteSoftUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3859,7 +3937,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateUserPasswordRequest); i {
+			switch v := v.(*DeleteSoftRoleRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3871,7 +3949,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateMenuRequest); i {
+			switch v := v.(*UpdateUserPasswordRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3883,7 +3961,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateAPIRequest); i {
+			switch v := v.(*CreateMenuRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3895,7 +3973,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateMenuRequest); i {
+			switch v := v.(*CreateAPIRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3907,7 +3985,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserPagingRequest); i {
+			switch v := v.(*UpdateMenuRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3919,7 +3997,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserPagingResponse); i {
+			switch v := v.(*UserPagingRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3931,7 +4009,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*APIAllResponse); i {
+			switch v := v.(*UserPagingResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3943,7 +4021,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*APIPagingRequest); i {
+			switch v := v.(*APIAllResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3955,7 +4033,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*APIPagingResponse); i {
+			switch v := v.(*APIPagingRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3967,7 +4045,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RoleAllResponse); i {
+			switch v := v.(*APIPagingResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3979,7 +4057,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MenuAllResponse); i {
+			switch v := v.(*RoleAllResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3991,7 +4069,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserMenuParamsResponse); i {
+			switch v := v.(*MenuAllResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4003,7 +4081,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RoleMenuResponse); i {
+			switch v := v.(*UserMenuParamsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4015,7 +4093,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserRoleResponse); i {
+			switch v := v.(*RoleMenuResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4027,7 +4105,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserMenuParams); i {
+			switch v := v.(*UserRoleResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4039,7 +4117,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Menu); i {
+			switch v := v.(*UserMenuParams); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4051,7 +4129,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RoleMenu); i {
+			switch v := v.(*Menu); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4063,7 +4141,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserRole); i {
+			switch v := v.(*RoleMenu); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4075,7 +4153,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*API); i {
+			switch v := v.(*UserRole); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4087,7 +4165,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Role); i {
+			switch v := v.(*API); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4099,7 +4177,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*User); i {
+			switch v := v.(*Role); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4111,7 +4189,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserPageSetResponse); i {
+			switch v := v.(*User); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4123,7 +4201,7 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LoginRequest); i {
+			switch v := v.(*UserPageSetResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4135,6 +4213,18 @@ func file_doc_systemAdmin_proto_init() {
 			}
 		}
 		file_doc_systemAdmin_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LoginRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_doc_systemAdmin_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LoginResponse); i {
 			case 0:
 				return &v.state
@@ -4153,7 +4243,7 @@ func file_doc_systemAdmin_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_doc_systemAdmin_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   44,
+			NumMessages:   45,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

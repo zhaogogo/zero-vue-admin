@@ -34,27 +34,17 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 		menus      []types.Menu
 		msgErrList = errorx.MsgErrList{}
 	)
-
+	hasInRole := false
 	userid := l.ctx.Value("user_id").(uint64)
 	userinfo := l.ctx.Value("userinfo").(*systemservice.User)
-	roleFlag := false
-	param := &systemservice.UserID{ID: userid}
-	userroles, err := l.svcCtx.SystemRpcClient.UserRoleByUserID(l.ctx, param)
-	if err != nil {
-		s, _ := status.FromError(err)
-		if s.Message() == sql.ErrNoRows.Error() {
-			msgErrList.WithMeta("SystemRpcClient.UserRoleByUserID", err.Error(), param)
-			return &types.UserMenuResponse{HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK", Meta: msgErrList.List}, Menus: nil}, nil
-		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.GetUserRoleByUserID", err.Error(), param)
-	}
-	for _, v := range userroles.UserRoles {
+	userroles := l.ctx.Value("userroleinfo").([]*systemservice.UserRole)
+	for _, v := range userroles {
 		if v.RoleID == userinfo.CurrentRole {
-			roleFlag = true
+			hasInRole = true
 			break
 		}
 	}
-	if !roleFlag {
+	if !hasInRole {
 		return &types.UserMenuResponse{HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK", Meta: msgErrList.List}, Menus: nil}, nil
 	}
 

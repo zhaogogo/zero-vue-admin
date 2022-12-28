@@ -44,6 +44,14 @@ export const updatepassword = (data) => {
     })
 }
 
+export const changeLoginPassword = (data) => {
+    return service({
+        url: "api/v1/system/user/password",
+        method: "POST",
+        data
+    })
+}
+
 export const updateRole = (data) => {
     return service({
         url: "/api/v1/system/user/" + data.id + "/role",
@@ -91,3 +99,10 @@ export const editUser = (data) => {
     })
 }
 
+export const changeRole = (data) => {
+    return service({
+        url: "/api/v1/system/user/changerole",
+        method: "POST",
+        data
+    })
+}

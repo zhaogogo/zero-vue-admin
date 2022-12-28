@@ -57,7 +57,8 @@ func (l *LoginLogic) Login(in *pb.LoginRequest) (*pb.LoginResponse, error) {
 		Token:        token,
 		ExporeAt:     expire,
 		RefreshAfter: refresh,
-		UserId:       user.Id,
+		CurrentRole:  user.CurrentRole,
+		UserID:       user.Id,
 	}, nil
 }
 

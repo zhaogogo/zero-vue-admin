@@ -42,13 +42,9 @@ type LoginResponse struct {
 	ExpireAt     int64       `json:"expireAt"`
 	RefreshAfter int64       `json:"refreshAfter"`
 	Name         string      `json:"name"`
-	Roles        []RoleRes   `json:"roles"`
+	Roles        []Role      `json:"roles"`
+	CurrentRole  Role        `json:"currentRole"`
 	UserPageSet  UserPageSet `json:"userPageSet"`
-}
-
-type RoleRes struct {
-	RoleId   uint64 `json:"roleId"`
-	RoleName string `json:"roleName"`
 }
 
 type CurrentUserSetResponse struct {
@@ -87,6 +83,10 @@ type UserDetailResponse struct {
 
 type UpdatePasswordRequest struct {
 	ID       uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+	Password string `json:"password,optional" validate:"required"`
+}
+
+type UpdateLoginPasswordRequest struct {
 	Password string `json:"password,optional" validate:"required"`
 }
 
@@ -140,6 +140,10 @@ type UserPageRequest struct {
 	SideMode        string `json:"sideMode,default=#191a23,optional" validate:"required"`
 	ActiveTextColor string `json:"activeTextColor,default=#1890ff,optional" validate:"required"`
 	TextColor       string `json:"textColor,default=#fff,optional" validate:"required"`
+}
+
+type UserChangeRoleRequest struct {
+	RoleID uint64 `json:"role_id,optional" validate:"numeric,gte=0"`
 }
 
 type HttpCommonResponse struct {
@@ -208,6 +212,26 @@ type RoleAllResponse struct {
 	HttpCommonResponse
 	Total int    `json:"total"`
 	List  []Role `json:"list"`
+}
+
+type RoleMenuPermissionRequest struct {
+	ID uint64 `path:"id,optional" validate:"numeric,gte=1"`
+}
+
+type RoleMenuPermissionResponse struct {
+	HttpCommonResponse
+	List []MenuResp `json:"list"`
+}
+
+type MenuResp struct {
+	ID        uint64   `json:"id"`
+	ParentId  uint64   `json:"parentId"`
+	Name      string   `json:"name"`
+	Path      string   `json:"path"`
+	Component string   `json:"component"`
+	Sort      int64    `json:"sort"`
+	Hidden    bool     `json:"hidden"`
+	MenuMeta  MenuMeta `json:"meta"`
 }
 
 type UserMenuResponse struct {

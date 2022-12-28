@@ -80,6 +80,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: systemuser.UpdatePasswordHandler(serverCtx),
 				},
 				{
+					Method:  http.MethodPut,
+					Path:    "/password",
+					Handler: systemuser.UpdateLoginPasswordHandler(serverCtx),
+				},
+				{
 					Method:  http.MethodGet,
 					Path:    "/all",
 					Handler: systemuser.AllHandler(serverCtx),
@@ -93,6 +98,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPut,
 					Path:    "/page",
 					Handler: systemuser.PageHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/changerole",
+					Handler: systemuser.ChangeRoleHandler(serverCtx),
 				},
 			}...,
 		),
@@ -133,6 +143,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodGet,
 					Path:    "/all",
 					Handler: systemrole.AllHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/menupermission/:id",
+					Handler: systemrole.MenuPermissionHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,

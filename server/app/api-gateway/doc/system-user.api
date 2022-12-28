@@ -68,6 +68,10 @@ service ApiGateway-api {
     @handler UpdatePassword
     put /:id/password (UpdatePasswordRequest) returns(HttpCommonResponse)
 
+    @doc "修改登陆用户密码"
+    @handler UpdateLoginPassword
+    put /password (UpdateLoginPasswordRequest) returns(HttpCommonResponse)
+
     @doc "全部用户详情"
     @handler All
     get /all returns (UserAllResponse)
@@ -79,6 +83,10 @@ service ApiGateway-api {
     @doc "修改用户页面配置"
     @handler Page
     put /page (UserPageRequest) returns (HttpCommonResponse)
+
+    @doc "切换用户角色"
+    @handler ChangeRole
+    post /changerole (UserChangeRoleRequest) returns (HttpCommonResponse)
 }
 
 //----------------------------------------------
@@ -129,12 +137,9 @@ type (
         ExpireAt int64 `json:"expireAt"`
         RefreshAfter int64 `json:"refreshAfter"`
         Name string `json:"name"`
-        Roles []RoleRes `json:"roles"`
+        Roles []Role `json:"roles"`
+        CurrentRole Role `json:"currentRole"`
         UserPageSet UserPageSet `json:"userPageSet"`
-    }
-    RoleRes struct {
-        RoleId uint64 `json:"roleId"`
-        RoleName string `json:"roleName"`
     }
 )
 
@@ -188,6 +193,13 @@ type(
 //----------------------------------------------
 type UpdatePasswordRequest struct {
     ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+    Password string `json:"password,optional" validate:"required"`
+}
+
+//----------------------------------------------
+// 修改登陆用户密码
+//----------------------------------------------
+type UpdateLoginPasswordRequest struct {
     Password string `json:"password,optional" validate:"required"`
 }
 
@@ -260,7 +272,12 @@ type UserPageRequest struct {
     TextColor string `json:"textColor,default=#fff,optional" validate:"required"`
 }
 
-
+//----------------------------------------------
+// 切换用户角色
+//----------------------------------------------
+type UserChangeRoleRequest struct {
+    RoleID uint64 `json:"role_id,optional" validate:"numeric,gte=0"`
+}
 
 
 

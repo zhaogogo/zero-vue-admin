@@ -20,6 +20,7 @@ service SystemService {
   rpc DeleteUser(UserID) returns(Empty);
   rpc UpdateUserPassword(UpdateUserPasswordRequest)returns(Empty);
   rpc UpdateUser(UpdateUserRequest) returns(Empty);
+  rpc UpdateUserCurrentRole(UpdateUserCurrentRoleRequest) returns(Empty);
 
   rpc UserPageSet(UserID) returns(UserPageSetResponse); //
   rpc UpdateUserPageSet(UpdateUserPageSetRequest) returns(Empty);
@@ -110,6 +111,11 @@ message CasbinEnforceRequest {
 
 message CasbinEnforceResponse {
   bool Success = 1;
+}
+
+message UpdateUserCurrentRoleRequest {
+  uint64 UserID = 1;
+  uint64 RoleID = 2;
 }
 
 message UpdateUserRequest {
@@ -348,5 +354,6 @@ message LoginResponse {
   string Token = 1;
   int64 ExporeAt = 2;
   int64 RefreshAfter = 3;
-  uint64 UserId = 4;
+  uint64 CurrentRole = 4;
+  uint64 UserID = 5;
 }

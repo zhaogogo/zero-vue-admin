@@ -42,6 +42,7 @@ type (
 	Total                             = pb.Total
 	UpdateMenuRequest                 = pb.UpdateMenuRequest
 	UpdateRoleRequest                 = pb.UpdateRoleRequest
+	UpdateUserCurrentRoleRequest      = pb.UpdateUserCurrentRoleRequest
 	UpdateUserMenuParamsRequest       = pb.UpdateUserMenuParamsRequest
 	UpdateUserPageSetRequest          = pb.UpdateUserPageSetRequest
 	UpdateUserPasswordRequest         = pb.UpdateUserPasswordRequest
@@ -71,6 +72,7 @@ type (
 		DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error)
 		UpdateUserPassword(ctx context.Context, in *UpdateUserPasswordRequest, opts ...grpc.CallOption) (*Empty, error)
 		UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error)
+		UpdateUserCurrentRole(ctx context.Context, in *UpdateUserCurrentRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 		UserPageSet(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSetResponse, error)
 		UpdateUserPageSet(ctx context.Context, in *UpdateUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
 		UserMenuParamsByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
@@ -170,6 +172,11 @@ func (m *defaultSystemService) UpdateUserPassword(ctx context.Context, in *Updat
 func (m *defaultSystemService) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.UpdateUser(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) UpdateUserCurrentRole(ctx context.Context, in *UpdateUserCurrentRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.UpdateUserCurrentRole(ctx, in, opts...)
 }
 
 func (m *defaultSystemService) UserPageSet(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSetResponse, error) {

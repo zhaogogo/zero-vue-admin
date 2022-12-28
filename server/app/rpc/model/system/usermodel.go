@@ -30,6 +30,7 @@ type (
 		UpdateUserPassword(ctx context.Context, id uint64, pass string) error
 		UpdateDeleteColumn(ctx context.Context, userid uint64, deleteby string, deletetime sql.NullTime) error
 		UpdateWithOutPassword(ctx context.Context, newData *User) error
+		UpdateCurrentRoleColumn(ctx context.Context, userid uint64, roleid uint64) error
 
 		TransInsert(ctx context.Context, session sqlx.Session, data *User) (sql.Result, error)
 		TransDelete(ctx context.Context, session sqlx.Session, id uint64) error
@@ -167,6 +168,18 @@ func (m *defaultUserModel) UpdateWithOutPassword(ctx context.Context, newData *U
 		return conn.ExecCtx(ctx, query, newData.Name, newData.NickName, data.Type, newData.Email, newData.Phone, newData.Department, newData.Position, data.CreateBy, newData.UpdateBy, data.DeleteBy, data.DeleteTime, data.PageSetId, newData.Id)
 	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
 	return err
+}
+
+func (m *defaultUserModel) UpdateCurrentRoleColumn(ctx context.Context, userid uint64, roleid uint64) error {
+	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, userid)
+	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("update %s set `current_role` = ? where `id` = ?", m.table)
+		return conn.ExecCtx(ctx, query, roleid, userid)
+	}, chaosSystemUserIdKey)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (m *defaultUserModel) UpdateUserPassword(ctx context.Context, id uint64, pass string) error {

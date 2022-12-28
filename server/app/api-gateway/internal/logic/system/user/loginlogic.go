@@ -38,7 +38,9 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 	var (
 		userpageset *systemservice.UserPageSetResponse
 		user        *systemservice.User
-		rolelist    = []types.RoleRes{}
+		roles       = []types.Role{}
+		currentRole = types.Role{}
+		roleInfo    = make(map[uint64]*systemservice.Role)
 		msgErrList  = errorx.MsgErrList{}
 	)
 
@@ -51,7 +53,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 			}
 		}()
 		//登陆时查询的用户已经过滤掉软删除用户
-		userDetailParam := &systemservice.UserID{ID: res.UserId}
+		userDetailParam := &systemservice.UserID{ID: res.UserID}
 		user, err = l.svcCtx.SystemRpcClient.UserDetail(l.ctx, userDetailParam)
 		if err != nil {
 			l.Error(err)
@@ -65,14 +67,14 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 				logx.Error(e)
 			}
 		}()
-		userPageSetParam := &systemservice.UserID{ID: res.UserId}
+		userPageSetParam := &systemservice.UserID{ID: res.UserID}
 		userpageset, err = l.svcCtx.SystemRpcClient.UserPageSet(l.ctx, userPageSetParam)
 		if err != nil {
 			s, _ := status.FromError(err)
 			if s.Message() == sql.ErrNoRows.Error() {
 				userpageset = new(systemservice.UserPageSetResponse)
 				userpageset.ID = 0
-				userpageset.UserId = res.UserId
+				userpageset.UserId = res.UserID
 				userpageset.Avatar = ""
 				userpageset.DefaultRouter = "dashboard"
 				userpageset.SideMode = "#191a23"
@@ -91,7 +93,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 				logx.Error(e)
 			}
 		}()
-		userRoleByUserIDParam := &systemservice.UserID{ID: res.UserId}
+		userRoleByUserIDParam := &systemservice.UserID{ID: res.UserID}
 		userrole, err := l.svcCtx.SystemRpcClient.UserRoleByUserID(l.ctx, userRoleByUserIDParam)
 		if err != nil {
 			l.Error(err)
@@ -120,7 +122,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 					role, ok := v.(*systemservice.Role)
 					if ok {
 						if role.DeleteTime == 0 {
-							rolelist = append(rolelist, types.RoleRes{RoleId: role.ID, RoleName: role.Name})
+							roleInfo[role.ID] = role
 						}
 					} else {
 						logx.Errorf("mr reducer断言失败, 实际类型: (%T), 断言类型: (*systemservice.Role)", v, v)
@@ -131,6 +133,32 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 		return nil
 	})
 	g.Wait()
+	for roleid, role := range roleInfo {
+		if res.CurrentRole == roleid {
+			currentRole = types.Role{
+				ID:         role.ID,
+				Role:       role.Role,
+				Name:       role.Name,
+				CreateBy:   role.CreateBy,
+				CreateTime: role.CreateTime,
+				UpdateBy:   role.UpdateBy,
+				UpdateTime: role.UpdateTime,
+				DeleteBy:   role.DeleteBy,
+				DeleteTime: role.DeleteTime,
+			}
+		}
+		roles = append(roles, types.Role{
+			ID:         role.ID,
+			Role:       role.Role,
+			Name:       role.Name,
+			CreateBy:   role.CreateBy,
+			CreateTime: role.CreateTime,
+			UpdateBy:   role.UpdateBy,
+			UpdateTime: role.UpdateTime,
+			DeleteBy:   role.DeleteBy,
+			DeleteTime: role.DeleteTime,
+		})
+	}
 
 	var msg string = "OK"
 	if len(msgErrList.List) != 0 {
@@ -151,7 +179,8 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 			ActiveTextColor: userpageset.ActiveTextColor,
 			TextColor:       userpageset.TextColor,
 		},
-		Roles: rolelist,
+		Roles:       roles,
+		CurrentRole: currentRole,
 	}, nil
 }
 

@@ -42,7 +42,7 @@
                         </span>
                       </el-dropdown-item>
                       <template v-if="roles">
-                        <el-dropdown-item v-for="item in roles.filter(i=>i.id!==currentRole.id)" :key="item.id">
+                        <el-dropdown-item v-for="item in roles.filter(i=>i.id!==currentRole.id)" :key="item.id" @click.native="changeRole(item)">
                           <span>
                             切换为: {{ item.name }}
                           </span>
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import { changeRole } from '@/api/user/user'
 import { mapGetters, mapMutations } from 'vuex'
 import Aside from './aside/index.vue'
 import HistoryComponent from './aside/historyComponent/history.vue'
@@ -103,6 +104,18 @@ export default {
       },
       toPerson(){
         this.$router.push({name:"persionhome"})
+      },
+      async changeRole(row){
+        console.log(row)
+        const res = await changeRole({role_id: row.id})
+        if (res.code === 200) {
+          this.$message({
+            type:"success",
+            message: res.msg
+          })
+          window.sessionStorage.removeItem('historys')
+          window.location.reload()
+        }
       }
     }
 }

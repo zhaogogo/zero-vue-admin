@@ -34,6 +34,7 @@ type SystemServiceClient interface {
 	DeleteUser(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Empty, error)
 	UpdateUserPassword(ctx context.Context, in *UpdateUserPasswordRequest, opts ...grpc.CallOption) (*Empty, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error)
+	UpdateUserCurrentRole(ctx context.Context, in *UpdateUserCurrentRoleRequest, opts ...grpc.CallOption) (*Empty, error)
 	UserPageSet(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserPageSetResponse, error)
 	UpdateUserPageSet(ctx context.Context, in *UpdateUserPageSetRequest, opts ...grpc.CallOption) (*Empty, error)
 	UserMenuParamsByUserID(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*UserMenuParamsResponse, error)
@@ -174,6 +175,15 @@ func (c *systemServiceClient) UpdateUserPassword(ctx context.Context, in *Update
 func (c *systemServiceClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) UpdateUserCurrentRole(ctx context.Context, in *UpdateUserCurrentRoleRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateUserCurrentRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -448,6 +458,7 @@ type SystemServiceServer interface {
 	DeleteUser(context.Context, *UserID) (*Empty, error)
 	UpdateUserPassword(context.Context, *UpdateUserPasswordRequest) (*Empty, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*Empty, error)
+	UpdateUserCurrentRole(context.Context, *UpdateUserCurrentRoleRequest) (*Empty, error)
 	UserPageSet(context.Context, *UserID) (*UserPageSetResponse, error)
 	UpdateUserPageSet(context.Context, *UpdateUserPageSetRequest) (*Empty, error)
 	UserMenuParamsByUserID(context.Context, *UserID) (*UserMenuParamsResponse, error)
@@ -518,6 +529,9 @@ func (UnimplementedSystemServiceServer) UpdateUserPassword(context.Context, *Upd
 }
 func (UnimplementedSystemServiceServer) UpdateUser(context.Context, *UpdateUserRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
+}
+func (UnimplementedSystemServiceServer) UpdateUserCurrentRole(context.Context, *UpdateUserCurrentRoleRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserCurrentRole not implemented")
 }
 func (UnimplementedSystemServiceServer) UserPageSet(context.Context, *UserID) (*UserPageSetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserPageSet not implemented")
@@ -828,6 +842,24 @@ func _SystemService_UpdateUser_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SystemServiceServer).UpdateUser(ctx, req.(*UpdateUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_UpdateUserCurrentRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserCurrentRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UpdateUserCurrentRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UpdateUserCurrentRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UpdateUserCurrentRole(ctx, req.(*UpdateUserCurrentRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1390,6 +1422,10 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateUser",
 			Handler:    _SystemService_UpdateUser_Handler,
+		},
+		{
+			MethodName: "UpdateUserCurrentRole",
+			Handler:    _SystemService_UpdateUserCurrentRole_Handler,
 		},
 		{
 			MethodName: "UserPageSet",

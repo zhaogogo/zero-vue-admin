@@ -52,3 +52,10 @@ export const updateRole = (data) => {
         data
     })
 }
+
+export const getroleMenu = (data) => {
+    return service({
+        url:"/api/v1/system/role/menupermission/" + data.id,
+        method:"GET"
+    })
+}
