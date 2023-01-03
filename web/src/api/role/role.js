@@ -60,11 +60,25 @@ export const getroleMenu = (data) => {
     })
 }
 
+export const getRoleAPI = (data) => {
+    return service({
+        url: "/api/v1/system/role/apipermission/" + data.id,
+        method: "GET"
+    })
+}
+
 export const replaceRoleMenuPermission = (data) => {
-    console.log("===>",{"menuIdList": data.menuids},data)
     return service({
         url: "/api/v1/system/role/menupermission/" + data.id,
-        method: "POST",
+        method: "PUT",
         data: {"menuIdList": data.menuIdList}
+    })
+}
+
+export const updateRoleApiPermission = (data) => {
+    return service({
+        url: "/api/v1/system/role/apipermission/" + data.id,
+        method: "PUT",
+        data: {"casbinRules": data.casbinRules}
     })
 }

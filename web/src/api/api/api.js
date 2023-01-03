@@ -1,5 +1,12 @@
 import { service } from '@/utils/request.js'
 
+export const allAPI = () => {
+    return service({
+        url: "/api/v1/system/api/all",
+        method: "GET"
+    })
+}
+
 export const pagingAPI = (data) => {
     return service({
         url: "/api/v1/system/api/paging",

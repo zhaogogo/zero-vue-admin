@@ -40,7 +40,7 @@ export const updateMenu = (data) => {
 export const updateUsermenuParam = (data) => {
     return service({
         url: "/api/v1/system/menu/" + data.id + "/userparam",
-        method: "POST",
+        method: "PUT",
         data
     })
 }

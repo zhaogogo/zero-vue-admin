@@ -8,9 +8,12 @@ import "google/protobuf/empty.proto";
 
 service SystemService {
   rpc Login (LoginRequest) returns(LoginResponse); //
+  //casbin_rule
   rpc CasbinEnforcer(CasbinEnforceRequest) returns (CasbinEnforceResponse);
   rpc RefreshCasbinPolicy (Empty) returns (Empty);
-
+  rpc CasbinPolicyByRoleID (RoleID) returns (CasbinPolicyResponse);
+  rpc UpdateCasbinPolicy(UpdateCasbinPolicyRequest) returns (Empty);
+  //user
   rpc UserDetail(UserID) returns (User); //
   rpc UserDetailByName(UserName) returns(User); //
   rpc UserPaging(UserPagingRequest) returns (UserPagingResponse); //
@@ -135,6 +138,16 @@ message CreateUser_UserRoleRequest {
   repeated uint64 RoleList = 2;
 }
 
+message UpdateCasbinPolicyRequest {
+  string v0 = 1;
+  repeated CasbinRule CasbinRules = 2;
+}
+
+message CasbinRule {
+  string v1 = 2;
+  string v2 = 3;
+}
+
 message UpdateRoleRequest {
   uint64 ID = 1;
   string Role = 2;
@@ -229,6 +242,15 @@ message UserPagingResponse {
 
 message APIAllResponse {
   repeated API APIs = 1;
+}
+
+message CasbinPolicyResponse {
+  repeated CasbinPolicy Policy = 1;
+}
+
+message CasbinPolicy {
+  string Api = 1;
+  string method = 2;
 }
 
 message APIPagingRequest {

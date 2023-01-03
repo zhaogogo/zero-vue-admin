@@ -111,6 +111,7 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 					Path:      menuInfo.Path,
 					Component: menuInfo.Component,
 					Sort:      menuInfo.Sort,
+					Hidden:    menuInfo.Hiddent == 1,
 					MenuMeta:  types.MenuMeta{Icon: menuInfo.Icon, Title: menuInfo.Title},
 				})
 			}

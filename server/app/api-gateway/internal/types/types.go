@@ -234,9 +234,33 @@ type MenuResp struct {
 	MenuMeta  MenuMeta `json:"meta"`
 }
 
+type RoleAPIPermissionRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric"`
+}
+
+type RoleAPIPermissionResponse struct {
+	HttpCommonResponse
+	Policy []CasbinPolicy `json:"policy"`
+}
+
+type CasbinPolicy struct {
+	API    string `json:"api"`
+	Method string `json:"method"`
+}
+
 type UpdateRoleMenuPermissionRequest struct {
 	ID         uint64   `path:"id,optional" validate:"numeric,gte=1"`
 	MenuIDList []uint64 `json:"menuIdList,optional"`
+}
+
+type UpdateRoleAPIPermissionRequest struct {
+	ID          uint64       `path:"id,optional" validate:"required,numeric"`
+	CasbinRules []CasbinRule `json:"casbinRules" validate:"dive"`
+}
+
+type CasbinRule struct {
+	Api    string `json:"api" validate:"required"`
+	Method string `json:"method" validate:"required,oneof='GET' 'PUT' 'DELETE' 'POST'"`
 }
 
 type UserMenuResponse struct {

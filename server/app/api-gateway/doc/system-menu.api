@@ -50,7 +50,7 @@ service ApiGateway-api {
 
     @doc "更新菜单用户参数"
     @handler UpdateUserParam
-    post /:id/userparam (MenuUserParamRequest) returns (HttpCommonResponse)
+    put /:id/userparam (MenuUserParamRequest) returns (HttpCommonResponse)
 }
 //----------------------------------------------
 // 用户动态路由菜单

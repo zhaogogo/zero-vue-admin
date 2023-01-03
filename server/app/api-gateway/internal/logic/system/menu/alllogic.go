@@ -52,6 +52,7 @@ func (l *AllLogic) All() (resp *types.MenuAllResponse, err error) {
 			Path:      menu.Path,
 			Component: menu.Component,
 			Sort:      menu.Sort,
+			Hidden:    menu.Hiddent == 1,
 			MenuMeta:  types.MenuMeta{Icon: menu.Icon, Title: menu.Title},
 		}
 		menuList = append(menuList, m)

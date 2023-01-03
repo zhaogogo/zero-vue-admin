@@ -29,7 +29,7 @@ service ApiGateway-api {
     @handler DeleteMultiple
     delete /multiple (APIDeleteMultipleRequest) returns (HttpCommonResponse)
 
-    @doc "编辑API"
+    @doc "更新API"
     @handler Update
     put /:id (APIUpdateRequest) returns(HttpCommonResponse)
 
@@ -41,7 +41,7 @@ service ApiGateway-api {
     @handler Paging
     post /paging (APIPagingRequest) returns (APIPagingResponse)
 
-    @doc "分页API详情及过滤查询"
+    @doc "全量API详情查询"
     @handler All
     get /all returns (APIAllResponse)
 }

@@ -49,15 +49,15 @@ const actions = {
             },
             component: 'view/error/index.vue'
         })
-        asyncRouter.push({
-            path: 'persionhome',
-            name: 'persionhome',
-            hidden: true,
-            meta: {
-                title: 'home'
-            },
-            component: 'view/home/index.vue'
-        })
+        // asyncRouter.push({
+        //     path: 'persionhome',
+        //     name: 'persionhome',
+        //     hidden: true,
+        //     meta: {
+        //         title: 'home'
+        //     },
+        //     component: 'view/home/index.vue'
+        // })
         formatRouter(asyncRouter)
         baseRouter[0].children = asyncRouter
         asyncRouterHandle(baseRouter)

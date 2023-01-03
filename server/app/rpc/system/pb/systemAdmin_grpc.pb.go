@@ -23,8 +23,12 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SystemServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	//casbin_rule
 	CasbinEnforcer(ctx context.Context, in *CasbinEnforceRequest, opts ...grpc.CallOption) (*CasbinEnforceResponse, error)
 	RefreshCasbinPolicy(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error)
+	CasbinPolicyByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*CasbinPolicyResponse, error)
+	UpdateCasbinPolicy(ctx context.Context, in *UpdateCasbinPolicyRequest, opts ...grpc.CallOption) (*Empty, error)
+	//user
 	UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error)
 	UserDetailByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error)
 	UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error)
@@ -95,6 +99,24 @@ func (c *systemServiceClient) CasbinEnforcer(ctx context.Context, in *CasbinEnfo
 func (c *systemServiceClient) RefreshCasbinPolicy(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/pb.SystemService/RefreshCasbinPolicy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) CasbinPolicyByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*CasbinPolicyResponse, error) {
+	out := new(CasbinPolicyResponse)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/CasbinPolicyByRoleID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *systemServiceClient) UpdateCasbinPolicy(ctx context.Context, in *UpdateCasbinPolicyRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pb.SystemService/UpdateCasbinPolicy", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -457,8 +479,12 @@ func (c *systemServiceClient) Test(ctx context.Context, in *Empty, opts ...grpc.
 // for forward compatibility
 type SystemServiceServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	//casbin_rule
 	CasbinEnforcer(context.Context, *CasbinEnforceRequest) (*CasbinEnforceResponse, error)
 	RefreshCasbinPolicy(context.Context, *Empty) (*Empty, error)
+	CasbinPolicyByRoleID(context.Context, *RoleID) (*CasbinPolicyResponse, error)
+	UpdateCasbinPolicy(context.Context, *UpdateCasbinPolicyRequest) (*Empty, error)
+	//user
 	UserDetail(context.Context, *UserID) (*User, error)
 	UserDetailByName(context.Context, *UserName) (*User, error)
 	UserPaging(context.Context, *UserPagingRequest) (*UserPagingResponse, error)
@@ -513,6 +539,12 @@ func (UnimplementedSystemServiceServer) CasbinEnforcer(context.Context, *CasbinE
 }
 func (UnimplementedSystemServiceServer) RefreshCasbinPolicy(context.Context, *Empty) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RefreshCasbinPolicy not implemented")
+}
+func (UnimplementedSystemServiceServer) CasbinPolicyByRoleID(context.Context, *RoleID) (*CasbinPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CasbinPolicyByRoleID not implemented")
+}
+func (UnimplementedSystemServiceServer) UpdateCasbinPolicy(context.Context, *UpdateCasbinPolicyRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCasbinPolicy not implemented")
 }
 func (UnimplementedSystemServiceServer) UserDetail(context.Context, *UserID) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserDetail not implemented")
@@ -694,6 +726,42 @@ func _SystemService_RefreshCasbinPolicy_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SystemServiceServer).RefreshCasbinPolicy(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_CasbinPolicyByRoleID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).CasbinPolicyByRoleID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/CasbinPolicyByRoleID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).CasbinPolicyByRoleID(ctx, req.(*RoleID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SystemService_UpdateCasbinPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCasbinPolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SystemServiceServer).UpdateCasbinPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SystemService/UpdateCasbinPolicy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SystemServiceServer).UpdateCasbinPolicy(ctx, req.(*UpdateCasbinPolicyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1418,6 +1486,14 @@ var SystemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RefreshCasbinPolicy",
 			Handler:    _SystemService_RefreshCasbinPolicy_Handler,
+		},
+		{
+			MethodName: "CasbinPolicyByRoleID",
+			Handler:    _SystemService_CasbinPolicyByRoleID_Handler,
+		},
+		{
+			MethodName: "UpdateCasbinPolicy",
+			Handler:    _SystemService_UpdateCasbinPolicy_Handler,
 		},
 		{
 			MethodName: "UserDetail",

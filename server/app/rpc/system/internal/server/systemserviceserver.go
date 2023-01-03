@@ -27,6 +27,7 @@ func (s *SystemServiceServer) Login(ctx context.Context, in *pb.LoginRequest) (*
 	return l.Login(in)
 }
 
+// casbin_rule
 func (s *SystemServiceServer) CasbinEnforcer(ctx context.Context, in *pb.CasbinEnforceRequest) (*pb.CasbinEnforceResponse, error) {
 	l := logic.NewCasbinEnforcerLogic(ctx, s.svcCtx)
 	return l.CasbinEnforcer(in)
@@ -37,6 +38,17 @@ func (s *SystemServiceServer) RefreshCasbinPolicy(ctx context.Context, in *pb.Em
 	return l.RefreshCasbinPolicy(in)
 }
 
+func (s *SystemServiceServer) CasbinPolicyByRoleID(ctx context.Context, in *pb.RoleID) (*pb.CasbinPolicyResponse, error) {
+	l := logic.NewCasbinPolicyByRoleIDLogic(ctx, s.svcCtx)
+	return l.CasbinPolicyByRoleID(in)
+}
+
+func (s *SystemServiceServer) UpdateCasbinPolicy(ctx context.Context, in *pb.UpdateCasbinPolicyRequest) (*pb.Empty, error) {
+	l := logic.NewUpdateCasbinPolicyLogic(ctx, s.svcCtx)
+	return l.UpdateCasbinPolicy(in)
+}
+
+// user
 func (s *SystemServiceServer) UserDetail(ctx context.Context, in *pb.UserID) (*pb.User, error) {
 	l := logic.NewUserDetailLogic(ctx, s.svcCtx)
 	return l.UserDetail(in)

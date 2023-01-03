@@ -20,6 +20,9 @@ type (
 	ApiID                             = pb.ApiID
 	CasbinEnforceRequest              = pb.CasbinEnforceRequest
 	CasbinEnforceResponse             = pb.CasbinEnforceResponse
+	CasbinPolicy                      = pb.CasbinPolicy
+	CasbinPolicyResponse              = pb.CasbinPolicyResponse
+	CasbinRule                        = pb.CasbinRule
 	CreateAPIRequest                  = pb.CreateAPIRequest
 	CreateMenuRequest                 = pb.CreateMenuRequest
 	CreateRoleRequest                 = pb.CreateRoleRequest
@@ -40,6 +43,7 @@ type (
 	RoleMenu                          = pb.RoleMenu
 	RoleMenuResponse                  = pb.RoleMenuResponse
 	Total                             = pb.Total
+	UpdateCasbinPolicyRequest         = pb.UpdateCasbinPolicyRequest
 	UpdateMenuRequest                 = pb.UpdateMenuRequest
 	UpdateRoleMenusRequest            = pb.UpdateRoleMenusRequest
 	UpdateRoleRequest                 = pb.UpdateRoleRequest
@@ -62,8 +66,12 @@ type (
 
 	SystemService interface {
 		Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+		// casbin_rule
 		CasbinEnforcer(ctx context.Context, in *CasbinEnforceRequest, opts ...grpc.CallOption) (*CasbinEnforceResponse, error)
 		RefreshCasbinPolicy(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error)
+		CasbinPolicyByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*CasbinPolicyResponse, error)
+		UpdateCasbinPolicy(ctx context.Context, in *UpdateCasbinPolicyRequest, opts ...grpc.CallOption) (*Empty, error)
+		// user
 		UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error)
 		UserDetailByName(ctx context.Context, in *UserName, opts ...grpc.CallOption) (*User, error)
 		UserPaging(ctx context.Context, in *UserPagingRequest, opts ...grpc.CallOption) (*UserPagingResponse, error)
@@ -121,6 +129,7 @@ func (m *defaultSystemService) Login(ctx context.Context, in *LoginRequest, opts
 	return client.Login(ctx, in, opts...)
 }
 
+// casbin_rule
 func (m *defaultSystemService) CasbinEnforcer(ctx context.Context, in *CasbinEnforceRequest, opts ...grpc.CallOption) (*CasbinEnforceResponse, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.CasbinEnforcer(ctx, in, opts...)
@@ -131,6 +140,17 @@ func (m *defaultSystemService) RefreshCasbinPolicy(ctx context.Context, in *Empt
 	return client.RefreshCasbinPolicy(ctx, in, opts...)
 }
 
+func (m *defaultSystemService) CasbinPolicyByRoleID(ctx context.Context, in *RoleID, opts ...grpc.CallOption) (*CasbinPolicyResponse, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.CasbinPolicyByRoleID(ctx, in, opts...)
+}
+
+func (m *defaultSystemService) UpdateCasbinPolicy(ctx context.Context, in *UpdateCasbinPolicyRequest, opts ...grpc.CallOption) (*Empty, error) {
+	client := pb.NewSystemServiceClient(m.cli.Conn())
+	return client.UpdateCasbinPolicy(ctx, in, opts...)
+}
+
+// user
 func (m *defaultSystemService) UserDetail(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*User, error) {
 	client := pb.NewSystemServiceClient(m.cli.Conn())
 	return client.UserDetail(ctx, in, opts...)

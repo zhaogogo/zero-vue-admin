@@ -95,9 +95,6 @@ export default {
             checkArr.map(item => {
                 menuids.push(item.id)
             })
-            console.log(menuids)
-            console.log(checkArr)
-            console.log({"id": this.row.id, "menuIdList": menuids})
             const res = await replaceRoleMenuPermission({"id": this.row.id, "menuIdList": menuids})
             if (res.code === 200) {
                 this.$message({

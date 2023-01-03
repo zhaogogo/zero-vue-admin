@@ -155,7 +155,7 @@ func (m *defaultRoleMenuModel) TransReplaceByMenus(ctx context.Context, session 
 				break
 			}
 		}
-		fmt.Println("---->", addflag, menuid)
+		//fmt.Println("---->", addflag, menuid)
 		if !addflag {
 			shouleAddMenuid = append(shouleAddMenuid, menuid)
 		}
@@ -172,8 +172,7 @@ func (m *defaultRoleMenuModel) TransReplaceByMenus(ctx context.Context, session 
 		}
 		return m.DelCache(cacheChaosSystemRoleMenu_RoleId_Keys)
 	}
-	fmt.Println("menuIDs", menuIDs)
-	fmt.Println("shouleAddMenuid", shouleAddMenuid)
+
 	values := []string{}
 	for _, menuid := range shouleAddMenuid {
 		values = append(values, fmt.Sprintf("(%v,%v)", menuid, roleid))

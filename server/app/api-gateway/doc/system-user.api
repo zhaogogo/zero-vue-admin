@@ -52,7 +52,7 @@ service ApiGateway-api {
     @handler Delete
     delete /:id (UserDeleteRequest) returns (HttpCommonResponse)
 
-    @doc "新增用户"
+    @doc "创建用户"
     @handler Create
     post /create (UserCreateRequest) returns (HttpCommonResponse)
 
@@ -68,10 +68,6 @@ service ApiGateway-api {
     @handler UpdatePassword
     put /:id/password (UpdatePasswordRequest) returns(HttpCommonResponse)
 
-    @doc "修改登陆用户密码"
-    @handler UpdateLoginPassword
-    put /password (UpdateLoginPasswordRequest) returns(HttpCommonResponse)
-
     @doc "全部用户详情"
     @handler All
     get /all returns (UserAllResponse)
@@ -79,6 +75,10 @@ service ApiGateway-api {
     @doc "分页用户详情"
     @handler Paging
     post /paging (UserPagingRequest) returns (UserPagingResponse)
+
+    @doc "修改登陆用户密码"
+    @handler UpdateLoginPassword
+    put /password (UpdateLoginPasswordRequest) returns(HttpCommonResponse)
 
     @doc "修改用户页面配置"
     @handler Page
