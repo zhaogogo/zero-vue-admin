@@ -1,4 +1,4 @@
-import {getPermission} from "@/api/user/user"
+import {getPermission} from "@/api/system/user/user"
 import {asyncRouterHandle} from '@/utils/asyncRouter'
 
 const routerList = []

@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -26,7 +26,7 @@ func NewUpdateAPILogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateA
 }
 
 func (l *UpdateAPILogic) UpdateAPI(in *pb.API) (*pb.Empty, error) {
-	newAPi := &system.Api{
+	newAPi := &model.Api{
 		Id:       in.ID,
 		Api:      in.API,
 		Group:    in.Group,

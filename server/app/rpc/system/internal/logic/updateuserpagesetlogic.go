@@ -4,9 +4,8 @@ import (
 	"context"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -30,7 +29,7 @@ func (l *UpdateUserPageSetLogic) UpdateUserPageSet(in *pb.UpdateUserPageSetReque
 	pagesetInfo, err := l.svcCtx.UserPageSetModel.FindOneByUserId(l.ctx, in.UserID)
 	if err != nil {
 		if err == sqlc.ErrNotFound {
-			pageset := &system.UserPageSet{
+			pageset := &model.UserPageSet{
 				UserId:          in.UserID,
 				Avatar:          in.Avatar,
 				DefaultRouter:   in.DefaultRouter,
@@ -47,7 +46,7 @@ func (l *UpdateUserPageSetLogic) UpdateUserPageSet(in *pb.UpdateUserPageSetReque
 		}
 		return nil, errors.Wrap(err, "数据库错误")
 	}
-	err = l.svcCtx.UserPageSetModel.Update(l.ctx, &system.UserPageSet{
+	err = l.svcCtx.UserPageSetModel.Update(l.ctx, &model.UserPageSet{
 		Id:              pagesetInfo.Id,
 		UserId:          in.UserID,
 		Avatar:          in.Avatar,

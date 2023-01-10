@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	esManagerconn "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/esManager/conn"
 	systemapi "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/api"
 	systemmenu "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/menu"
 	systemrole "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/role"
@@ -273,5 +274,45 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/api/v1/system/api"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/:id",
+					Handler: esManagerconn.DetailHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/create",
+					Handler: esManagerconn.CreateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/:id",
+					Handler: esManagerconn.UpdateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/:id",
+					Handler: esManagerconn.DELETEHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/paging",
+					Handler: esManagerconn.PagingHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/ping/:id",
+					Handler: esManagerconn.PingHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/api/v1/esmanager/conn"),
 	)
 }

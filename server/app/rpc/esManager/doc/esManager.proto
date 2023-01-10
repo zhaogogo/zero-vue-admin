@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package espb;
+
+option go_package = "./pb";
+
+import "google/protobuf/any.proto";
+
+service EsManagerService {
+  rpc ESConnPaging(ESConnPagingRequest) returns (ESConnResponse);
+  rpc ESConnTotal(Empty) returns (Total);
+  rpc Ping(PingRequest) returns (PingResponse);
+  rpc ESConnDetail (ESConnID) returns (ESConn);
+  rpc CreateESConn (CreateESConnRequest) returns (Empty);
+  rpc UpdateESConn (UpdateESConnRequest) returns (Empty);
+  rpc DeleteESConn (ESConnID) returns (Empty);
+
+}
+
+message Empty {}
+
+message ESConnID {
+  uint64 ID = 1;
+}
+
+message Total {
+  int64 Total = 1;
+}
+
+message CreateESConnRequest {
+  string ESConn = 1;
+  int64 Version = 2;
+  string User = 3;
+  string PassWord = 4;
+  string Describe = 5;
+}
+
+message UpdateESConnRequest {
+  uint64 ID = 1;
+  string ESConn = 2;
+  int64 Version = 3;
+  string User = 4;
+  string PassWord = 5;
+  string Describe = 6;
+}
+
+message ESConnPagingRequest {
+  int64 Page = 1;
+  int64 PageSize = 2;
+}
+
+message ESConnResponse {
+  repeated ESConn ESConns = 1;
+}
+message PingResponse {
+  google.protobuf.Any Data = 1;
+}
+
+message PingRequest {
+  uint64 EsConnID = 1;
+}
+
+message ESConn {
+  uint64 ID = 1;
+  string ESConn = 2;
+  int64 Version = 3;
+  string User = 4;
+  string PassWord = 5;
+  string Describe = 6;
+}

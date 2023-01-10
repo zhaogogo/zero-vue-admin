@@ -422,3 +422,61 @@ type APIAllResponse struct {
 	Total int64 `json:"total"`
 	List  []API `json:"list"`
 }
+
+type Conn struct {
+	ID       uint64 `json:"id"`
+	ESConn   string `json:"es_conn"`
+	Version  int64  `json:"version"`
+	User     string `json:"user"`
+	PassWord string `json:"passWord"`
+	Describe string `json:"describe"`
+}
+
+type ESConnDetailRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric"`
+}
+
+type ESConnDetailResponse struct {
+	HttpCommonResponse
+	Detail Conn `json:"detail"`
+}
+
+type ESConnCreateRequest struct {
+	ESConn   string `json:"es_conn,optional" validate:"required"`
+	Version  int64  `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
+	User     string `json:"user,optional"`
+	PassWord string `json:"passWord,optional"`
+	Describe string `json:"describe,optional" validate:"required"`
+}
+
+type ESConnUpdateRequest struct {
+	ID       uint64 `path:"id,optional" validate:"required,numeric"`
+	ESConn   string `json:"es_conn,optional" validate:"required"`
+	Version  int64  `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
+	User     string `json:"user,optional"`
+	PassWord string `json:"passWord,optional"`
+	Describe string `json:"describe,optional" validate:"required"`
+}
+
+type ESConnDeleteRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric"`
+}
+
+type ConnRequest struct {
+	PagingCommonRequest
+}
+
+type ConnResponse struct {
+	HttpCommonResponse
+	PagingCommonResponse
+	List []Conn `json:"list"`
+}
+
+type PingRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric"`
+}
+
+type PingResponse struct {
+	HttpCommonResponse
+	Data interface{} `json:"data"`
+}

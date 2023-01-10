@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import {changeLoginPassword} from '@/api/user/user'
+import {changeLoginPassword} from '@/api/system/user/user'
 export default {
     name: "PersionHome",
     data() {

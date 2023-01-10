@@ -67,9 +67,10 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="操作" min-width="200" fixed="right">
+                <el-table-column label="操作" min-width="260" fixed="right">
                     <template slot-scope="scope">
                         <el-button size="small" type="primary" icon="el-icon-edit" @click="editApi(scope.row)">编辑</el-button>
+                        <el-button size="mini" type="primary" icon="el-icon-document-copy" @click="copyAPI(scope.row)">复制</el-button>
                         <el-button size="mini" type="danger" icon="el-icon-delete" @click="deleteAPI(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
@@ -83,7 +84,7 @@
                 layout="total, sizes, prev, pager, next, jumper"
                 @current-change="handlePageChange"
                 @size-change="handlePageSizeChange"
-            />
+            ></el-pagination>
         </div>
 
         <el-dialog :before-close="closeDialog" :title="dialogTitle" :visible.sync="dialogFormVisible">
@@ -128,7 +129,7 @@ import {
     detailAPI,
     editApi,
     deleteMulitAPI
-} from "@/api/api/api.js"
+} from "@/api/system/api/api.js"
 import infoList from '@/mixins/infoList'
 
 const methodOptions = [
@@ -287,6 +288,10 @@ export default {
         closeDialog() {
             this.initForm()
             this.dialogFormVisible = false
+        },
+        copyAPI(data) {
+            this.form = data
+            this.openDialog("addApi")
         },
         openDialog(type) {
             switch (type) {

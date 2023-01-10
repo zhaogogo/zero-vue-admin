@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -26,9 +26,9 @@ func NewDeleteAPIMultipleAndCasbinLogic(ctx context.Context, svcCtx *svc.Service
 }
 
 func (l *DeleteAPIMultipleAndCasbinLogic) DeleteAPIMultipleAndCasbin(in *pb.DeleteAPIMultipleAndCasbinRequest) (*pb.Empty, error) {
-	apis := []system.APIDeleteMultiple{}
+	apis := []model.APIDeleteMultiple{}
 	for _, api := range in.APIs {
-		apis = append(apis, system.APIDeleteMultiple{
+		apis = append(apis, model.APIDeleteMultiple{
 			ID:     api.ID,
 			API:    api.Api,
 			Method: api.Method,

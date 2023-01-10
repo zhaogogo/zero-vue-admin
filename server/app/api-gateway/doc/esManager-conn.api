@@ -1,0 +1,121 @@
+syntax = "v1"
+
+info(
+    title: "elasticsearch集群连接管理"
+    desc: "elasticsearch集群连接管理"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+import "common.api"
+
+@server(
+    jwt: Auth
+    middleware: ParseJWTToken,CheckUserExists,Casbin
+    group: esManager/conn
+    prefix: /api/v1/esmanager/conn
+)
+service ApiGateway-api {
+    @doc "ES连接详情"
+    @handler Detail
+    get /:id (ESConnDetailRequest) returns (ESConnDetailResponse)
+
+    @doc "创建ES连接"
+    @handler Create
+    post /create (ESConnCreateRequest) returns (HttpCommonResponse)
+
+    @doc "更新ES连接"
+    @handler Update
+    put /:id (ESConnUpdateRequest) returns (HttpCommonResponse)
+
+    @doc "删除ES连接"
+    @handler DELETE
+    delete /:id (ESConnDeleteRequest) returns (HttpCommonResponse)
+
+    @doc "分页连接管理查询"
+    @handler Paging
+    post /paging (ConnRequest) returns (ConnResponse)
+
+    @doc "测试ES连接"
+    @handler Ping
+    get /ping/:id (PingRequest) returns (PingResponse)
+}
+
+//----------------------------------------------
+// 角色公共模型
+//----------------------------------------------
+type Conn struct {
+    ID uint64 `json:"id"`
+    ESConn string `json:"es_conn"`
+    Version int64 `json:"version"`
+    User string `json:"user"`
+    PassWord string `json:"passWord"`
+    Describe string `json:"describe"`
+}
+
+//----------------------------------------------
+// ES连接详情
+//----------------------------------------------
+type (
+    ESConnDetailRequest struct {
+        ID uint64 `path:"id,optional" validate:"required,numeric"`
+    }
+    ESConnDetailResponse struct {
+        HttpCommonResponse
+        Detail Conn `json:"detail"`
+    }
+)
+//----------------------------------------------
+// 创建ES连接
+//----------------------------------------------
+type ESConnCreateRequest struct {
+    ESConn string `json:"es_conn,optional" validate:"required"`
+    Version int64 `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
+    User string `json:"user,optional"`
+    PassWord string `json:"passWord,optional"`
+    Describe string `json:"describe,optional" validate:"required"`
+}
+//----------------------------------------------
+//更新ES连接
+//----------------------------------------------
+type ESConnUpdateRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric"`
+    ESConn string `json:"es_conn,optional" validate:"required"`
+    Version int64 `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
+    User string `json:"user,optional"`
+    PassWord string `json:"passWord,optional"`
+    Describe string `json:"describe,optional" validate:"required"`
+}
+//----------------------------------------------
+// 删除ES连接
+//----------------------------------------------
+type ESConnDeleteRequest struct {
+    ID uint64 `path:"id,optional" validate:"required,numeric"`
+}
+//----------------------------------------------
+// 连接管理
+//----------------------------------------------
+type (
+    ConnRequest struct {
+        PagingCommonRequest
+    }
+    ConnResponse struct {
+        HttpCommonResponse
+        PagingCommonResponse
+        List []Conn `json:"list"`
+    }
+)
+
+//----------------------------------------------
+//测试ES连接
+//----------------------------------------------
+type (
+    PingRequest struct {
+        ID uint64 `path:"id,optional" validate:"required,numeric"`
+    }
+    PingResponse struct {
+        HttpCommonResponse
+        Data interface{} `json:"data"`
+    }
+)

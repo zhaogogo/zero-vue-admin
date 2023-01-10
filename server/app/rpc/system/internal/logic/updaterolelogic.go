@@ -4,9 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"github.com/pkg/errors"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -27,7 +26,7 @@ func NewUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 }
 
 func (l *UpdateRoleLogic) UpdateRole(in *pb.UpdateRoleRequest) (*pb.Empty, error) {
-	err := l.svcCtx.RoleModel.Update(l.ctx, &system.Role{
+	err := l.svcCtx.RoleModel.Update(l.ctx, &model.Role{
 		Id:         in.ID,
 		Role:       in.Role,
 		Name:       in.Name,

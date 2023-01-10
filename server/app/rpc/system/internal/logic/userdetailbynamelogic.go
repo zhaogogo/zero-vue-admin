@@ -3,9 +3,8 @@ package logic
 import (
 	"context"
 	"github.com/pkg/errors"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -28,7 +27,7 @@ func NewUserDetailByNameLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 func (l *UserDetailByNameLogic) UserDetailByName(in *pb.UserName) (*pb.User, error) {
 	userinfo, err := l.svcCtx.UserModel.FindOneByName(l.ctx, in.Name)
 	if err != nil {
-		if err == system.ErrNotFound {
+		if err == model.ErrNotFound {
 			return nil, err
 		}
 		return nil, errors.Wrap(err, "查询数据库失败")

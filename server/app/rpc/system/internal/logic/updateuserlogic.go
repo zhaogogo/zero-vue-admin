@@ -2,9 +2,8 @@ package logic
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -25,7 +24,7 @@ func NewUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 }
 
 func (l *UpdateUserLogic) UpdateUser(in *pb.UpdateUserRequest) (*pb.Empty, error) {
-	err := l.svcCtx.UserModel.UpdateWithOutPassword(l.ctx, &system.User{
+	err := l.svcCtx.UserModel.UpdateWithOutPassword(l.ctx, &model.User{
 		Id:       in.ID,
 		Name:     in.Name,
 		NickName: in.NickName,

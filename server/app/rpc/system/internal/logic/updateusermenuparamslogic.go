@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -28,11 +27,11 @@ func NewUpdateUserMenuParamsLogic(ctx context.Context, svcCtx *svc.ServiceContex
 }
 
 func (l *UpdateUserMenuParamsLogic) UpdateUserMenuParams(in *pb.UpdateUserMenuParamsRequest) (*pb.Empty, error) {
-	insertData := []*system.UserMenuParams{}
-	updateData := []*system.UserMenuParams{}
+	insertData := []*model.UserMenuParams{}
+	updateData := []*model.UserMenuParams{}
 	for _, usermenuparam := range in.UserMenuParams {
 		if usermenuparam.ID == 0 {
-			insertData = append(insertData, &system.UserMenuParams{
+			insertData = append(insertData, &model.UserMenuParams{
 				Id:     usermenuparam.ID,
 				UserId: usermenuparam.UserID,
 				MenuId: in.MenuId,
@@ -41,7 +40,7 @@ func (l *UpdateUserMenuParamsLogic) UpdateUserMenuParams(in *pb.UpdateUserMenuPa
 				Value:  usermenuparam.Value,
 			})
 		} else {
-			updateData = append(updateData, &system.UserMenuParams{
+			updateData = append(updateData, &model.UserMenuParams{
 				Id:     usermenuparam.ID,
 				UserId: usermenuparam.UserID,
 				MenuId: in.MenuId,
@@ -73,7 +72,7 @@ func (l *UpdateUserMenuParamsLogic) UpdateUserMenuParams(in *pb.UpdateUserMenuPa
 				return err
 			}
 			for _, d := range updateData {
-				err := l.svcCtx.UserMenuParamsModel.TransUpdate(ctx, session, &system.UserMenuParams{
+				err := l.svcCtx.UserMenuParamsModel.TransUpdate(ctx, session, &model.UserMenuParams{
 					Id:     d.Id,
 					UserId: d.UserId,
 					MenuId: d.MenuId,

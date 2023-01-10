@@ -145,9 +145,9 @@ import {
     deleteMenu,
     updateMenu,
     updateUsermenuParam
-} from "@/api/menu/menu"
+} from "@/api/system/menu/menu"
 
-import { allUser } from '@/api/user/user'
+import { allUser } from '@/api/system/user/user'
 
 import infoList from "@/mixins/infoList"
 import icon from '@/view/superAdmin/menu/icon.vue'

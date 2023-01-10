@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { changeRole } from '@/api/user/user'
+import { changeRole } from '@/api/system/user/user'
 import { mapGetters, mapMutations } from 'vuex'
 import Aside from './aside/index.vue'
 import HistoryComponent from './aside/historyComponent/history.vue'

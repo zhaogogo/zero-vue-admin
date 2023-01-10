@@ -58,7 +58,7 @@
     </el-dialog>
 
     <el-drawer v-if="drawerVisible" :visible.sync="drawerVisible" :with-header="false" size="40%" title="角色配置">
-        <el-tabs class="role-box" type="border-card">
+        <el-tabs :before-leave="autoEnter" class="role-box" type="border-card">
             <el-tab-pane label="菜单">
                 <menu-permission ref="menus" :row="activeRow"></menu-permission>
             </el-tab-pane>
@@ -79,7 +79,7 @@ import {
     detailRole,
     updateRole,
     deleteRole
-} from '@/api/role/role'
+} from '@/api/system/role/role'
 import infoList from '@/mixins/infoList'
 import menuPermission from '@/view/superAdmin/role/components/menupermission.vue'
 import apiPermission from '@/view/superAdmin/role/components/apipermission.vue'
@@ -118,6 +118,18 @@ export default {
         this.getTableData()
     },
     methods: {
+        autoEnter(activeName, oldActiveName){
+            console.log("==>",activeName, oldActiveName)
+            const paneArr = ["menus", "apis"]
+            // 第一次 oldActiveName  为 undefined
+            // oldActiveName 有值时 if判断为true
+            if (oldActiveName) {  
+                if(this.$refs[paneArr[oldActiveName]].needConfirm) {
+                    this.$refs[paneArr[oldActiveName]].enterAndNext()
+                    this.$refs[paneArr[oldActiveName]].needConfirm = false
+                }
+            }
+        },
         parseTimeStamp(timestamp) {
             var time = new Date(timestamp*1000)
             var y = time.getFullYear()

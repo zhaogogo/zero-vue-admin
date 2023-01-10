@@ -4,9 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"github.com/pkg/errors"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -27,7 +26,7 @@ func NewAPIPagingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *APIPagi
 }
 
 func (l *APIPagingLogic) APIPaging(in *pb.APIPagingRequest) (*pb.APIPagingResponse, error) {
-	param := &system.PagingAPIList{
+	param := &model.PagingAPIList{
 		Page:     in.Page,
 		PageSize: in.PageSize,
 		OrderKey: in.OrderKey,

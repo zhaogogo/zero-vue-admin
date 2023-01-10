@@ -160,11 +160,11 @@ import {
     updateRole,
     deleteUser,
     editUser
-} from '@/api/user/user'
+} from '@/api/system/user/user'
 
 import {
     getAllRole
-} from '@/api/role/role'
+} from '@/api/system/role/role'
 export default {
     name: "User",
     mixins: [infoList],

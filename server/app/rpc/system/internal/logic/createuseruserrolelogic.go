@@ -5,10 +5,9 @@ import (
 	"database/sql"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/common/utils"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -34,7 +33,7 @@ func (l *CreateUserUserRoleLogic) CreateUser_UserRole(in *pb.CreateUser_UserRole
 		return nil, errors.Wrap(err, "生成密码失败")
 	}
 	err = l.svcCtx.UserModel.TransCtx(l.ctx, func(ctx context.Context, session sqlx.Session) error {
-		user := &system.User{
+		user := &model.User{
 			Id:         0,
 			Name:       in.User.Name,
 			NickName:   in.User.NickName,

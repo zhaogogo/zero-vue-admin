@@ -1,0 +1,30 @@
+Name: esmanager.rpc
+Mode: dev
+ListenOn: 0.0.0.0:9001
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: esmanager.rpc
+Mysql:
+  DataSource: root:zhaO..123@tcp(127.0.0.1:3306)/chaos_es?collation=utf8mb4_general_ci&parseTime=true&loc=Asia%2FShanghai&timeout=2s&readTimeout=1s&writeTimeout=1s
+CacheConf:
+  - Host: 127.0.0.1:6379
+    Type: node
+    Pass: zhaO..123
+    Weight: 100
+Prometheus:
+  Host: 0.0.0.0
+  Port: 18081
+  Path: /metrics
+Telemetry:
+  Endpoint: http://192.168.162.128:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
+Log:
+  Mode: console
+  Path: logs
+  Encoding: plain
+  Level: info
+  KeepDays: 7
+  MaxBackups: 2
+  MaxSize: 200

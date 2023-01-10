@@ -4,9 +4,8 @@ import (
 	"context"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,7 +28,7 @@ func NewUserPagingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserPa
 func (l *UserPagingLogic) UserPaging(in *pb.UserPagingRequest) (*pb.UserPagingResponse, error) {
 	var (
 		err      error
-		userList []system.User
+		userList []model.User
 	)
 	if in.Page == 0 && in.PageSize == 0 {
 		userList, err = l.svcCtx.UserModel.FindAll_NC(l.ctx)
@@ -40,7 +39,7 @@ func (l *UserPagingLogic) UserPaging(in *pb.UserPagingRequest) (*pb.UserPagingRe
 			return nil, errors.Wrap(err, "数据库查询失败")
 		}
 	} else {
-		userList, err = l.svcCtx.UserModel.FindPagingList_NC(l.ctx, &system.PagingUserList{Page: in.Page, PageSize: in.PageSize, NameX: in.NameX})
+		userList, err = l.svcCtx.UserModel.FindPagingList_NC(l.ctx, &model.PagingUserList{Page: in.Page, PageSize: in.PageSize, NameX: in.NameX})
 		if err != nil {
 			if err == sqlc.ErrNotFound {
 				return nil, err

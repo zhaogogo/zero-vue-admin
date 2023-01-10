@@ -1,5 +1,5 @@
-import {login} from '@/api/user/login'
-import {setUserPageSet,currentUserInfo} from '@/api/user/user'
+import {login} from '@/api/system/user/login'
+import {setUserPageSet,currentUserInfo} from '@/api/system/user/user'
 import router from '@/router/index'
 import { Message } from 'element-ui'
 

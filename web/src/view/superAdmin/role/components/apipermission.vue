@@ -22,12 +22,12 @@
 <script>
 import {
     allAPI
-} from '@/api/api/api.js'
+} from '@/api/system/api/api.js'
 
 import {
     getRoleAPI,
     updateRoleApiPermission
-} from '@/api/role/role.js'
+} from '@/api/system/role/role.js'
 
 export default {
     name: "apiPermission",
@@ -98,6 +98,9 @@ export default {
         },
         nodeChange() {
             this.needConfirm = true
+        },
+        enterAndNext() {
+            this.relation()
         },
         async relation() {
             const checkArr = this.$refs.apiTree.getCheckedNodes(true)

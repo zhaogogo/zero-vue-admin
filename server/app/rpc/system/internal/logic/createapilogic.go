@@ -2,9 +2,8 @@ package logic
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -26,7 +25,7 @@ func NewCreateAPILogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateA
 
 func (l *CreateAPILogic) CreateAPI(in *pb.CreateAPIRequest) (*pb.Empty, error) {
 
-	_, err := l.svcCtx.APIModel.Insert(l.ctx, &system.Api{
+	_, err := l.svcCtx.APIModel.Insert(l.ctx, &model.Api{
 		Id:       0,
 		Api:      in.API,
 		Group:    in.Group,

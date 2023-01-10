@@ -8,8 +8,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/config"
+	model2 "github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"strings"
 )
 
@@ -18,15 +18,15 @@ type ServiceContext struct {
 	Redis  *redis.Redis
 
 	SyncedEnforcer      *casbin.SyncedEnforcer
-	CasbinRuleModel     system.CasbinRuleModel
-	UserModel           system.UserModel
-	UserRoleModel       system.UserRoleModel
-	UserPageSetModel    system.UserPageSetModel
-	UserMenuParamsModel system.UserMenuParamsModel
-	RoleModel           system.RoleModel
-	RoleMenuModel       system.RoleMenuModel
-	MenuModel           system.MenuModel
-	APIModel            system.ApiModel
+	CasbinRuleModel     model2.CasbinRuleModel
+	UserModel           model2.UserModel
+	UserRoleModel       model2.UserRoleModel
+	UserPageSetModel    model2.UserPageSetModel
+	UserMenuParamsModel model2.UserMenuParamsModel
+	RoleModel           model2.RoleModel
+	RoleMenuModel       model2.RoleMenuModel
+	MenuModel           model2.MenuModel
+	APIModel            model2.ApiModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -40,15 +40,15 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:              c,
 		Redis:               redis,
 		SyncedEnforcer:      syncEnforcer,
-		CasbinRuleModel:     system.NewCasbinRuleModel(sqlxConn),
-		UserModel:           system.NewUserModel(sqlxConn, c.CacheConf),
-		UserRoleModel:       system.NewUserRoleModel(sqlxConn, c.CacheConf),
-		UserPageSetModel:    system.NewUserPageSetModel(sqlxConn, c.CacheConf),
-		UserMenuParamsModel: system.NewUserMenuParamsModel(sqlxConn, c.CacheConf),
-		RoleModel:           system.NewRoleModel(sqlxConn, c.CacheConf),
-		RoleMenuModel:       system.NewRoleMenuModel(sqlxConn, c.CacheConf),
-		MenuModel:           system.NewMenuModel(sqlxConn, c.CacheConf),
-		APIModel:            system.NewApiModel(sqlxConn, c.CacheConf),
+		CasbinRuleModel:     model2.NewCasbinRuleModel(sqlxConn),
+		UserModel:           model2.NewUserModel(sqlxConn, c.CacheConf),
+		UserRoleModel:       model2.NewUserRoleModel(sqlxConn, c.CacheConf),
+		UserPageSetModel:    model2.NewUserPageSetModel(sqlxConn, c.CacheConf),
+		UserMenuParamsModel: model2.NewUserMenuParamsModel(sqlxConn, c.CacheConf),
+		RoleModel:           model2.NewRoleModel(sqlxConn, c.CacheConf),
+		RoleMenuModel:       model2.NewRoleMenuModel(sqlxConn, c.CacheConf),
+		MenuModel:           model2.NewMenuModel(sqlxConn, c.CacheConf),
+		APIModel:            model2.NewApiModel(sqlxConn, c.CacheConf),
 	}
 }
 

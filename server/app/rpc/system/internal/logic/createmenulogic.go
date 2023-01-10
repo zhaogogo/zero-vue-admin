@@ -2,9 +2,8 @@ package logic
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/model/system"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -25,7 +24,7 @@ func NewCreateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 }
 
 func (l *CreateMenuLogic) CreateMenu(in *pb.CreateMenuRequest) (*pb.Empty, error) {
-	_, err := l.svcCtx.MenuModel.Insert(l.ctx, &system.Menu{
+	_, err := l.svcCtx.MenuModel.Insert(l.ctx, &model.Menu{
 		Id:        0,
 		ParentId:  in.ParentID,
 		Name:      in.Name,

@@ -26,12 +26,12 @@
 <script>
 import {
     allMenu
-} from "@/api/menu/menu"
+} from "@/api/system/menu/menu"
 
 import {
     getroleMenu,
     replaceRoleMenuPermission
-} from "@/api/role/role"
+} from "@/api/system/role/role"
 export default {
     name:"menuPermission",
     props:{

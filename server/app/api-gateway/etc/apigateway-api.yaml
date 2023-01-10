@@ -9,6 +9,12 @@ SystemAdminRpcConf:
     Hosts:
       - 127.0.0.1:2379
     Key: systemadmin.rpc
+  NonBlock: false
+ESManagerRpcConf:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: esmanager.rpc
   NonBlock: true
 
 Mysql:
