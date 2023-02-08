@@ -26,6 +26,7 @@ type EsManagerServiceClient interface {
 	ESConnTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 	Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
 	ESConnDetail(ctx context.Context, in *ESConnID, opts ...grpc.CallOption) (*ESConn, error)
+	ESConnAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ESConnResponse, error)
 	CreateESConn(ctx context.Context, in *CreateESConnRequest, opts ...grpc.CallOption) (*Empty, error)
 	UpdateESConn(ctx context.Context, in *UpdateESConnRequest, opts ...grpc.CallOption) (*Empty, error)
 	DeleteESConn(ctx context.Context, in *ESConnID, opts ...grpc.CallOption) (*Empty, error)
@@ -75,6 +76,15 @@ func (c *esManagerServiceClient) ESConnDetail(ctx context.Context, in *ESConnID,
 	return out, nil
 }
 
+func (c *esManagerServiceClient) ESConnAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ESConnResponse, error) {
+	out := new(ESConnResponse)
+	err := c.cc.Invoke(ctx, "/espb.EsManagerService/ESConnAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *esManagerServiceClient) CreateESConn(ctx context.Context, in *CreateESConnRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/espb.EsManagerService/CreateESConn", in, out, opts...)
@@ -110,6 +120,7 @@ type EsManagerServiceServer interface {
 	ESConnTotal(context.Context, *Empty) (*Total, error)
 	Ping(context.Context, *PingRequest) (*PingResponse, error)
 	ESConnDetail(context.Context, *ESConnID) (*ESConn, error)
+	ESConnAll(context.Context, *Empty) (*ESConnResponse, error)
 	CreateESConn(context.Context, *CreateESConnRequest) (*Empty, error)
 	UpdateESConn(context.Context, *UpdateESConnRequest) (*Empty, error)
 	DeleteESConn(context.Context, *ESConnID) (*Empty, error)
@@ -131,6 +142,9 @@ func (UnimplementedEsManagerServiceServer) Ping(context.Context, *PingRequest) (
 }
 func (UnimplementedEsManagerServiceServer) ESConnDetail(context.Context, *ESConnID) (*ESConn, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ESConnDetail not implemented")
+}
+func (UnimplementedEsManagerServiceServer) ESConnAll(context.Context, *Empty) (*ESConnResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ESConnAll not implemented")
 }
 func (UnimplementedEsManagerServiceServer) CreateESConn(context.Context, *CreateESConnRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateESConn not implemented")
@@ -226,6 +240,24 @@ func _EsManagerService_ESConnDetail_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EsManagerService_ESConnAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EsManagerServiceServer).ESConnAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/espb.EsManagerService/ESConnAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EsManagerServiceServer).ESConnAll(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _EsManagerService_CreateESConn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateESConnRequest)
 	if err := dec(in); err != nil {
@@ -302,6 +334,10 @@ var EsManagerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ESConnDetail",
 			Handler:    _EsManagerService_ESConnDetail_Handler,
+		},
+		{
+			MethodName: "ESConnAll",
+			Handler:    _EsManagerService_ESConnAll_Handler,
 		},
 		{
 			MethodName: "CreateESConn",

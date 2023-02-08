@@ -4,6 +4,7 @@ import VuexPersistence from "vuex-persist";
 
 import { user } from './module/user'
 import { router } from './module/router'
+import { esconn } from './module/esconn.js'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ const vuexLocal = new VuexPersistence({
 const store = new Vuex.Store({
     modules:{
         user,
-        router
+        router,
+        esconn
     },
     plugins: [vuexLocal.plugin]
 })

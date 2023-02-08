@@ -9,6 +9,7 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/config"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/middleware"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/esManager/esmanagerservice"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/monitoring/monitoringmanager"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 )
 
@@ -19,6 +20,7 @@ type ServiceContext struct {
 	ParseJWTToken      rest.Middleware
 	SystemRpcClient    systemservice.SystemService
 	ESManagerRpcClient esmanagerservice.EsManagerService
+	MonitoringRpcConf  monitoringmanager.MonitoringManager
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -38,6 +40,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		ParseJWTToken:      middleware.NewParseJWTTokenMiddleware().Handle,
 		SystemRpcClient:    systemservice.NewSystemService(zrpc.MustNewClient(c.SystemAdminRpcConf)),
 		ESManagerRpcClient: esmanagerservice.NewEsManagerService(zrpc.MustNewClient(c.ESManagerRpcConf)),
+		MonitoringRpcConf:  monitoringmanager.NewMonitoringManager(zrpc.MustNewClient(c.MonitoringRpcConf)),
 	}
 
 	middleSvcCtx.SetUp(svc.SystemRpcClient)

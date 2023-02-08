@@ -21,13 +21,15 @@ var (
 	esConnRowsExpectAutoSet   = strings.Join(stringx.Remove(esConnFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), ",")
 	esConnRowsWithPlaceHolder = strings.Join(stringx.Remove(esConnFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), "=?,") + "=?"
 
-	cacheChaosEsEsConnIdPrefix = "cache:chaosEs:esConn:id:"
+	cacheChaosEsEsConnIdPrefix       = "cache:chaosEs:esConn:id:"
+	cacheChaosEsEsConnDescribePrefix = "cache:chaosEs:esConn:describe:"
 )
 
 type (
 	esConnModel interface {
 		Insert(ctx context.Context, data *EsConn) (sql.Result, error)
 		FindOne(ctx context.Context, id uint64) (*EsConn, error)
+		FindOneByDescribe(ctx context.Context, describe string) (*EsConn, error)
 		Update(ctx context.Context, data *EsConn) error
 		Delete(ctx context.Context, id uint64) error
 	}
@@ -55,11 +57,17 @@ func newEsConnModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultEsConnModel {
 }
 
 func (m *defaultEsConnModel) Delete(ctx context.Context, id uint64) error {
+	data, err := m.FindOne(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	chaosEsEsConnDescribeKey := fmt.Sprintf("%s%v", cacheChaosEsEsConnDescribePrefix, data.Describe)
 	chaosEsEsConnIdKey := fmt.Sprintf("%s%v", cacheChaosEsEsConnIdPrefix, id)
-	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
 		return conn.ExecCtx(ctx, query, id)
-	}, chaosEsEsConnIdKey)
+	}, chaosEsEsConnDescribeKey, chaosEsEsConnIdKey)
 	return err
 }
 
@@ -80,21 +88,48 @@ func (m *defaultEsConnModel) FindOne(ctx context.Context, id uint64) (*EsConn, e
 	}
 }
 
+func (m *defaultEsConnModel) FindOneByDescribe(ctx context.Context, describe string) (*EsConn, error) {
+	chaosEsEsConnDescribeKey := fmt.Sprintf("%s%v", cacheChaosEsEsConnDescribePrefix, describe)
+	var resp EsConn
+	err := m.QueryRowIndexCtx(ctx, &resp, chaosEsEsConnDescribeKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
+		query := fmt.Sprintf("select %s from %s where `describe` = ? limit 1", esConnRows, m.table)
+		if err := conn.QueryRowCtx(ctx, &resp, query, describe); err != nil {
+			return nil, err
+		}
+		return resp.Id, nil
+	}, m.queryPrimary)
+	switch err {
+	case nil:
+		return &resp, nil
+	case sqlc.ErrNotFound:
+		return nil, ErrNotFound
+	default:
+		return nil, err
+	}
+}
+
 func (m *defaultEsConnModel) Insert(ctx context.Context, data *EsConn) (sql.Result, error) {
+	chaosEsEsConnDescribeKey := fmt.Sprintf("%s%v", cacheChaosEsEsConnDescribePrefix, data.Describe)
 	chaosEsEsConnIdKey := fmt.Sprintf("%s%v", cacheChaosEsEsConnIdPrefix, data.Id)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?)", m.table, esConnRowsExpectAutoSet)
 		return conn.ExecCtx(ctx, query, data.EsConn, data.Version, data.User, data.Password, data.Describe)
-	}, chaosEsEsConnIdKey)
+	}, chaosEsEsConnDescribeKey, chaosEsEsConnIdKey)
 	return ret, err
 }
 
-func (m *defaultEsConnModel) Update(ctx context.Context, data *EsConn) error {
+func (m *defaultEsConnModel) Update(ctx context.Context, newData *EsConn) error {
+	data, err := m.FindOne(ctx, newData.Id)
+	if err != nil {
+		return err
+	}
+
+	chaosEsEsConnDescribeKey := fmt.Sprintf("%s%v", cacheChaosEsEsConnDescribePrefix, data.Describe)
 	chaosEsEsConnIdKey := fmt.Sprintf("%s%v", cacheChaosEsEsConnIdPrefix, data.Id)
-	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, esConnRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, data.EsConn, data.Version, data.User, data.Password, data.Describe, data.Id)
-	}, chaosEsEsConnIdKey)
+		return conn.ExecCtx(ctx, query, newData.EsConn, newData.Version, newData.User, newData.Password, newData.Describe, newData.Id)
+	}, chaosEsEsConnDescribeKey, chaosEsEsConnIdKey)
 	return err
 }
 

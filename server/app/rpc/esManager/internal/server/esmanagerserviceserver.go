@@ -42,6 +42,11 @@ func (s *EsManagerServiceServer) ESConnDetail(ctx context.Context, in *pb.ESConn
 	return l.ESConnDetail(in)
 }
 
+func (s *EsManagerServiceServer) ESConnAll(ctx context.Context, in *pb.Empty) (*pb.ESConnResponse, error) {
+	l := logic.NewESConnAllLogic(ctx, s.svcCtx)
+	return l.ESConnAll(in)
+}
+
 func (s *EsManagerServiceServer) CreateESConn(ctx context.Context, in *pb.CreateESConnRequest) (*pb.Empty, error) {
 	l := logic.NewCreateESConnLogic(ctx, s.svcCtx)
 	return l.CreateESConn(in)

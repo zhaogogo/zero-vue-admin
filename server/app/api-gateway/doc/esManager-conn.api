@@ -35,11 +35,15 @@ service ApiGateway-api {
 
     @doc "分页连接管理查询"
     @handler Paging
-    post /paging (ConnRequest) returns (ConnResponse)
+    post /paging (ESConnRequest) returns (ESConnResponse)
 
     @doc "测试ES连接"
     @handler Ping
-    get /ping/:id (PingRequest) returns (PingResponse)
+    get /ping/:id (ESConnPingRequest) returns (ESConnPingResponse)
+
+    @doc "获取全部ES连接"
+    @handler All
+    get /all returns (ESConnResponse)
 }
 
 //----------------------------------------------
@@ -70,7 +74,7 @@ type (
 // 创建ES连接
 //----------------------------------------------
 type ESConnCreateRequest struct {
-    ESConn string `json:"es_conn,optional" validate:"required"`
+    ESConn string `json:"es_conn,optional" validate:"required,es_url" commen:"es连接参数不正确"`
     Version int64 `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
     User string `json:"user,optional"`
     PassWord string `json:"passWord,optional"`
@@ -81,7 +85,7 @@ type ESConnCreateRequest struct {
 //----------------------------------------------
 type ESConnUpdateRequest struct {
     ID uint64 `path:"id,optional" validate:"required,numeric"`
-    ESConn string `json:"es_conn,optional" validate:"required"`
+    ESConn string `json:"es_conn,optional" validate:"required,es_url" commen:"es连接参数不正确"`
     Version int64 `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
     User string `json:"user,optional"`
     PassWord string `json:"passWord,optional"`
@@ -97,10 +101,10 @@ type ESConnDeleteRequest struct {
 // 连接管理
 //----------------------------------------------
 type (
-    ConnRequest struct {
+    ESConnRequest struct {
         PagingCommonRequest
     }
-    ConnResponse struct {
+    ESConnResponse struct {
         HttpCommonResponse
         PagingCommonResponse
         List []Conn `json:"list"`
@@ -111,10 +115,10 @@ type (
 //测试ES连接
 //----------------------------------------------
 type (
-    PingRequest struct {
+    ESConnPingRequest struct {
         ID uint64 `path:"id,optional" validate:"required,numeric"`
     }
-    PingResponse struct {
+    ESConnPingResponse struct {
         HttpCommonResponse
         Data interface{} `json:"data"`
     }

@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	esManagerconn "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/esManager/conn"
+	prometheusalertrule "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/prometheus/alertrule"
 	systemapi "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/api"
 	systemmenu "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/menu"
 	systemrole "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/role"
@@ -310,9 +311,29 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/ping/:id",
 					Handler: esManagerconn.PingHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/all",
+					Handler: esManagerconn.AllHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/api/v1/esmanager/conn"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/paging",
+					Handler: prometheusalertrule.PagingHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/api/v1/prometheus/alertrule"),
 	)
 }

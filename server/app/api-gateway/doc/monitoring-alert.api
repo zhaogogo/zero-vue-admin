@@ -1,0 +1,57 @@
+syntax = "v1"
+
+info(
+    title: "prometheus Alert规则管理"
+    desc: "prometheus Alert规则管理"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+import "common.api"
+
+@server(
+    jwt: Auth
+    middleware: ParseJWTToken,CheckUserExists,Casbin
+    group: prometheus/alertrule
+    prefix: /api/v1/prometheus/alertrule
+)
+service ApiGateway-api {
+    @doc "分页AlertRule详情及过滤查询"
+    @handler Paging
+    post /paging (AlertRulePagingRequest) returns (AlertRulePagingResponse)
+}
+// ------------------------
+// 分页AlertRule详情及过滤查询
+// ------------------------
+type (
+    AlertRulePagingRequest {
+        PagingCommonRequest
+        OrderKey string `json:"orderKey,optional"`
+        Order string `json:"order,optional"  validate:"oneof='ascending' 'descending' ''"`
+        Name string `json:"name,optional"`
+        Type string `json:"type,optional"`
+    }
+    AlertRulePagingResponse {
+        HttpCommonResponse
+        PagingCommonResponse
+        List []AlertRule `json:"list"`
+    }
+)
+
+
+type AlertRule {
+    ID uint64 `json:"id"`
+    Name string `json:"name"`
+    Type string `json:"type"`
+    Group string `json:"group"`
+    Tag string `json:"tag"`
+    To int64 `json:"to"`
+    Expr string `json:"expr"`
+    Operator string `json:"operator"`
+    Value string `json:"value"`
+    For string `json:"for"`
+    Summary string `json:"summary"`
+    Describe string `json:"describe"`
+    IsWrite bool `json:"isWrite"`
+}

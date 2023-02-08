@@ -29,7 +29,7 @@ func NewPagingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PagingLogi
 	}
 }
 
-func (l *PagingLogic) Paging(req *types.ConnRequest) (resp *types.ConnResponse, err error) {
+func (l *PagingLogic) Paging(req *types.ESConnRequest) (resp *types.ESConnResponse, err error) {
 	var total int64
 	var msgErrList = errorx.MsgErrList{}
 	var wg sync.WaitGroup
@@ -57,7 +57,7 @@ func (l *PagingLogic) Paging(req *types.ConnRequest) (resp *types.ConnResponse, 
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
 			msgErrList.WithMeta("ESManagerRpcClient.ESConnPaging", err.Error(), esConnPagingParam)
-			return &types.ConnResponse{
+			return &types.ESConnResponse{
 				HttpCommonResponse:   types.HttpCommonResponse{Code: 200, Msg: "OK", Meta: msgErrList.List},
 				PagingCommonResponse: types.PagingCommonResponse{Page: req.Page, PageSize: req.PageSize, Total: total},
 				List:                 []types.Conn{},
@@ -85,7 +85,7 @@ func (l *PagingLogic) Paging(req *types.ConnRequest) (resp *types.ConnResponse, 
 	if elcount != 0 {
 		msg = fmt.Sprintf("Not OK(%d)", elcount)
 	}
-	return &types.ConnResponse{
+	return &types.ESConnResponse{
 		HttpCommonResponse:   types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList.List},
 		PagingCommonResponse: types.PagingCommonResponse{Page: req.Page, PageSize: req.PageSize, Total: total},
 		List:                 tconns,

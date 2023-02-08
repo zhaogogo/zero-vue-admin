@@ -29,6 +29,13 @@ export const esConnDetail = (data) => {
     })
 }
 
+export const esConnAll = () => {
+    return service({
+        url: "/api/v1/esmanager/conn/all",
+        method: "GET"
+    })
+} 
+
 export const createESConn = (data) => {
     return service({
         url:"/api/v1/esmanager/conn/create",

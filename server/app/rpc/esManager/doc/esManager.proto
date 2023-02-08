@@ -11,6 +11,7 @@ service EsManagerService {
   rpc ESConnTotal(Empty) returns (Total);
   rpc Ping(PingRequest) returns (PingResponse);
   rpc ESConnDetail (ESConnID) returns (ESConn);
+  rpc ESConnAll (Empty) returns (ESConnResponse);
   rpc CreateESConn (CreateESConnRequest) returns (Empty);
   rpc UpdateESConn (UpdateESConnRequest) returns (Empty);
   rpc DeleteESConn (ESConnID) returns (Empty);

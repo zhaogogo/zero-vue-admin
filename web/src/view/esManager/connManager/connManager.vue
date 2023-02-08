@@ -123,7 +123,6 @@ export default {
     methods: {
         async esping(data) {
             const res = await esPing(data)
-            console.log("res",res)
             if (res.code === 200) {
                 this.$message({
                     type:"success",

@@ -31,14 +31,14 @@ type ServiceContext struct {
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	sqlxConn := sqlx.NewMysql(c.Mysql.DataSource)
-	redis := redis.New(c.RedisCacheConfig.Host, redis.WithPass(c.RedisCacheConfig.Pass))
+	redisConn := redis.New(c.RedisCacheConfig.Host, redis.WithPass(c.RedisCacheConfig.Pass))
 	syncEnforcer, err := NewCasbinSyncedEnforcer(c, sqlxConn)
 	if err != nil {
 		panic(err)
 	}
 	return &ServiceContext{
 		Config:              c,
-		Redis:               redis,
+		Redis:               redisConn,
 		SyncedEnforcer:      syncEnforcer,
 		CasbinRuleModel:     model2.NewCasbinRuleModel(sqlxConn),
 		UserModel:           model2.NewUserModel(sqlxConn, c.CacheConf),

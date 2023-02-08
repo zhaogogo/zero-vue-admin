@@ -442,7 +442,7 @@ type ESConnDetailResponse struct {
 }
 
 type ESConnCreateRequest struct {
-	ESConn   string `json:"es_conn,optional" validate:"required"`
+	ESConn   string `json:"es_conn,optional" validate:"required,es_url" commen:"es连接参数不正确"`
 	Version  int64  `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
 	User     string `json:"user,optional"`
 	PassWord string `json:"passWord,optional"`
@@ -451,7 +451,7 @@ type ESConnCreateRequest struct {
 
 type ESConnUpdateRequest struct {
 	ID       uint64 `path:"id,optional" validate:"required,numeric"`
-	ESConn   string `json:"es_conn,optional" validate:"required"`
+	ESConn   string `json:"es_conn,optional" validate:"required,es_url" commen:"es连接参数不正确"`
 	Version  int64  `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
 	User     string `json:"user,optional"`
 	PassWord string `json:"passWord,optional"`
@@ -462,21 +462,51 @@ type ESConnDeleteRequest struct {
 	ID uint64 `path:"id,optional" validate:"required,numeric"`
 }
 
-type ConnRequest struct {
+type ESConnRequest struct {
 	PagingCommonRequest
 }
 
-type ConnResponse struct {
+type ESConnResponse struct {
 	HttpCommonResponse
 	PagingCommonResponse
 	List []Conn `json:"list"`
 }
 
-type PingRequest struct {
+type ESConnPingRequest struct {
 	ID uint64 `path:"id,optional" validate:"required,numeric"`
 }
 
-type PingResponse struct {
+type ESConnPingResponse struct {
 	HttpCommonResponse
 	Data interface{} `json:"data"`
+}
+
+type AlertRulePagingRequest struct {
+	PagingCommonRequest
+	OrderKey string `json:"orderKey,optional"`
+	Order    string `json:"order,optional"  validate:"oneof='ascending' 'descending' ''"`
+	Name     string `json:"name,optional"`
+	Type     string `json:"type,optional"`
+}
+
+type AlertRulePagingResponse struct {
+	HttpCommonResponse
+	PagingCommonResponse
+	List []AlertRule `json:"list"`
+}
+
+type AlertRule struct {
+	ID       uint64 `json:"id"`
+	Name     string `json:"name"`
+	Type     string `json:"type"`
+	Group    string `json:"group"`
+	Tag      string `json:"tag"`
+	To       int64  `json:"to"`
+	Expr     string `json:"expr"`
+	Operator string `json:"operator"`
+	Value    string `json:"value"`
+	For      string `json:"for"`
+	Summary  string `json:"summary"`
+	Describe string `json:"describe"`
+	IsWrite  bool   `json:"isWrite"`
 }

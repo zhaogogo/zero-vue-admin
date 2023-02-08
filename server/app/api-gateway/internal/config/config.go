@@ -19,4 +19,5 @@ type Config struct {
 
 	SystemAdminRpcConf zrpc.RpcClientConf
 	ESManagerRpcConf   zrpc.RpcClientConf
+	MonitoringRpcConf  zrpc.RpcClientConf
 }

@@ -28,7 +28,7 @@ func NewPingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PingLogic {
 	}
 }
 
-func (l *PingLogic) Ping(req *types.PingRequest) (resp *types.PingResponse, err error) {
+func (l *PingLogic) Ping(req *types.ESConnPingRequest) (resp *types.ESConnPingResponse, err error) {
 	pingParam := &esmanagerservice.PingRequest{EsConnID: req.ID}
 	res, err := l.svcCtx.ESManagerRpcClient.Ping(l.ctx, pingParam)
 	if err != nil {
@@ -36,8 +36,11 @@ func (l *PingLogic) Ping(req *types.PingRequest) (resp *types.PingResponse, err 
 		return nil, errorx.New(err, s.Message()).WithMeta("ESManagerRpcClient.Ping", err.Error(), pingParam)
 	}
 	esPingRes := &elastic.PingResult{}
-	json.Unmarshal(res.Data.Value, esPingRes)
-	return &types.PingResponse{
+	err = json.Unmarshal(res.Data.Value, esPingRes)
+	if err != nil {
+		return nil, errorx.New(err, "ESManagerRpcClient.Ping json Unmarshal失败")
+	}
+	return &types.ESConnPingResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "OK"},
 		Data:               esPingRes,
 	}, nil

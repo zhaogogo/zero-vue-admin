@@ -17,6 +17,7 @@ type (
 		esConnModel
 		FindPaging_NC(ctx context.Context, page int64, pageSize int64) ([]EsConn, error)
 		FindTotal_NC(ctx context.Context) (int64, error)
+		FindAll_NC(ctx context.Context) ([]EsConn, error)
 	}
 
 	customEsConnModel struct {
@@ -44,6 +45,18 @@ func (m *defaultEsConnModel) FindPaging_NC(ctx context.Context, page int64, page
 	return resp, nil
 }
 
+func (m *defaultEsConnModel) FindAll_NC(ctx context.Context) ([]EsConn, error) {
+	var resp []EsConn
+	query := fmt.Sprintf("select %s from %s", esConnRows, m.table)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	if err != nil {
+		return nil, err
+	}
+	if len(resp) == 0 {
+		return nil, ErrNotFound
+	}
+	return resp, nil
+}
 func (m *defaultEsConnModel) FindTotal_NC(ctx context.Context) (int64, error) {
 	var resp int64
 	query := fmt.Sprintf("SELECT count(*) AS total FROM %s", m.table)

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package monitoringpb;
+
+option go_package = "./pb";
+
+service MonitoringManager {
+  rpc AlertRulePaging(AlertRulePagingRequest) returns (AlertRulePagingResponse);
+}
+
+//-------------------
+// 请求
+//-------------------
+message Empty {}
+
+message AlertRulePagingRequest {
+  int64 Page = 1;
+  int64 PageSize = 2;
+  string OrderKey = 3;
+  string Order = 4;
+
+  string Name = 5;
+  string Type = 6;
+}
+
+message AlertRulePagingResponse {
+  repeated AlertRule AlertRules = 1;
+}
+
+message AlertRule{
+  uint64 ID = 1;
+  string Name = 2;
+  string Type = 3;
+  string Group =4;
+  string Tag = 5;
+  int64 To = 6;
+  string Expr = 7;
+  string Operator = 8;
+  string Value = 9;
+  string For = 10;
+  string Summary = 11;
+  string Describe = 12;
+  bool IsWrite = 13;
+}

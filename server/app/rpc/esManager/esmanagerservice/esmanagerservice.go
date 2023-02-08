@@ -29,6 +29,7 @@ type (
 		ESConnTotal(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Total, error)
 		Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
 		ESConnDetail(ctx context.Context, in *ESConnID, opts ...grpc.CallOption) (*ESConn, error)
+		ESConnAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ESConnResponse, error)
 		CreateESConn(ctx context.Context, in *CreateESConnRequest, opts ...grpc.CallOption) (*Empty, error)
 		UpdateESConn(ctx context.Context, in *UpdateESConnRequest, opts ...grpc.CallOption) (*Empty, error)
 		DeleteESConn(ctx context.Context, in *ESConnID, opts ...grpc.CallOption) (*Empty, error)
@@ -63,6 +64,11 @@ func (m *defaultEsManagerService) Ping(ctx context.Context, in *PingRequest, opt
 func (m *defaultEsManagerService) ESConnDetail(ctx context.Context, in *ESConnID, opts ...grpc.CallOption) (*ESConn, error) {
 	client := pb.NewEsManagerServiceClient(m.cli.Conn())
 	return client.ESConnDetail(ctx, in, opts...)
+}
+
+func (m *defaultEsManagerService) ESConnAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ESConnResponse, error) {
+	client := pb.NewEsManagerServiceClient(m.cli.Conn())
+	return client.ESConnAll(ctx, in, opts...)
 }
 
 func (m *defaultEsManagerService) CreateESConn(ctx context.Context, in *CreateESConnRequest, opts ...grpc.CallOption) (*Empty, error) {

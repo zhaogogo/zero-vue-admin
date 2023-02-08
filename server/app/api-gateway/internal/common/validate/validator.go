@@ -10,6 +10,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -30,7 +31,7 @@ func StructExceptCtx(ctx context.Context, v interface{}, field ...string) error 
 
 	validate.RegisterValidationCtx("slice_c", func(ctx context.Context, fl validator.FieldLevel) bool {
 		if fl.Field().Type().Kind() == reflect.Slice {
-			param := fl.Param()
+			param := fl.Param() // validate:"slice_c='gte=0' 'lt=3'"   获取等号后的参数
 			paramSlics := strings.Split(param, " ")
 			f := []bool{}
 			for _, v := range paramSlics {
@@ -61,16 +62,33 @@ func StructExceptCtx(ctx context.Context, v interface{}, field ...string) error 
 					return false
 				}
 			}
+		} else {
+			return false
 		}
 		//fl.Field().Len()
-		//b := fl.GetTag() //lengthc
-		//b := fl.FieldName() //Parameters
+		//b := fl.GetTag() //slice_c
+		//b := fl.FieldName() //Parameters 结构体字段的名字
+		// fl.Field().String()   // 获取字段值
 		//b := fl.Param() //'aa' 'bb' 'cc'
 		//fmt.Println("fl.Field().String()", a)
 		//fmt.Printf("fl.Param(),%q\n", b)
 		return true
 	})
-
+	validate.RegisterValidationCtx("es_url", func(ctx context.Context, fl validator.FieldLevel) bool {
+		if fl.Field().Type().Kind() == reflect.String {
+			value := fl.Field().String()
+			values := strings.Split(value, ",")
+			reg := regexp.MustCompile("http[s]?://(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\\\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9]):\\d{1,5}")
+			for _, v := range values {
+				if !reg.MatchString(v) {
+					return false
+				}
+			}
+			return true
+		} else {
+			return false
+		}
+	})
 	zh_cn := zh.New()
 	uni := ut.New(zh_cn)
 	trans, ok := uni.GetTranslator("zh")

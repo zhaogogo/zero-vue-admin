@@ -165,7 +165,7 @@ func (m *defaultUserModel) UpdateWithOutPassword(ctx context.Context, newData *U
 	chaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, data.Name)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, userRowsWithPlaceHolderWithOutPassword)
-		return conn.ExecCtx(ctx, query, newData.Name, newData.NickName, data.Type, newData.Email, newData.Phone, newData.Department, newData.Position, data.CreateBy, newData.UpdateBy, data.DeleteBy, data.DeleteTime, data.PageSetId, newData.Id)
+		return conn.ExecCtx(ctx, query, newData.Name, newData.NickName, data.Type, newData.Email, newData.Phone, newData.Department, newData.Position, data.CurrentRole, data.CreateBy, newData.UpdateBy, data.DeleteBy, data.DeleteTime, data.PageSetId, newData.Id)
 	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
 	return err
 }
