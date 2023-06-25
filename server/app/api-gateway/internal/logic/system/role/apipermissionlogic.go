@@ -2,7 +2,7 @@ package role
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -29,7 +29,7 @@ func (l *APIPermissionLogic) APIPermission(req *types.RoleAPIPermissionRequest) 
 	param := &systemservice.RoleID{ID: req.ID}
 	res, err := l.svcCtx.SystemRpcClient.CasbinPolicyByRoleID(l.ctx, param)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.CasbinPolicyByRoleID", err.Error(), param)
+		return nil, errorx.New(err, "获取角色权限失败").WithMeta("SystemRpcClient.CasbinPolicyByRoleID", err.Error(), param)
 	}
 	policy := []types.CasbinPolicy{}
 	for _, p := range res.Policy {

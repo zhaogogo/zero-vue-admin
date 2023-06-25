@@ -2,7 +2,7 @@ package menu
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
 
@@ -32,9 +32,9 @@ func (l *DeleteLogic) Delete(req *types.MenuDeleteRequest) (resp *types.HttpComm
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == "存在子菜单不可删除" {
-			return &types.HttpCommonResponse{Code: 201, Msg: "存在子菜单不可删除"}, nil
+			return nil, errorx.New(err, "存在子菜单不可删除").WithMeta("SystemRpcClient.DeleteMenu_RoleMenu_UserMenuParam", err.Error(), param)
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.DeleteMenu_RoleMenu_UserMenuParam", err.Error(), param)
+		return nil, errorx.New(err, "删除菜单失败").WithMeta("SystemRpcClient.DeleteMenu_RoleMenu_UserMenuParam", err.Error(), param)
 	}
 
 	return &types.HttpCommonResponse{

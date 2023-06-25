@@ -2,7 +2,7 @@ package user
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -37,12 +37,11 @@ func (l *PageLogic) Page(req *types.UserPageRequest) (resp *types.HttpCommonResp
 	}
 	_, err = l.svcCtx.SystemRpcClient.UpdateUserPageSet(l.ctx, params)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SetUserPageSet", err.Error(), params)
+		return nil, errorx.New(err, "更新用户页面设置失败").WithMeta("SystemRpcClient.UpdateUserPageSet", err.Error(), params)
 	}
 
 	return &types.HttpCommonResponse{
 		Code: 200,
 		Msg:  "OK",
 	}, nil
-	return
 }

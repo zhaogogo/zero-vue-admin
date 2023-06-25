@@ -2,7 +2,7 @@ package user
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"strconv"
 
@@ -47,7 +47,7 @@ func (l *CreateLogic) Create(req *types.UserCreateRequest) (resp *types.HttpComm
 	}
 	_, err = l.svcCtx.SystemRpcClient.CreateUser_UserRole(l.ctx, param)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.CreateUser_UserRole", err.Error(), param)
+		return nil, errorx.New(err, "创建用户失败").WithMeta("*SystemRpcClient.CreateUser_UserRole", err.Error(), param)
 	}
 
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil

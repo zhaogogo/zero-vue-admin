@@ -2,7 +2,7 @@ package api
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -29,7 +29,7 @@ func (l *DeleteLogic) Delete(req *types.APIDeleteRequest) (resp *types.HttpCommo
 	deleteApiParam := &systemservice.DeleteAPIAndCasbinRequest{ID: req.ID, Api: req.Api, Method: req.Method}
 	_, err = l.svcCtx.SystemRpcClient.DeleteAPIAndCasbin(l.ctx, deleteApiParam)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.DeleteAPIAndCasbin", err.Error(), deleteApiParam)
+		return nil, errorx.New(err, "删除API失败").WithMeta("SystemRpcClient.DeleteAPIAndCasbin", err.Error(), deleteApiParam)
 	}
 	return &types.HttpCommonResponse{
 		Code: 200,

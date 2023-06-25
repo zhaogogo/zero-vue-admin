@@ -1,0 +1,125 @@
+syntax = "v1"
+
+info(
+    title: "prometheus存储文件管理"
+    desc: "prometheus存储文件管理"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+import "common.api"
+
+@server(
+    jwt: Auth
+    middleware: ParseJWTToken,CheckUserExists,Casbin
+    group: monitoring/store/file
+    prefix: /api/v1/monitoring/store/file
+)
+service ApiGateway-api {
+    @doc "环境选择"
+    @handler EnvSelect
+    get /envselect () returns (EnvSelectResponseResponse)
+
+    @doc "文件展示"
+    @handler List
+    post / (FileListRequest) returns (FileListResponse)
+//
+//    @doc "更新存储连接管理"
+//    @handler Update
+//    put /:id (ConnectManagerUpdateRequest) returns (HttpCommonResponse)
+//
+//    @doc "删除存储连接管理"
+//    @handler Delete
+//    delete /:id (ConnectManagerDeleteRequest) returns (HttpCommonResponse)
+//
+//    @doc "分页获存储连接管理"
+//    @handler Paging
+//    post /paging (ConnectManagerPagingRequest) returns (ConnectManagerPagingResponse)
+}
+// ------------------------
+//环境选择
+// ------------------------
+type (
+    EnvSelectResponseResponse {
+        HttpCommonResponse
+        List []Options `json:"list"`
+    }
+    Options {
+        Value string `json:"value"`
+        Label string `json:"label"`
+        Children []Options `json:"children"`
+    }
+)
+
+// ------------------------
+// 删除存储连接管理
+// ------------------------
+type (
+    FileListRequest {
+        Host string `json:"host,optional" validate:"required,ip_port"`
+        Bucket string `json:"bucket"`
+        Path string `json:"path,optional"`
+    }
+    FileListResponse struct {
+        HttpCommonResponse
+        List []Files `json:"list"`
+    }
+    Files struct {
+        Name string `json:"name"`
+        LastModified int64 `json:"lastModified"`
+        Size int64 `json:"size"`
+        IsFile bool `json:"isFile"`
+    }
+)
+//
+//// ------------------------
+//// 更新存储连接管理
+//// ------------------------
+//type (
+//    ConnectManagerUpdateRequest {
+//        ID        uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+//        Type      string `json:"type,optional" validate:"required"`
+//        Env       string `json:"env,optional" validate:"required"`
+//        Host      string `json:"host,optional" validate:"required,ip_port"`
+//        AccessKey string `json:"accessKey,optional" validate:"required"`
+//        SecretKey string `json:"secretKey,optional" validate:"required"`
+//    }
+//)
+//
+//// ------------------------
+//// 创建存储连接管理
+//// ------------------------
+//type (
+//    ConnectManagerCreateRequest {
+//        Type      string `json:"type,optional" validate:"required"`
+//        Env       string `json:"env,optional" validate:"required"`
+//        Host      string `json:"host,optional" validate:"required,ip_port"`
+//        AccessKey string `json:"accessKey,optional" validate:"required"`
+//        SecretKey string `json:"secretKey,optional" validate:"required"`
+//    }
+//)
+//
+//// ------------------------
+//// 分页存储连接管理
+//// ------------------------
+//type (
+//    ConnectManagerPagingRequest {
+//        PagingCommonRequest
+//        Order string `json:"order,optional"  validate:"oneof='ascending' 'descending' ''"`
+//    }
+//    ConnectManagerPagingResponse {
+//        HttpCommonResponse
+//        PagingCommonResponse
+//        List []ConnectManager `json:"list"`
+//    }
+//)
+//
+//type ConnectManager {
+//    ID        uint64 `json:"id"`
+//    Type      string `json:"type"`
+//    Env       string `json:"env"`
+//    Host      string `json:"host"`
+//    AccessKey string `json:"accessKey"`
+//    SecretKey string `json:"secretKey"`
+//}

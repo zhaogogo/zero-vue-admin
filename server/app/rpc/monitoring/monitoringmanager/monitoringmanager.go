@@ -14,12 +14,20 @@ import (
 
 type (
 	AlertRule               = pb.AlertRule
+	AlertRuleCountRequest   = pb.AlertRuleCountRequest
+	AlertRuleDetailResponse = pb.AlertRuleDetailResponse
+	AlertRuleID             = pb.AlertRuleID
+	AlertRuleLabelsResponse = pb.AlertRuleLabelsResponse
 	AlertRulePagingRequest  = pb.AlertRulePagingRequest
 	AlertRulePagingResponse = pb.AlertRulePagingResponse
 	Empty                   = pb.Empty
+	Total                   = pb.Total
 
 	MonitoringManager interface {
+		AlertRuleDetail(ctx context.Context, in *AlertRuleID, opts ...grpc.CallOption) (*AlertRuleDetailResponse, error)
+		AlertRuleLabels(ctx context.Context, in *AlertRuleID, opts ...grpc.CallOption) (*AlertRuleLabelsResponse, error)
 		AlertRulePaging(ctx context.Context, in *AlertRulePagingRequest, opts ...grpc.CallOption) (*AlertRulePagingResponse, error)
+		AlertRuleCount(ctx context.Context, in *AlertRuleCountRequest, opts ...grpc.CallOption) (*Total, error)
 	}
 
 	defaultMonitoringManager struct {
@@ -33,7 +41,22 @@ func NewMonitoringManager(cli zrpc.Client) MonitoringManager {
 	}
 }
 
+func (m *defaultMonitoringManager) AlertRuleDetail(ctx context.Context, in *AlertRuleID, opts ...grpc.CallOption) (*AlertRuleDetailResponse, error) {
+	client := pb.NewMonitoringManagerClient(m.cli.Conn())
+	return client.AlertRuleDetail(ctx, in, opts...)
+}
+
+func (m *defaultMonitoringManager) AlertRuleLabels(ctx context.Context, in *AlertRuleID, opts ...grpc.CallOption) (*AlertRuleLabelsResponse, error) {
+	client := pb.NewMonitoringManagerClient(m.cli.Conn())
+	return client.AlertRuleLabels(ctx, in, opts...)
+}
+
 func (m *defaultMonitoringManager) AlertRulePaging(ctx context.Context, in *AlertRulePagingRequest, opts ...grpc.CallOption) (*AlertRulePagingResponse, error) {
 	client := pb.NewMonitoringManagerClient(m.cli.Conn())
 	return client.AlertRulePaging(ctx, in, opts...)
+}
+
+func (m *defaultMonitoringManager) AlertRuleCount(ctx context.Context, in *AlertRuleCountRequest, opts ...grpc.CallOption) (*Total, error) {
+	client := pb.NewMonitoringManagerClient(m.cli.Conn())
+	return client.AlertRuleCount(ctx, in, opts...)
 }

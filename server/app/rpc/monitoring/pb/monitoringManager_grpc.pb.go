@@ -22,7 +22,10 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MonitoringManagerClient interface {
+	AlertRuleDetail(ctx context.Context, in *AlertRuleID, opts ...grpc.CallOption) (*AlertRuleDetailResponse, error)
+	AlertRuleLabels(ctx context.Context, in *AlertRuleID, opts ...grpc.CallOption) (*AlertRuleLabelsResponse, error)
 	AlertRulePaging(ctx context.Context, in *AlertRulePagingRequest, opts ...grpc.CallOption) (*AlertRulePagingResponse, error)
+	AlertRuleCount(ctx context.Context, in *AlertRuleCountRequest, opts ...grpc.CallOption) (*Total, error)
 }
 
 type monitoringManagerClient struct {
@@ -31,6 +34,24 @@ type monitoringManagerClient struct {
 
 func NewMonitoringManagerClient(cc grpc.ClientConnInterface) MonitoringManagerClient {
 	return &monitoringManagerClient{cc}
+}
+
+func (c *monitoringManagerClient) AlertRuleDetail(ctx context.Context, in *AlertRuleID, opts ...grpc.CallOption) (*AlertRuleDetailResponse, error) {
+	out := new(AlertRuleDetailResponse)
+	err := c.cc.Invoke(ctx, "/monitoringpb.MonitoringManager/AlertRuleDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *monitoringManagerClient) AlertRuleLabels(ctx context.Context, in *AlertRuleID, opts ...grpc.CallOption) (*AlertRuleLabelsResponse, error) {
+	out := new(AlertRuleLabelsResponse)
+	err := c.cc.Invoke(ctx, "/monitoringpb.MonitoringManager/AlertRuleLabels", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *monitoringManagerClient) AlertRulePaging(ctx context.Context, in *AlertRulePagingRequest, opts ...grpc.CallOption) (*AlertRulePagingResponse, error) {
@@ -42,11 +63,23 @@ func (c *monitoringManagerClient) AlertRulePaging(ctx context.Context, in *Alert
 	return out, nil
 }
 
+func (c *monitoringManagerClient) AlertRuleCount(ctx context.Context, in *AlertRuleCountRequest, opts ...grpc.CallOption) (*Total, error) {
+	out := new(Total)
+	err := c.cc.Invoke(ctx, "/monitoringpb.MonitoringManager/AlertRuleCount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MonitoringManagerServer is the server API for MonitoringManager service.
 // All implementations must embed UnimplementedMonitoringManagerServer
 // for forward compatibility
 type MonitoringManagerServer interface {
+	AlertRuleDetail(context.Context, *AlertRuleID) (*AlertRuleDetailResponse, error)
+	AlertRuleLabels(context.Context, *AlertRuleID) (*AlertRuleLabelsResponse, error)
 	AlertRulePaging(context.Context, *AlertRulePagingRequest) (*AlertRulePagingResponse, error)
+	AlertRuleCount(context.Context, *AlertRuleCountRequest) (*Total, error)
 	mustEmbedUnimplementedMonitoringManagerServer()
 }
 
@@ -54,8 +87,17 @@ type MonitoringManagerServer interface {
 type UnimplementedMonitoringManagerServer struct {
 }
 
+func (UnimplementedMonitoringManagerServer) AlertRuleDetail(context.Context, *AlertRuleID) (*AlertRuleDetailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AlertRuleDetail not implemented")
+}
+func (UnimplementedMonitoringManagerServer) AlertRuleLabels(context.Context, *AlertRuleID) (*AlertRuleLabelsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AlertRuleLabels not implemented")
+}
 func (UnimplementedMonitoringManagerServer) AlertRulePaging(context.Context, *AlertRulePagingRequest) (*AlertRulePagingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AlertRulePaging not implemented")
+}
+func (UnimplementedMonitoringManagerServer) AlertRuleCount(context.Context, *AlertRuleCountRequest) (*Total, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AlertRuleCount not implemented")
 }
 func (UnimplementedMonitoringManagerServer) mustEmbedUnimplementedMonitoringManagerServer() {}
 
@@ -68,6 +110,42 @@ type UnsafeMonitoringManagerServer interface {
 
 func RegisterMonitoringManagerServer(s grpc.ServiceRegistrar, srv MonitoringManagerServer) {
 	s.RegisterService(&MonitoringManager_ServiceDesc, srv)
+}
+
+func _MonitoringManager_AlertRuleDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AlertRuleID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitoringManagerServer).AlertRuleDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/monitoringpb.MonitoringManager/AlertRuleDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitoringManagerServer).AlertRuleDetail(ctx, req.(*AlertRuleID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MonitoringManager_AlertRuleLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AlertRuleID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitoringManagerServer).AlertRuleLabels(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/monitoringpb.MonitoringManager/AlertRuleLabels",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitoringManagerServer).AlertRuleLabels(ctx, req.(*AlertRuleID))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _MonitoringManager_AlertRulePaging_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -88,6 +166,24 @@ func _MonitoringManager_AlertRulePaging_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MonitoringManager_AlertRuleCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AlertRuleCountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MonitoringManagerServer).AlertRuleCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/monitoringpb.MonitoringManager/AlertRuleCount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MonitoringManagerServer).AlertRuleCount(ctx, req.(*AlertRuleCountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MonitoringManager_ServiceDesc is the grpc.ServiceDesc for MonitoringManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -96,8 +192,20 @@ var MonitoringManager_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*MonitoringManagerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "AlertRuleDetail",
+			Handler:    _MonitoringManager_AlertRuleDetail_Handler,
+		},
+		{
+			MethodName: "AlertRuleLabels",
+			Handler:    _MonitoringManager_AlertRuleLabels_Handler,
+		},
+		{
 			MethodName: "AlertRulePaging",
 			Handler:    _MonitoringManager_AlertRulePaging_Handler,
+		},
+		{
+			MethodName: "AlertRuleCount",
+			Handler:    _MonitoringManager_AlertRuleCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

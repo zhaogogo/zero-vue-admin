@@ -442,7 +442,7 @@ type ESConnDetailResponse struct {
 }
 
 type ESConnCreateRequest struct {
-	ESConn   string `json:"es_conn,optional" validate:"required,es_url" commen:"es连接参数不正确"`
+	ESConn   string `json:"es_conn,optional" validate:"required,ip_port" commen:"es连接参数不正确"`
 	Version  int64  `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
 	User     string `json:"user,optional"`
 	PassWord string `json:"passWord,optional"`
@@ -481,32 +481,80 @@ type ESConnPingResponse struct {
 	Data interface{} `json:"data"`
 }
 
-type AlertRulePagingRequest struct {
-	PagingCommonRequest
-	OrderKey string `json:"orderKey,optional"`
-	Order    string `json:"order,optional"  validate:"oneof='ascending' 'descending' ''"`
-	Name     string `json:"name,optional"`
-	Type     string `json:"type,optional"`
+type ConnectManagerDetailRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
 }
 
-type AlertRulePagingResponse struct {
+type ConnectManagerDetailResponse struct {
+	HttpCommonResponse
+	Detail ConnectManager `json:"detail"`
+}
+
+type ConnectManagerDeleteRequest struct {
+	ID uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+}
+
+type ConnectManagerUpdateRequest struct {
+	ID        uint64 `path:"id,optional" validate:"required,numeric,gte=1"`
+	Type      string `json:"type,optional" validate:"required"`
+	Env       string `json:"env,optional" validate:"required"`
+	Host      string `json:"host,optional" validate:"required,ip_port"`
+	AccessKey string `json:"accessKey,optional" validate:"required"`
+	SecretKey string `json:"secretKey,optional" validate:"required"`
+}
+
+type ConnectManagerCreateRequest struct {
+	Type      string `json:"type,optional" validate:"required"`
+	Env       string `json:"env,optional" validate:"required"`
+	Host      string `json:"host,optional" validate:"required,ip_port"`
+	AccessKey string `json:"accessKey,optional" validate:"required"`
+	SecretKey string `json:"secretKey,optional" validate:"required"`
+}
+
+type ConnectManagerPagingRequest struct {
+	PagingCommonRequest
+	Order string `json:"order,optional"  validate:"oneof='ascending' 'descending' ''"`
+}
+
+type ConnectManagerPagingResponse struct {
 	HttpCommonResponse
 	PagingCommonResponse
-	List []AlertRule `json:"list"`
+	List []ConnectManager `json:"list"`
 }
 
-type AlertRule struct {
-	ID       uint64 `json:"id"`
-	Name     string `json:"name"`
-	Type     string `json:"type"`
-	Group    string `json:"group"`
-	Tag      string `json:"tag"`
-	To       int64  `json:"to"`
-	Expr     string `json:"expr"`
-	Operator string `json:"operator"`
-	Value    string `json:"value"`
-	For      string `json:"for"`
-	Summary  string `json:"summary"`
-	Describe string `json:"describe"`
-	IsWrite  bool   `json:"isWrite"`
+type ConnectManager struct {
+	ID        uint64 `json:"id"`
+	Type      string `json:"type"`
+	Env       string `json:"env"`
+	Host      string `json:"host"`
+	AccessKey string `json:"accessKey"`
+	SecretKey string `json:"secretKey"`
+}
+
+type EnvSelectResponseResponse struct {
+	HttpCommonResponse
+	List []Options `json:"list"`
+}
+
+type Options struct {
+	Value    string    `json:"value"`
+	Label    string    `json:"label"`
+	Children []Options `json:"children"`
+}
+
+type FileListRequest struct {
+	Host string `json:"host,optional" validate:"required,ip_port"`
+	Path string `json:"path,optional"`
+}
+
+type FileListResponse struct {
+	HttpCommonResponse
+	List []Files `json:"list"`
+}
+
+type Files struct {
+	Name         string `json:"name"`
+	LastModified int64  `json:"lastModified"`
+	Size         int64  `json:"size"`
+	IsFile       bool   `json:"isFile"`
 }

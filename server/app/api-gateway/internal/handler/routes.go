@@ -5,7 +5,8 @@ import (
 	"net/http"
 
 	esManagerconn "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/esManager/conn"
-	prometheusalertrule "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/prometheus/alertrule"
+	monitoringstoreconnect "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/monitoring/store/connect"
+	monitoringstorefile "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/monitoring/store/file"
 	systemapi "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/api"
 	systemmenu "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/menu"
 	systemrole "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/role"
@@ -327,13 +328,53 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
 			[]rest.Route{
 				{
+					Method:  http.MethodGet,
+					Path:    "/:id",
+					Handler: monitoringstoreconnect.DetailHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/create",
+					Handler: monitoringstoreconnect.CreateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/:id",
+					Handler: monitoringstoreconnect.UpdateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/:id",
+					Handler: monitoringstoreconnect.DeleteHandler(serverCtx),
+				},
+				{
 					Method:  http.MethodPost,
 					Path:    "/paging",
-					Handler: prometheusalertrule.PagingHandler(serverCtx),
+					Handler: monitoringstoreconnect.PagingHandler(serverCtx),
 				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-		rest.WithPrefix("/api/v1/prometheus/alertrule"),
+		rest.WithPrefix("/api/v1/monitoring/store/connect"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/envselect",
+					Handler: monitoringstorefile.EnvSelectHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/",
+					Handler: monitoringstorefile.ListHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/api/v1/monitoring/store/file"),
 	)
 }

@@ -1,0 +1,1582 @@
+2023/04/08 05:53:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:29 Error 1146 (42S02): Table 'chaos_monitoring.connect_managers' doesn't exist
+[226.549ms] [rows:0] SELECT * FROM `connect_managers`
+2023/04/08 05:59:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[113.029ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 05:59:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[43.817ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 06:02:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[101.747ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 06:02:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[76.305ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 14:59:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[116.830ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 14:59:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[84.423ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:00:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[60.904ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:00:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.340ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:03:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[193.739ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:03:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.562ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:05:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[242.878ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:05:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[36.317ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:05:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.566ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:05:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.217ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:05:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[64.732ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:05:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.585ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:05:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.292ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:05:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.071ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:06:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.407ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:06:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.586ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:07:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.484ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:07:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[10.693ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:07:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.356ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:07:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.614ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:07:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.752ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:07:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.310ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:08:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[16.086ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:08:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[13.929ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:09:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.508ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:09:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[15.504ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:09:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.627ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:09:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.055ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:09:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[43.516ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:09:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.704ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:09:04 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.513ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:09:04 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.980ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:09:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[21.693ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:09:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[13.800ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:09:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[10.643ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:09:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.913ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:09:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.594ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:09:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.347ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:10:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.870ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:10:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.880ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:10:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.526ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:10:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.530ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:10:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.870ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:10:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.812ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:10:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[37.365ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:10:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.328ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:10:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[430.007ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:10:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.668ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:10:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.032ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:10:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.151ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:10:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.852ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:10:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.325ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:10:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.595ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:10:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.840ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:10:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.945ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:10:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.322ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:11:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.121ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:11:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.821ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:11:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[16.441ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:11:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.043ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:12:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.580ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:12:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.691ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:12:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.426ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:12:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.541ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:12:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.550ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:12:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.714ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:12:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[65.635ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:12:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.295ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:12:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[16.713ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:12:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.276ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:12:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.750ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:12:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.832ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:12:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[32.593ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:12:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.851ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:12:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.510ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:12:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.823ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:12:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.813ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:12:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.379ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.507ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.567ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.603ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.631ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.642ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.115ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[7.396ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.805ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.723ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.914ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.769ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.338ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[7.374ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.392ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.046ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.768ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.847ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.068ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:13:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.324ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:13:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.448ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:14:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.200ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:14:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.024ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:14:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[28.110ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:14:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.749ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:15:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.231ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:15:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.502ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:15:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.735ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:15:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.789ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:15:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.174ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:15:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.120ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:15:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.790ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:15:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.682ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:15:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.973ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:15:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.306ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:15:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.288ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:15:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.471ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[9.786ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.113ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.600ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.105ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.394ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.720ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.178ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.503ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.667ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.961ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.428ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.220ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.533ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.663ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.487ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.873ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.779ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.215ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:16:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[40.214ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:16:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[16.762ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:18:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[175.378ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:18:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[22.083ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:18:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.870ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:18:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.216ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:19:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[482.051ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:19:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[72.056ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:20:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[428.711ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:20:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[56.214ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:20:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[94.975ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:20:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[24.085ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:21:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.662ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:21:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.084ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:21:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.125ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:21:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.407ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:21:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.615ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:21:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.286ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:21:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.124ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:21:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.201ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:21:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[14.381ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:21:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.439ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:21:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[203.499ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:21:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.185ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:21:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.874ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:21:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.666ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:21:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[11.297ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:21:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[47.408ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:21:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.351ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:21:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.581ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:22:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[11.855ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:22:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.569ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:22:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[12.193ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:22:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.807ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:22:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[34.273ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:22:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[12.563ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:22:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[29.270ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:22:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.458ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:23:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[33.541ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:23:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.450ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:23:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[135.106ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:23:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.568ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:23:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.105ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:23:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.945ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:25:05 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[60.846ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:25:05 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[14.380ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:25:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[39.925ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:25:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.535ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:25:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.936ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:25:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.981ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:25:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.390ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:25:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.844ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:25:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.026ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:25:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.939ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:25:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.556ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:25:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[8.206ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:26:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.368ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:26:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.793ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:26:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.834ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:26:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.759ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:26:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.594ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:26:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.268ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:26:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[6.580ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:26:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.365ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:26:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.419ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:26:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.679ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:26:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.353ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:26:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.160ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:26:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.585ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:26:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.567ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:26:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.190ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:26:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.170ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:26:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.703ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:26:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.817ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:27:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[51.646ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:27:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[18.163ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:28:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[18.357ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:28:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.243ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:28:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[11.576ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:28:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[8.180ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:28:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[8.327ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:28:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[18.950ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:28:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[17.250ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:28:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.355ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:28:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.490ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:28:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.441ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:28:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[4.347ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:28:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.802ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:29:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.180ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:29:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[22.782ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:29:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.810ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:29:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[11.776ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:29:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.614ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:29:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.551ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:29:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.468ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:29:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.687ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:29:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.706ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:29:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.992ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:30:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[177.213ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:30:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.898ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:30:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.074ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:30:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.990ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:30:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[188.511ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:30:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.199ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:30:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[48.041ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:30:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.245ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:30:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.320ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:30:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.816ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:30:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[12.625ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:30:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.188ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:30:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[7.427ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:30:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.616ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:30:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[15.807ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:30:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.307ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:31:04 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[4.418ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:31:04 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[10.843ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:31:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[15.617ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:31:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.792ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:31:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.879ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:31:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.298ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:31:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.607ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:31:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.888ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:31:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.326ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:31:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.849ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:31:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.512ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:31:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.637ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:31:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[7.519ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:31:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.076ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:32:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[143.402ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:32:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[35.672ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:32:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.907ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:32:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.199ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:32:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[6.104ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:32:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.717ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:32:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.399ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:32:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.341ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:32:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[20.930ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:33:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.464ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:34:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[12.585ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:34:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[14.547ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:34:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.029ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:34:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.098ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:34:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.548ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:34:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.579ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:34:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[13.636ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:34:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.550ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:34:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.322ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:34:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.282ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:34:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.319ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:34:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.482ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:34:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[6.182ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:34:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.180ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:34:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.096ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:34:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.806ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:34:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.310ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:34:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.465ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:35:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.190ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:35:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.015ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:35:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.759ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:35:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.689ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:35:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.596ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:35:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.292ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:35:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[21.771ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:35:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.386ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:35:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.352ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:35:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.701ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:35:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.442ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:35:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.716ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:35:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.714ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:35:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.633ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:35:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[7.918ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:35:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.526ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:36:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[12.550ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:36:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.870ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:36:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.754ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:36:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.727ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:36:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.863ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:36:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.359ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:36:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[50.119ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:36:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.820ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:36:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[4.747ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:36:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.482ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:37:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[10.834ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:37:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.913ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:49:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[155.325ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:49:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[55.809ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:49:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[115.570ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:49:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[13.446ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:49:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[7.875ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:49:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[25.659ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:49:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[180.932ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:49:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[14.374ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:50:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[15.084ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:50:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[13.561ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:50:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[255.699ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:50:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[16.360ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:50:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.670ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:50:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.055ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 15:50:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[4.406ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 15:50:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.290ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:00:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[628.715ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:00:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[122.880ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:02:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[181.871ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:02:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[14.959ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.348ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[13.548ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.408ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.089ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.729ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.158ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.975ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[8.345ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.218ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.288ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.830ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.017ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.313ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.539ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.765ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[31.964ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.802ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.788ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:03:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.064ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:03:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.335ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:04:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.868ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:04:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.302ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:04:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[4.834ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:04:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.759ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:04:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.591ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:04:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.364ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:04:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[8.338ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:04:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.056ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:04:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.631ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:04:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.287ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:05:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[19.322ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:05:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.091ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:05:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[25.159ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:05:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[21.297ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:05:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[9.521ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:05:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.346ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:05:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.085ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:05:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.800ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:07:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[147.976ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:07:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[18.506ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:08:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[58.785ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 16:08:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.623ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:45:07 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[11.305ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 16:45:07 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[17.096ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:50:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[17.746ms] [rows:4] SELECT * FROM `store_connect_manager`
+2023/04/08 16:50:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[17.892ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 16:59:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[23.685ms] [rows:5] SELECT * FROM `store_connect_manager`
+2023/04/08 16:59:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[46.399ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:17:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[384.781ms] [rows:5] SELECT * FROM `store_connect_manager`
+2023/04/08 17:17:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[58.407ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.629ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[19.525ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.403ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.653ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.468ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.339ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.755ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.639ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.926ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:17:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.645ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[6.552ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[11.051ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.526ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.117ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[85.828ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.504ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.758ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.564ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.625ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.164ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.070ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[11.153ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[4.894ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.051ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.082ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[8.125ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.772ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.890ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[4.540ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.879ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.539ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.597ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.648ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.031ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[39.471ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:18:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.941ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.719ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.076ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.839ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.701ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.637ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.441ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[10.706ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.648ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.801ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[15.493ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.660ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:19:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.487ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.970ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.596ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.901ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.020ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.720ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.553ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.123ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.678ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.708ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:20:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.762ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:21:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[19.586ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:21:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.950ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[14.527ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[12.483ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.673ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.226ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.562ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[10.242ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.704ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.655ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[10.257ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:22:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.279ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:23:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[26.746ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:23:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[22.517ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:23:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[7.205ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:23:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.077ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:24:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[71.202ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:24:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.895ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:25:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[426.418ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:25:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[38.814ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:25:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.982ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:25:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.800ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:26:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[11.194ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:26:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.356ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:27:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[16.352ms] [rows:5] SELECT * FROM `store_connect_manager`
+2023/04/08 17:27:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[20.853ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:28:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.436ms] [rows:5] SELECT * FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:28:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.857ms] [rows:1] SELECT count(*) FROM `store_connect_manager` LIMIT 10
+2023/04/08 17:28:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/deletelogic.go:29
+[4.259ms] [rows:1] DELETE FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ? LIMIT 10
+2023/04/08 17:28:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.860ms] [rows:0] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ? LIMIT 10
+2023/04/08 17:28:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.607ms] [rows:1] SELECT count(*) FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ? LIMIT 10
+2023/04/08 17:28:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.395ms] [rows:0] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ? LIMIT 10
+2023/04/08 17:28:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.626ms] [rows:1] SELECT count(*) FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ? LIMIT 10
+2023/04/08 17:29:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[47.761ms] [rows:0] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ? LIMIT 10
+2023/04/08 17:29:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.805ms] [rows:1] SELECT count(*) FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ? LIMIT 10
+2023/04/08 17:31:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[19.031ms] [rows:0] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ? LIMIT 10
+2023/04/08 17:31:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[0.384ms] [rows:1] SELECT count(*) FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ? LIMIT 10
+2023/04/08 17:39:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[26.548ms] [rows:4] SELECT * FROM `store_connect_manager`
+2023/04/08 17:39:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[30.058ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:39:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/deletelogic.go:29
+[31.851ms] [rows:1] DELETE FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 17:39:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.456ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:39:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.813ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:40:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[125.800ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:40:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[26.654ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:40:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[19.391ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:40:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[45.831ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:40:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.019ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:40:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.946ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:40:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.124ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:40:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.630ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:40:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[231.669ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:40:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.291ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:40:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.936ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:40:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.198ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:40:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[32.636ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:40:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.106ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:40:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.044ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:40:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.447ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:40:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.457ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:40:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.258ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:47:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[289.539ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:47:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[139.058ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:51:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[740.429ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:51:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[44.544ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:51:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[6.673ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:51:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.563ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:51:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[10.164ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:51:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.931ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:51:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[21.303ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:51:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.212ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:52:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[9.291ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:52:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[9.351ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:52:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.544ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:52:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.583ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:52:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[4.278ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:52:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.917ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:52:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.147ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:52:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[8.421ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:52:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.958ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:52:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.563ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:53:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[366.108ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:53:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[10.310ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:54:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[37.070ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:54:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[14.990ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:55:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[20.120ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:55:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[23.481ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:55:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[26.649ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:55:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.638ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:57:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[309.972ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:57:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[13.146ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:57:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[52.951ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:57:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[29.204ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 17:57:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[22.781ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 17:57:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[13.331ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:03:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/deletelogic.go:29
+[243.638ms] [rows:1] DELETE FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 18:03:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[6.468ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 18:03:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[12.988ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:03:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[340.029ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 18:03:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[23.332ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:03:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[31.047ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 18:05:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[350.657ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 18:05:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[12.511ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:05:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.699ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 18:05:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[24.165ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:05:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[25.420ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 18:05:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[26.139ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:05:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[13.780ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 18:06:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/createlogic.go:39
+[161.046ms] [rows:1] INSERT INTO `store_connect_manager` (`type`,`env`,`host`,`access_key`,`secret_key`) VALUES (?,?,?,?,?)
+2023/04/08 18:06:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.472ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:06:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[17.139ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:06:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[12.784ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 18:06:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[16.548ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:06:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[28.264ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:06:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.503ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:06:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.479ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:06:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[13.529ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 18:07:05 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[4.422ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 18:07:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[228.613ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:07:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[48.920ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:07:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[6.409ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:07:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[8.409ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:07:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[30.337ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 18:40:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[83.193ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:40:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[29.058ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:40:04 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[5.172ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 18:41:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[95.960ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:41:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[21.676ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:41:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[78.346ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 18:56:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[477.980ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:56:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[46.074ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:58:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[13.054ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:58:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[26.306ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:59:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[42.838ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:59:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.929ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:59:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[4.525ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:59:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.535ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:59:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.924ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:59:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.517ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:59:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[6.137ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:59:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.885ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 18:59:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.023ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 18:59:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.441ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:10:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[29.246ms] [rows:3] SELECT * FROM `store_connect_manager`
+2023/04/08 19:10:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.750ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:10:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[15.438ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 19:11:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[2.976ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 19:11:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[1.478ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 19:11:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/deletelogic.go:29
+[53.299ms] [rows:1] DELETE FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 19:11:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.667ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 19:11:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[8.053ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:11:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[0.939ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 19:12:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[73.455ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 19:12:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[0.975ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 19:30:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[267.381ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 19:30:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[57.580ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:30:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[13.654ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 19:30:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[12.490ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:30:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.300ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 19:30:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.853ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:30:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.223ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 19:30:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.735ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:30:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.161ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 19:30:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[19.203ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:30:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.400ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 19:30:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.053ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:30:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.246ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 19:30:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.066ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 19:52:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[171.674ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 19:52:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/updatelogic.go:30
+[88.868ms] [rows:1] UPDATE `store_connect_manager` SET `id`=?,`type`=?,`env`=?,`host`=?,`access_key`=?,`secret_key`=? WHERE `id` = ?
+2023/04/08 19:52:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.017ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 19:52:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[13.643ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:18:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[57.978ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:18:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.495ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:19:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[105.807ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:19:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[15.745ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:19:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[3.106ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:19:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[7.465ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:19:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[128.534ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:19:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[12.065ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:20:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[12.153ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:20:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.619ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:20:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[33.571ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 20:20:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/updatelogic.go:30
+[208.537ms] [rows:1] UPDATE `store_connect_manager` SET `id`=?,`type`=?,`env`=?,`host`=?,`access_key`=?,`secret_key`=? WHERE `id` = ?
+2023/04/08 20:20:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[5.558ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:20:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.383ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:20:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/detaillogic.go:29
+[0.677ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 20:20:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/updatelogic.go:30
+[22.721ms] [rows:1] UPDATE `store_connect_manager` SET `id`=?,`type`=?,`env`=?,`host`=?,`access_key`=?,`secret_key`=? WHERE `id` = ?
+2023/04/08 20:20:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[0.973ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:20:37 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.725ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:21:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[37.028ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:21:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[4.079ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:22:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.384ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:22:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[2.599ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:23:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.691ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:23:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[6.925ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:23:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.899ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:23:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[5.388ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:23:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[1.870ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:23:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[11.109ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:26:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[92.777ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:26:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[14.626ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:39:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[150.751ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:39:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[19.438ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:39:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[20.165ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/08 20:39:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[3.882ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 20:39:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/deletelogic.go:29
+[87.215ms] [rows:1] DELETE FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/08 20:39:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[2.456ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/08 20:39:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[1.749ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/08 22:18:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:30
+[185.331ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/08 22:18:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/paginglogic.go:35
+[61.865ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/09 23:42:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[70.492ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/09 23:42:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[25.267ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/09 23:42:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/detaillogic.go:29
+[4.531ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/09 23:42:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/updatelogic.go:30
+[105.726ms] [rows:1] UPDATE `store_connect_manager` SET `id`=?,`type`=?,`env`=?,`host`=?,`access_key`=?,`secret_key`=? WHERE `id` = ?
+2023/04/09 23:42:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[1.865ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/09 23:42:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[12.521ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/09 23:42:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/detaillogic.go:29
+[0.551ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/09 23:42:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/updatelogic.go:30
+[111.646ms] [rows:1] UPDATE `store_connect_manager` SET `id`=?,`type`=?,`env`=?,`host`=?,`access_key`=?,`secret_key`=? WHERE `id` = ?
+2023/04/09 23:42:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[3.558ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/09 23:42:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[7.773ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/09 23:47:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[39.069ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/09 23:48:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[52.948ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/09 23:50:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[80.474ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/09 23:54:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[171.974ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/09 23:54:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[37.300ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/09 23:56:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/detaillogic.go:29
+[68.963ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/09 23:56:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/updatelogic.go:30
+[58.432ms] [rows:1] UPDATE `store_connect_manager` SET `id`=?,`type`=?,`env`=?,`host`=?,`access_key`=?,`secret_key`=? WHERE `id` = ?
+2023/04/09 23:56:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[5.550ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/09 23:56:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[14.921ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/09 23:57:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[56.698ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/09 23:58:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[4.279ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:03:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[18.859ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:05:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[3.636ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:06:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[216.775ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:06:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[1.430ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:08:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[92.442ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:09:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[15.864ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:09:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[0.826ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:09:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[1.680ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:09:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[2.283ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:10:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[1.197ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:10:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[0.687ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:10:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[2.700ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:10:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[5.606ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:10:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[33.234ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:11:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[3.026ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:11:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[1.853ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:11:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[65.537ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:11:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[1.896ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:11:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[2.745ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:11:52 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[3.079ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:12:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[2.736ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:14:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[67.248ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:14:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[162.022ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:15:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[20.563ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 00:15:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[44.014ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 03:22:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[739.618ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 03:22:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[5.594ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 03:22:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[11.338ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 03:22:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[3.257ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 03:22:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[10.387ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 03:22:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[6.628ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 03:22:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[5.843ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 03:22:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[8.307ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 03:22:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[1.599ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:07:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[44.455ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:09:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[210.078ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:10:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[24.690ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:11:07 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[27.991ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:12:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[53.599ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:12:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[5.471ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 05:12:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[10.154ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:12:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[9.739ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:14:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[34.500ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:14:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[8.240ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 05:14:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[2.284ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:14:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:34
+[1.972ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:14:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[4.248ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:14:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:34
+[4.875ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:15:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[23.232ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:15:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:34
+[1.346ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:16:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[49.800ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:16:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[29.276ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 05:16:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/detaillogic.go:29
+[8.483ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/10 05:16:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/updatelogic.go:30
+[29.403ms] [rows:1] UPDATE `store_connect_manager` SET `id`=?,`type`=?,`env`=?,`host`=?,`access_key`=?,`secret_key`=? WHERE `id` = ?
+2023/04/10 05:16:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[0.606ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:16:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[1.912ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 05:16:30 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[0.818ms] [rows:1] SELECT * FROM `store_connect_manager`
+2023/04/10 05:16:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:34
+[1.344ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:19:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:34
+[141.756ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:20:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:34
+[84.126ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:20:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:34
+[1.690ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:21:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:34
+[106.932ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:22:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:35
+[17.902ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:23:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:35
+[1.770ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:25:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:35
+[24.023ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:28:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[175.674ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:29:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[315.304ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:30:07 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[20.315ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 05:31:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[49.628ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 20:42:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[294.516ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:42:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[84.007ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 20:42:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[2.409ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:43:09 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[491.106ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:43:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[95.581ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:43:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[5.387ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:43:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[18.665ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:43:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[9.427ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:45:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[60.602ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:45:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[7.657ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 20:46:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[7.893ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:46:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[41.201ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 20:46:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/detaillogic.go:29
+[1.277ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/10 20:46:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/detaillogic.go:29
+[2.911ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/10 20:46:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/detaillogic.go:29
+[9.136ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/10 20:46:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/updatelogic.go:30 Error 1062 (23000): Duplicate entry 'zw-http://192.168.14.101:7480' for key 'store_connect_manager.unq_env_host'
+[86.076ms] [rows:0] UPDATE `store_connect_manager` SET `id`=?,`type`=?,`env`=?,`host`=?,`access_key`=?,`secret_key`=? WHERE `id` = ?
+2023/04/10 20:46:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/detaillogic.go:29
+[12.334ms] [rows:1] SELECT * FROM `store_connect_manager` WHERE `store_connect_manager`.`id` = ?
+2023/04/10 20:47:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/updatelogic.go:30
+[26.262ms] [rows:1] UPDATE `store_connect_manager` SET `id`=?,`type`=?,`env`=?,`host`=?,`access_key`=?,`secret_key`=? WHERE `id` = ?
+2023/04/10 20:47:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[0.919ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:47:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[6.932ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 20:47:06 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[1.931ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 20:47:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[8.324ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 20:47:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[1.827ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 23:01:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[300.186ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 23:01:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[51.109ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 23:05:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[128.737ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 23:05:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[16.540ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 23:05:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[1.805ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 23:05:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[12.532ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/10 23:19:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[137.504ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 23:19:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[33.433ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 23:20:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[3.663ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 23:21:05 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[31.087ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 23:21:05 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[11.174ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/04/10 23:21:07 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[1.776ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/10 23:21:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[20.658ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/21 22:10:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/envselectlogic.go:30
+[37.616ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/21 22:10:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[6.030ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/21 22:10:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[3.665ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/21 22:16:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/file/listlogic.go:36
+[154.071ms] [rows:1] SELECT * FROM `store_connect_manager` LIMIT 1
+2023/04/21 22:16:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:30
+[0.858ms] [rows:2] SELECT * FROM `store_connect_manager`
+2023/04/21 22:16:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
+[19.567ms] [rows:1] SELECT count(*) FROM `store_connect_manager`

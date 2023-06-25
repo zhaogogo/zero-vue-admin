@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/mr"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
 	"sync"
@@ -145,7 +145,7 @@ func (l *PagingLogic) Paging(req *types.UserPagingRequest) (resp *types.UserPagi
 		elcount = len(msgErrList.List)
 	)
 	if elcount != 0 {
-		msg = fmt.Sprintf("Not OK(%d)", elcount)
+		msg = fmt.Sprintf("Not OK(%d), %v", elcount, msgErrList.List)
 	}
 	return &types.UserPagingResponse{
 		HttpCommonResponse:   types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList.List},

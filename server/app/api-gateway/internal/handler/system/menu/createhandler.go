@@ -1,7 +1,7 @@
 package menu
 
 import (
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/validate"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/validate"
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"

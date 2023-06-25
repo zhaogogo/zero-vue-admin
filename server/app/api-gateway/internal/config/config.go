@@ -8,11 +8,8 @@ import (
 type Config struct {
 	rest.RestConf
 
-	Mysql struct {
-		DataSource string
-	}
-
-	Auth struct {
+	Mysql Mysql
+	Auth  struct {
 		AccessSecret string
 		AccessExpire int64
 	}
@@ -20,4 +17,17 @@ type Config struct {
 	SystemAdminRpcConf zrpc.RpcClientConf
 	ESManagerRpcConf   zrpc.RpcClientConf
 	MonitoringRpcConf  zrpc.RpcClientConf
+}
+
+type Mysql struct {
+	System     System
+	Monitoring Monitoring
+	LogPath    string
+}
+type System struct {
+	DataSource string
+}
+
+type Monitoring struct {
+	DataSource string
 }

@@ -2,7 +2,7 @@ package role
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -29,7 +29,7 @@ func (l *UpdateMenuPermissionLogic) UpdateMenuPermission(req *types.UpdateRoleMe
 	param := &systemservice.UpdateRoleMenusRequest{RoleID: req.ID, MenuIDList: req.MenuIDList}
 	_, err = l.svcCtx.SystemRpcClient.UpdateRoleMenus(l.ctx, param)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UpdateRoleMenus", err.Error(), param)
+		return nil, errorx.New(err, "更新菜单权限失败").WithMeta("SystemRpcClient.UpdateRoleMenus", err.Error(), param)
 	}
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
 }

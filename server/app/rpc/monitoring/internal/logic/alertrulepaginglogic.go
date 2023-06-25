@@ -56,14 +56,16 @@ func (l *AlertRulePagingLogic) AlertRulePaging(in *pb.AlertRulePagingRequest) (*
 			Operator: v.Operator,
 			Value:    v.Value,
 			For:      v.For,
-			IsWrite:  v.IsWrite == 1,
+
+			IsWrite: v.IsWrite == 1,
 		}
 		if v.Value == "" {
-			pAlertRule.Describe = v.Describe
-			pAlertRule.Summary = v.Summary
+			pAlertRule.Summary = v.AnnoSummary + v.AnnoTag
+			pAlertRule.Describe = pAlertRule.Summary + v.AnnoDesc
+
 		} else {
-			pAlertRule.Describe = v.Describe + v.Operator + v.Value
-			pAlertRule.Summary = v.Summary + v.Operator + v.Value
+			pAlertRule.Summary = v.AnnoSummary + v.Operator + v.Value + v.AnnoTag
+			pAlertRule.Describe = pAlertRule.Summary + v.AnnoDesc
 		}
 		pAlertRules = append(pAlertRules, pAlertRule)
 	}

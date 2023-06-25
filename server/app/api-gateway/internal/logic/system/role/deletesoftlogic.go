@@ -2,7 +2,7 @@ package role
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -30,7 +30,7 @@ func (l *DeleteSoftLogic) DeleteSoft(req *types.RoleDeleteSoftRequest) (resp *ty
 	param := &systemservice.DeleteSoftRoleRequest{RoleID: req.ID, DeleteBy: username, State: req.State}
 	_, err = l.svcCtx.SystemRpcClient.DeleteSoftRole(l.ctx, param)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.DeleteSoftRole", err.Error(), param)
+		return nil, errorx.New(err, "禁用角色失败").WithMeta("*SystemRpcClient.DeleteSoftRole", err.Error(), param)
 	}
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
 }

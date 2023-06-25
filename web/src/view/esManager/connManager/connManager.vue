@@ -4,7 +4,7 @@
         <el-button type="primary" icon="el-icon-plus" size="mini" style="float:right" @click="addESConn">新建连接信息</el-button>
     </div>
     <el-table
-        loading="loading"
+        :loading="loading"
         :data="tableData"
         border
         stripe

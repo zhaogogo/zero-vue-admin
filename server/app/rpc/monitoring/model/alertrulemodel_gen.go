@@ -21,17 +21,15 @@ var (
 	alertRuleRowsExpectAutoSet   = strings.Join(stringx.Remove(alertRuleFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), ",")
 	alertRuleRowsWithPlaceHolder = strings.Join(stringx.Remove(alertRuleFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), "=?,") + "=?"
 
-	cacheChaosMonitoringAlertRuleIdPrefix                            = "cache:chaosMonitoring:alertRule:id:"
-	cacheChaosMonitoringAlertRuleTypeGroupPrefix                     = "cache:chaosMonitoring:alertRule:type:group:"
-	cacheChaosMonitoringAlertRuleTypeGroupTagNameOperatorValuePrefix = "cache:chaosMonitoring:alertRule:type:group:tag:name:operator:value:"
+	cacheChaosMonitoringAlertRuleIdPrefix                   = "cache:chaosMonitoring:alertRule:id:"
+	cacheChaosMonitoringAlertRuleTagNameOperatorValuePrefix = "cache:chaosMonitoring:alertRule:tag:name:operator:value:"
 )
 
 type (
 	alertRuleModel interface {
 		Insert(ctx context.Context, data *AlertRule) (sql.Result, error)
 		FindOne(ctx context.Context, id uint64) (*AlertRule, error)
-		FindOneByTypeGroup(ctx context.Context, tp string, group string) (*AlertRule, error)
-		FindOneByTypeGroupTagNameOperatorValue(ctx context.Context, tp string, group string, tag string, name string, operator string, value string) (*AlertRule, error)
+		FindOneByTagNameOperatorValue(ctx context.Context, tag string, name string, operator string, value string) (*AlertRule, error)
 		Update(ctx context.Context, data *AlertRule) error
 		Delete(ctx context.Context, id uint64) error
 	}
@@ -42,19 +40,20 @@ type (
 	}
 
 	AlertRule struct {
-		Id       uint64 `db:"id"`
-		Name     string `db:"name"`
-		Type     string `db:"type"`
-		Group    string `db:"group"`
-		Tag      string `db:"tag"`
-		To       int64  `db:"to"`
-		Expr     string `db:"expr"`
-		Operator string `db:"operator"`
-		Value    string `db:"value"`
-		For      string `db:"for"`
-		Summary  string `db:"summary"`
-		Describe string `db:"describe"`
-		IsWrite  int64  `db:"is_write"`
+		Id          uint64 `db:"id"`
+		Name        string `db:"name"`
+		Type        string `db:"type"`
+		Group       string `db:"group"`
+		Tag         string `db:"tag"`
+		To          int64  `db:"to"`
+		Expr        string `db:"expr"`
+		Operator    string `db:"operator"`
+		Value       string `db:"value"`
+		For         string `db:"for"`
+		AnnoSummary string `db:"anno_summary"`
+		AnnoTag     string `db:"anno_tag"`
+		AnnoDesc    string `db:"anno_desc"`
+		IsWrite     int64  `db:"is_write"`
 	}
 )
 
@@ -72,12 +71,11 @@ func (m *defaultAlertRuleModel) Delete(ctx context.Context, id uint64) error {
 	}
 
 	chaosMonitoringAlertRuleIdKey := fmt.Sprintf("%s%v", cacheChaosMonitoringAlertRuleIdPrefix, id)
-	chaosMonitoringAlertRuleTypeGroupKey := fmt.Sprintf("%s%v:%v", cacheChaosMonitoringAlertRuleTypeGroupPrefix, data.Type, data.Group)
-	chaosMonitoringAlertRuleTypeGroupTagNameOperatorValueKey := fmt.Sprintf("%s%v:%v:%v:%v:%v:%v", cacheChaosMonitoringAlertRuleTypeGroupTagNameOperatorValuePrefix, data.Type, data.Group, data.Tag, data.Name, data.Operator, data.Value)
+	chaosMonitoringAlertRuleTagNameOperatorValueKey := fmt.Sprintf("%s%v:%v:%v:%v", cacheChaosMonitoringAlertRuleTagNameOperatorValuePrefix, data.Tag, data.Name, data.Operator, data.Value)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
 		return conn.ExecCtx(ctx, query, id)
-	}, chaosMonitoringAlertRuleIdKey, chaosMonitoringAlertRuleTypeGroupKey, chaosMonitoringAlertRuleTypeGroupTagNameOperatorValueKey)
+	}, chaosMonitoringAlertRuleIdKey, chaosMonitoringAlertRuleTagNameOperatorValueKey)
 	return err
 }
 
@@ -98,32 +96,12 @@ func (m *defaultAlertRuleModel) FindOne(ctx context.Context, id uint64) (*AlertR
 	}
 }
 
-func (m *defaultAlertRuleModel) FindOneByTypeGroup(ctx context.Context, tp string, group string) (*AlertRule, error) {
-	chaosMonitoringAlertRuleTypeGroupKey := fmt.Sprintf("%s%v:%v", cacheChaosMonitoringAlertRuleTypeGroupPrefix, tp, group)
+func (m *defaultAlertRuleModel) FindOneByTagNameOperatorValue(ctx context.Context, tag string, name string, operator string, value string) (*AlertRule, error) {
+	chaosMonitoringAlertRuleTagNameOperatorValueKey := fmt.Sprintf("%s%v:%v:%v:%v", cacheChaosMonitoringAlertRuleTagNameOperatorValuePrefix, tag, name, operator, value)
 	var resp AlertRule
-	err := m.QueryRowIndexCtx(ctx, &resp, chaosMonitoringAlertRuleTypeGroupKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
-		query := fmt.Sprintf("select %s from %s where `type` = ? and `group` = ? limit 1", alertRuleRows, m.table)
-		if err := conn.QueryRowCtx(ctx, &resp, query, tp, group); err != nil {
-			return nil, err
-		}
-		return resp.Id, nil
-	}, m.queryPrimary)
-	switch err {
-	case nil:
-		return &resp, nil
-	case sqlc.ErrNotFound:
-		return nil, ErrNotFound
-	default:
-		return nil, err
-	}
-}
-
-func (m *defaultAlertRuleModel) FindOneByTypeGroupTagNameOperatorValue(ctx context.Context, tp string, group string, tag string, name string, operator string, value string) (*AlertRule, error) {
-	chaosMonitoringAlertRuleTypeGroupTagNameOperatorValueKey := fmt.Sprintf("%s%v:%v:%v:%v:%v:%v", cacheChaosMonitoringAlertRuleTypeGroupTagNameOperatorValuePrefix, tp, group, tag, name, operator, value)
-	var resp AlertRule
-	err := m.QueryRowIndexCtx(ctx, &resp, chaosMonitoringAlertRuleTypeGroupTagNameOperatorValueKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
-		query := fmt.Sprintf("select %s from %s where `type` = ? and `group` = ? and `tag` = ? and `name` = ? and `operator` = ? and `value` = ? limit 1", alertRuleRows, m.table)
-		if err := conn.QueryRowCtx(ctx, &resp, query, tp, group, tag, name, operator, value); err != nil {
+	err := m.QueryRowIndexCtx(ctx, &resp, chaosMonitoringAlertRuleTagNameOperatorValueKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
+		query := fmt.Sprintf("select %s from %s where `tag` = ? and `name` = ? and `operator` = ? and `value` = ? limit 1", alertRuleRows, m.table)
+		if err := conn.QueryRowCtx(ctx, &resp, query, tag, name, operator, value); err != nil {
 			return nil, err
 		}
 		return resp.Id, nil
@@ -140,12 +118,11 @@ func (m *defaultAlertRuleModel) FindOneByTypeGroupTagNameOperatorValue(ctx conte
 
 func (m *defaultAlertRuleModel) Insert(ctx context.Context, data *AlertRule) (sql.Result, error) {
 	chaosMonitoringAlertRuleIdKey := fmt.Sprintf("%s%v", cacheChaosMonitoringAlertRuleIdPrefix, data.Id)
-	chaosMonitoringAlertRuleTypeGroupKey := fmt.Sprintf("%s%v:%v", cacheChaosMonitoringAlertRuleTypeGroupPrefix, data.Type, data.Group)
-	chaosMonitoringAlertRuleTypeGroupTagNameOperatorValueKey := fmt.Sprintf("%s%v:%v:%v:%v:%v:%v", cacheChaosMonitoringAlertRuleTypeGroupTagNameOperatorValuePrefix, data.Type, data.Group, data.Tag, data.Name, data.Operator, data.Value)
+	chaosMonitoringAlertRuleTagNameOperatorValueKey := fmt.Sprintf("%s%v:%v:%v:%v", cacheChaosMonitoringAlertRuleTagNameOperatorValuePrefix, data.Tag, data.Name, data.Operator, data.Value)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, alertRuleRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.Name, data.Type, data.Group, data.Tag, data.To, data.Expr, data.Operator, data.Value, data.For, data.Summary, data.Describe, data.IsWrite)
-	}, chaosMonitoringAlertRuleIdKey, chaosMonitoringAlertRuleTypeGroupKey, chaosMonitoringAlertRuleTypeGroupTagNameOperatorValueKey)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, alertRuleRowsExpectAutoSet)
+		return conn.ExecCtx(ctx, query, data.Name, data.Type, data.Group, data.Tag, data.To, data.Expr, data.Operator, data.Value, data.For, data.AnnoSummary, data.AnnoTag, data.AnnoDesc, data.IsWrite)
+	}, chaosMonitoringAlertRuleIdKey, chaosMonitoringAlertRuleTagNameOperatorValueKey)
 	return ret, err
 }
 
@@ -156,12 +133,11 @@ func (m *defaultAlertRuleModel) Update(ctx context.Context, newData *AlertRule) 
 	}
 
 	chaosMonitoringAlertRuleIdKey := fmt.Sprintf("%s%v", cacheChaosMonitoringAlertRuleIdPrefix, data.Id)
-	chaosMonitoringAlertRuleTypeGroupKey := fmt.Sprintf("%s%v:%v", cacheChaosMonitoringAlertRuleTypeGroupPrefix, data.Type, data.Group)
-	chaosMonitoringAlertRuleTypeGroupTagNameOperatorValueKey := fmt.Sprintf("%s%v:%v:%v:%v:%v:%v", cacheChaosMonitoringAlertRuleTypeGroupTagNameOperatorValuePrefix, data.Type, data.Group, data.Tag, data.Name, data.Operator, data.Value)
+	chaosMonitoringAlertRuleTagNameOperatorValueKey := fmt.Sprintf("%s%v:%v:%v:%v", cacheChaosMonitoringAlertRuleTagNameOperatorValuePrefix, data.Tag, data.Name, data.Operator, data.Value)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, alertRuleRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.Name, newData.Type, newData.Group, newData.Tag, newData.To, newData.Expr, newData.Operator, newData.Value, newData.For, newData.Summary, newData.Describe, newData.IsWrite, newData.Id)
-	}, chaosMonitoringAlertRuleIdKey, chaosMonitoringAlertRuleTypeGroupKey, chaosMonitoringAlertRuleTypeGroupTagNameOperatorValueKey)
+		return conn.ExecCtx(ctx, query, newData.Name, newData.Type, newData.Group, newData.Tag, newData.To, newData.Expr, newData.Operator, newData.Value, newData.For, newData.AnnoSummary, newData.AnnoTag, newData.AnnoDesc, newData.IsWrite, newData.Id)
+	}, chaosMonitoringAlertRuleIdKey, chaosMonitoringAlertRuleTagNameOperatorValueKey)
 	return err
 }
 

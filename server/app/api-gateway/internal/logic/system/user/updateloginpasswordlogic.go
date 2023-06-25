@@ -2,7 +2,7 @@ package user
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -30,7 +30,7 @@ func (l *UpdateLoginPasswordLogic) UpdateLoginPassword(req *types.UpdateLoginPas
 	updateUserPassowrdParam := &systemservice.UpdateUserPasswordRequest{ID: userid, Password: req.Password}
 	_, err = l.svcCtx.SystemRpcClient.UpdateUserPassword(l.ctx, updateUserPassowrdParam)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.ChangePassword", err.Error(), updateUserPassowrdParam)
+		return nil, errorx.New(err, "更新用户密码失败").WithMeta("SystemRpcClient.ChangePassword", err.Error(), updateUserPassowrdParam)
 	}
 	return &types.HttpCommonResponse{
 		Code: 200,

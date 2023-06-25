@@ -3,7 +3,7 @@ package role
 import (
 	"context"
 	"database/sql"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
 
@@ -40,7 +40,7 @@ func (l *AllLogic) All() (resp *types.RoleAllResponse, err error) {
 				List:               roleList,
 			}, nil
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.AllRoleList", err.Error(), param)
+		return nil, errorx.New(err, "获取全部角色失败").WithMeta("*SystemRpcClient.AllRoleList", err.Error(), param)
 	}
 	var (
 		state = map[bool]string{

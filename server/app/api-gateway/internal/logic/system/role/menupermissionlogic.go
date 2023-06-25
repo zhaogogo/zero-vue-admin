@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/zeromicro/go-zero/core/mr"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
 
@@ -38,7 +38,7 @@ func (l *MenuPermissionLogic) MenuPermission(req *types.RoleMenuPermissionReques
 		if s.Message() == sql.ErrNoRows.Error() {
 			res = new(systemservice.RoleMenuResponse)
 		} else {
-			return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.RoleMenuByRoleID", err.Error(), roleMenuParam)
+			return nil, errorx.New(err, "获取角色菜单失败").WithMeta("SystemRpcClient.RoleMenuByRoleID", err.Error(), roleMenuParam)
 		}
 	}
 	mr.MapReduce(

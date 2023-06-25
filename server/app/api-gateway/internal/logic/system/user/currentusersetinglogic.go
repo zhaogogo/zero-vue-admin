@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/mr"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
@@ -120,7 +120,7 @@ func (l *CurrentUserSetingLogic) CurrentUserSeting() (resp *types.CurrentUserSet
 	wg.Wait()
 	var msg string = "OK"
 	if len(msgErrList.List) != 0 {
-		msg = fmt.Sprintf("Not OK(%d)", len(msgErrList.List))
+		msg = fmt.Sprintf("Not OK(%d), %v", len(msgErrList.List), msgErrList.List)
 	}
 	return &types.CurrentUserSetResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList.List},

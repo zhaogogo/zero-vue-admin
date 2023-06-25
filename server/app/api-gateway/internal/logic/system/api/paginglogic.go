@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
 	"sync"
@@ -76,7 +76,7 @@ func (l *PagingLogic) Paging(req *types.APIPagingRequest) (resp *types.APIPaging
 				List:                 []types.API{},
 			}, nil
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.APIPaging", err.Error(), param)
+		return nil, errorx.New(err, "分页获取API失败").WithMeta("SystemRpcClient.APIPaging", err.Error(), param)
 	}
 	tapis := []types.API{}
 	for _, api := range apis.APIs {
@@ -96,7 +96,7 @@ func (l *PagingLogic) Paging(req *types.APIPagingRequest) (resp *types.APIPaging
 		elcount = len(msgErrList.List)
 	)
 	if elcount != 0 {
-		msg = fmt.Sprintf("Not OK(%d)", elcount)
+		msg = fmt.Sprintf("Not OK(%d) %v", elcount, msgErrList.List)
 	}
 
 	return &types.APIPagingResponse{

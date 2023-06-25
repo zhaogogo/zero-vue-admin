@@ -2,7 +2,7 @@ package role
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -37,7 +37,7 @@ func (l *UpdateLogic) Update(req *types.RoleUpdateRequest) (resp *types.HttpComm
 	}
 	_, err = l.svcCtx.SystemRpcClient.UpdateRole(l.ctx, param)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UpdateRole", err.Error(), param)
+		return nil, errorx.New(err, "更新角色失败").WithMeta("SystemRpcClient.UpdateRole", err.Error(), param)
 	}
 
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil

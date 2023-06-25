@@ -24,7 +24,11 @@ MonitoringRpcConf:
   NonBlock: true
 
 Mysql:
-  DataSource: root:zhaO..123@tcp(127.0.0.1:3306)/chaos_system?collation=utf8mb4_general_ci&parseTime=true&loc=Asia%2FShanghai&timeout=2s&readTimeout=1s&writeTimeout=1s
+  System:
+    DataSource: root:zhaO..123@tcp(127.0.0.1:3306)/chaos_system?collation=utf8mb4_general_ci&parseTime=true&loc=Asia%2FShanghai&timeout=2s&readTimeout=1s&writeTimeout=1s
+  Monitoring:
+    DataSource: root:zhaO..123@tcp(127.0.0.1:3306)/chaos_monitoring?collation=utf8mb4_general_ci&parseTime=true&loc=Asia%2FShanghai&timeout=2s&readTimeout=1s&writeTimeout=1s
+  LogPath: "logs/gorm.log"
 Prometheus:
   Host: 0.0.0.0
   Port: 18888
@@ -35,6 +39,7 @@ Telemetry:
   Batcher: jaeger
 Log:
   Mode: console
+#  Mode: file
   Path: logs
   Encoding: plain
   Level: info

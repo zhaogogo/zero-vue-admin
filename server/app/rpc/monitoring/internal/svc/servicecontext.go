@@ -8,9 +8,10 @@ import (
 )
 
 type ServiceContext struct {
-	Config         config.Config
-	Redis          *redis.Redis
-	AlertRuleModel model.AlertRuleModel
+	Config          config.Config
+	Redis           *redis.Redis
+	AlertRuleModel  model.AlertRuleModel
+	AlertRuleLabels model.AlertRuleLabelsModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -18,8 +19,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	redisConn := redis.New(c.RedisCacheConfig.Host, redis.WithPass(c.RedisCacheConfig.Pass))
 
 	return &ServiceContext{
-		Config:         c,
-		Redis:          redisConn,
-		AlertRuleModel: model.NewAlertRuleModel(sqlxConn, c.CacheConf),
+		Config:          c,
+		Redis:           redisConn,
+		AlertRuleModel:  model.NewAlertRuleModel(sqlxConn, c.CacheConf),
+		AlertRuleLabels: model.NewAlertRuleLabelsModel(sqlxConn, c.CacheConf),
 	}
 }

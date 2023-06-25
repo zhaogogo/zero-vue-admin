@@ -1,0 +1,91 @@
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T05:25:19.787+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+empty etcd hosts:30.453+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T05:53:03.933+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+2023-04-08T05:59:08.782+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+2023-04-08T05:59:08.782+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+monitoringmanager.rpc/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T06:02:00.764+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+2023-04-08T14:58:05.102+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:Starting server at 0.0.0.0:8888...
+1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=8225346283ac2825914841d27055870a	span=0926eff454dfe50a	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=8225346283ac2825914841d27055870a	span=0926eff454dfe50a	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceeded0.1:2379/systemadmin.rpc/pb.SystemService/MenuDetail - ID:2 - rpc error: code = DeadlineExceeded desc = context deadline exceeded	duration=2015.rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=8225346283ac2825914841d27055870a	span=0926eff454dfe50a	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceeded0.1:2379/systemadmin.rpc/pb.SystemService/MenuDetail - ID:3 - rpc error: code = DeadlineExceeded desc = context deadline exceeded	duration=2012.rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=8225346283ac2825914841d27055870a	span=0926eff454dfe50a	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=8225346283ac2825914841d27055870a	span=0926eff454dfe50a	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=8225346283ac2825914841d27055870a	span=0926eff454dfe50a	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=8225346283ac2825914841d27055870a	span=0926eff454dfe50a	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=8225346283ac2825914841d27055870a	span=0926eff454dfe50a	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=e85bf06fecb10e1c86f616b322d10652	span=a8fe16483a14dc5e	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=e85bf06fecb10e1c86f616b322d10652	span=a8fe16483a14dc5e	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=e85bf06fecb10e1c86f616b322d10652	span=a8fe16483a14dc5e	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=e85bf06fecb10e1c86f616b322d10652	span=a8fe16483a14dc5e	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=e85bf06fecb10e1c86f616b322d10652	span=a8fe16483a14dc5e	caller=menu/usermenuslogic.go:96
+00-e85bf06fecb10e1c86f616b322d10652-52a1cebc2dc4eefa-01ine exceededDeadlineExceeded desc = context deadline exceeded	trace=e85bf06fecb10e1c86f616b322d10652	span=a8fe16483a14dc5e	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceeded0.1:2379/systemadmin.rpc/pb.SystemService/MenuDetail - ID:6 - rpc error: code = DeadlineExceeded desc = context deadline exceeded	duration=2014.rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+2014.8ms rpc error: code = DeadlineExceeded desc = context deadline exceededxceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+trace=2362d808c645b42f2979d6e05ad58801.go:25ntext deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=2362d808c645b42f2979d6e05ad58801	span=f4d0e7230f285665	caller=menu/usermenuslogic.go:96
+Starting server at 0.0.0.0:8888...
+1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+Starting server at 0.0.0.0:8888...
+1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+00-523a5df4a60ddada3274610b91d9e3e5-f09c7d42e03f7ac0-01ine exceededDeadlineExceeded desc = context deadline exceeded	trace=523a5df4a60ddada3274610b91d9e3e5	span=6fe1122bb7fec4fa	caller=menu/usermenuslogic.go:96
+caller=internal/discovbuilder.go:34SIENT_FAILURE "ServiceConfig": null,
+  "Attributes": null
+} ()Scheme:2023-04-08T16:15:49.437+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:21:22.127+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+map[hasleader:[true]]/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:26:34.100+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+monitoringmanager.rpc/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:28:19.817+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:30:10.521+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+monitoringmanager.rpc/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:31:54.701+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+monitoringmanager.rpc/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:34:06.847+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:34:52.083+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:35:16.649+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+map[hasleader:[true]]/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:Starting server at 0.0.0.0:8888...
+1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:Starting server at 0.0.0.0:8888...
+1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+2023-04-08T16:51:03.327+08:00	[31;1m error [0m	[otel] error: Post "http://192.168.162.128:14268/api/traces": context deadline exceeded	caller=trace/agent.go:82
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:Starting server at 0.0.0.0:8888...
+1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+map[hasleader:[true]]/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:54:20.870+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+monitoringmanager.rpc/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T16:59:26.960+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+parsed dial target is: {Scheme:etcd Authority:127.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:Starting server at 0.0.0.0:8888...
+1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+monitoringmanager.rpc/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T17:27:00.797+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+monitoringmanager.rpc/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-04-08T17:39:16.204+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=5f36568a539763f3588f56bb62ccb391	span=2c44544026c27e8d	caller=menu/usermenuslogic.go:96
+00-5f36568a539763f3588f56bb62ccb391-7647e2b8ba745a0a-01ine exceededDeadlineExceeded desc = context deadline exceeded	trace=5f36568a539763f3588f56bb62ccb391	span=2c44544026c27e8d	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=5f36568a539763f3588f56bb62ccb391	span=2c44544026c27e8d	caller=menu/usermenuslogic.go:96
+monitoringmanager.rpc/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:Starting server at 0.0.0.0:8888...
+1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+map[hasleader:[true]]/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:0.0.0.0:8888ver at 0.0.0.0:8888...
+1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=bd8bcc3d90a8c492b23cb3db8cdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=bd8bcc3d90a8c492b23cb3db8cdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+[0m;1mclientinterceptors/durationinterceptor.go:25emService/MenuDetail - ID:7 - rpc error: code = DeadlineExceeded desc = context deadline exceededcdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+[0m;1mclientinterceptors/durationinterceptor.go:25emService/MenuDetail - ID:17 - rpc error: code = DeadlineExceeded desc = context deadline exceededdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceeded0.1:2379/systemadmin.rpc/pb.SystemService/MenuDetail - ID:18 - rpc error: code = DeadlineExceeded desc = context deadline exceeded	duration=2016rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=bd8bcc3d90a8c492b23cb3db8cdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=bd8bcc3d90a8c492b23cb3db8cdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceeded0.1:2379/systemadmin.rpc/pb.SystemService/MenuDetail - ID:3 - rpc error: code = DeadlineExceeded desc = context deadline exceeded	duration=2015.rpc error: code = DeadlineExceeded desc = context deadline exceeded0.1:2379/systemadmin.rpc/pb.SystemService/MenuDetail - ID:2 - rpc error: code = DeadlineExceeded desc = context deadline exceeded	duration=2016.rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=bd8bcc3d90a8c492b23cb3db8cdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=bd8bcc3d90a8c492b23cb3db8cdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=bd8bcc3d90a8c492b23cb3db8cdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+rpc error: code = DeadlineExceeded desc = context deadline exceededDeadlineExceeded desc = context deadline exceeded	trace=bd8bcc3d90a8c492b23cb3db8cdd43f8	span=11b890ea0b656211	caller=menu/usermenuslogic.go:96
+2023-04-08T21:10:17.518+08:00	[31;1m error [0m	[otel] error: Post "http://192.168.162.128:14268/api/traces": context deadline exceeded	caller=trace/agent.go:82
+2023-04-08T21:10:52.521+08:00	[31;1m error [0m	[otel] error: Post "http://192.168.162.128:14268/api/traces": context deadline exceeded	caller=trace/agent.go:82

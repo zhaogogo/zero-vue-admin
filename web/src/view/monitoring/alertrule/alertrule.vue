@@ -6,15 +6,19 @@
             border
             stripe
         >
-            <el-table-column label="name" prop="name">
+            <el-table-column label="name" prop="name" min-width="60">
                 <template slot-scope="scope">
                     <div>{{ scope.row.name }}{{ scope.row.operator }}{{ scope.row.value }}</div>
                 </template>
             </el-table-column>
-            <el-table-column label="tag" prop="tag"></el-table-column>
-            <el-table-column label="type" prop="type"></el-table-column>
-            <el-table-column label="group" prop="group"></el-table-column>
-            <el-table-column label="to" prop="to">
+            <el-table-column label="tag" min-width="50" prop="tag"></el-table-column>
+            <el-table-column label="type" min-width="50">
+                <template slot-scope="scope">
+                    <div>{{ scope.row.type }}/</div>
+                    <el-tag size="mini">{{ scope.row.group }}</el-tag>
+                </template>
+            </el-table-column>
+            <el-table-column label="to" min-width="40" prop="to">
                 <template slot-scope="scope">
                     <el-tag v-if="scope.row.to === 1" type="info">通用</el-tag>
                     <el-tag v-if="scope.row.to === 2" type="success">兆维</el-tag>
@@ -32,6 +36,16 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-pagination
+                :current-page="page"
+                :page-size="pageSize"
+                :page-sizes="[10, 30, 50, 100]"
+                :style="{float:'right',padding:'20px'}"
+                :total="total"
+                layout="total, sizes, prev, pager, next, jumper"
+                @current-change="handlePageChange"
+                @size-change="handlePageSizeChange"
+            ></el-pagination>
     </div>
 </template>
 

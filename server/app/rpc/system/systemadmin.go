@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/config"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/server"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/svc"
@@ -33,7 +32,7 @@ func main() {
 		}
 	})
 	defer s.Stop()
-	logx.DisableStat()
+	//logx.DisableStat()
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()
 }

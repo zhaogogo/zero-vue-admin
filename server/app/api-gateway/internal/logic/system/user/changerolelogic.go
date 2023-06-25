@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 	"github.com/pkg/errors"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -42,7 +42,7 @@ func (l *ChangeRoleLogic) ChangeRole(req *types.UserChangeRoleRequest) (resp *ty
 	updateUserCurrentRoleParam := &systemservice.UpdateUserCurrentRoleRequest{UserID: userid, RoleID: req.RoleID}
 	_, err = l.svcCtx.SystemRpcClient.UpdateUserCurrentRole(l.ctx, updateUserCurrentRoleParam)
 	if err != nil {
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UpdateUserCurrentRole", err.Error(), updateUserCurrentRoleParam)
+		return nil, errorx.New(err, "切换用户角色失败").WithMeta("SystemRpcClient.UpdateUserCurrentRole", err.Error(), updateUserCurrentRoleParam)
 	}
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
 }

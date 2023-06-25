@@ -3,7 +3,7 @@ package api
 import (
 	"context"
 	"database/sql"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
 
@@ -39,7 +39,7 @@ func (l *AllLogic) All() (resp *types.APIAllResponse, err error) {
 				List:               []types.API{},
 			}, nil
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.APIAll", err.Error(), param)
+		return nil, errorx.New(err, "获取全量API失败").WithMeta("SystemRpcClient.APIAll", err.Error(), param)
 	}
 	tApis := []types.API{}
 	for _, papi := range allapi.APIs {

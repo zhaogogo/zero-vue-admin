@@ -22,7 +22,22 @@ func NewMonitoringManagerServer(svcCtx *svc.ServiceContext) *MonitoringManagerSe
 	}
 }
 
+func (s *MonitoringManagerServer) AlertRuleDetail(ctx context.Context, in *pb.AlertRuleID) (*pb.AlertRuleDetailResponse, error) {
+	l := logic.NewAlertRuleDetailLogic(ctx, s.svcCtx)
+	return l.AlertRuleDetail(in)
+}
+
+func (s *MonitoringManagerServer) AlertRuleLabels(ctx context.Context, in *pb.AlertRuleID) (*pb.AlertRuleLabelsResponse, error) {
+	l := logic.NewAlertRuleLabelsLogic(ctx, s.svcCtx)
+	return l.AlertRuleLabels(in)
+}
+
 func (s *MonitoringManagerServer) AlertRulePaging(ctx context.Context, in *pb.AlertRulePagingRequest) (*pb.AlertRulePagingResponse, error) {
 	l := logic.NewAlertRulePagingLogic(ctx, s.svcCtx)
 	return l.AlertRulePaging(in)
+}
+
+func (s *MonitoringManagerServer) AlertRuleCount(ctx context.Context, in *pb.AlertRuleCountRequest) (*pb.Total, error) {
+	l := logic.NewAlertRuleCountLogic(ctx, s.svcCtx)
+	return l.AlertRuleCount(in)
 }

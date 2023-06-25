@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/mr"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
@@ -162,7 +162,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 
 	var msg string = "OK"
 	if len(msgErrList.List) != 0 {
-		msg = fmt.Sprintf("Not OK(%d)", len(msgErrList.List))
+		msg = fmt.Sprintf("Not OK(%d), %v", len(msgErrList.List), msgErrList.List)
 	}
 	return &types.LoginResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList.List},

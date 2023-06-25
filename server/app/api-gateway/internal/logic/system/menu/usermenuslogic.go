@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/mr"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
@@ -147,7 +147,7 @@ func (l *UserMenusLogic) UserMenus() (resp *types.UserMenuResponse, err error) {
 	)
 
 	if count != 0 {
-		msg = fmt.Sprintf("Not OK(%d)", count)
+		msg = fmt.Sprintf("Not OK(%d) %v", count, msgErrList.List)
 	}
 	return &types.UserMenuResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: msg, Meta: msgErrList.List},

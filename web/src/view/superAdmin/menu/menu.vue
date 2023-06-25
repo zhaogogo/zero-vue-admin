@@ -26,9 +26,10 @@
             <el-table-column label="父节点" min-width="90" prop="parentId"></el-table-column>
             <el-table-column label="排序" min-width="70" prop="sort"></el-table-column>
             <el-table-column label="文件路径" min-width="360" prop="component"></el-table-column>
-            <el-table-column fixed="right" label="操作" width="300">
+            <el-table-column fixed="right" label="操作" width="350">
                 <template slot-scope="scope">
                     <el-button size="mini" type="primary" icon="el-icon-edit" @click="addMenu(scope.row.id)">添加子菜单</el-button>
+                    <el-button size="mini" type="primary" icon="el-icon-copy" @click="copyMenu(scope.row)">复制</el-button>
                     <el-button size="mini" type="primary" icon="el-icon-edit" @click="editMenu(scope.row)">编辑</el-button>
                     <el-button size="mini" type="danger" icon="el-icon-delete" @click="deleteMenu(scope.row)">删除</el-button>
                 </template>
@@ -377,6 +378,13 @@ export default {
                 this.initForm()
                 this.dialogFormVisible = false
             }
+        },
+        copyMenu(row) {
+            this.dialogTitle = "复制菜单"
+            this.form = row
+            this.isEdit = false
+            this.setOptions()
+            this.dialogFormVisible = true
         }
     }
 }

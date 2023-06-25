@@ -2,7 +2,7 @@ package user
 
 import (
 	"context"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -30,7 +30,7 @@ func (l *DeleteLogic) Delete(req *types.UserDeleteRequest) (resp *types.HttpComm
 	_, err = l.svcCtx.SystemRpcClient.DeleteUser(l.ctx, params)
 	if err != nil {
 		// "删除用户错误"
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("*SystemRpcClient.DeleteUser", err.Error(), params)
+		return nil, errorx.New(err, "删除用户失败").WithMeta("*SystemRpcClient.DeleteUser", err.Error(), params)
 	}
 	return &types.HttpCommonResponse{Code: 200, Msg: "OK"}, nil
 }

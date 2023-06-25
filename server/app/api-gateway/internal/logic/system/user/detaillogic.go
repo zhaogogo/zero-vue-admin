@@ -3,7 +3,8 @@ package user
 import (
 	"context"
 	"database/sql"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/common/responseerror/errorx"
+	"fmt"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"google.golang.org/grpc/status"
 
@@ -34,9 +35,9 @@ func (l *DetailLogic) Detail(req *types.UserDetailRequest) (resp *types.UserDeta
 	if err != nil {
 		s, _ := status.FromError(err)
 		if s.Message() == sql.ErrNoRows.Error() {
-			return nil, errorx.NewByCode(err, errorx.DB_NOTFOUND).WithMeta("SystemRpcClient.UserDetail", err.Error(), userDetailParam)
+			return nil, errorx.New(err, fmt.Sprintf("获取用户详情, id=%v无数据", req.ID)).WithMeta("SystemRpcClient.UserDetail", err.Error(), userDetailParam)
 		}
-		return nil, errorx.NewByCode(err, errorx.GRPC_ERROR).WithMeta("SystemRpcClient.UserDetail", err.Error(), userDetailParam)
+		return nil, errorx.New(err, "获取用户详情失败").WithMeta("SystemRpcClient.UserDetail", err.Error(), userDetailParam)
 	}
 	var state = map[bool]string{
 		true:  "deleted",

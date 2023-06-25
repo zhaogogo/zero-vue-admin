@@ -74,7 +74,7 @@ type (
 // 创建ES连接
 //----------------------------------------------
 type ESConnCreateRequest struct {
-    ESConn string `json:"es_conn,optional" validate:"required,es_url" commen:"es连接参数不正确"`
+    ESConn string `json:"es_conn,optional" validate:"required,ip_port" commen:"es连接参数不正确"`
     Version int64 `json:"version,optional" validate:"required,numeric,oneof='7' '6'"`
     User string `json:"user,optional"`
     PassWord string `json:"passWord,optional"`
