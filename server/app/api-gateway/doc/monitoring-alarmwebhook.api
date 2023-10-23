@@ -1,0 +1,68 @@
+syntax = "v1"
+
+info(
+    title: "监控告警webhook"
+    desc: "监控告警webhook"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+
+//POST 127.0.0.1:5001 /api/v1/alert HTTP/1.1
+//========head==========
+//map[Content-Length:[1009] Content-Type:[application/json] User-Agent:[Alertmanager/0.24.0]]
+//========body==========
+//{"receiver":"web\\.hook","status":"firing","alerts":[{"status":"firing","labels":{"alertname":"up node exporter","instance":"192.168.161.167:9100","job":"node-exporter","severity":"page"},"annotations":{"summary":"node 192.168.161.167:9100 无法抓取数据"},"startsAt":"2023-08-28T03:03:12.977Z","endsAt":"0001-01-01T00:00:00Z","generatorURL":"http://192.168.162.128:9090/graph?g0.expr=up%7Bjob%3D%22node-exporter%22%7D+%3D%3D+1\u0026g0.tab=1","fingerprint":"9868cb441b1e9b67"}],"groupLabels":{"alertname":"up node exporter","instance":"192.168.161.167:9100","job":"node-exporter","severity":"page"},"commonLabels":{"alertname":"up node exporter","instance":"192.168.161.167:9100","job":"node-exporter","severity":"page"},"commonAnnotations":{"summary":"node 192.168.161.167:9100 无法抓取数据"},"externalURL":"http://192.168.162.128:9093","version":"4","groupKey":"{}:{alertname=\"up node exporter\", instance=\"192.168.161.167:9100\", job=\"node-exporter\", severity=\"page\"}","truncatedAlerts":0}
+
+@server(
+    group: monitoring/alarm
+    prefix: /api/v1/monitoring/alarm
+)
+service ApiGateway-api {
+    @doc "alertmanager web hook"
+    @handler Webhook
+    post /webhook (AlarmRequest) returns ()
+}
+
+type AlarmRequest struct {
+    Receiver          string            `json:"receiver"`
+    Status            string            `json:"status"`
+    Alerts            []Alerts          `json:"alerts"`
+    GroupLabels       GroupLabels       `json:"groupLabels"`
+    CommonLabels      CommonLabels      `json:"commonLabels"`
+    CommonAnnotations CommonAnnotations `json:"commonAnnotations"`
+    ExternalURL       string            `json:"externalURL"`
+    Version           string            `json:"version"`
+    GroupKey          string            `json:"groupKey"`
+    TruncatedAlerts   int               `json:"truncatedAlerts"`
+}
+
+type Annotations struct {
+    Summary  string `json:"summary"`
+    Describe string `json:"describe"`
+}
+type Alerts struct {
+    Status       string            `json:"status"`
+    Labels       map[string]string `json:"labels"`
+    Annotations  Annotations       `json:"annotations"`
+    StartsAt     string         `json:"startsAt"`
+    EndsAt       string         `json:"endsAt"`
+    GeneratorURL string            `json:"generatorURL"`
+    Fingerprint  string            `json:"fingerprint"`
+}
+type GroupLabels struct {
+    Alertname string `json:"alertname"`
+    Instance  string `json:"instance"`
+    Job       string `json:"job"`
+    Severity  string `json:"severity"`
+}
+type CommonLabels struct {
+    Alertname string `json:"alertname"`
+    Instance  string `json:"instance"`
+    Job       string `json:"job"`
+    Severity  string `json:"severity"`
+}
+type CommonAnnotations struct {
+    Summary string `json:"summary"`
+}

@@ -17,9 +17,9 @@ import "common.api"
     prefix: /api/v1/monitoring/store/file
 )
 service ApiGateway-api {
-    @doc "环境选择"
-    @handler EnvSelect
-    get /envselect () returns (EnvSelectResponseResponse)
+//    @doc "环境选择"
+//    @handler EnvSelect
+//    get /envselect returns (EnvSelectResponseResponse)
 
     @doc "文件展示"
     @handler List

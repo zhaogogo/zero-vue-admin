@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/monitoring/model/mm"
 )
 
 var _ AlertRuleLabelsModel = (*customAlertRuleLabelsModel)(nil)
@@ -17,8 +18,8 @@ type (
 	// and implement the added methods in customAlertRuleLabelsModel.
 	AlertRuleLabelsModel interface {
 		Trans(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error
-		FindByAlertRuleID(ctx context.Context, alertruleid uint64) ([]AlertRuleLabels, error)
-		TransFindByAlertRuleID(ctx context.Context, session sqlx.Session, alertruleid uint64) ([]AlertRuleLabels, error)
+		FindByAlertRuleID(ctx context.Context, alertruleid uint64) ([]mm.AlertRuleLabels, error)
+		TransFindByAlertRuleID(ctx context.Context, session sqlx.Session, alertruleid uint64) ([]mm.AlertRuleLabels, error)
 	}
 
 	customAlertRuleLabelsModel struct {
@@ -33,9 +34,9 @@ func NewAlertRuleLabelsModel(conn sqlx.SqlConn, c cache.CacheConf) AlertRuleLabe
 	}
 }
 
-func (m *defaultAlertRuleLabelsModel) FindByAlertRuleID(ctx context.Context, alertruleid uint64) ([]AlertRuleLabels, error) {
+func (m *defaultAlertRuleLabelsModel) FindByAlertRuleID(ctx context.Context, alertruleid uint64) ([]mm.AlertRuleLabels, error) {
 	chaosMonitoringAlertRuleLabelsAlertRuleIdKey := fmt.Sprintf("%s%v", cacheChaosMonitoringAlertRuleLabelsAlertRuleIdPrefix, alertruleid)
-	var resp []AlertRuleLabels
+	var resp []mm.AlertRuleLabels
 	err := m.QueryRowCtx(ctx, &resp, chaosMonitoringAlertRuleLabelsAlertRuleIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {
 		query := fmt.Sprintf("select %s from %s where `alert_rule_id` = ?", alertRuleLabelsRows, m.table)
 		return conn.QueryRowsCtx(ctx, v, query, alertruleid)
@@ -53,9 +54,9 @@ func (m *defaultAlertRuleLabelsModel) Trans(ctx context.Context, fn func(ctx con
 	})
 }
 
-func (m *defaultAlertRuleLabelsModel) TransFindByAlertRuleID(ctx context.Context, session sqlx.Session, alertruleid uint64) ([]AlertRuleLabels, error) {
+func (m *defaultAlertRuleLabelsModel) TransFindByAlertRuleID(ctx context.Context, session sqlx.Session, alertruleid uint64) ([]mm.AlertRuleLabels, error) {
 	chaosMonitoringAlertRuleLabelsAlertRuleIdKey := fmt.Sprintf("%s%v", cacheChaosMonitoringAlertRuleLabelsAlertRuleIdPrefix, alertruleid)
-	var resp []AlertRuleLabels
+	var resp []mm.AlertRuleLabels
 	err := m.QueryRowCtx(ctx, &resp, chaosMonitoringAlertRuleLabelsAlertRuleIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {
 		query := fmt.Sprintf("select %s from %s where `alert_rule_id` = ?", alertRuleLabelsRows, m.table)
 		return session.QueryRowsCtx(ctx, v, query, alertruleid)

@@ -18,8 +18,8 @@ type ErrorResponse struct {
 }
 
 /*
-	code: 1-17   ==>   rpc错误
-	code: 9999   ==>   其他错误
+code: 1-17   ==>   rpc错误
+code: 9999   ==>   其他错误
 */
 func ErrorHandle(err error) (int, interface{}) {
 	causeErr := errors.Cause(err)
@@ -29,7 +29,7 @@ func ErrorHandle(err error) (int, interface{}) {
 		if e.Code == errorx.UNAUTHORIZATION {
 			return http.StatusUnauthorized, ErrorResponse{Code: int32(e.Code), Msg: e.Msg, CauseErr: e.Cause.Error(), Meta: e.Meta}
 		}
-		return 200, ErrorResponse{Code: int32(e.Code), Msg: e.Msg, CauseErr: e.Cause.Error(), Meta: e.Meta}
+		return 450, ErrorResponse{Code: int32(e.Code), Msg: e.Msg, CauseErr: e.Cause.Error(), Meta: e.Meta}
 	default:
 		fmt.Printf("==> %T\n", e)
 		//fmt.Printf("=====>  default  %T %v\n", err, err)
@@ -45,10 +45,10 @@ func ErrorHandle(err error) (int, interface{}) {
 		e2, isRpcErr := status.FromError(e)
 		if isRpcErr { // rpc错误
 			if e2.Message() == sql.ErrNoRows.Error() { //rpc查询为空
-				return 200, ErrorResponse{Code: e2.Proto().Code, Msg: "grpc错误", CauseErr: e2.String()}
+				return 450, ErrorResponse{Code: e2.Proto().Code, Msg: fmt.Sprintf("grpc错误， %s", e2.Message()), CauseErr: e2.String()}
 			}
-			return 200, ErrorResponse{Code: e2.Proto().Code, Msg: "grpc错误", CauseErr: e2.String()}
+			return 450, ErrorResponse{Code: e2.Proto().Code, Msg: fmt.Sprintf("grpc错误， %s", e2.Message()), CauseErr: e2.String()}
 		}
-		return 200, ErrorResponse{Code: 9999, Msg: "XXX", CauseErr: e.Error()}
+		return 450, ErrorResponse{Code: 9999, Msg: fmt.Sprintf("XX: default: %s", e.Error()), CauseErr: e.Error()}
 	}
 }

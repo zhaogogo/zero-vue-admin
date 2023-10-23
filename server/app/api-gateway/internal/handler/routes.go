@@ -5,6 +5,9 @@ import (
 	"net/http"
 
 	esManagerconn "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/esManager/conn"
+	monitoringalarm "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/monitoring/alarm"
+	monitoringalertrule "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/monitoring/alertrule"
+	monitoringhosts "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/monitoring/hosts"
 	monitoringstoreconnect "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/monitoring/store/connect"
 	monitoringstorefile "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/monitoring/store/file"
 	systemapi "github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler/system/api"
@@ -363,11 +366,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
 			[]rest.Route{
 				{
-					Method:  http.MethodGet,
-					Path:    "/envselect",
-					Handler: monitoringstorefile.EnvSelectHandler(serverCtx),
-				},
-				{
 					Method:  http.MethodPost,
 					Path:    "/",
 					Handler: monitoringstorefile.ListHandler(serverCtx),
@@ -376,5 +374,46 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/api/v1/monitoring/store/file"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/paging",
+					Handler: monitoringalertrule.PagingHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/api/v1/monitoring/alertrule"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.ParseJWTToken, serverCtx.CheckUserExists, serverCtx.Casbin},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/paging",
+					Handler: monitoringhosts.PagingHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/api/v1/monitoring/hosts"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/webhook",
+				Handler: monitoringalarm.WebhookHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/api/v1/monitoring/alarm"),
 	)
 }

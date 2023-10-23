@@ -3,13 +3,13 @@ package svc
 import (
 	casbinmysqladapter "github.com/Blank-Xu/sql-adapter"
 	"github.com/casbin/casbin/v2"
-	"github.com/casbin/casbin/v2/model"
+	casbinmodel "github.com/casbin/casbin/v2/model"
 	casbinutil "github.com/casbin/casbin/v2/util"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/internal/config"
-	model2 "github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
+	model "github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/model"
 	"strings"
 )
 
@@ -18,15 +18,15 @@ type ServiceContext struct {
 	Redis  *redis.Redis
 
 	SyncedEnforcer      *casbin.SyncedEnforcer
-	CasbinRuleModel     model2.CasbinRuleModel
-	UserModel           model2.UserModel
-	UserRoleModel       model2.UserRoleModel
-	UserPageSetModel    model2.UserPageSetModel
-	UserMenuParamsModel model2.UserMenuParamsModel
-	RoleModel           model2.RoleModel
-	RoleMenuModel       model2.RoleMenuModel
-	MenuModel           model2.MenuModel
-	APIModel            model2.ApiModel
+	CasbinRuleModel     model.CasbinRuleModel
+	UserModel           model.UserModel
+	UserRoleModel       model.UserRoleModel
+	UserPageSetModel    model.UserPageSetModel
+	UserMenuParamsModel model.UserMenuParamsModel
+	RoleModel           model.RoleModel
+	RoleMenuModel       model.RoleMenuModel
+	MenuModel           model.MenuModel
+	APIModel            model.ApiModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -40,15 +40,15 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:              c,
 		Redis:               redisConn,
 		SyncedEnforcer:      syncEnforcer,
-		CasbinRuleModel:     model2.NewCasbinRuleModel(sqlxConn),
-		UserModel:           model2.NewUserModel(sqlxConn, c.CacheConf),
-		UserRoleModel:       model2.NewUserRoleModel(sqlxConn, c.CacheConf),
-		UserPageSetModel:    model2.NewUserPageSetModel(sqlxConn, c.CacheConf),
-		UserMenuParamsModel: model2.NewUserMenuParamsModel(sqlxConn, c.CacheConf),
-		RoleModel:           model2.NewRoleModel(sqlxConn, c.CacheConf),
-		RoleMenuModel:       model2.NewRoleMenuModel(sqlxConn, c.CacheConf),
-		MenuModel:           model2.NewMenuModel(sqlxConn, c.CacheConf),
-		APIModel:            model2.NewApiModel(sqlxConn, c.CacheConf),
+		CasbinRuleModel:     model.NewCasbinRuleModel(sqlxConn),
+		UserModel:           model.NewUserModel(sqlxConn, c.CacheConf),
+		UserRoleModel:       model.NewUserRoleModel(sqlxConn, c.CacheConf),
+		UserPageSetModel:    model.NewUserPageSetModel(sqlxConn, c.CacheConf),
+		UserMenuParamsModel: model.NewUserMenuParamsModel(sqlxConn, c.CacheConf),
+		RoleModel:           model.NewRoleModel(sqlxConn, c.CacheConf),
+		RoleMenuModel:       model.NewRoleMenuModel(sqlxConn, c.CacheConf),
+		MenuModel:           model.NewMenuModel(sqlxConn, c.CacheConf),
+		APIModel:            model.NewApiModel(sqlxConn, c.CacheConf),
 	}
 }
 
@@ -60,7 +60,8 @@ func NewCasbinSyncedEnforcer(c config.Config, sqlxConn sqlx.SqlConn) (*casbin.Sy
 	if c.CasbinConfig.Driver != "mysql" {
 		return nil, errors.New("仅支持mysql驱动")
 	}
-	m, err := model.NewModelFromString(c.CasbinConfig.Model)
+	m, err := casbinmodel.NewModelFromFile(c.CasbinConfig.ModelPath)
+	//m, err := casbinmodel.NewModelFromString()
 	if err != nil {
 		return nil, errors.Wrap(err, "casbin创建model失败")
 	}

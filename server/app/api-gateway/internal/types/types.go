@@ -543,8 +543,9 @@ type Options struct {
 }
 
 type FileListRequest struct {
-	Host string `json:"host,optional" validate:"required,ip_port"`
-	Path string `json:"path,optional"`
+	Host   string `json:"host,optional" validate:"required,ip_port"`
+	Bucket string `json:"bucket"`
+	Path   string `json:"path,optional"`
 }
 
 type FileListResponse struct {
@@ -557,4 +558,159 @@ type Files struct {
 	LastModified int64  `json:"lastModified"`
 	Size         int64  `json:"size"`
 	IsFile       bool   `json:"isFile"`
+}
+
+type AlertRule struct {
+	Id         uint64           `json:"id"`
+	Ttype      string           `json:"ttype"`
+	Name       string           `json:"name"`
+	Group      string           `json:"group"`
+	To         int              `json:"to"`
+	Expr       string           `json:"expr"`
+	For        string           `json:"for"`
+	AlertText  string           `json:"alertText"`
+	CreatedAt  uint64           `json:"createdAt"`
+	ModifiedAt uint64           `json:"modifiedAt"`
+	DeletedAt  uint64           `json:"deletedAt"`
+	Labels     []AlertRuleLabel `json:"labels"`
+	Tags       []AlertRuleTag   `json:"tags"`
+	Querys     []AlertRuleQuery `json:"querys"`
+}
+
+type AlertRuleLabel struct {
+	Id          uint64 `json:"id"`
+	AlertRuleId uint64 `json:"alertRuleId"`
+	Key         string `json:"key"`
+	Value       string `json:"value"`
+}
+
+type AlertRuleTag struct {
+	Id          uint64 `json:"id"`
+	AlertRuleId uint64 `json:"alertRuleId"`
+	Key         string `json:"key"`
+	Value       string `json:"value"`
+}
+
+type AlertRuleQuery struct {
+	Id          uint64 `json:"id"`
+	AlertRuleId uint64 `json:"alertRuleId"`
+	Query       string `json:"query"`
+}
+
+type AlertRulePagingRequest struct {
+	PagingCommonRequest
+}
+
+type AlertRuleResponse struct {
+	HttpCommonResponse
+	PagingCommonResponse
+	List []AlertRule `json:"list"`
+}
+
+type Host struct {
+	Id         uint64    `json:"id" gorm:"clumn:id;primarykey"`
+	Host       string    `json:"host" gorm:"clumn:host;type:varchar(50);not null;default:''"`
+	To         int       `json:"to" gorm:"clumn:to;type:tinyint;not null"`
+	CreatedAt  string    `json:"createdAt" gorm:"clumn:create_at;autoCreateTime;not null"`
+	ModifiedAt string    `json:"modifiedAt" gorm:"clumn:modifie_at;autoUpdateTime;not null"`
+	DeletedAt  string    `json:"deletedAt" gorm:"clumn:delete_at;index"`
+	Tags       []HostTag `json:"tags" gorm:"clumn:tags;foreignKey:host_id"`
+}
+
+type HostTag struct {
+	Id     uint64 `json:"id" gorm:"clumn:id;primaryKey;type:bigint AUTO_INCREMENT"`
+	HostId uint64 `json:"hostId" gorm:"clumn:host_id"`
+	Key    string `json:"key" gorm:"clumn:key;type:varchar(50);default:'';not null"`
+	Value  string `json:"value" gorm:"clumn:value;type:varchar(50);default:'';not null"`
+}
+
+type SlienceJoinRest struct {
+	Id          uint64 `json:"id" gorm:"clumn:id;primaryKey;type:bigint AUTO_INCREMENT"`
+	Host        string `json:"host" gorm:"clumn:host"`
+	SlienceName string `json:"slience_name" gorm:"clumn:slience_name"`
+	Name        string `json:"name" gorm:"clumn:name"`
+	Value       string `json:"value" gorm:"clumn:value"`
+	IsRegex     bool   `json:"isRegex" gorm:"clumn:is_regex"`
+	IsEqual     bool   `json:"isEqual" gorm:"clumn:is_equal"`
+	Default     bool   `json:"default" gorm:"clumn:default"`
+}
+
+type SlienceName struct {
+	Id          uint64 `json:"id" gorm:"clumn:id;primaryKey"`
+	HostID      uint64 `json:"host_id" gorm:"clumn:host_id;type:bigint"`
+	SlienceName string `json:"slience_name" gorm:"clumn:slience_name"`
+	Default     bool   `json:"default" gorm:"clumn:default"`
+}
+
+type SlienceMatcher struct {
+	Id            uint64 `json:"id" gorm:"clumn:id;primaryKey"`
+	HostID        uint64 `json:"host_id" gorm:"clumn:host_id;type:bigint"`
+	SlienceNameID uint64 `json:"slience_name_id" gorm:"clumn:slience_name_id"`
+	Name          string `json:"name" gorm:"clumn:name"`
+	Value         string `json:"value" gorm:"clumn:value"`
+	IsRegex       bool   `json:"is_regex" gorm:"clumn:is_regex"`
+	IsEqual       bool   `json:"is_equal" gorm:"clumn:is_equal"`
+}
+
+type Matchers struct {
+	Name    string `json:"name"`
+	Value   string `json:"value"`
+	IsRegex bool   `json:"isRegex"`
+	IsEqual bool   `json:"isEqual"`
+}
+
+type HostPagingRequest struct {
+	PagingCommonRequest
+}
+
+type HostResponse struct {
+	HttpCommonResponse
+	PagingCommonResponse
+	List []Host `json:"list"`
+}
+
+type AlarmRequest struct {
+	Receiver          string            `json:"receiver"`
+	Status            string            `json:"status"`
+	Alerts            []Alerts          `json:"alerts"`
+	GroupLabels       GroupLabels       `json:"groupLabels"`
+	CommonLabels      CommonLabels      `json:"commonLabels"`
+	CommonAnnotations CommonAnnotations `json:"commonAnnotations"`
+	ExternalURL       string            `json:"externalURL"`
+	Version           string            `json:"version"`
+	GroupKey          string            `json:"groupKey"`
+	TruncatedAlerts   int               `json:"truncatedAlerts"`
+}
+
+type Annotations struct {
+	Summary  string `json:"summary"`
+	Describe string `json:"describe"`
+}
+
+type Alerts struct {
+	Status       string            `json:"status"`
+	Labels       map[string]string `json:"labels"`
+	Annotations  Annotations       `json:"annotations"`
+	StartsAt     string            `json:"startsAt"`
+	EndsAt       string            `json:"endsAt"`
+	GeneratorURL string            `json:"generatorURL"`
+	Fingerprint  string            `json:"fingerprint"`
+}
+
+type GroupLabels struct {
+	Alertname string `json:"alertname"`
+	Instance  string `json:"instance"`
+	Job       string `json:"job"`
+	Severity  string `json:"severity"`
+}
+
+type CommonLabels struct {
+	Alertname string `json:"alertname"`
+	Instance  string `json:"instance"`
+	Job       string `json:"job"`
+	Severity  string `json:"severity"`
+}
+
+type CommonAnnotations struct {
+	Summary string `json:"summary"`
 }

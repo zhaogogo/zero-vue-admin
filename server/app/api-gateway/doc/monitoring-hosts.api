@@ -1,0 +1,88 @@
+syntax = "v1"
+
+info(
+    title: "监控主机"
+    desc: "监控告主机管理"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+import "common.api"
+
+@server(
+    jwt: Auth
+    middleware: ParseJWTToken,CheckUserExists,Casbin
+    group: monitoring/hosts
+    prefix: /api/v1/monitoring/hosts
+)
+service ApiGateway-api {
+    @doc "分页获取hosts"
+    @handler Paging
+    post /paging (HostPagingRequest) returns (HostResponse)
+}
+
+type Host struct {
+    Id         uint64 `json:"id" gorm:"clumn:id;primarykey"`
+    Host       string `json:"host" gorm:"clumn:host;type:varchar(50);not null;default:''"`
+    To         int    `json:"to" gorm:"clumn:to;type:tinyint;not null"`
+    CreatedAt  string `json:"createdAt" gorm:"clumn:create_at;autoCreateTime;not null"`
+    ModifiedAt  string `json:"modifiedAt" gorm:"clumn:modifie_at;autoUpdateTime;not null"`
+    DeletedAt  string `json:"deletedAt" gorm:"clumn:delete_at;index"`
+
+    Tags   []HostTag        `json:"tags" gorm:"clumn:tags;foreignKey:host_id"`
+}
+
+type HostTag struct {
+    Id          uint64 `json:"id" gorm:"clumn:id;primaryKey;type:bigint AUTO_INCREMENT"`
+    HostId      uint64 `json:"hostId" gorm:"clumn:host_id"`
+    Key         string `json:"key" gorm:"clumn:key;type:varchar(50);default:'';not null"`
+    Value       string `json:"value" gorm:"clumn:value;type:varchar(50);default:'';not null"`
+}
+
+type SlienceJoinRest struct {
+    Id          uint64 `json:"id" gorm:"clumn:id;primaryKey;type:bigint AUTO_INCREMENT"`
+    Host        string `json:"host" gorm:"clumn:host"`
+    SlienceName string `json:"slience_name" gorm:"clumn:slience_name"`
+    Name        string `json:"name" gorm:"clumn:name"`
+    Value       string `json:"value" gorm:"clumn:value"`
+    IsRegex     bool   `json:"isRegex" gorm:"clumn:is_regex"`
+    IsEqual     bool   `json:"isEqual" gorm:"clumn:is_equal"`
+    Default     bool   `json:"default" gorm:"clumn:default"`
+}
+
+type SlienceName struct {
+    Id            uint64 `json:"id" gorm:"clumn:id;primaryKey"`
+    HostID        uint64 `json:"host_id" gorm:"clumn:host_id;type:bigint"`
+    SlienceName   string `json:"slience_name" gorm:"clumn:slience_name"`
+    Default       bool   `json:"default" gorm:"clumn:default"`
+}
+
+type SlienceMatcher struct {
+    Id            uint64 `json:"id" gorm:"clumn:id;primaryKey"`
+    HostID        uint64 `json:"host_id" gorm:"clumn:host_id;type:bigint"`
+    SlienceNameID uint64 `json:"slience_name_id" gorm:"clumn:slience_name_id"`
+    Name          string `json:"name" gorm:"clumn:name"`
+    Value         string `json:"value" gorm:"clumn:value"`
+    isRegex       bool `json:"is_regex" gorm:"clumn:is_regex"`
+    isEqual       bool `json:"is_equal" gorm:"clumn:is_equal"`
+}
+
+type Matchers struct {
+    Name    string `json:"name"`
+    Value   string `json:"value"`
+    IsRegex bool   `json:"isRegex"`
+    IsEqual bool   `json:"isEqual"`
+}
+
+type (
+    HostPagingRequest struct {
+        PagingCommonRequest
+    }
+
+    HostResponse struct {
+        HttpCommonResponse
+        PagingCommonResponse
+        List []Host `json:"list"`
+    }
+)

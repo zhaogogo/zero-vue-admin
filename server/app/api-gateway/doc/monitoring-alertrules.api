@@ -1,0 +1,73 @@
+syntax = "v1"
+
+info(
+    title: "监控告警规则管理"
+    desc: "监控告警规则管理"
+    author: "qiang.zhao"
+    email: "zhaoq0201@163.com"
+    version: "v1"
+)
+
+import "common.api"
+
+@server(
+    jwt: Auth
+    middleware: ParseJWTToken,CheckUserExists,Casbin
+    group: monitoring/alertrule
+    prefix: /api/v1/monitoring/alertrule
+)
+service ApiGateway-api {
+    @doc "分页alertrules"
+    @handler Paging
+    post /paging (AlertRulePagingRequest) returns (AlertRuleResponse)
+}
+
+type AlertRule struct {
+    Id         uint64 `json:"id"`
+    Ttype      string `json:"ttype"`
+    Name       string `json:"name"`
+    Group      string `json:"group"`
+    To         int    `json:"to"`
+    Expr       string `json:"expr"`
+    For        string `json:"for"`
+    AlertText  string `json:"alertText"`
+    CreatedAt  uint64 `json:"createdAt"`
+    ModifiedAt  uint64 `json:"modifiedAt"`
+    DeletedAt  uint64 `json:"deletedAt"`
+
+    Labels []AlertRuleLabel `json:"labels"`
+    Tags   []AlertRuleTag `json:"tags"`
+    Querys []AlertRuleQuery `json:"querys"`
+}
+
+type AlertRuleLabel struct {
+    Id          uint64 `json:"id"`
+    AlertRuleId uint64 `json:"alertRuleId"`
+    Key         string `json:"key"`
+    Value       string `json:"value"`
+}
+
+type AlertRuleTag struct {
+    Id          uint64 `json:"id"`
+    AlertRuleId uint64 `json:"alertRuleId"`
+    Key         string `json:"key"`
+    Value       string `json:"value"`
+}
+
+type AlertRuleQuery struct {
+    Id          uint64 `json:"id"`
+    AlertRuleId uint64   `json:"alertRuleId"`
+    Query       string `json:"query"`
+}
+
+type (
+    AlertRulePagingRequest struct {
+        PagingCommonRequest
+    }
+
+    AlertRuleResponse struct {
+        HttpCommonResponse
+        PagingCommonResponse
+        List []AlertRule `json:"list"`
+    }
+)

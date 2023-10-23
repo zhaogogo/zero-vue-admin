@@ -1580,3 +1580,675 @@
 [0.858ms] [rows:2] SELECT * FROM `store_connect_manager`
 2023/04/21 22:16:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/store/connect/paginglogic.go:35
 [19.567ms] [rows:1] SELECT count(*) FROM `store_connect_manager`
+2023/09/21 01:36:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[7.666ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:36:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[2.599ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:36:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34 Error 1146 (42S02): Table 't1.alert_rule_queries' doesn't exist
+[3.538ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:36:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34 Error 1146 (42S02): Table 't1.alert_rule_queries' doesn't exist; Taags: unsupported relations for schema AlertRules
+[8.095ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/09/21 01:37:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[1.991ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:37:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.813ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:37:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34 Error 1146 (42S02): Table 't1.alert_rule_queries' doesn't exist
+[2.060ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:37:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34 Error 1146 (42S02): Table 't1.alert_rule_queries' doesn't exist; Taags: unsupported relations for schema AlertRules
+[4.479ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/09/21 01:38:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[0.508ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:38:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.490ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:38:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34 Error 1146 (42S02): Table 't1.alert_rule_queries' doesn't exist
+[0.975ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:38:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34 Error 1146 (42S02): Table 't1.alert_rule_queries' doesn't exist; Taags: unsupported relations for schema AlertRules
+[2.158ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/09/21 01:39:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[1.942ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:39:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[1.109ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:39:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34 Error 1146 (42S02): Table 't1.alert_rule_queries' doesn't exist
+[5.296ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:39:16 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34 Error 1146 (42S02): Table 't1.alert_rule_queries' doesn't exist; Taags: unsupported relations for schema AlertRules
+[8.265ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/09/21 01:40:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[0.735ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:40:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.446ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:40:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[2.742ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:40:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34 Taags: unsupported relations for schema AlertRules
+[4.119ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/09/21 01:41:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[2.818ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:41:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[1.904ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:41:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.735ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:41:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[1.071ms] [rows:0] SELECT * FROM `alert_rule_tags` WHERE `alert_rule_tags`.`alert_rule_id` IN (?,?)
+2023/09/21 01:41:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[5.441ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/09/21 01:44:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[19.281ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:44:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[1.857ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.817ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.539ms] [rows:0] SELECT * FROM `alert_rule_tags` WHERE `alert_rule_tags`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[9.462ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/09/21 01:44:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[0.882ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:44:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.378ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.303ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.375ms] [rows:0] SELECT * FROM `alert_rule_tags` WHERE `alert_rule_tags`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[2.065ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/09/21 01:44:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[1.839ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:44:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.583ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.418ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.530ms] [rows:0] SELECT * FROM `alert_rule_tags` WHERE `alert_rule_tags`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[2.773ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/09/21 01:44:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[0.909ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/09/21 01:44:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.642ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.435ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[0.792ms] [rows:0] SELECT * FROM `alert_rule_tags` WHERE `alert_rule_tags`.`alert_rule_id` IN (?,?)
+2023/09/21 01:44:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[2.944ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/10/17 01:49:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:31
+[9.938ms] [rows:1] SELECT count(*) FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL
+2023/10/17 01:49:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[2.249ms] [rows:6] SELECT * FROM `alert_rule_labels` WHERE `alert_rule_labels`.`alert_rule_id` IN (?,?)
+2023/10/17 01:49:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[1.518ms] [rows:0] SELECT * FROM `alert_rule_queries` WHERE `alert_rule_queries`.`alert_rule_id` IN (?,?)
+2023/10/17 01:49:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[1.544ms] [rows:0] SELECT * FROM `alert_rule_tags` WHERE `alert_rule_tags`.`alert_rule_id` IN (?,?)
+2023/10/17 01:49:17 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/alertrule/pagingLogic.go:34
+[7.304ms] [rows:2] SELECT * FROM `alert_rules` WHERE `alert_rules`.`deleted_at` IS NULL LIMIT 10
+2023/10/17 01:49:21 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42 sql: Scan error on column index 3, name "created_at": converting driver.Value type time.Time ("2023-10-17 00:42:00 +0800 CST") to a uint64: invalid syntax
+[2.361ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:12:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[7.684ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:12:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[7.869ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:12:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[4.645ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.608ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[3.526ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[13.269ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.577ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.812ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[3.029ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.742ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.868ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.728ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.607ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.817ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.352ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.709ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.279ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.232ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[5.152ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[4.350ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[3.170ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.481ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.582ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.389ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[6.540ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[6.747ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:41 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.807ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.328ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[4.412ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.042ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.456ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.472ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.820ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.471ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.484ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.628ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[17.886ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[18.184ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[3.059ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[3.079ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[8.768ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:55 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[7.189ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.893ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.148ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[11.136ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:13:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.930ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.919ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:13:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.172ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[8.405ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[9.574ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[7.811ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:07 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.098ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:07 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.068ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:07 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.224ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.818ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.095ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.259ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.989ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.976ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.754ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.786ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[4.842ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.839ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.019ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.074ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:23 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.130ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.113ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.331ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.182ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.475ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.485ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.616ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.706ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.714ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.530ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.696ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.690ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.643ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:14:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.832ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.631ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:14:53 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.483ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:15:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[3.236ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[3.239ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:00 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.411ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:15:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.435ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.786ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:03 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.015ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:15:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.076ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.289ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:12 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.360ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:15:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.972ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.986ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.165ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:15:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.954ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[3.599ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:15:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.483ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[22.082ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[22.020ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.688ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.228ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.217ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.831ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.381ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.467ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.629ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.925ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.018ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.051ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.481ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.654ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.941ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.797ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.803ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:27 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.178ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.663ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.794ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.665ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.975ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.981ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.845ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.529ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.775ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.640ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.456ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.263ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.172ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:25:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.358ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.387ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:25:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.256ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.603ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.520ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:02 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.595ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:04 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.574ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:04 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.602ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:04 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.544ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.899ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.925ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.777ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.432ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.710ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.478ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.761ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.870ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.191ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.466ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.463ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.536ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.568ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.607ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[5.204ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.627ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.725ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.700ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.811ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.720ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:39 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.468ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.467ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.474ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:40 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.652ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.612ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.610ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.395ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:26:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.499ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.526ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:26:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.624ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:27:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[4.396ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[5.243ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.147ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:27:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.877ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.056ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:31 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.016ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:27:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.471ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.488ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:32 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.360ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:27:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.485ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.491ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:35 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.622ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:27:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.707ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.738ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:27:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.187ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:28:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.708ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.714ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:20 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.239ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:28:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.634ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.655ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:22 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.204ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:28:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.824ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.670ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[3.920ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:28:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.320ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.324ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:26 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.006ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:28:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.806ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.727ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:28 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.498ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:28:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.486ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.429ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:33 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.592ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:28:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.265ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.284ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:28:34 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[7.047ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.535ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.262ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[4.218ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.535ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.544ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:10 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.948ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.628ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.922ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.394ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.613ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.627ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.009ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.752ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.641ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.711ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.625ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.638ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:18 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.454ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.437ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.540ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.901ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[3.456ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[3.492ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:25 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.750ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[3.533ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[3.476ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:38 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[6.483ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.553ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.775ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:44 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.565ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.471ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.157ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:47 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.155ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.683ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.179ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:49 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.067ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.472ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.453ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:51 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.275ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.614ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.614ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.356ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:29:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.538ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.547ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:29:56 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.670ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:32:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[8.112ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:32:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[8.112ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:32:57 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.461ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:33:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.919ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.967ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:11 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.350ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:33:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.449ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.449ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.539ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:33:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.690ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.810ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:15 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.860ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:33:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.467ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.439ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.222ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:33:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.470ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.481ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:36 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.897ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:33:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.602ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[1.728ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:50 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.079ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:33:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[3.753ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[4.468ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:33:54 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[5.094ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:34:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[4.172ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[4.149ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:13 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.416ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:34:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.475ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.494ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:14 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.581ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:34:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[15.088ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[15.493ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:29 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[9.822ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:34:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[2.003ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[2.163ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:42 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[1.676ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/10/17 02:34:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.849ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[0.854ms] [rows:1] SELECT * FROM `hosts`
+2023/10/17 02:34:43 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[0.601ms] [rows:1] SELECT count(*) FROM `hosts`

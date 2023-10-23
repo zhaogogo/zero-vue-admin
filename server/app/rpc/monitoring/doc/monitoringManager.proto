@@ -48,15 +48,15 @@ message AlertRuleDetailResponse {
   string Type = 3;
   string Group =4;
   string Tag = 5;
-  int64 To = 6;
+  uint64 To = 6;
   string Expr = 7;
   string Operator = 8;
   string Value = 9;
   string For = 10;
-  string Summary = 11;
-  string Describe = 12;
-  bool IsWrite = 13;
-  map<string,string> Labels = 14;
+  string Describe = 11;
+  bool IsWrite = 12;
+  map<string,string> Labels = 13;
+  map<string,string> Tags = 14;
 }
 message AlertRuleLabelsResponse {
   map <string,string> Labels = 1;

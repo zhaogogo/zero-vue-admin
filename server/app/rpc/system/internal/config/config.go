@@ -17,7 +17,7 @@ type Config struct {
 	CasbinConfig struct {
 		Driver    string
 		TableName string
-		Model     string
+		ModelPath string
 	}
 	CacheConf        cache.CacheConf
 	RedisCacheConfig struct {
