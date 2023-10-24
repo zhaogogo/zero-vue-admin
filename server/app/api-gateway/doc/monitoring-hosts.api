@@ -20,6 +20,10 @@ service ApiGateway-api {
     @doc "分页获取hosts"
     @handler Paging
     post /paging (HostPagingRequest) returns (HostResponse)
+
+    @doc "host静默规则"
+    @handler Slience
+    get /slience/:host (SlienceRequest) returns (SlienceResponse)
 }
 
 type Host struct {
@@ -73,6 +77,14 @@ type Matchers struct {
     Value   string `json:"value"`
     IsRegex bool   `json:"isRegex"`
     IsEqual bool   `json:"isEqual"`
+}
+
+type SlienceRequest struct {
+    Host string `path:host`
+}
+
+type SlienceResponse struct {
+
 }
 
 type (
