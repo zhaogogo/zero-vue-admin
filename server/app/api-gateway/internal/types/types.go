@@ -636,10 +636,11 @@ type SlienceJoinRest struct {
 }
 
 type SlienceName struct {
-	Id          uint64 `json:"id" gorm:"clumn:id;primaryKey"`
-	HostID      uint64 `json:"host_id" gorm:"clumn:host_id;type:bigint"`
-	SlienceName string `json:"slience_name" gorm:"clumn:slience_name"`
-	Default     bool   `json:"default" gorm:"clumn:default"`
+	Id          uint64           `json:"id" gorm:"clumn:id;primaryKey"`
+	HostID      uint64           `json:"host_id" gorm:"clumn:host_id;type:bigint"`
+	SlienceName string           `json:"slience_name" gorm:"clumn:slience_name"`
+	Default     bool             `json:"default" gorm:"clumn:default"`
+	Matchers    []SlienceMatcher `json:"matchers" gorm:"foreignKey:slience_name_id"`
 }
 
 type SlienceMatcher struct {
@@ -657,6 +658,15 @@ type Matchers struct {
 	Value   string `json:"value"`
 	IsRegex bool   `json:"isRegex"`
 	IsEqual bool   `json:"isEqual"`
+}
+
+type SlienceRequest struct {
+	Host string `path:"host,optional" validate:"required,ipv4"`
+}
+
+type SlienceResponse struct {
+	HttpCommonResponse
+	List []SlienceName `json:"list"`
 }
 
 type HostPagingRequest struct {

@@ -21,9 +21,9 @@ service ApiGateway-api {
     @handler Paging
     post /paging (HostPagingRequest) returns (HostResponse)
 
-    @doc "host静默规则"
+    @doc "获取host静默规则"
     @handler Slience
-    get /slience/:host (SlienceRequest) returns (SlienceResponse)
+    post /slience/:host (SlienceRequest) returns (SlienceResponse)
 }
 
 type Host struct {
@@ -60,6 +60,8 @@ type SlienceName struct {
     HostID        uint64 `json:"host_id" gorm:"clumn:host_id;type:bigint"`
     SlienceName   string `json:"slience_name" gorm:"clumn:slience_name"`
     Default       bool   `json:"default" gorm:"clumn:default"`
+
+    Matchers    []SlienceMatcher `json:"matchers" gorm:"foreignKey:slience_name_id"`
 }
 
 type SlienceMatcher struct {
@@ -80,11 +82,12 @@ type Matchers struct {
 }
 
 type SlienceRequest struct {
-    Host string `path:host`
+    Host string `path:"host,optional" validate:"required,ipv4"`
 }
 
 type SlienceResponse struct {
-
+    HttpCommonResponse
+    List []SlienceName `json:"list"`
 }
 
 type (

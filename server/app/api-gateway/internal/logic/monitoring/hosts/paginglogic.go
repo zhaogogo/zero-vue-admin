@@ -2,6 +2,7 @@ package hosts
 
 import (
 	"context"
+	"fmt"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"golang.org/x/sync/errgroup"
 
@@ -31,6 +32,7 @@ func (l *PagingLogic) Paging(req *types.HostPagingRequest) (resp *types.HostResp
 		hosts      []types.Host
 		hostsCount int64
 	)
+	fmt.Println("=====>", req.Page, req.PageSize)
 	gCtx, _ := context.WithCancel(l.ctx)
 	g, _ := errgroup.WithContext(gCtx)
 	g.Go(func() error {
@@ -49,7 +51,7 @@ func (l *PagingLogic) Paging(req *types.HostPagingRequest) (resp *types.HostResp
 				logx.Error(e)
 			}
 		}()
-		err := l.svcCtx.MonitoringDB().Find(&hosts).Order("id").Limit(int(req.PageSize)).Offset(int((req.Page - 1) * req.PageSize)).Association("Tags").Error
+		err := l.svcCtx.MonitoringDB().Model(&types.Host{}).Order("id").Limit(int(req.PageSize)).Offset(int((req.Page - 1) * req.PageSize)).Preload("Tags").Find(&hosts).Error
 		return err
 	})
 

@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"fmt"
 	casbinmysqladapter "github.com/Blank-Xu/sql-adapter"
 	"github.com/casbin/casbin/v2"
 	casbinmodel "github.com/casbin/casbin/v2/model"
@@ -90,5 +91,6 @@ func ParamsMatchFunc(args ...interface{}) (interface{}, error) {
 func ParamsMatch(fullNameKey1 string, key2 string) bool {
 	key1 := strings.Split(fullNameKey1, "?")[0]
 	// 剥离路径后再使用casbin的keyMatch2
+	fmt.Println(fullNameKey1, key2)
 	return casbinutil.KeyMatch2(key1, key2)
 }

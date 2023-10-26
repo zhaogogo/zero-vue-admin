@@ -400,6 +400,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/paging",
 					Handler: monitoringhosts.PagingHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/slience/:host",
+					Handler: monitoringhosts.SlienceHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
