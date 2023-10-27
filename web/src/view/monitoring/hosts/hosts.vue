@@ -52,11 +52,19 @@
             size="60%"
             >
             <div class="demo-drawer__content">
-                <el-table
-                    :data="hostSlienceRule.list"
-                >
-                    <el-table-column label="slience_name" prop="slience_name"></el-table-column>
-                </el-table>
+                <el-form ref="slienceForm" :model="hostSlienceRules" label-width="100px">
+                    <el-form-item 
+                        v-for="item in hostSlienceRules"
+                        :key="item.name"
+                        :prop="item.slience_name"
+                        label="静默描述"
+                    >
+                        <el-col>
+                            <el-input v-model="item.slience_name" style="width: 80%;"></el-input><el-button @click.prevent="removeSlience(item)">删除</el-button>
+                        </el-col>
+                        
+                    </el-form-item>
+                </el-form>
                 <div class="demo-drawer__footer">
                     <el-button @click="cancelForm">取 消</el-button>
                     <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
@@ -110,7 +118,7 @@ export default {
             hostLocationOptions: hostLocationOptions,
             slienceDialogVisible: false,
             slienceTitle: "",
-            hostSlienceRule: {},
+            hostSlienceRules: [],
             form: {
                 name: '',
                 region: '',
@@ -129,11 +137,15 @@ export default {
     methods: {
         async openSlienceDialog(host) {
             this.slienceTitle = host + " slience"
-            this.hostSlienceRule = await hostSlienceRule(host)
+            const res = await hostSlienceRule(host)
+            this.hostSlienceRules = res.list
             this.slienceDialogVisible = true
         },
         closeSlienceDialog() {
             this.slienceDialogVisible = false
+        },
+        removeSlience(item) {
+            console.log("---->", item)
         }
     }
 }
