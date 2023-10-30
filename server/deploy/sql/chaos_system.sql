@@ -225,11 +225,11 @@ INSERT INTO `menu` VALUES (2, 0, 'superAdmin', 'superAdmin', 'view/superAdmin/in
 INSERT INTO `menu` VALUES (3, 2, 'user', 'user', 'view/superAdmin/user/user.vue', '用户管理', 'user-solid', 0, 0, '2022-09-04 21:33:08', '2022-12-21 02:22:56', NULL);
 INSERT INTO `menu` VALUES (4, 2, 'menu', 'menu', 'view/superAdmin/menu/menu.vue', '菜单管理', 'menu', 2, 0, '2022-09-08 03:29:49', '2022-12-21 02:16:22', NULL);
 INSERT INTO `menu` VALUES (5, 2, 'systemsetup', 'systemsetup', 'view/superAdmin/systemsetup/index.vue', '系统管理', 'setting', 7, 0, '2022-12-16 12:48:20', '2022-12-21 02:21:42', NULL);
-INSERT INTO `menu` VALUES (6, 5, 'ldapsetup', 'ldapsetup', 'view/superAdmin/systemsetup/ldapsetup/ldapsetup.vue', 'ldap配置', 's-order', 1, 0, '2022-12-16 12:53:22', '2022-12-16 12:58:05', NULL);
+INSERT INTO `menu` VALUES (6, 5, 'ldapsetup', 'ldapsetup', 'view/superAdmin/systemsetup/ldapsetup/ldapsetup.vue', 'ldap配置', 'consumerSliences-order', 1, 0, '2022-12-16 12:53:22', '2022-12-16 12:58:05', NULL);
 INSERT INTO `menu` VALUES (7, 2, 'api', 'api', 'view/superAdmin/api/api.vue', 'api管理', 'c-scale-to-original', 3, 0, '2022-12-21 02:27:36', '2022-12-21 02:36:36', NULL);
 INSERT INTO `menu` VALUES (8, 2, 'role', 'role', 'view/superAdmin/role/role.vue', '角色管理', 'user', 1, 0, '2022-12-23 10:54:48', '2023-01-03 10:11:57', NULL);
 INSERT INTO `menu` VALUES (15, 0, 'persionhome', 'persionhome', 'view/home/index.vue', '家', 'toilet-paper', 99, 1, '2023-01-03 04:54:09', '2023-01-03 10:16:35', NULL);
-INSERT INTO `menu` VALUES (16, 0, 'esManager', 'esManager', 'view/esManager/index.vue', 'ES管理', 's-help', 2, 0, '2023-01-08 21:35:23', '2023-01-08 21:35:39', NULL);
+INSERT INTO `menu` VALUES (16, 0, 'esManager', 'esManager', 'view/esManager/index.vue', 'ES管理', 'consumerSliences-help', 2, 0, '2023-01-08 21:35:23', '2023-01-08 21:35:39', NULL);
 INSERT INTO `menu` VALUES (17, 16, 'esConn', 'esConn', 'view/esManager/connManager/connManager.vue', '连接管理', 'connection', 0, 0, '2023-01-08 21:40:48', '2023-01-08 21:40:48', NULL);
 COMMIT;
 

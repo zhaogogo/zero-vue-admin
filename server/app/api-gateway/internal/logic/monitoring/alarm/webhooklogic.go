@@ -1,12 +1,17 @@
 package alarm
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
+	"fmt"
+	"github.com/pkg/errors"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/slience"
-	"strings"
-
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
+	"net/http"
+	"strings"
+	"time"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -26,27 +31,34 @@ func NewWebhookLogic(ctx context.Context, svcCtx *svc.ServiceContext) *WebhookLo
 }
 
 func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
-	machineRoom := map[string]string{
-		"1": "http://192.168.14.105:9091/api/v1/sliences",
-		"2": "http://10.100.114.105:9091/api/v1/sliences",
+	machineRoom := map[int]string{
+		1: "http://192.168.14.105:9091/api/v1/sliences",
+		2: "http://10.100.114.105:9091/api/v1/sliences",
 	}
 	l.svcCtx.SlienceList.Mu.RLock()
-	matchDefault := l.svcCtx.SlienceList.Sliences
+	consumerMatch := l.svcCtx.SlienceList.Sliences
 	defer l.svcCtx.SlienceList.Mu.RUnlock()
 
 	for _, alert := range req.Alerts {
-		if host := slience.AlarmIsMatchDefault(alert, matchDefault); host != "" {
+		if host := slience.AlarmIsMatchDefault(alert, consumerMatch); host != "" {
 			if alert.Status == "firing" {
-				for slienceName, matchs := range l.svcCtx.SlienceList.Sliences[host] {
-					slienceto := strings.SplitN(slienceName, ":", 2)
-					if len(slienceto) != 2 {
-						logx.Errorf("获取机房位置失败, host: %s, slience_name: %s", host, slienceName)
-						continue
+				slienceNames := []string{}
+				for _, sli := range consumerMatch[host] {
+					slienceNames = append(slienceNames, sli.SlienceName)
+					_, err := slience.AlertmanagerSliences(machineRoom[sli.To], sli.Matchers, host, sli.SlienceName)
+					if err != nil {
+						logx.Error("调用alertmanager URL: %s, host: %s, slience_name: %s, error: %v", machineRoom[sli.To], host, sli.SlienceName, err)
 					}
-					if err := slience.AlertmanagerSliences(machineRoom[slienceto[1]], matchs, slienceName); err != nil {
-						logx.Error(err)
-						continue
-					}
+				}
+				var a = Alert{URL: "http://127.0.0.1:8075/api/v2/idatas"}
+				message, err := a.SentMessage(&AlertMessage{
+					Title:      fmt.Sprintf("k8s关联静默"),
+					Message:    strings.Join(slienceNames, ","),
+					NoticeName: fmt.Sprintf("%s", host),
+					Serverity:  "P2",
+				})
+				if err != nil {
+					logx.Error("发送消息失败, host: %s, body: %s", host, message)
 				}
 			} else {
 
@@ -55,4 +67,70 @@ func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
 
 	}
 	return nil
+}
+
+// TiDB生产集群出现执行时间大于20秒的SQL：
+// tidb实例：instance
+// 客户端：host
+// 库名：db
+// 账号：user
+// 执行时间：time
+// SQL内容：sql查询结果的sqltxt
+
+//	{
+//		"notice_name": "test2",
+//		"serverity": "P0",
+//		"summary": "test_summary",
+//		"message": "test_message"
+//	}
+type AlertMessage struct {
+	Message    string `json:"message"`
+	NoticeName string `json:"notice_name"`
+	Serverity  string `json:"serverity"`
+	Title      string `json:"summary"`
+	DBName     string `json:"-"`
+}
+
+// test_summary
+// test2
+// 2022-09-28 18:13:08<br/>通知消息：test_message
+
+type Alert struct {
+	URL string `yaml:"url"`
+}
+
+func (u *Alert) SentMessage(data *AlertMessage) (string, error) {
+	j, err := json.Marshal(data)
+	if err != nil {
+		return "", errors.Wrap(err, "json encode error")
+	}
+	body := bytes.NewBuffer(j)
+
+	alertURL := u.URL
+
+	req, err := http.NewRequest("POST", alertURL, body)
+	if err != nil {
+		return string(j), errors.Wrap(err, "new request error")
+	}
+	client := &http.Client{
+		Timeout: time.Second * 2,
+	}
+	response, err := client.Do(req)
+	if err != nil {
+		return string(j), errors.Wrap(err, "http client do error")
+	}
+	logx.Infof("Send message response HTTP StatusCode is: %v", response.StatusCode)
+	var res = struct {
+		Code int    `json:"code"`
+		Msg  string `json:"msg"`
+	}{}
+	defer response.Body.Close()
+	err = json.NewDecoder(response.Body).Decode(&res)
+	if err != nil {
+		return string(j), errors.Wrap(err, "response body json decoder error")
+	}
+	if res.Code != 200 {
+		return string(j), errors.New(fmt.Sprintf("response body code is got %d, msg: %s", res.Code, res.Msg))
+	}
+	return string(j), nil
 }
