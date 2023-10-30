@@ -9,13 +9,16 @@ import (
 type SafeSliences struct {
 	Mu sync.RWMutex
 	//           instance   alertName
-	Sliences map[string]map[string][]types.Matchers
-	//Sliences map[string]map[string]Slience
+	//Sliences map[string]map[string][]types.Matchers
+	Sliences map[string][]Sliences
 }
 
-type Slience struct {
-	To       int
-	Matchers []types.Matchers
+type Sliences struct {
+	SlienceName string
+	IsDefault   bool
+	SliencesID  string
+	To          int
+	Matchers    []types.Matchers
 }
 
 type AMSlience struct {

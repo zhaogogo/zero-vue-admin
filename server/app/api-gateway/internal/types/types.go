@@ -628,6 +628,7 @@ type SlienceJoinRest struct {
 	Id          uint64 `json:"id" gorm:"clumn:id;primaryKey;type:bigint AUTO_INCREMENT"`
 	Host        string `json:"host" gorm:"clumn:host"`
 	SlienceName string `json:"slience_name" gorm:"clumn:slience_name"`
+	To 			int 	`json:"to" gorm:"to"`
 	Name        string `json:"name" gorm:"clumn:name"`
 	Value       string `json:"value" gorm:"clumn:value"`
 	IsRegex     bool   `json:"isRegex" gorm:"clumn:is_regex"`

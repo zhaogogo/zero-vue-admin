@@ -2,8 +2,6 @@ package alarm
 
 import (
 	"context"
-	"github.com/pkg/errors"
-	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/slience"
 	"strings"
 
@@ -37,17 +35,21 @@ func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
 	defer l.svcCtx.SlienceList.Mu.RUnlock()
 
 	for _, alert := range req.Alerts {
-		if alert.Status == "firing" {
-			if host := slience.AlarmIsMatchDefault(alert, matchDefault); host != "" {
+		if host := slience.AlarmIsMatchDefault(alert, matchDefault); host != "" {
+			if alert.Status == "firing" {
 				for slienceName, matchs := range l.svcCtx.SlienceList.Sliences[host] {
 					slienceto := strings.SplitN(slienceName, ":", 2)
 					if len(slienceto) != 2 {
-						return errorx.New(errors.New("from slience_name get machine room failed"), "获取机房位置失败")
+						logx.Errorf("获取机房位置失败, host: %s, slience_name: %s", host, slienceName)
+						continue
 					}
 					if err := slience.AlertmanagerSliences(machineRoom[slienceto[1]], matchs, slienceName); err != nil {
 						logx.Error(err)
+						continue
 					}
 				}
+			} else {
+
 			}
 		}
 

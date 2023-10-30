@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/slience"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
 	"gorm.io/gorm"
 	"html/template"
@@ -18,7 +19,6 @@ func AlarmIsMatchDefault(alarm types.Alerts, match map[string]map[string][]types
 	for host, consumerSliences := range match {
 		consumerMatchs := consumerSliences["default"]
 		isMatch := true
-
 		for _ /* slience name */, consumerMatch := range consumerMatchs {
 			if alarmvalue, ok := alarm.Labels[consumerMatch.Name]; ok {
 				if alarmValueIsMatch(consumerMatch, alarmvalue) == false {
@@ -60,7 +60,7 @@ func alarmValueIsMatch(consumerMatch types.Matchers, value string) bool {
 func GetConsumerSliences(db *gorm.DB) SafeSliences {
 	slienceResults := []types.SlienceJoinRest{}
 	db.Model(&types.Host{}).
-		Select("`hosts`.`id`,`hosts`.`host`, `slience_names`.`default`,`slience_names`.`slience_name`, `slience_matchers`.`name`, `slience_matchers`.`value`, `slience_matchers`.`is_regex`, `slience_matchers`.`is_equal`").
+		Select("`hosts`.`id`,`hosts`.`host`, `slience_names`.`default`,`slience_names`.`slience_name`,`slience_names`.`to`, `slience_matchers`.`name`, `slience_matchers`.`value`, `slience_matchers`.`is_regex`, `slience_matchers`.`is_equal`").
 		Joins("JOIN slience_names ON hosts.id = slience_names.host_id").
 		Joins("JOIN slience_matchers ON slience_names.id = slience_matchers.slience_name_id and and slience_matchers.host_id = hosts.id").
 		Scan(&slienceResults)
@@ -80,28 +80,82 @@ func GetConsumerSliences(db *gorm.DB) SafeSliences {
 		slienceResults[i].Value = templateValue.String()
 		templateValue.Reset()
 	}
-	sliences := SafeSliences{Sliences: make(map[string]map[string][]types.Matchers)}
-	sliences.Mu.Lock()
-	defer sliences.Mu.Unlock()
+	//sliences := SafeSliences{Sliences: make(map[string]map[string][]types.Matchers)}
+	//sliences.Mu.Lock()
+	//defer sliences.Mu.Unlock()
+	//for _, res := range slienceResults {
+	//	if sliences.Sliences[res.Host] == nil {
+	//		sliences.Sliences[res.Host] = make(map[string][]types.Matchers)
+	//	}
+	//	if res.Default {
+	//		sliences.Sliences[res.Host]["default"] = append(sliences.Sliences[res.Host]["default"], types.Matchers{
+	//			Name:    res.Name,
+	//			Value:   res.Value,
+	//			IsRegex: false,
+	//			IsEqual: true,
+	//		})
+	//	}
+	//	sliences.Sliences[res.Host][res.SlienceName] = append(sliences.Sliences[res.Host][res.SlienceName], types.Matchers{
+	//		Name:    res.Name,
+	//		Value:   res.Value,
+	//		IsRegex: false,
+	//		IsEqual: true,
+	//	})
+	//}
+
+	sliences := make(map[string]map[string][]types.Matchers)
+	s := slience.SafeSliences{Sliences: make(map[string][]Sliences)}
+	//sliences.Mu.Lock()
+	//defer sliences.Mu.Unlock()
+
 	for _, res := range slienceResults {
-		if sliences.Sliences[res.Host] == nil {
-			sliences.Sliences[res.Host] = make(map[string][]types.Matchers)
+		if _, ok := s.Sliences[res.Host]; ok {
+			for slienceIndex, slien := range s.Sliences[res.Host] {
+				if slien.SlienceName == res.SlienceName {
+					s.Sliences[res.Host][slienceIndex].Matchers = append(s.Sliences[res.Host][slienceIndex].Matchers, types.Matchers{
+						Name:    "",
+						Value:   "",
+						IsRegex: false,
+						IsEqual: false,
+					})
+				}
+			}
+		} else {
+			s.Sliences[res.Host] = append(s.Sliences[res.Host], Sliences{
+				SlienceName: res.SlienceName,
+				IsDefault:   res.Default,
+				SliencesID:  "",
+				To:          res.To,
+				Matchers: []types.Matchers{
+					types.Matchers{
+						Name:    res.Name,
+						Value:   res.Value,
+						IsRegex: res.IsRegex,
+						IsEqual: res.IsEqual,
+					},
+				},
+			})
+		}
+
+		if sliences[res.Host] == nil {
+			sliences[res.Host] = make(map[string][]types.Matchers)
 		}
 		if res.Default {
-			sliences.Sliences[res.Host]["default"] = append(sliences.Sliences[res.Host]["default"], types.Matchers{
+			sliences[res.Host]["default"] = append(sliences[res.Host]["default"], types.Matchers{
 				Name:    res.Name,
 				Value:   res.Value,
 				IsRegex: false,
 				IsEqual: true,
 			})
 		}
-		sliences.Sliences[res.Host][res.SlienceName] = append(sliences.Sliences[res.Host][res.SlienceName], types.Matchers{
+		sliences[res.Host][res.SlienceName] = append(sliences[res.Host][res.SlienceName], types.Matchers{
 			Name:    res.Name,
 			Value:   res.Value,
 			IsRegex: false,
 			IsEqual: true,
 		})
 	}
+
 	return sliences
 }
 
