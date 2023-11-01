@@ -405,6 +405,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/slience/:host",
 					Handler: monitoringhosts.SlienceHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/slience/:host",
+					Handler: monitoringhosts.CreateSlienceHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

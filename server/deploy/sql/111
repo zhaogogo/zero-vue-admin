@@ -1,0 +1,41 @@
+hosts | CREATE TABLE `hosts` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `host` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `to` tinyint NOT NULL,
+  `created_at` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `modified_at` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `deleted_at` varchar(191) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_hosts_deleted_at` (`deleted_at`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+
+host_tags | CREATE TABLE `host_tags` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `host_id` bigint NOT NULL,
+  `key` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `value` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+| slience_names | CREATE TABLE `slience_names` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `host_id` bigint NOT NULL,
+  `slience_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `default` tinyint NOT NULL,
+  `to` tinyint NOT NULL COMMENT '调用alertmanager接口',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+slience_matchers | CREATE TABLE `slience_matchers` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `host_id` bigint DEFAULT NULL,
+  `slience_name_id` bigint DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `is_regex` tinyint DEFAULT NULL,
+  `is_equal` tinyint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+

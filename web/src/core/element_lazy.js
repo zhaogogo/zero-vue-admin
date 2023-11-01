@@ -46,6 +46,7 @@ import {
     Popover,
     Radio,
     RadioGroup,
+    RadioButton,
     Tree,
     Link
 } from 'element-ui';
@@ -89,6 +90,7 @@ Vue.use(Pagination)
 Vue.use(Popover)
 Vue.use(Radio)
 Vue.use(RadioGroup)
+Vue.use(RadioButton)
 Vue.use(Tree)
 Vue.use(Link)
 Vue.prototype.$confirm = MessageBox.confirm;

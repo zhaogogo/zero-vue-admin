@@ -14,3 +14,11 @@ export const hostSlienceRule = (data) => {
         method:"POST"
     })
 }
+
+export const putHostSlienceRule = (data) => {
+    return service({
+        url: "/api/v1/monitoring/hosts/slience/" + data.host,
+        method:"PUT",
+        data
+    })
+}

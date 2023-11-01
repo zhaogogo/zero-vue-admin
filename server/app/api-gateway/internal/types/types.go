@@ -628,7 +628,7 @@ type SlienceJoinRest struct {
 	Id          uint64 `json:"id" gorm:"clumn:id;primaryKey;type:bigint AUTO_INCREMENT"`
 	Host        string `json:"host" gorm:"clumn:host"`
 	SlienceName string `json:"slience_name" gorm:"clumn:slience_name"`
-	To 			int 	`json:"to" gorm:"to"`
+	To          int    `json:"to" gorm:"to"`
 	Name        string `json:"name" gorm:"clumn:name"`
 	Value       string `json:"value" gorm:"clumn:value"`
 	IsRegex     bool   `json:"isRegex" gorm:"clumn:is_regex"`
@@ -637,15 +637,16 @@ type SlienceJoinRest struct {
 }
 
 type SlienceName struct {
-	Id          uint64           `json:"id" gorm:"clumn:id;primaryKey"`
+	Id          uint64           `json:"id,optional" gorm:"clumn:id;primaryKey"`
 	HostID      uint64           `json:"host_id" gorm:"clumn:host_id;type:bigint"`
 	SlienceName string           `json:"slience_name" gorm:"clumn:slience_name"`
 	Default     bool             `json:"default" gorm:"clumn:default"`
+	To          int              `json:"to" gorm:"to"`
 	Matchers    []SlienceMatcher `json:"matchers" gorm:"foreignKey:slience_name_id"`
 }
 
 type SlienceMatcher struct {
-	Id            uint64 `json:"id" gorm:"clumn:id;primaryKey"`
+	Id            uint64 `json:"id,optional" gorm:"clumn:id;primaryKey"`
 	HostID        uint64 `json:"host_id" gorm:"clumn:host_id;type:bigint"`
 	SlienceNameID uint64 `json:"slience_name_id" gorm:"clumn:slience_name_id"`
 	Name          string `json:"name" gorm:"clumn:name"`
@@ -661,13 +662,25 @@ type Matchers struct {
 	IsEqual bool   `json:"isEqual"`
 }
 
+type SliencePutRequest struct {
+	Host     string        `path:"host,optional" validate:"required,ipv4"`
+	ID       int           `json:"id,optional" validate:"required,numeric,gte=1"`
+	Sliences []SlienceName `json:"sliences"`
+}
+
 type SlienceRequest struct {
 	Host string `path:"host,optional" validate:"required,ipv4"`
 }
 
 type SlienceResponse struct {
 	HttpCommonResponse
-	List []SlienceName `json:"list"`
+	HostSliences HostSliences `json:"hostSliences"`
+}
+
+type HostSliences struct {
+	ID       uint64        `json:"id"`
+	Host     string        `json:"host"`
+	Sliences []SlienceName `json:"sliences"`
 }
 
 type HostPagingRequest struct {

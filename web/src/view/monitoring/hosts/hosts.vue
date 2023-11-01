@@ -54,22 +54,35 @@
             <div class="demo-drawer__content">
                 <el-form ref="slienceForm" label-width="100px">
                     <el-form-item 
-                        v-for="item,hostSlienceId in hostSlienceRules"
-                        :key="item.slience_name"
+                        v-for="item,hostSlienceIndex in hostSlienceRules.sliences"
+                        :key="hostSlienceIndex"
                         :prop="item.slience_name"
                         label="静默描述"
                     >
                         <el-col>
-                            <el-input v-model="item.slience_name" ref="test" style="width: 80%;"></el-input>
-                            <el-checkbox v-model="item.default" value="false"></el-checkbox>
+                            <el-input v-model="item.slience_name" placeholder="静默描述" style="width: 80%;"></el-input>
                             <el-button @click.prevent="removeSlience(item)">删除</el-button>
+                        </el-col>
+                        <el-col>
+                        <el-form-item label="是否为默认">
+                            <el-checkbox v-model="item.default" value="false"></el-checkbox>
+                            
+                            <el-radio-group v-model.number="item.to" size="mini" style="margin-left: 30px;">
+                                <el-radio-button :label="1">兆维</el-radio-button>
+                                <el-radio-button :label="2">亦庄</el-radio-button>
+                            </el-radio-group>
+                            
+                        </el-form-item>
+                        <!-- <el-form-item label="静默机房">
+                            
+                        </el-form-item> -->
                         </el-col>
                         <el-tag
                             :key="matcher.id"
                             v-for="matcher in item.matchers"
                             closable
                             :disable-transitions="false"
-                            @close="handleCloseMatcher(matcher,hostSlienceId)">
+                            @close="handleCloseMatcher(matcher,hostSlienceIndex)">
                             {{matcher | matcherFilter }}
                         </el-tag>
                         <el-input
@@ -78,17 +91,18 @@
                             v-show="inputVisible[item.slience_name]"
                             v-model="inputValue"
                             size="small"
-                            @keyup.enter.native="handleInputConfirm(hostSlienceId)"
-                            @blur="handleInputConfirm(hostSlienceId)"
+                            @keyup.enter.native="handleInputConfirm(hostSlienceIndex)"
+                            @blur="handleInputConfirm(hostSlienceIndex)"
                             >
                         </el-input>
                         <el-button class="button-new-tag" size="small" @click="showInput(item.slience_name)">+ New Tag</el-button>
                         
                     </el-form-item>
                 </el-form>
+                <el-button style="margin-left: 5%;" @click="addSlience(hostSlienceRules.id)">新增静默规则</el-button>
                 <div class="demo-drawer__footer">
                     <!-- <el-button @click="cancelForm">取 消</el-button> -->
-                    <!-- <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button> -->
+                    <el-button type="primary" @click="$refs.hostSlienceRule.closeDrawer()" :loading="slienceRuleLoading">{{ slienceRuleLoading ? '提交中 ...' : '确 定' }}</el-button>
                 </div>
             </div>
         </el-drawer>
@@ -99,9 +113,10 @@
 import infoList from '@/mixins/infoList'
 import {
     hosts,
-    hostSlienceRule
+    hostSlienceRule,
+    putHostSlienceRule
 } from '@/api/monitoring/hosts/hosts'
-import { del } from 'vue'
+import { matcherExpParse } from "@/utils/slienceParse"
 
 const hostLocationOptions = [
     {
@@ -134,7 +149,6 @@ export default {
             return target && `${target.type}`
         },
         matcherFilter(v) {
-            console.log("---->v",v)
             if (v.is_equal == true ) {
                 if (v.is_regex == true) {
                     return v.name + "=~" + "\""+ v.value +"\""
@@ -154,9 +168,10 @@ export default {
         return {
             listApi: hosts,
             hostLocationOptions: hostLocationOptions,
+            slienceRuleLoading: false,
             slienceDialogVisible: false,
             slienceTitle: "",
-            hostSlienceRules: [],
+            hostSlienceRules: {},
             inputVisible: {},
             inputValue:"",
             form: {
@@ -173,49 +188,62 @@ export default {
     },
     async created() {
         await this.getTableData()
-        console.log(this)
     },
     methods: {
         async openSlienceDialog(host) {
-            this.slienceTitle = host + " slience"
+            this.slienceTitle = host + " 静默规则"
             const res = await hostSlienceRule(host)
-            this.hostSlienceRules = res.list
+            this.hostSlienceRules = res.hostSliences
             this.slienceDialogVisible = true
         },
-        closeSlienceDialog() {
+        async closeSlienceDialog() {
             this.slienceDialogVisible = false
+            this.slienceRuleLoading = true
+            await putHostSlienceRule(this.hostSlienceRules)
+
+            this.slienceRuleLoading = false
+            this.hostSlienceRules = {}
+            
         },
-        handleCloseMatcher(matcher, hostSlienceId) {
-            var f = this.hostSlienceRules[hostSlienceId].matchers.filter(v => v.id !== matcher.id)
-            this.hostSlienceRules[hostSlienceId].matchers = f 
+        handleCloseMatcher(matcher, hostSlienceIndex) {
+            var f = this.hostSlienceRules.sliences[hostSlienceIndex].matchers.filter(v => v.id !== matcher.id)
+            this.hostSlienceRules.sliences[hostSlienceIndex].matchers = f 
         },
         removeSlience(hostSlience) {
-            this.hostSlienceRules = this.hostSlienceRules.filter(v => v.id !== hostSlience.id)
+            console.log(hostSlience)
+            this.hostSlienceRules.sliences = this.hostSlienceRules.sliences.filter(v => v.id !== hostSlience.id)
         },
         showInput(name) {
             this.$set(this.inputVisible, name, true)
-            // this.inputVisible[name]= true
-            console.log(this.$refs)
-            console.log(this.$refs["saveTagInput"+name])
             this.$nextTick(_ => {
-                console.log("111111",this.$refs)
-                console.log("222222",this.$refs["saveTagInput"+name])
-                console.log(this.inputVisible[name])
                 this.$refs["saveTagInput"+name][0].$refs.input.focus();
             });
         },
-        handleInputConfirm(hostSlienceId) {
-            console.log("111-->",hostSlienceId,this.hostSlienceRules)
+        handleInputConfirm(hostSlienceIndex) {
             let inputValue = this.inputValue;
             if (inputValue) {
-                this.hostSlienceRules[hostSlienceId].matchers.push(inputValue);
+                let hostID = this.hostSlienceRules.sliences[hostSlienceIndex].host_id
+                let slienceNameID 
+                if (this.hostSlienceRules.sliences[hostSlienceIndex].hasOwnProperty("id")) {
+                    slienceNameID = this.hostSlienceRules.sliences[hostSlienceIndex].id
+                }else {
+                    slienceNameID = 0
+                }
+                console.log("@@@@@@",matcherExpParse(inputValue,hostID,slienceNameID),slienceNameID)
+                this.hostSlienceRules.sliences[hostSlienceIndex].matchers.push(matcherExpParse(inputValue,hostID,slienceNameID));
             }
-            console.log("222-->")
             this.inputVisible = {};
-            console.log("333-->")
-            this.inputValue = '';
-            console.log("444-->")
-        
+            this.inputValue = '';        
+        },
+        addSlience(hostID){
+            // this.$set(this.hostSlienceRues.slienceRules,)
+            this.hostSlienceRules.sliences.push({
+                "id": 0,
+                "host_id": hostID,
+                "slience_name": "",
+                "default": false,
+                "matchers": []
+            });
         }
     }
 }

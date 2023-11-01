@@ -27,7 +27,7 @@ func NewSlienceLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SlienceLo
 
 func (l *SlienceLogic) Slience(req *types.SlienceRequest) (resp *types.SlienceResponse, err error) {
 	host := types.Host{}
-	err = l.svcCtx.MonitoringDB().Take(&host).Error
+	err = l.svcCtx.MonitoringDB().Where(types.Host{Host: req.Host}).Take(&host).Error
 	if err != nil {
 		return nil, errorx.New(err, fmt.Sprintf("获取host %s id 失败", req.Host))
 	}
@@ -38,6 +38,10 @@ func (l *SlienceLogic) Slience(req *types.SlienceRequest) (resp *types.SlienceRe
 	}
 	return &types.SlienceResponse{
 		HttpCommonResponse: types.HttpCommonResponse{Code: 200, Msg: "ok"},
-		List:               alertSlience,
+		HostSliences: types.HostSliences{
+			ID:       host.Id,
+			Host:     host.Host,
+			Sliences: alertSlience,
+		},
 	}, nil
 }
