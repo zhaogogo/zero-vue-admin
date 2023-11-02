@@ -38,7 +38,8 @@ type Host struct {
     ModifiedAt  string `json:"modifiedAt" gorm:"clumn:modifie_at;autoUpdateTime;not null"`
     DeletedAt  string `json:"deletedAt" gorm:"clumn:delete_at;index"`
 
-    Tags   []HostTag        `json:"tags" gorm:"clumn:tags;foreignKey:host_id"`
+    Tags   []HostTag        `json:"tags" gorm:"foreignKey:host_id"`
+    SlienceName []SlienceName `json:"sliences" gorm:"foreigKey:host_id"`
 }
 
 type HostTag struct {

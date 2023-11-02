@@ -8886,3 +8886,35 @@
 [1.122ms] [rows:6] SELECT * FROM `slience_matchers` WHERE `slience_matchers`.`slience_name_id` IN (?,?) AND host_id = ?
 2023/11/01 04:00:24 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/sliencelogic.go:35
 [2.144ms] [rows:2] SELECT * FROM `slience_names` WHERE `slience_names`.`host_id` = ?
+2023/11/01 22:58:01 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/pkg/slience/hosts_slience.go:71
+[18.468ms] [rows:10] SELECT `hosts`.`id`, `hosts`.`host`, `slience_names`.`default`, `slience_names`.`to`, `slience_names`.`slience_name`, `slience_matchers`.`name`, `slience_matchers`.`value`, `slience_matchers`.`is_regex`, `slience_matchers`.`is_equal` FROM `hosts` JOIN slience_names ON hosts.id = slience_names.host_id JOIN slience_matchers ON slience_names.id = slience_matchers.slience_name_id and slience_matchers.host_id = hosts.id
+2023/11/02 00:23:45 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/pkg/slience/hosts_slience.go:71
+[5.823ms] [rows:10] SELECT `hosts`.`id`, `hosts`.`host`, `slience_names`.`default`, `slience_names`.`to`, `slience_names`.`slience_name`, `slience_matchers`.`name`, `slience_matchers`.`value`, `slience_matchers`.`is_regex`, `slience_matchers`.`is_equal` FROM `hosts` JOIN slience_names ON hosts.id = slience_names.host_id JOIN slience_matchers ON slience_names.id = slience_matchers.slience_name_id and slience_matchers.host_id = hosts.id
+2023/11/02 00:24:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[7.368ms] [rows:1] SELECT * FROM `hosts`
+2023/11/02 00:24:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:42
+[7.158ms] [rows:1] SELECT count(*) FROM `hosts`
+2023/11/02 00:24:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[4.798ms] [rows:2] SELECT * FROM `host_tags` WHERE `host_tags`.`host_id` IN (?,?,?)
+2023/11/02 00:24:46 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/paginglogic.go:52
+[19.650ms] [rows:3] SELECT * FROM `hosts` ORDER BY id LIMIT 10
+2023/11/02 00:24:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/sliencelogic.go:30
+[1.040ms] [rows:1] SELECT * FROM `hosts` WHERE `hosts`.`host` = ? LIMIT 1
+2023/11/02 00:24:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/sliencelogic.go:35
+[1.752ms] [rows:6] SELECT * FROM `slience_matchers` WHERE `slience_matchers`.`slience_name_id` IN (?,?,?) AND host_id = ?
+2023/11/02 00:24:48 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/sliencelogic.go:35
+[2.480ms] [rows:3] SELECT * FROM `slience_names` WHERE `slience_names`.`host_id` = ?
+2023/11/02 00:24:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/createsliencelogic.go:30
+[1.458ms] [rows:0] INSERT INTO `slience_matchers` (`host_id`,`slience_name_id`,`name`,`value`,`is_regex`,`is_equal`,`id`) VALUES (?,?,?,?,?,?,?),(?,?,?,?,?,?,?),(?,?,?,?,?,?,?),(?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE `slience_name_id`=VALUES(`slience_name_id`)
+2023/11/02 00:24:58 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/createsliencelogic.go:30
+[17.194ms] [rows:0] INSERT INTO `slience_names` (`host_id`,`slience_name`,`default`,`to`,`id`) VALUES (?,?,?,?,?),(?,?,?,?,?) ON DUPLICATE KEY UPDATE `host_id`=VALUES(`host_id`),`slience_name`=VALUES(`slience_name`),`default`=VALUES(`default`),`to`=VALUES(`to`)
+2023/11/02 00:24:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/sliencelogic.go:30
+[0.806ms] [rows:1] SELECT * FROM `hosts` WHERE `hosts`.`host` = ? LIMIT 1
+2023/11/02 00:24:59 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/sliencelogic.go:35
+[0.988ms] [rows:0] SELECT * FROM `slience_names` WHERE `slience_names`.`host_id` = ?
+2023/11/02 00:25:08 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/createsliencelogic.go:30 empty slice found
+[0.936ms] [rows:0] INSERT INTO `slience_names` (`host_id`,`slience_name`,`default`,`to`) VALUES  ON DUPLICATE KEY UPDATE `id`=`id`
+2023/11/02 00:25:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/sliencelogic.go:30
+[2.221ms] [rows:1] SELECT * FROM `hosts` WHERE `hosts`.`host` = ? LIMIT 1
+2023/11/02 00:25:19 /Users/zhaoqiang/Documents/owner项目/zero-vue-admin/server/app/api-gateway/internal/logic/monitoring/hosts/sliencelogic.go:35
+[1.110ms] [rows:0] SELECT * FROM `slience_names` WHERE `slience_names`.`host_id` = ?

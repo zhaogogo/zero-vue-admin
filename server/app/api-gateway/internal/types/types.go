@@ -614,7 +614,8 @@ type Host struct {
 	CreatedAt  string    `json:"createdAt" gorm:"clumn:create_at;autoCreateTime;not null"`
 	ModifiedAt string    `json:"modifiedAt" gorm:"clumn:modifie_at;autoUpdateTime;not null"`
 	DeletedAt  string    `json:"deletedAt" gorm:"clumn:delete_at;index"`
-	Tags       []HostTag `json:"tags" gorm:"clumn:tags;foreignKey:host_id"`
+	Tags       []HostTag `json:"tags" gorm:"foreignKey:host_id"`
+	Sliences []SlienceName `json:"sliences" gorm:"foreigKey:host_id"`
 }
 
 type HostTag struct {
@@ -641,7 +642,7 @@ type SlienceName struct {
 	HostID      uint64           `json:"host_id" gorm:"clumn:host_id;type:bigint"`
 	SlienceName string           `json:"slience_name" gorm:"clumn:slience_name"`
 	Default     bool             `json:"default" gorm:"clumn:default"`
-	To          int              `json:"to" gorm:"to"`
+	To          int              `json:"to" gorm:"clumn:to"`
 	Matchers    []SlienceMatcher `json:"matchers" gorm:"foreignKey:slience_name_id"`
 }
 
