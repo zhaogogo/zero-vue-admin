@@ -408,7 +408,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPut,
 					Path:    "/slience/:host",
-					Handler: monitoringhosts.CreateSlienceHandler(serverCtx),
+					Handler: monitoringhosts.CreateUpdateSlienceHandler(serverCtx),
 				},
 			}...,
 		),

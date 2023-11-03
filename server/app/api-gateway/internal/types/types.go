@@ -608,14 +608,14 @@ type AlertRuleResponse struct {
 }
 
 type Host struct {
-	Id         uint64    `json:"id" gorm:"clumn:id;primarykey"`
-	Host       string    `json:"host" gorm:"clumn:host;type:varchar(50);not null;default:''"`
-	To         int       `json:"to" gorm:"clumn:to;type:tinyint;not null"`
-	CreatedAt  string    `json:"createdAt" gorm:"clumn:create_at;autoCreateTime;not null"`
-	ModifiedAt string    `json:"modifiedAt" gorm:"clumn:modifie_at;autoUpdateTime;not null"`
-	DeletedAt  string    `json:"deletedAt" gorm:"clumn:delete_at;index"`
-	Tags       []HostTag `json:"tags" gorm:"foreignKey:host_id"`
-	Sliences []SlienceName `json:"sliences" gorm:"foreigKey:host_id"`
+	Id           uint64        `json:"id" gorm:"clumn:id;primarykey"`
+	Host         string        `json:"host" gorm:"clumn:host;type:varchar(50);not null;default:''"`
+	To           int           `json:"to" gorm:"clumn:to;type:tinyint;not null"`
+	CreatedAt    string        `json:"createdAt" gorm:"clumn:create_at;autoCreateTime;not null"`
+	ModifiedAt   string        `json:"modifiedAt" gorm:"clumn:modifie_at;autoUpdateTime;not null"`
+	DeletedAt    string        `json:"deletedAt" gorm:"clumn:delete_at;index"`
+	Tags         []HostTag     `json:"tags" gorm:"foreignKey:host_id"`
+	SlienceNames []SlienceName `json:"sliences" gorm:"foreigKey:host_id"`
 }
 
 type HostTag struct {
@@ -642,7 +642,7 @@ type SlienceName struct {
 	HostID      uint64           `json:"host_id" gorm:"clumn:host_id;type:bigint"`
 	SlienceName string           `json:"slience_name" gorm:"clumn:slience_name"`
 	Default     bool             `json:"default" gorm:"clumn:default"`
-	To          int              `json:"to" gorm:"clumn:to"`
+	To          int              `json:"to" gorm:"to"`
 	Matchers    []SlienceMatcher `json:"matchers" gorm:"foreignKey:slience_name_id"`
 }
 
@@ -665,7 +665,7 @@ type Matchers struct {
 
 type SliencePutRequest struct {
 	Host     string        `path:"host,optional" validate:"required,ipv4"`
-	ID       int           `json:"id,optional" validate:"required,numeric,gte=1"`
+	ID       uint64        `json:"id,optional" validate:"required,numeric,gte=1"`
 	Sliences []SlienceName `json:"sliences"`
 }
 

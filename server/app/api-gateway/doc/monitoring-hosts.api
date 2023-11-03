@@ -25,8 +25,8 @@ service ApiGateway-api {
     @handler Slience
     post /slience/:host (SlienceRequest) returns (SlienceResponse)
 
-    @doc "创建host静默规则"
-    @handler CreateSlience
+    @doc "创建或更新host静默规则"
+    @handler CreateUpdateSlience
     put /slience/:host (SliencePutRequest) returns (HttpCommonResponse)
 }
 
@@ -39,7 +39,7 @@ type Host struct {
     DeletedAt  string `json:"deletedAt" gorm:"clumn:delete_at;index"`
 
     Tags   []HostTag        `json:"tags" gorm:"foreignKey:host_id"`
-    SlienceName []SlienceName `json:"sliences" gorm:"foreigKey:host_id"`
+    SlienceNames []SlienceName `json:"sliences" gorm:"foreigKey:host_id"`
 }
 
 type HostTag struct {
@@ -92,7 +92,7 @@ type Matchers struct {
 
 type SliencePutRequest struct {
     Host string `path:"host,optional" validate:"required,ipv4"`
-    ID int `json:"id,optional" validate:"required,numeric,gte=1"`
+    ID uint64 `json:"id,optional" validate:"required,numeric,gte=1"`
     Sliences []SlienceName `json:"sliences"`
 }
 

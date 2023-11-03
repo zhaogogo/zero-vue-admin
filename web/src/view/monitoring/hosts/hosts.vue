@@ -199,6 +199,7 @@ export default {
         async closeSlienceDialog() {
             this.slienceDialogVisible = false
             this.slienceRuleLoading = true
+            console.log("####",this.hostSlienceRules)
             await putHostSlienceRule(this.hostSlienceRules)
 
             this.slienceRuleLoading = false

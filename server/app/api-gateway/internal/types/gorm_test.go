@@ -38,7 +38,7 @@ func TestTtt(t *testing.T) {
 	}
 	fmt.Print(string(bytes))
 	err = db.Transaction(func(db *gorm.DB) error {
-		err = db.Model(&Host{Id: uint64(body.ID), Host: body.Host}).Association("Sliences").Replace(body.Sliences)
+		err = db.Model(&Host{Id: uint64(body.ID), Host: body.Host}).Association("SlienceNames").Replace(body.Sliences)
 		if err != nil {
 			t.Error(err)
 			return err
