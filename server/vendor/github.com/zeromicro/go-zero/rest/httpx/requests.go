@@ -93,11 +93,11 @@ func ParseJsonBody(r *http.Request, v interface{}) error {
 // Like http://localhost/bag/:name
 func ParsePath(r *http.Request, v interface{}) error {
 	vars := pathvar.Vars(r)
-
 	m := make(map[string]interface{}, len(vars))
 	for k, v := range vars {
 		m[k] = v
 	}
+
 	return pathUnmarshaler.Unmarshal(m, v)
 }
 

@@ -402,13 +402,33 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodPost,
+					Path:    "/",
+					Handler: monitoringhosts.CreateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/",
+					Handler: monitoringhosts.UpdateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/slience/all",
+					Handler: monitoringhosts.GetAllSlienceJsonHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
 					Path:    "/slience/:host",
-					Handler: monitoringhosts.SlienceHandler(serverCtx),
+					Handler: monitoringhosts.GetSlienceHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/slience/:host",
 					Handler: monitoringhosts.CreateUpdateSlienceHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/slience",
+					Handler: monitoringhosts.HandlerHostsSlienceHandler(serverCtx),
 				},
 			}...,
 		),

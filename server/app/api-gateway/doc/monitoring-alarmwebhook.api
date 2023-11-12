@@ -26,43 +26,43 @@ service ApiGateway-api {
 }
 
 type AlarmRequest struct {
-    Receiver          string            `json:"receiver"`
-    Status            string            `json:"status"`
-    Alerts            []Alerts          `json:"alerts"`
-    GroupLabels       GroupLabels       `json:"groupLabels"`
-    CommonLabels      CommonLabels      `json:"commonLabels"`
-    CommonAnnotations CommonAnnotations `json:"commonAnnotations"`
-    ExternalURL       string            `json:"externalURL"`
-    Version           string            `json:"version"`
-    GroupKey          string            `json:"groupKey"`
-    TruncatedAlerts   int               `json:"truncatedAlerts"`
+    Receiver          string            `json:"receiver,optional"`
+    Status            string            `json:"status,optional"`
+    Alerts            []Alerts          `json:"alerts,optional"`
+    GroupLabels       GroupLabels       `json:"groupLabels,optional"`
+    CommonLabels      CommonLabels      `json:"commonLabels,optional"`
+    CommonAnnotations CommonAnnotations `json:"commonAnnotations,optional"`
+    ExternalURL       string            `json:"externalURL,optional"`
+    Version           string            `json:"version,optional"`
+    GroupKey          string            `json:"groupKey,optional"`
+    TruncatedAlerts   int               `json:"truncatedAlerts,optional"`
 }
 
 type Annotations struct {
-    Summary  string `json:"summary"`
-    Describe string `json:"describe"`
+    Summary  string `json:"summary,optional"`
+    Describe string `json:"describe,optional"`
 }
 type Alerts struct {
-    Status       string            `json:"status"`
-    Labels       map[string]string `json:"labels"`
-    Annotations  Annotations       `json:"annotations"`
-    StartsAt     string         `json:"startsAt"`
-    EndsAt       string         `json:"endsAt"`
-    GeneratorURL string            `json:"generatorURL"`
-    Fingerprint  string            `json:"fingerprint"`
+    Status       string            `json:"status,optional"`
+    Labels       map[string]string `json:"labels,optional"`
+    Annotations  Annotations       `json:"annotations,optional"`
+    StartsAt     string         `json:"startsAt,optional"`
+    EndsAt       string         `json:"endsAt,optional"`
+    GeneratorURL string            `json:"generatorURL,optional"`
+    Fingerprint  string            `json:"fingerprint,optional"`
 }
 type GroupLabels struct {
-    Alertname string `json:"alertname"`
-    Instance  string `json:"instance"`
-    Job       string `json:"job"`
-    Severity  string `json:"severity"`
+    Alertname string `json:"alertname,optional"`
+    Instance  string `json:"instance,optional"`
+    Job       string `json:"job,optional"`
+    Severity  string `json:"severity,optional"`
 }
 type CommonLabels struct {
-    Alertname string `json:"alertname"`
-    Instance  string `json:"instance"`
-    Job       string `json:"job"`
-    Severity  string `json:"severity"`
+    Alertname string `json:"alertname,optional"`
+    Instance  string `json:"instance,optional"`
+    Job       string `json:"job,optional"`
+    Severity  string `json:"severity,optional"`
 }
 type CommonAnnotations struct {
-    Summary string `json:"summary"`
+    Summary string `json:"summary,optional"`
 }

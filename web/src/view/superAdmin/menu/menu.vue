@@ -268,7 +268,6 @@ export default {
         },
         //新增用户菜单参数 前端设置
         addParameter(form){
-            console.log(form)
             if (!form.parameters){
                 this.$set(form,'parameters',[])
             }
@@ -342,7 +341,6 @@ export default {
                     let res 
                     if (this.isEdit) {
                         res = await updateMenu(this.form)
-                        console.log(this.form)
                     }else {
                         res = await addMenu(this.form)
                     }

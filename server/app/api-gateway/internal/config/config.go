@@ -13,6 +13,7 @@ type Config struct {
 		AccessSecret string
 		AccessExpire int64
 	}
+	MonitoringConfig MonitoringConfig
 
 	SystemAdminRpcConf zrpc.RpcClientConf
 	ESManagerRpcConf   zrpc.RpcClientConf
@@ -30,4 +31,14 @@ type System struct {
 
 type Monitoring struct {
 	DataSource string
+}
+
+type MonitoringConfig struct {
+	AlertmanagerSlienceURL AlertmanagerSlienceURL
+	NotifyURL              string
+}
+
+type AlertmanagerSlienceURL struct {
+	ZW string
+	YZ string
 }

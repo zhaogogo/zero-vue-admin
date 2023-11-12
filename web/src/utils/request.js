@@ -63,7 +63,7 @@ service.interceptors.response.use(
         } else {
             Message({
                 type: 'error',
-                message: '请求拦截器错误 ' + error.response.data.msg + error,
+                message: '响应拦截器错误 ' + "[" + error.response.data.msg + "]" + error,
                 showClose: true
             })
         }

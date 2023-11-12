@@ -58,7 +58,8 @@ func (m *defaultUserModel) TransInsert(ctx context.Context, session sqlx.Session
 	chaosSystemUserIdKey := fmt.Sprintf("%s%v", cacheChaosSystemUserIdPrefix, data.Id)
 	chaosSystemUserNameKey := fmt.Sprintf("%s%v", cacheChaosSystemUserNamePrefix, data.Name)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, userRowsExpectAutoSet)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, userRowsExpectAutoSet)
+		fmt.Println(query)
 		return session.ExecCtx(ctx, query, data.Name, data.NickName, data.Password, data.Type, data.Email, data.Phone, data.Department, data.Position, data.CreateBy, data.UpdateBy, data.DeleteBy, data.DeleteTime, data.PageSetId)
 	}, chaosSystemUserIdKey, chaosSystemUserNameKey)
 	return ret, err

@@ -16,7 +16,6 @@ type SafeSliences struct {
 type Sliences struct {
 	SlienceName string
 	IsDefault   bool
-	SliencesID  string
 	To          int
 	Matchers    []types.Matchers
 }
@@ -32,4 +31,24 @@ type AMSlience struct {
 
 type AMSlienceReponse struct {
 	SilenceID string `json:"silenceID"`
+}
+
+type AlertmanagerGetSlienceResponse []struct {
+	ID        string     `json:"id"`
+	Status    Status     `json:"status"`
+	UpdatedAt time.Time  `json:"updatedAt"`
+	Comment   string     `json:"comment"`
+	CreatedBy string     `json:"createdBy"`
+	EndsAt    time.Time  `json:"endsAt"`
+	Matchers  []Matchers `json:"matchers"`
+	StartsAt  time.Time  `json:"startsAt"`
+}
+type Status struct {
+	State string `json:"state"`
+}
+type Matchers struct {
+	IsEqual bool   `json:"isEqual"`
+	IsRegex bool   `json:"isRegex"`
+	Name    string `json:"name"`
+	Value   string `json:"value"`
 }

@@ -1,12 +1,12 @@
 package monitoring
 
 type Host struct {
-	ID         uint64 `gorm:"primarykey"`
-	Host       string `gorm:"clumn:host;type:varchar(50);not null;default:''"`
-	To         int    `gorm:"clumn:to;type:tinyint;not null"`
-	CreatedAt  string `gorm:"autoCreateTime;not null"`
-	ModifiedAt string `gorm:"autoUpdateTime;not null"`
-	DeletedAt  string `gorm:"index"`
+	ID   uint64 `gorm:"primarykey"`
+	Host string `gorm:"clumn:host;type:varchar(50);not null;default:''"`
+	To   int    `gorm:"clumn:to;type:tinyint;not null"`
+	//CreatedAt  uint   `gorm:"autoCreateTime;not null"`
+	//ModifiedAt uint   `gorm:"autoUpdateTime;not null"`
+	//DeletedAt  uint   `gorm:"index"`
 
 	Tags []HostTag `gorm:"foreignKey:host_id"`
 }

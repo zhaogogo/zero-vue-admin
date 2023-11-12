@@ -608,21 +608,21 @@ type AlertRuleResponse struct {
 }
 
 type Host struct {
-	Id           uint64        `json:"id" gorm:"clumn:id;primarykey"`
-	Host         string        `json:"host" gorm:"clumn:host;type:varchar(50);not null;default:''"`
-	To           int           `json:"to" gorm:"clumn:to;type:tinyint;not null"`
-	CreatedAt    string        `json:"createdAt" gorm:"clumn:create_at;autoCreateTime;not null"`
-	ModifiedAt   string        `json:"modifiedAt" gorm:"clumn:modifie_at;autoUpdateTime;not null"`
-	DeletedAt    string        `json:"deletedAt" gorm:"clumn:delete_at;index"`
-	Tags         []HostTag     `json:"tags" gorm:"foreignKey:host_id"`
-	SlienceNames []SlienceName `json:"sliences" gorm:"foreigKey:host_id"`
+	Id           uint64        `json:"id,optional"                gorm:"clumn:id;primarykey"                              validate:"required,numeric,gte=1""`
+	Host         string        `json:"host,optional"              gorm:"clumn:host;type:varchar(50);not null;default:''"  validate:"required"`
+	To           int           `json:"to,optional"                gorm:"clumn:to;type:tinyint;not null"                   validate:"required,numeric,oneof=1 2"`
+	CreatedAt    uint64        `json:"createdAt,optional"         gorm:"clumn:create_at;autoCreateTime;not null"`
+	ModifiedAt   uint64        `json:"modifiedAt,optional"         gorm:"clumn:modifie_at;autoUpdateTime;not null"`
+	DeletedAt    uint64        `json:"deletedAt,optional"         gorm:"clumn:delete_at;index"`
+	Tags         []HostTag     `json:"tags,optional"        gorm:"foreignKey:host_id" validate:"dive"`
+	SlienceNames []SlienceName `json:"sliences,optional" gorm:"foreigKey:host_id"`
 }
 
 type HostTag struct {
-	Id     uint64 `json:"id" gorm:"clumn:id;primaryKey;type:bigint AUTO_INCREMENT"`
-	HostId uint64 `json:"hostId" gorm:"clumn:host_id"`
-	Key    string `json:"key" gorm:"clumn:key;type:varchar(50);default:'';not null"`
-	Value  string `json:"value" gorm:"clumn:value;type:varchar(50);default:'';not null"`
+	Id     uint64 `json:"id,optional" gorm:"clumn:id;primaryKey;type:bigint AUTO_INCREMENT"`
+	HostId uint64 `json:"hostId,optional" gorm:"clumn:host_id"`
+	Key    string `json:"key,optional" gorm:"clumn:key;type:varchar(50);default:'';not null" validate:"required"`
+	Value  string `json:"value,optional" gorm:"clumn:value;type:varchar(50);default:'';not null" validate:"required"`
 }
 
 type SlienceJoinRest struct {
@@ -669,13 +669,18 @@ type SliencePutRequest struct {
 	Sliences []SlienceName `json:"sliences"`
 }
 
-type SlienceRequest struct {
+type SlienceGetRequest struct {
 	Host string `path:"host,optional" validate:"required,ipv4"`
 }
 
-type SlienceResponse struct {
+type SlienceGetResponse struct {
 	HttpCommonResponse
 	HostSliences HostSliences `json:"hostSliences"`
+}
+
+type SlienceJsonResponse struct {
+	HttpCommonResponse
+	Data interface{} `json:"data"`
 }
 
 type HostSliences struct {
@@ -694,48 +699,54 @@ type HostResponse struct {
 	List []Host `json:"list"`
 }
 
+type HandlerHostsSlienceRequest struct {
+	Hosts    []string `json:"hosts,optional" validate:"required,slice_c='gt=0'"`
+	Duration string   `json:"duration,optional"`
+	OpType   string   `json:"op_type,optional" validate:"required,oneof='active' 'expired'"`
+}
+
 type AlarmRequest struct {
-	Receiver          string            `json:"receiver"`
-	Status            string            `json:"status"`
-	Alerts            []Alerts          `json:"alerts"`
-	GroupLabels       GroupLabels       `json:"groupLabels"`
-	CommonLabels      CommonLabels      `json:"commonLabels"`
-	CommonAnnotations CommonAnnotations `json:"commonAnnotations"`
-	ExternalURL       string            `json:"externalURL"`
-	Version           string            `json:"version"`
-	GroupKey          string            `json:"groupKey"`
-	TruncatedAlerts   int               `json:"truncatedAlerts"`
+	Receiver          string            `json:"receiver,optional"`
+	Status            string            `json:"status,optional"`
+	Alerts            []Alerts          `json:"alerts,optional"`
+	GroupLabels       GroupLabels       `json:"groupLabels,optional"`
+	CommonLabels      CommonLabels      `json:"commonLabels,optional"`
+	CommonAnnotations CommonAnnotations `json:"commonAnnotations,optional"`
+	ExternalURL       string            `json:"externalURL,optional"`
+	Version           string            `json:"version,optional"`
+	GroupKey          string            `json:"groupKey,optional"`
+	TruncatedAlerts   int               `json:"truncatedAlerts,optional"`
 }
 
 type Annotations struct {
-	Summary  string `json:"summary"`
-	Describe string `json:"describe"`
+	Summary  string `json:"summary,optional"`
+	Describe string `json:"describe,optional"`
 }
 
 type Alerts struct {
-	Status       string            `json:"status"`
-	Labels       map[string]string `json:"labels"`
-	Annotations  Annotations       `json:"annotations"`
-	StartsAt     string            `json:"startsAt"`
-	EndsAt       string            `json:"endsAt"`
-	GeneratorURL string            `json:"generatorURL"`
-	Fingerprint  string            `json:"fingerprint"`
+	Status       string            `json:"status,optional"`
+	Labels       map[string]string `json:"labels,optional"`
+	Annotations  Annotations       `json:"annotations,optional"`
+	StartsAt     string            `json:"startsAt,optional"`
+	EndsAt       string            `json:"endsAt,optional"`
+	GeneratorURL string            `json:"generatorURL,optional"`
+	Fingerprint  string            `json:"fingerprint,optional"`
 }
 
 type GroupLabels struct {
-	Alertname string `json:"alertname"`
-	Instance  string `json:"instance"`
-	Job       string `json:"job"`
-	Severity  string `json:"severity"`
+	Alertname string `json:"alertname,optional"`
+	Instance  string `json:"instance,optional"`
+	Job       string `json:"job,optional"`
+	Severity  string `json:"severity,optional"`
 }
 
 type CommonLabels struct {
-	Alertname string `json:"alertname"`
-	Instance  string `json:"instance"`
-	Job       string `json:"job"`
-	Severity  string `json:"severity"`
+	Alertname string `json:"alertname,optional"`
+	Instance  string `json:"instance,optional"`
+	Job       string `json:"job,optional"`
+	Severity  string `json:"severity,optional"`
 }
 
 type CommonAnnotations struct {
-	Summary string `json:"summary"`
+	Summary string `json:"summary,optional"`
 }

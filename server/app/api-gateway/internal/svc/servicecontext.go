@@ -21,7 +21,7 @@ type Use func() *gorm.DB
 
 type ServiceContext struct {
 	Config      config.Config
-	SlienceList slience.SafeSliences
+	SlienceList *slience.SafeSliences
 
 	Casbin          rest.Middleware
 	CheckUserExists rest.Middleware
@@ -47,6 +47,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	db = db.Debug()
 	svc := &ServiceContext{
 		Config:          c,
+		SlienceList:     &slience.SafeSliences{},
 		Casbin:          middleware.NewCasbinMiddleware().Handle,
 		CheckUserExists: middleware.NewCheckUserExistsMiddleware().Handle,
 		ParseJWTToken:   middleware.NewParseJWTTokenMiddleware().Handle,
@@ -59,6 +60,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		MonitoringRpcConf:  monitoringmanager.NewMonitoringManager(zrpc.MustNewClient(c.MonitoringRpcConf)),
 	}
 	middleSvcCtx.SetUp(svc.SystemRpcClient)
-	svc.SlienceList = slience.GetConsumerSliences(svc.MonitoringDB())
+	err = slience.GetConsumerSliences(svc.MonitoringDB(), svc.SlienceList)
 	return svc
 }

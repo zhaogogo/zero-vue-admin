@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/chanhandle"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/slience"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
@@ -31,29 +32,26 @@ func NewWebhookLogic(ctx context.Context, svcCtx *svc.ServiceContext) *WebhookLo
 }
 
 func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
-	machineRoom := map[int]string{
-		1: "http://192.168.14.105:9091/api/v1/sliences",
-		2: "http://10.100.114.105:9091/api/v1/sliences",
-	}
 	l.svcCtx.SlienceList.Mu.RLock()
 	consumerMatch := l.svcCtx.SlienceList.Sliences
-	defer l.svcCtx.SlienceList.Mu.RUnlock()
-
+	l.svcCtx.SlienceList.Mu.RUnlock()
+	marshal, err := json.MarshalIndent(req, "", "\t")
+	fmt.Println(string(marshal), err)
 	for _, alert := range req.Alerts {
 		if host := slience.AlarmIsMatchDefault(alert, consumerMatch); host != "" {
 			if alert.Status == "firing" {
 				slienceNames := []string{}
 				for _, sli := range consumerMatch[host] {
 					slienceNames = append(slienceNames, sli.SlienceName)
-					_, err := slience.AlertmanagerSliences(machineRoom[sli.To], sli.Matchers, host, sli.SlienceName)
+					_, err := slience.AlertmanagerSliences(l.svcCtx.Config.MonitoringConfig, host, "", sli)
 					if err != nil {
-						logx.Error("调用alertmanager URL: %s, host: %s, slience_name: %s, error: %v", machineRoom[sli.To], host, sli.SlienceName, err)
+						logx.Errorf("调用alertmanager API静默失败, host: %s, slience_name: %s, error: %v", host, sli.SlienceName, err)
 					}
 				}
 				var a = Alert{URL: "http://127.0.0.1:8075/api/v2/idatas"}
 				message, err := a.SentMessage(&AlertMessage{
 					Title:      fmt.Sprintf("k8s关联静默"),
-					Message:    strings.Join(slienceNames, ","),
+					Message:    strings.Join(slienceNames, "\n,"),
 					NoticeName: fmt.Sprintf("%s", host),
 					Serverity:  "P2",
 				})
@@ -133,4 +131,13 @@ func (u *Alert) SentMessage(data *AlertMessage) (string, error) {
 		return string(j), errors.New(fmt.Sprintf("response body code is got %d, msg: %s", res.Code, res.Msg))
 	}
 	return string(j), nil
+}
+
+type MatcherDefault struct {
+	chanhandle.Next
+}
+
+func (m *MatcherDefault) Do(s *chanhandle.SlienceChan) error {
+
+	return nil
 }

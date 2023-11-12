@@ -29,6 +29,12 @@ Mysql:
   Monitoring:
     DataSource: root:zhaO..123@tcp(127.0.0.1:3306)/t1?collation=utf8mb4_general_ci&parseTime=true&loc=Asia%2FShanghai&timeout=2s&readTimeout=1s&writeTimeout=1s
   LogPath: "logs/gorm.log"
+MonitoringConfig:
+  AlertmanagerSlienceURL:
+    "ZW": "http://127.0.0.1:9093"
+    "YZ": "http://10.100.114.105:9091"
+  NotifyURL: "http://127.0.0.1:8075/api/v2/idatas"
+
 Prometheus:
   Host: 0.0.0.0
   Port: 18888

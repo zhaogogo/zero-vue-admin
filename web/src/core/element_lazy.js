@@ -94,5 +94,6 @@ Vue.use(RadioButton)
 Vue.use(Tree)
 Vue.use(Link)
 Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$message = Message;
 Vue.prototype.$loading = Loading.service;

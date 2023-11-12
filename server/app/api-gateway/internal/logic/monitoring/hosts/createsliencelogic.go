@@ -3,6 +3,7 @@ package hosts
 import (
 	"context"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/responseerror/errorx"
+	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/slience"
 	"gorm.io/gorm/clause"
 
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -29,6 +30,10 @@ func (l *CreateSlienceLogic) CreateSlience(req *types.SliencePutRequest) (resp *
 	err = l.svcCtx.MonitoringDB().Clauses(clause.OnConflict{UpdateAll: true}).Create(&req.Sliences).Error
 	if err != nil {
 		return nil, errorx.New(err, "创建静默规则失败")
+	}
+	err = slience.GetConsumerSliences(l.svcCtx.MonitoringDB(), l.svcCtx.SlienceList)
+	if err != nil {
+		logx.Errorf("创建Slience，刷新全局规则失败， error: %v", err)
 	}
 	return &types.HttpCommonResponse{
 		Code: 200,
