@@ -44,8 +44,8 @@ Telemetry:
   Sampler: 1.0
   Batcher: jaeger
 Log:
-  Mode: console
-#  Mode: file
+#  Mode: console
+  Mode: file
   Path: logs
   Encoding: plain
   Level: info

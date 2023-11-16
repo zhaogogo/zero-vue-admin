@@ -28,13 +28,15 @@ func NewCreateUpdateSlienceLogic(ctx context.Context, svcCtx *svc.ServiceContext
 
 func (l *CreateUpdateSlienceLogic) CreateUpdateSlience(req *types.SliencePutRequest) (resp *types.HttpCommonResponse, err error) {
 	err = l.svcCtx.MonitoringDB().Transaction(func(tx *gorm.DB) error {
-		err := tx.Model(&types.Host{Id: req.ID, Host: req.Host}).Session(&gorm.Session{FullSaveAssociations: true}).Association("SlienceNames").Unscoped().Replace(req.Sliences)
+		// 替换时SlienceNames，做替换和删除的动作 SlienceName下的Matchers只做替换 不删除 ，需要下面的for循环做删除
+		logx.Severef("xxx-%d", 1)
+		err := tx.Model(&types.Host{Id: req.ID}).Session(&gorm.Session{FullSaveAssociations: true}).Select("").Association("SlienceNames").Unscoped().Replace(req.Sliences)
 		if err != nil {
 			return errors.Wrapf(err, "关联查询Host替换SlienceNames失败, where (id: %v, host: %s), replace: (%#v)", req.ID, req.Host, req.Sliences)
 		}
 		for _, slienceName := range req.Sliences {
 			s := slienceName
-			err = tx.Model(&s).Session(&gorm.Session{FullSaveAssociations: true}).Association("Matchers").Unscoped().Replace(s.Matchers)
+			err = tx.Model(&types.SlienceName{Id: s.Id}).Session(&gorm.Session{FullSaveAssociations: true}).Association("Matchers").Unscoped().Replace(s.Matchers)
 			if err != nil {
 				return errors.Wrapf(err, "关联查询SlienceNames替换Matchers失败,where (%#v)", s)
 			}

@@ -139,7 +139,9 @@
                             v-for="matcher,index in item.matchers"
                             closable
                             :disable-transitions="false"
-                            @close="handleCloseMatcher(item.matchers,index)">
+                            @close="handleCloseMatcher(item.matchers,index)"
+                            @click="handleModifyMatcher(item.matchers,index,item.slience_name)"
+                            >
                             {{matcher | matcherFilter }}
                         </el-tag>
                         <el-input
@@ -152,14 +154,14 @@
                             @blur="handleInputConfirm(hostSlienceIndex)"
                             >
                         </el-input>
-                        <el-button class="button-new-tag" size="small" @click="showInput(item.slience_name)">+ New Tag</el-button>
+                        <el-button class="button-new-tag" size="small" @click="showMatcherInput(item.slience_name,false)">+ New Tag</el-button>
                         
                     </el-form-item>
                 </el-form>
                 <el-button style="margin-left: 5%;" @click="addSlience(hostSlienceRules.id)">新增静默规则</el-button>
                 <div class="demo-drawer__footer">
-                    <!-- <el-button @click="cancelForm">取 消</el-button> -->
-                    <el-button type="primary" @click="$refs.hostSlienceRule.closeDrawer()" :loading="slienceRuleLoading">{{ slienceRuleLoading ? '提交中 ...' : '确 定' }}</el-button>
+                    <el-button @click="$refs.hostSlienceRule.closeDrawer()">取 消</el-button>
+                    <el-button type="primary" @click="enterHostSilenceMatcher" :loading="slienceRuleLoading">{{ slienceRuleLoading ? '提交中 ...' : '确 定' }}</el-button>
                 </div>
             </div>
         </el-drawer>
@@ -193,7 +195,7 @@ import {
     hostSlienceRule,
     putHostSlienceRule
 } from '@/api/monitoring/hosts/hosts'
-import { matcherExpParse } from "@/utils/slienceParse"
+import { matcherExpParse, matcherObjToExp } from "@/utils/slienceParse"
 
 const hostLocationOptions = [
     {
@@ -252,6 +254,8 @@ export default {
             hostDialogVisible: false,
             inputVisible: {},
 
+            matcherModifyFlag: false,
+            matcherModifyData: {},
             slienceTitle: "",
             hostTitle: "",
             
@@ -499,43 +503,63 @@ export default {
             this.hostSlienceRules = res.hostSliences
             this.slienceDialogVisible = true
         },
-        async closeSlienceDialog() {
+        initSilenceMatchersFrom(){
             this.slienceDialogVisible = false
-            this.slienceRuleLoading = true
-            await putHostSlienceRule(this.hostSlienceRules)
-
-            this.slienceRuleLoading = false
             this.hostSlienceRules = {}
-            
+        },
+        async enterHostSilenceMatcher(){
+            this.slienceRuleLoading = true
+            const res = await putHostSlienceRule(this.hostSlienceRules)
+            this.slienceRuleLoading = false
+            if (res.code === 200) {
+                this.initSilenceMatchersFrom()
+            }
+        },
+        closeSlienceDialog() {
+            this.initSilenceMatchersFrom()
         },
         handleCloseMatcher(matchers, index) {
             matchers.splice(index,1)
-            // var f = this.hostSlienceRules.sliences[hostSlienceIndex].matchers.filter(v => v.id !== matcher.id)
-            // this.hostSlienceRules.sliences[hostSlienceIndex].matchers = f 
         },
-        removeSlience(hostSlience) {
-            this.hostSlienceRules.sliences = this.hostSlienceRules.sliences.filter(v => v.id !== hostSlience.id)
+        handleModifyMatcher(matchers, index,name) {
+            // console.log("@@", matchers[index])
+            // console.log("11", matcherObjToExp(matchers[index]))
+            this.matcherModifyData = matcherObjToExp(matchers[index])
+            this.inputValue = this.matcherModifyData.exp
+            this.handleCloseMatcher(matchers, index)
+            this.showMatcherInput(name,true)
+
         },
-        showInput(name) {
+        showMatcherInput(name, modifyFlag) {
+            this.matcherModifyFlag = modifyFlag
             this.$set(this.inputVisible, name, true)
             this.$nextTick(_ => {
                 this.$refs["saveTagInput"+name][0].$refs.input.focus();
             });
         },
         handleInputConfirm(hostSlienceIndex) {
-            let inputValue = this.inputValue;
-            if (inputValue) {
-                let hostID = this.hostSlienceRules.sliences[hostSlienceIndex].host_id
-                let slienceNameID 
-                if (this.hostSlienceRules.sliences[hostSlienceIndex].hasOwnProperty("id")) {
-                    slienceNameID = this.hostSlienceRules.sliences[hostSlienceIndex].id
-                }else {
-                    slienceNameID = 0
+            if (this.matcherModifyFlag) {
+                let inputValue = this.inputValue.trim();
+                this.hostSlienceRules.sliences[hostSlienceIndex].matchers.push(matcherExpParse(inputValue,this.matcherModifyData.hostID,this.matcherModifyData.slienceNameID,this.matcherModifyData.id));
+            }else {
+                console.log("modifyFlag", false)
+                let inputValue = this.inputValue.trim();
+                if (inputValue) {
+                    let hostID = this.hostSlienceRules.sliences[hostSlienceIndex].host_id
+                    let slienceNameID 
+                    if (this.hostSlienceRules.sliences[hostSlienceIndex].hasOwnProperty("id")) {
+                        slienceNameID = this.hostSlienceRules.sliences[hostSlienceIndex].id
+                    }else {
+                        slienceNameID = 0
+                    }
+                    this.hostSlienceRules.sliences[hostSlienceIndex].matchers.push(matcherExpParse(inputValue,hostID,slienceNameID,0));
                 }
-                this.hostSlienceRules.sliences[hostSlienceIndex].matchers.push(matcherExpParse(inputValue,hostID,slienceNameID));
             }
             this.inputVisible = {};
             this.inputValue = '';        
+        },
+        removeSlience(hostSlience) {
+            this.hostSlienceRules.sliences = this.hostSlienceRules.sliences.filter(v => v.id !== hostSlience.id)
         },
         addSlience(hostID){
             this.hostSlienceRules.sliences.push({

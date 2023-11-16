@@ -363,3 +363,6 @@ X-Forwarded-Port: 8081
 X-Forwarded-Proto: http
 
 	duration=95.7ms	trace=f380ef463231a9ed7db30a6fbebac3e9	span=6fe3c75723ab98c5	caller=handler/loghandler.go:199
+monitoringmanager.rpc/to "monitoringmanager.rpc"7.0.0.1:2379 Endpoint:monitoringmanager.rpc URL:{Scheme:2023-11-17T02:36:15.137+08:00	[31;1m error [0m	bad resolver state	caller=internal/discovbuilder.go:34
+2023-11-17T02:36:20.083+08:00	[31;1m error [0m	[otel] error: Post "http://192.168.162.128:14268/api/traces": dial tcp 192.168.162.128:14268: connect: connection refused	caller=trace/agent.go:82
+2023-11-17T02:36:25.077+08:00	[31;1m error [0m	[otel] error: Post "http://192.168.162.128:14268/api/traces": dial tcp 192.168.162.128:14268: connect: connection refused	caller=trace/agent.go:82
