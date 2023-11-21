@@ -2,23 +2,8 @@ package slience
 
 import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
-	"sync"
 	"time"
 )
-
-type SafeSliences struct {
-	Mu sync.RWMutex
-	//           instance   alertName
-	//Sliences map[string]map[string][]types.Matchers
-	Sliences map[string][]Sliences
-}
-
-type Sliences struct {
-	SlienceName string
-	IsDefault   bool
-	To          int
-	Matchers    []types.Matchers
-}
 
 type AMSlience struct {
 	Matchers  []types.Matchers `json:"matchers"`

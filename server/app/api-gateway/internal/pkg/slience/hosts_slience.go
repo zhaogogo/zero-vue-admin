@@ -13,42 +13,50 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 )
 
-func AlarmIsMatchDefault(alarm types.Alerts, match map[string][]Sliences) (host string) {
-	fmt.Println("1--->", alarm.Labels)
-	for host, consumerSliences := range match {
-		for _, consumerSlience := range consumerSliences {
-			if consumerSlience.IsDefault {
-				if AlermIsMatch(consumerSlience.Matchers, alarm) {
-					logx.Infof("默认匹配规则:%s-%s => %v 匹配 %v", host, consumerSlience.SlienceName, consumerSlience.Matchers, alarm.Labels)
-					return host
-				} else {
-					logx.Infof("默认匹配规则:%s-%s => %v 不匹配 %v", host, consumerSlience.SlienceName, consumerSlience.Matchers, alarm.Labels)
-				}
-			}
-		}
-	}
-
-	return ""
+type SafeSliences struct {
+	Mu sync.RWMutex
+	//           instance   alertName
+	//Sliences map[string]map[string][]types.Matchers
+	Sliences map[string][]Sliences
 }
 
-func AlermIsMatch(matchers []types.Matchers, alarm types.Alerts) bool {
-	var res []bool
-	for _, match := range matchers {
-		if alarmvalue, ok := alarm.Labels[match.Name]; ok {
-			if alarmValueIsMatch(match, alarmvalue) {
-				//fmt.Println(">>>", match.Name, alarm.Labels[match.Name], alarmvalue, true)
-				res = append(res, true)
-			} else {
-				//fmt.Println(">>>", match.Name, alarm.Labels[match.Name], alarmvalue, false)
-				res = append(res, false)
+type Sliences struct {
+	SlienceName string
+	IsDefault   bool
+	To          int
+	Matchers    []types.Matchers
+}
+
+func AlarmIsMatchDefault(alarm types.Alerts, matchs map[string][]Sliences) (host string, slienceName string) {
+	for host, silenceNames := range matchs {
+		for _, silenceName := range silenceNames {
+			if silenceName.IsDefault {
+				if AlermIsMatch(silenceName, alarm) {
+					logx.Infof("默认匹配规则:%s-%s， 自定义规则: %#v 接收告警规则:%#v", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)
+					return host, silenceName.SlienceName
+				} //else {
+				//logx.Infof("默认匹配规则:%s-%s => %v 不匹配 %v", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)
+				//}
 			}
 		}
 	}
-	for _, v := range res {
-		if v == false {
+
+	return "", ""
+}
+
+func AlermIsMatch(silenceName Sliences, alarm types.Alerts) bool {
+	// 只要有一个不匹配就是不匹配
+	for _, match := range silenceName.Matchers {
+		alarmLabelValue, ok := alarm.Labels[match.Name]
+		if ok { /* 发出告警的alarm中Labels中有自定义的label匹配，查看value是否匹配 */
+			if !alarmValueIsMatch(match, alarmLabelValue) {
+				return false
+			}
+		} else { /* 发出告警的alarm中Labels中没有自定义的label匹配，直接返回不匹配 */
 			return false
 		}
 	}

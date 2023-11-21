@@ -36,6 +36,7 @@ type Monitoring struct {
 type MonitoringConfig struct {
 	AlertmanagerSlienceURL AlertmanagerSlienceURL
 	NotifyURL              string
+	AggregationNotify      string
 }
 
 type AlertmanagerSlienceURL struct {

@@ -35,10 +35,10 @@ func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
 	l.svcCtx.SlienceList.Mu.RLock()
 	consumerMatch := l.svcCtx.SlienceList.Sliences
 	l.svcCtx.SlienceList.Mu.RUnlock()
-	marshal, err := json.MarshalIndent(req, "", "\t")
-	fmt.Println(string(marshal), err)
+	//marshal, err := json.MarshalIndent(req, "", "\t")
+	//fmt.Println(string(marshal), err)
 	for _, alert := range req.Alerts {
-		if host := slience.AlarmIsMatchDefault(alert, consumerMatch); host != "" {
+		if host, silenceNameStr := slience.AlarmIsMatchDefault(alert, consumerMatch); host != "" {
 			if alert.Status == "firing" {
 				slienceNames := []string{}
 				for _, sli := range consumerMatch[host] {
@@ -48,11 +48,11 @@ func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
 						logx.Errorf("调用alertmanager API静默失败, host: %s, slience_name: %s, error: %v", host, sli.SlienceName, err)
 					}
 				}
-				var a = Alert{URL: "http://127.0.0.1:8075/api/v2/idatas"}
+				var a = Alert{URL: l.svcCtx.Config.MonitoringConfig.NotifyURL}
 				message, err := a.SentMessage(&AlertMessage{
 					Title:      fmt.Sprintf("k8s关联静默"),
-					Message:    strings.Join(slienceNames, "\n,"),
-					NoticeName: fmt.Sprintf("%s", host),
+					Message:    fmt.Sprintf("触发规则: %s\n关联静默: \n%s", silenceNameStr, strings.Join(slienceNames, ",\n")),
+					NoticeName: l.svcCtx.Config.MonitoringConfig.AggregationNotify,
 					Serverity:  "P2",
 				})
 				if err != nil {
