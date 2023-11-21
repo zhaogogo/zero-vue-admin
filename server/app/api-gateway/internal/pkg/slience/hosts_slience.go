@@ -36,7 +36,7 @@ func AlarmIsMatchDefault(alarm types.Alerts, matchs map[string][]Sliences) (host
 		for _, silenceName := range silenceNames {
 			if silenceName.IsDefault {
 				if AlermIsMatch(silenceName, alarm) {
-					logx.Infof("默认匹配规则:%s-%s， 自定义规则: %#v 接收告警规则:%#v", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)
+					logx.Infof("默认匹配规则:%s-%s， 自定义规则: %#v 接收告警规则: %#v", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)
 					return host, silenceName.SlienceName
 				} //else {
 				//logx.Infof("默认匹配规则:%s-%s => %v 不匹配 %v", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)
