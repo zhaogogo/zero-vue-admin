@@ -31,12 +31,12 @@ type Sliences struct {
 	Matchers    []types.Matchers
 }
 
-func AlarmIsMatchDefault(alarm types.Alerts, matchs map[string][]Sliences) (host string, slienceName string) {
+func AlarmIsMatchDefault(alarm types.Alerts, matchs map[string][]Sliences) (host string, slienceNameDefault string) {
 	for host, silenceNames := range matchs {
 		for _, silenceName := range silenceNames {
 			if silenceName.IsDefault {
 				if AlermIsMatch(silenceName, alarm) {
-					logx.Infof("默认匹配规则:%s-%s， 自定义规则: %#v 接收告警规则: %#v", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)
+					logx.Infof("默认匹配规则:%s-%s， 自定义规则: %#v 接收告警规则: %#v 。\n", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)
 					return host, silenceName.SlienceName
 				} //else {
 				//logx.Infof("默认匹配规则:%s-%s => %v 不匹配 %v", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)
@@ -211,6 +211,7 @@ func AlertmanagerSliences(cfg config.MonitoringConfig, host string, duration str
 		CreatedBy: "chaos root",
 		Comment:   fmt.Sprintf("%s/%s", host, slience.SlienceName),
 	}
+
 	marshal, err := json.Marshal(b)
 	if err != nil {
 		return "", errors.Wrap(err, "body Marshal Failed")

@@ -37,6 +37,8 @@ type MonitoringConfig struct {
 	AlertmanagerSlienceURL AlertmanagerSlienceURL
 	NotifyURL              string
 	AggregationNotify      string
+	AggregationSeverity    string
+	NotifyTemplatePath     string
 }
 
 type AlertmanagerSlienceURL struct {

@@ -15,13 +15,15 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
 	"gorm.io/gorm"
 	"gorm.io/plugin/dbresolver"
+	"html/template"
 )
 
 type Use func() *gorm.DB
 
 type ServiceContext struct {
-	Config      config.Config
-	SlienceList *slience.SafeSliences
+	Config         config.Config
+	SlienceList    *slience.SafeSliences
+	NotifyTemplate *template.Template
 
 	Casbin          rest.Middleware
 	CheckUserExists rest.Middleware
@@ -45,9 +47,15 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	//err := casbinx.Casbin.SetUp(c.Mysql.DataSource)
 	db := gormc.MustNewGrom(c.Mysql)
 	db = db.Debug()
+	notifyTemplate, err := template.New("notify").ParseFiles(c.MonitoringConfig.NotifyTemplatePath)
+	if err != nil {
+		panic(err)
+	}
+
 	svc := &ServiceContext{
 		Config:          c,
 		SlienceList:     &slience.SafeSliences{},
+		NotifyTemplate:  notifyTemplate,
 		Casbin:          middleware.NewCasbinMiddleware().Handle,
 		CheckUserExists: middleware.NewCheckUserExistsMiddleware().Handle,
 		ParseJWTToken:   middleware.NewParseJWTTokenMiddleware().Handle,

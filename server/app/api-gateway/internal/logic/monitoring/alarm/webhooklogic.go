@@ -38,25 +38,62 @@ func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
 	//marshal, err := json.MarshalIndent(req, "", "\t")
 	//fmt.Println(string(marshal), err)
 	for _, alert := range req.Alerts {
-		if host, silenceNameStr := slience.AlarmIsMatchDefault(alert, consumerMatch); host != "" {
+		if host, silenceNameDefault := slience.AlarmIsMatchDefault(alert, consumerMatch); host != "" {
 			if alert.Status == "firing" {
-				slienceNames := []string{}
-				for _, sli := range consumerMatch[host] {
-					slienceNames = append(slienceNames, sli.SlienceName)
-					_, err := slience.AlertmanagerSliences(l.svcCtx.Config.MonitoringConfig, host, "", sli)
+				alertManagerCallFailedSilenceNames := []string{}
+				for _, silence := range consumerMatch[host] {
+					_, err := slience.AlertmanagerSliences(l.svcCtx.Config.MonitoringConfig, host, "", silence)
 					if err != nil {
-						logx.Errorf("调用alertmanager API静默失败, host: %s, slience_name: %s, error: %v", host, sli.SlienceName, err)
+						alertManagerCallFailedSilenceNames = append(alertManagerCallFailedSilenceNames, silence.SlienceName)
+						logx.Errorf("调用alertmanager API静默失败, host: %s, slience_name: %s, error: %v", host, silence.SlienceName, err)
 					}
 				}
 				var a = Alert{URL: l.svcCtx.Config.MonitoringConfig.NotifyURL}
+				var (
+					title string
+					msg   string
+				)
+				titleBuf := bytes.NewBuffer(nil)
+				msgBuf := bytes.NewBuffer(nil)
+				t := l.svcCtx.NotifyTemplate
+				if err := t.ExecuteTemplate(titleBuf, "title", ""); err == nil {
+					title = strings.Trim(strings.TrimSpace(titleBuf.String()), "\"")
+				} else {
+					title = "关联告警(Default)"
+					logx.Errorf("模板生成title失败 host: %s, error: %v", host, err)
+				}
+				if err := t.ExecuteTemplate(msgBuf, "message", struct {
+					SilenceNameDefault     string
+					Silences               []slience.Sliences
+					SendAlertmanagerFailed []string
+				}{
+					silenceNameDefault,
+					consumerMatch[host],
+					alertManagerCallFailedSilenceNames},
+				); err == nil {
+					msg = fmt.Sprintf("\n%s\n", strings.Trim(strings.TrimSpace(msgBuf.String()), "\""))
+				} else {
+					s := []string{}
+					for _, silenceNames := range consumerMatch[host] {
+						for _, failedSilenceName := range alertManagerCallFailedSilenceNames {
+							if failedSilenceName == silenceNames.SlienceName {
+								continue
+							}
+						}
+						s = append(s, silenceNames.SlienceName)
+					}
+					msg = fmt.Sprintf("触发规则: %s\n关联静默: \n%s", silenceNameDefault, strings.Join(s, ",\n"))
+					logx.Errorf("模板生成message失败 host: %s, error: %v", host, err)
+				}
+
 				message, err := a.SentMessage(&AlertMessage{
-					Title:      fmt.Sprintf("k8s关联静默"),
-					Message:    fmt.Sprintf("触发规则: %s\n关联静默: \n%s", silenceNameStr, strings.Join(slienceNames, ",\n")),
+					Title:      title,
+					Message:    msg,
 					NoticeName: l.svcCtx.Config.MonitoringConfig.AggregationNotify,
-					Serverity:  "P2",
+					Serverity:  l.svcCtx.Config.MonitoringConfig.AggregationSeverity,
 				})
 				if err != nil {
-					logx.Error("发送消息失败, host: %s, body: %s", host, message)
+					logx.Error("发送消息失败, host: %s, body: %s, error: %v", host, message, err)
 				}
 			} else {
 

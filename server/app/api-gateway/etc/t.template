@@ -1,0 +1,22 @@
+{{ define "title" }}k8s关联告警{{end}}
+{{ define "message" }}
+{{- with $data := .}}
+    {{- `触发条件: `}} {{ $data.SilenceNameDefault }}
+    {{- range $slience := $data.Silences }}
+        {{ if eq $slience.To 1 }}
+            {{- `兆维` -}}
+        {{else}}
+            {{- `亦庄` -}}
+        {{ end }}
+
+        {{- `机房 ` }} {{- $slience.SlienceName -}}
+
+        {{- range $data.SendAlertmanagerFailed }}
+            {{- if eq $slience.SlienceName . }}
+                {{- ` （Failed）` -}}
+                {{break}}
+            {{ end }}
+        {{- end }}
+    {{- end}}
+{{- end }}
+{{end}}
