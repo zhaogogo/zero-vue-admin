@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
+	"github.com/rs/zerolog"
+	zlog "github.com/rs/zerolog/log"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/config"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/types"
@@ -31,12 +33,21 @@ type Sliences struct {
 	Matchers    []types.Matchers
 }
 
+func (s Sliences) StringMatchers() string {
+	matchStrings := []string{}
+	for _, match := range s.Matchers {
+		matchStrings = append(matchStrings, match.String())
+	}
+
+	return strings.Join(matchStrings, ",")
+}
+
 func AlarmIsMatchDefault(alarm types.Alerts, matchs map[string][]Sliences) (host string, slienceNameDefault string) {
 	for host, silenceNames := range matchs {
 		for _, silenceName := range silenceNames {
 			if silenceName.IsDefault {
 				if AlermIsMatch(silenceName, alarm) {
-					logx.Infof("默认匹配规则:%s-%s， 自定义规则: %#v 接收告警规则: %#v 。\n", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)
+					zlog.Info().Any("source", alarm).Dict("matchSilence", zerolog.Dict().Str("name", silenceName.SlienceName).Str("host", host).Str("matchers", silenceName.StringMatchers())).Send()
 					return host, silenceName.SlienceName
 				} //else {
 				//logx.Infof("默认匹配规则:%s-%s => %v 不匹配 %v", host, silenceName.SlienceName, silenceName.Matchers, alarm.Labels)

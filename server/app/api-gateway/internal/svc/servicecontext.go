@@ -1,6 +1,9 @@
 package svc
 
 import (
+	"github.com/rs/zerolog"
+	zlog "github.com/rs/zerolog/log"
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
@@ -13,9 +16,13 @@ import (
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/esManager/esmanagerservice"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/monitoring/monitoringmanager"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/rpc/system/systemservice"
+	"gopkg.in/natefinch/lumberjack.v2"
 	"gorm.io/gorm"
 	"gorm.io/plugin/dbresolver"
 	"html/template"
+	"path/filepath"
+	"strconv"
+	"strings"
 )
 
 type Use func() *gorm.DB
@@ -38,6 +45,8 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
+	setUpZerolog(c.Log)
+	zlog.Info().Msg("start")
 	sqlxConn := sqlx.NewMysql(c.Mysql.System.DataSource)
 	sql, err := sqlxConn.RawDB()
 	if err != nil {
@@ -70,4 +79,28 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	middleSvcCtx.SetUp(svc.SystemRpcClient)
 	err = slience.GetConsumerSliences(svc.MonitoringDB(), svc.SlienceList)
 	return svc
+}
+
+func setUpZerolog(c logx.LogConf) {
+	f := &lumberjack.Logger{
+		Filename:   filepath.Join(c.Path, "service.log"),
+		MaxSize:    c.MaxSize,
+		MaxAge:     0,
+		MaxBackups: c.MaxBackups,
+		LocalTime:  false,
+		Compress:   false,
+	}
+	log := zerolog.New(f).With().Timestamp().CallerWithSkipFrameCount(2).Logger()
+	zlog.Logger = log
+	zerolog.CallerMarshalFunc = func(pc uintptr, file string, line int) string {
+		return strings.Replace(file, "C:/Users/qiang.zhao/Desktop/owner/zero-vue-admin/server/app/", "", 1) + ":" + strconv.Itoa(line)
+	}
+	switch c.Level {
+	case "info":
+		zlog.Logger.Level(zerolog.DebugLevel)
+	case "error":
+		zlog.Logger.Level(zerolog.ErrorLevel)
+	case "severe":
+		zlog.Logger.Level(zerolog.DebugLevel)
+	}
 }

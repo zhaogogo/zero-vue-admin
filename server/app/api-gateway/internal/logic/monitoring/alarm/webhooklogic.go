@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
+	"github.com/rs/zerolog"
+	zlog "github.com/rs/zerolog/log"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/chanhandle"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/pkg/slience"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/svc"
@@ -40,13 +42,22 @@ func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
 	for _, alert := range req.Alerts {
 		if host, silenceNameDefault := slience.AlarmIsMatchDefault(alert, consumerMatch); host != "" {
 			if alert.Status == "firing" {
+				alertManagerCallFailedErrors := []error{}
 				alertManagerCallFailedSilenceNames := []string{}
 				for _, silence := range consumerMatch[host] {
 					_, err := slience.AlertmanagerSliences(l.svcCtx.Config.MonitoringConfig, host, "", silence)
 					if err != nil {
+						alertManagerCallFailedErrors = append(alertManagerCallFailedErrors, &CallAlertmanagerError{
+							Host:    host,
+							Slience: silence,
+							Root:    err,
+						})
 						alertManagerCallFailedSilenceNames = append(alertManagerCallFailedSilenceNames, silence.SlienceName)
-						logx.Errorf("调用alertmanager API静默失败, host: %s, slience_name: %s, error: %v", host, silence.SlienceName, err)
 					}
+					zlog.Info().Str("active", "callAlertamanger").Dict("silence", zerolog.Dict().Str("host", host).Str("silencename", silence.SlienceName).Str("matchers", silence.StringMatchers())).Send()
+				}
+				if len(alertManagerCallFailedErrors) != 0 {
+					zlog.Error().Errs("errors", alertManagerCallFailedErrors).Send()
 				}
 				var a = Alert{URL: l.svcCtx.Config.MonitoringConfig.NotifyURL}
 				var (
@@ -57,17 +68,19 @@ func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
 				msgBuf := bytes.NewBuffer(nil)
 				t := l.svcCtx.NotifyTemplate
 				if err := t.ExecuteTemplate(titleBuf, "title", ""); err == nil {
-					title = strings.Trim(strings.TrimSpace(titleBuf.String()), "\"")
+					title = strings.Trim(strings.TrimSpace(fmt.Sprintf("%s %s", titleBuf.String(), host)), "\"")
 				} else {
-					title = "关联告警(Default)"
-					logx.Errorf("模板生成title失败 host: %s, error: %v", host, err)
+					title = fmt.Sprintf("关联告警 %s (Default)", host)
+					zlog.Error().Msgf("模板生成title失败 host: %s, error: %v", host, err)
 				}
 				if err := t.ExecuteTemplate(msgBuf, "message", struct {
 					SilenceNameDefault     string
+					Host                   string
 					Silences               []slience.Sliences
 					SendAlertmanagerFailed []string
 				}{
 					silenceNameDefault,
+					host,
 					consumerMatch[host],
 					alertManagerCallFailedSilenceNames},
 				); err == nil {
@@ -83,25 +96,37 @@ func (l *WebhookLogic) Webhook(req *types.AlarmRequest) error {
 						s = append(s, silenceNames.SlienceName)
 					}
 					msg = fmt.Sprintf("触发规则: %s\n关联静默: \n%s", silenceNameDefault, strings.Join(s, ",\n"))
-					logx.Errorf("模板生成message失败 host: %s, error: %v", host, err)
+					zlog.Error().Msgf("模板生成message失败 host: %s, error: %v", host, err)
 				}
 
-				message, err := a.SentMessage(&AlertMessage{
+				request, err := a.SentMessage(&AlertMessage{
 					Title:      title,
 					Message:    msg,
 					NoticeName: l.svcCtx.Config.MonitoringConfig.AggregationNotify,
 					Serverity:  l.svcCtx.Config.MonitoringConfig.AggregationSeverity,
 				})
 				if err != nil {
-					logx.Error("发送消息失败, host: %s, body: %s, error: %v", host, message, err)
+					zlog.Error().Err(err).Str("body", request).Msgf("发送消息失败, host: %s", host)
+				} else {
+					zlog.Info().Str("body", request).Msg("发送消息成功")
 				}
 			} else {
-
+				// 告警恢复逻辑
 			}
 		}
 
 	}
 	return nil
+}
+
+type CallAlertmanagerError struct {
+	Host    string
+	Slience slience.Sliences
+	Root    error
+}
+
+func (e *CallAlertmanagerError) Error() string {
+	return fmt.Sprintf("host: %s silence_name:%s matchers: %s root_error: %v", e.Host, e.Slience.SlienceName, e.Slience.StringMatchers(), e.Root)
 }
 
 // TiDB生产集群出现执行时间大于20秒的SQL：
@@ -134,7 +159,7 @@ type Alert struct {
 	URL string `yaml:"url"`
 }
 
-func (u *Alert) SentMessage(data *AlertMessage) (string, error) {
+func (u *Alert) SentMessage(data *AlertMessage) (request string, err error) {
 	j, err := json.Marshal(data)
 	if err != nil {
 		return "", errors.Wrap(err, "json encode error")
@@ -154,7 +179,7 @@ func (u *Alert) SentMessage(data *AlertMessage) (string, error) {
 	if err != nil {
 		return string(j), errors.Wrap(err, "http client do error")
 	}
-	logx.Infof("Send message response HTTP StatusCode is: %v", response.StatusCode)
+	zlog.Info().Msgf("Send message response HTTP StatusCode is: %v", response.StatusCode)
 	var res = struct {
 		Code int    `json:"code"`
 		Msg  string `json:"msg"`

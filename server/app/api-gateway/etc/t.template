@@ -1,4 +1,4 @@
-{{ define "title" }}k8s关联告警{{end}}
+{{ define "title" }}k8s关联告警template{{end}}
 {{ define "message" }}
 {{- with $data := .}}
     {{- `触发条件: `}} {{ $data.SilenceNameDefault }}

@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/config"
 	"github.com/zhaoqiang0201/zero-vue-admin/server/app/api-gateway/internal/handler"
@@ -19,7 +18,6 @@ var configFile = flag.String("f", "etc/apigateway-api.yaml", "the config file")
 
 func main() {
 	flag.Parse()
-
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 

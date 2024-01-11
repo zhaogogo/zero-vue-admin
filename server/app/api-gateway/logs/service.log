@@ -1,0 +1,2 @@
+{"level":"info","time":"2024-01-09T16:17:06+08:00","caller":"C:/Users/qiang.zhao/Desktop/owner/zero-vue-admin/server/app/api-gateway/internal/svc/servicecontext.go:47","message":"start"}
+{"level":"info","time":"2024-01-09T16:20:58+08:00","caller":"api-gateway/internal/svc/servicecontext.go:49","message":"start"}
